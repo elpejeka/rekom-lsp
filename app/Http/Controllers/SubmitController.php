@@ -1,0 +1,144 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Permohonan;
+use Illuminate\Http\Request;
+use App\Notifications\CheckKelengkapan;
+use App\Notifications\SubmitPermohonan;
+use App\Notifications\VerifikasiValidasi;
+use App\Check;
+use App\User;
+use Carbon\Carbon;
+use Auth;
+use Notification;
+
+class SubmitController extends Controller
+{
+
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
+    
+    public function progres(){
+        $pengurus = Permohonan::with(['administrations', 'user'])->get();
+
+        // dd($pengurus);
+
+        return view('pages.admin.progres', [
+            'data'  => $pengurus
+        ]);
+    }
+    
+    public function detail($id){
+        $user = Permohonan::with('administrations', 'user')->where('id', $id)->firstOrFail();
+        $user_file = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'permohonan', 'asosiasi', 'asosiasi1', 'asosiasi2'])
+                            ->where('id', $user->users_id)->firstOrFail();
+
+            
+        return view('pages.admin.detail', [
+            'data' => $user_file,
+        ]);
+    }
+   
+    public function setStatusSubmit(Request $request, $id)
+    {
+        $request->validate([
+            'status_submit' => 'required'
+        ]);
+
+        $item = Permohonan::findOrFail($id);
+        $item->status_submit = Carbon::now();
+        
+        $user = User::where('id', $item->users_id)->get();
+
+        $item->save();
+        
+        Notification::send($user, new SubmitPermohonan());
+
+        return redirect('/')->with('success', 'Permohonan berhasil di submit');
+    }
+
+    public function setStatusKelengkapan(Request $request, $id){
+        $request->validate([
+            'status_kelengkapan' => 'required'
+        ]);
+
+        $item = Permohonan::findOrFail($id);
+        $item->status_kelengkapan = Carbon::now();
+        
+        $user = User::where('id', $item->users_id)->get();
+
+        $item->save();
+        
+        Notification::send($user, new CheckKelengkapan());
+
+        return redirect('/verifikasi')->with('success', 'Kelangkapan sudah di cek');
+    }
+
+    public function setStatusVerifikasi(Request $request, $id){
+
+        $request->validate([
+            'status_verifikasi' => 'required'
+        ]);
+
+        $item = Permohonan::findOrFail($id);
+        $item->status_verifikasi = Carbon::now();
+        
+        $user = User::where('id', $item->users_id)->get();
+        
+        Notification::send($user, new VerifikasiValidasi());
+
+        $item->save();
+
+        return redirect('/validasi')->with('success', 'Permohonan berhasil di verifikasi');
+    }
+
+    public function setStatusPermohonan(Request $request, $id){
+        $request->validate([
+            'status_permohonan' => 'required'
+        ]);
+
+        $item = Permohonan::findOrFail($id);
+        $item->status_permohonan = Carbon::now();
+
+        $item->save();
+
+        return redirect('/validasi')->with('success', 'Permohonan berhasil di update');
+    }
+    
+    public function setStatusTolak(Request $request, $id){
+        $request->validate([
+            'status_tolak' => 'required'
+        ]);
+
+        $item = Permohonan::findOrFail($id);
+        $item->status_tolak = Carbon::now();
+
+        $item->save();
+
+        return redirect('/validasi')->with('success', 'Permohonan berhasil di tolak');
+    }
+    
+    
+    
+    public function submitted(Request $request, $id)
+    {
+        $request->validate([
+            'status_submit' => 'required'
+        ]);
+
+        $item = Permohonan::findOrFail($id);
+        $item->status_submit = Carbon::now();
+        
+        $user = User::where('id', $item->users_id)->get();
+
+        $item->save();
+        
+        Notification::send($user, new SubmitPermohonan());
+
+        return redirect('/')->with('success', 'Permohonan berhasil di submit');
+    }
+    
+}
