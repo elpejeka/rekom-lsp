@@ -20,7 +20,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name', 'email', 'password','username', 'nama_lsp', 'alamat',
         'no_kontak', 'asosiasi_pendiri', 'approve', 'nama_penanggung_jawab',
-        'asosiasi_pendiri_1','asosiasi_pendiri_2'
+        'asosiasi_pendiri_1','asosiasi_pendiri_2', 'kategori_pembentuk', 
+        'id_izin'
     ];
 
     /**

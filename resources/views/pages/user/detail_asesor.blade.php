@@ -55,7 +55,7 @@
         <div class="col-md-6">
           <fieldset>
 
-            <div class="form-group">
+            {{-- <div class="form-group">
               <label class="col-lg-3 control-label">Klasifikasi</label>
               <div class="col-lg-9">
                 <select class="select-search" name="klasifikasi">
@@ -90,7 +90,7 @@
               </span>
             @enderror
             </div>
-        
+         --}}
             
           </fieldset>
         </div>
@@ -98,18 +98,30 @@
 
       <div class="row">
         <div class="col-md-12">
-          <legend class="text-semibold"><i class="icon-reading position-left"></i> SKA Asesor</legend>
+          <legend class="text-semibold"><i class="icon-reading position-left"></i>Sertifikat Kompetensi Asesor</legend>
         </div>
 
         <div class="col-md-6">
           <fieldset>
 
             <div class="form-group">
-              <label class="col-lg-3 control-label">NRKA</label>
+              <label class="col-lg-3 control-label">Nomor Registrasi Sertifikat</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control @error('nrka') is-invalid @enderror" name="nrka" required>
               </div>
               @error('nrka')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+            @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Tanggal Berakhir Sertifikat</label>
+              <div class="col-lg-9">
+                <input type="date" class="form-control @error('tgl_akhir_sertifikat_kompetensi') is-invalid @enderror" name="tgl_akhir_sertifikat_kompetensi" required>
+              </div>
+              @error('tgl_akhir_sertifikat_kompetensi')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
               </span>
@@ -126,7 +138,12 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Kualifikasi</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control @error('kualifikasi') is-invalid @enderror" name="kualifikasi" required>
+                {{-- <input type="text" class="form-control @error('kualifikasi') is-invalid @enderror" name="kualifikasi" required> --}}
+                <select class="select-search" name="kualifikasi">
+                  <option value="ahli">Ahli</option>
+                  <option value="teknisi/analis">Teknisi/Analis</option>
+                  <option value="operator">Operator</option>
+                 </select>
               </div>
               @error('kualifikasi')
               <span class="invalid-feedback" role="alert">
@@ -136,7 +153,7 @@
             </div>
             
             <div class="form-group">
-              <label class="col-lg-3 control-label">Dokumen Persyaratan SKA</label>
+              <label class="col-lg-3 control-label">Sertifikat Kompetensi Konstruksi</label>
                 <div class="col-lg-9">
                     <input name="ska" type="file" class="file-input @error('ska') is-invalid @enderror"
                     data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
@@ -156,11 +173,7 @@
 
       <div class="row">
         <div class="col-md-12">
-          <legend class="text-semibold"><i class="icon-reading position-left"></i> SERTIFIKAT ASESOR DARI
-            LEMBAGA INDEPENDEN
-            YANG MEMPUNYAI TUGAS
-            MELAKUKAN SERTIFIKASI
-            KOMPETENSI KERJA</legend>
+          <legend class="text-semibold"><i class="icon-reading position-left"></i>Sertifikat Asesor BNSP</legend>
         </div>
 
         <div class="col-md-6">
@@ -169,7 +182,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">No Sertifikat</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control @error('no_sertifikat_asesor') is-invalid @enderror" name="no_sertifikat_asesor" required>
+                <input type="text" class="form-control @error('no_sertifikat_asesor') is-invalid @enderror" name="no_sertifikat_asesor" value="MET." required>
               </div>
               @error('no_sertifikat_asesor')
               <span class="invalid-feedback" role="alert">
@@ -184,6 +197,18 @@
                 <input type="text" class="form-control @error('sub_klasifikasi_sertifikat') is-invalid @enderror" name="sub_klasifikasi_sertifikat" required>
               </div>
               @error('sub_klasifikasi_sertifikat')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+            @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Tanggal Berakhir Sertifikat</label>
+              <div class="col-lg-9">
+                <input type="date" class="form-control @error('tgl_akhir_sertifikat_asesor') is-invalid @enderror" name="tgl_akhir_sertifikat_asesor" required>
+              </div>
+              @error('tgl_akhir_sertifikat_asesor')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
               </span>
@@ -210,7 +235,7 @@
             </div>
   
             <div class="form-group">
-              <label class="col-lg-3 control-label">Dokumen Persyaratan Sertifikasi</label>
+              <label class="col-lg-3 control-label">Dokumen Sertifikasi Asesor</label>
                 <div class="col-lg-9">
                     <input name="sertifikat_asesors" type="file" class="file-input @error('sertifikat_asesors') is-invalid @enderror"
                     data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
@@ -261,6 +286,8 @@
         <th>No Sertifikat</th>
         <th>Kualifikasi</th>
         <th>Subklasifikasi</th>
+        <th>SKA</th>
+        <th>Sertifikat Asesor</th>
         <th class="text-center">Action</th>
       </tr>
     </thead>
@@ -275,16 +302,21 @@
         <td>{{$item->no_sertifikat_asesor}}</td>
         <td>{{$item->kualifikasi_sertifikat}}</td>
         <td>{{$item->sub_klasifikasi_sertifikat}}</td>
+        <td><a href="{{asset('laravel/storage/app/public/'. $item->ska)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+        </td>
+        <td><a href="{{asset('laravel/storage/app/public/'. $item->sertifikat_asesors)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+        </td>
         <td class="text-center">
           <a href="{{route('sertifikat.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
-          <a>
-          <form action="{{route('sertifikat.delete', $item->id)}}" method="post" class="d-inline">
+           <form action="{{route('sertifikat.delete', $item->id)}}" method="post" class="d-inline">
             @csrf
             @method('delete')
           <button class="btn btn-danger btn-sm"><i class="icon-trash"></i></button>
           </form>
-          </a>
-          
         </td>
       </tr> 
       @endforeach

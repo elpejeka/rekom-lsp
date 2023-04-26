@@ -10,7 +10,7 @@ class Letter extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'permohonans_id', 'surat_rekomendasi', 'users_id'
+        'permohonans_id', 'surat_rekomendasi', 'users_id', 'id_izin'
     ];
 
     protected $hidden = [];

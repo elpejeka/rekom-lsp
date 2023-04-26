@@ -15,14 +15,12 @@ class Pencatatan extends Model
 
     protected $fillable = [
         'permohonan','upload_persyaratan', 'sk_lisensi', 'sertifikat', 'users_id', 'no_sk', 'no_lisensi', 'status_sk', 'logo_lsp', 'foto_lsp',
-        'submit_pencatatan', 'approve', 'administrations_id', 'slug', 'jumlah_skema'
+        'submit_pencatatan', 'approve', 'administrations_id', 'slug', 'jumlah_skema', 'nib', 'ss_verif'
     ];
 
     protected $hidden = [
 
     ];
-
-    protected $dates = ['approve'];
 
     public function getAutoNumberOptions()
     {
@@ -47,6 +45,10 @@ class Pencatatan extends Model
 
     public function tuk(){
         return $this->hasMany(PencatatanTuk::class, 'pencatatan_id', 'id');
+    }
+
+    public function legalitas(){
+        return $this->hasMany(SKLisensi::class, 'pencatatan_id', 'id');
     }
 
 }

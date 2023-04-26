@@ -16,7 +16,9 @@ class PerpanjanganController extends Controller
     }
 
     public function index(){
-        $permohonan = Permohonan::where('id', Auth::user()->id)->firstOrFail();
+        $permohonan = Permohonan::where('id', Auth::user()->id)
+                        ->where('jenis_permohonan', 'penambahan')
+                        ->get();
         return view('pages.user.perpanjangan', [
             'permohonan' => $permohonan
         ]);

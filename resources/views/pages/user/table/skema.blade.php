@@ -31,7 +31,7 @@
   <div class="panel-body">
     
   </div>
-@if($item->status_submit == null)
+{{-- @if($item->status_submit == null) --}}
   <table class="table datatable-show-all">
     <thead>
       <tr>
@@ -43,6 +43,8 @@
         <th>Kualifikasi</th>
         <th>Jumlah Unit</th>
         <th>Acuan Skema</th>
+        <th>Dokumen</th>
+        <th>Dokumen</th>
         <th class="text-center">Actions</th>
       </tr>
     </thead>
@@ -56,7 +58,19 @@
         <td>{{$skema->sub_klasifikasi}}</td>
         <td>{{$skema->kualifikasi}}</td>
         <td>{{$skema->jumlah_unit}}</td>
-        <td>{{$skema->acuan_skema}}</td>
+        <td>{{$skema->acuan_skema}}</td>'
+        <td>
+             <a href="{{asset('laravel/storage/app/public/'. $skema->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+        </td>
+        
+            <td>
+             <a href="{{asset('laravel/storage/app/public/'. $skema->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+        </td>
+        '
         <td class="text-center">
           <form action="{{route('delete.sertifikasi', $skema->id)}}" method="post" class="d-inline">
             @csrf
@@ -68,7 +82,7 @@
       @endforeach
     </tbody>
   </table>
-@else
+{{-- @else
 <table class="table datatable-show-all">
   <thead>
     <tr>
@@ -101,6 +115,6 @@
     @endforeach
   </tbody>
 </table>
-@endif
+@endif --}}
 </div>
 @endsection

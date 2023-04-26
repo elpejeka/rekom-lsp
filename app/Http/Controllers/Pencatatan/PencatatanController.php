@@ -4,20 +4,22 @@ namespace App\Http\Controllers\Pencatatan;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pencatatan\PencatatanRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Pencatatan;
 use App\Administration;
 use Auth;
-use PDF;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PencatatanController extends Controller
 {
     public function index(){
         $data = Administration::where('users_id', Auth::user()->id)->get();
+        $pencatatan = Pencatatan::where('users_id', Auth::user()->id)->get();
         return view('pages.user.pencatatan.pencatatan', [
-            'data' => $data
+            'data' => $data,
+            'item' => $pencatatan,
+            'informasi' => $pencatatan->count()
         ]);
     }
 
@@ -40,7 +42,7 @@ class PencatatanController extends Controller
                 'file/pencatatan/2', 'public'
             );
         }else{
-            $data['sk_lisensi'] = 'file/pencatatan/1/nofile.pdf';
+            $data['sertifikat'] = 'file/pencatatan/1/nofile.pdf';
         }
 
 
@@ -68,20 +70,39 @@ class PencatatanController extends Controller
         }else{
             $data['logo_lsp'] = 'file/pencatatan/1/nofile.pdf';
         }
+
+        if($request->hasFile('ss_verif')){
+            $data['ss_verif'] = $request->file('ss_verif')->store(
+                'file/pencatatan/ss_verif', 'public'
+            );
+        }else{
+            $data['ss_verif'] = 'file/pencatatan/1/nofile.pdf';
+        }
+
+        if($request->hasFile('nib')){
+            $data['nib'] = $request->file('nib')->store(
+                'file/pencatatan/nib', 'public'
+            );
+        }else{
+            $data['nib'] = 'file/pencatatan/1/nofile.pdf';
+        }
         
         Pencatatan::create($data);
         return redirect('/')->with('success', 'Permohonan Pencatatan Berhasil diSimpan');
     }
 
     public function edit($id){
+        $item = Administration::where('users_id', Auth::user()->id)->get();
         $data = Pencatatan::findOrFail($id);
 
         return view('pages.user.pencatatan.edit.edit-pencatatan', [
-            'data' => $data
+            'data' => $data,
+            'item' => $item
         ]);
     }
 
     public function update(Request $request, $id){
+        
         $item = Pencatatan::findOrFail($id);
 
         $data = $request->all();
@@ -99,9 +120,8 @@ class PencatatanController extends Controller
                 'file/pencatatan/2', 'public'
             );
         }else{
-            $data['sk_lisensi'] = $item->sertifikat;
+            $data['sertifikat'] = $item->sertifikat;
         }
-
 
         if($request->hasFile('upload_persyaratan')){
             $data['upload_persyaratan'] = $request->file('upload_persyaratan')->store(
@@ -128,17 +148,31 @@ class PencatatanController extends Controller
             $data['logo_lsp'] = $item->logo_lsp;
         }
 
+        if($request->hasFile('ss_verif')){
+            $data['ss_verif'] = $request->file('ss_verif')->store(
+                'file/pencatatan/ss_verif', 'public'
+            );
+        }else{
+            $data['ss_verif'] = $item->ss_verif;
+        }
+
+        if($request->hasFile('nib')){
+            $data['nib'] = $request->file('nib')->store(
+                'file/pencatatan/nib', 'public'
+            );
+        }else{
+            $data['nib'] = $item->nib;
+        }
+
         $item->update($data);
 
-        return redirect()->route('home')->with('success', 'Permohonan Penetapan Berhasil di Update');
+        return redirect()->route('home')->with('success', 'Permohonan Pencatatan Berhasil di Update');
     }
 
     public function surat($slug){
         $data = Pencatatan::with(['administrations', 'asesor', 'skema', 'tuk'])->where('slug', $slug)->firstOrFail();
         $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate('string'));
         $registeredAt = $data->approve->isoFormat('D MMMM Y');
-
-        // dd($data->administrations->nama);
 
         $pdf = PDF::loadView('pages.user.pdf.surat_pencatatan', [
             'qrcode' => $qrcode,
@@ -147,5 +181,17 @@ class PencatatanController extends Controller
         ]);
 
         return $pdf->stream('surat-pencatatan');
+    }
+
+    public function sekretariatEdit($id){
+        $data = DB::table('pencatatan')
+                    ->where('pencatatan.id', '=', $id)
+                    ->join('administrations', 'pencatatan.administrations_id', '=' ,'administrations.id')
+                    ->select('pencatatan.*', 'administrations.unsur_pembentuk')
+                    ->first();
+        
+        return view('pages.user.pencatatan.edit.edit-sekretariat', [
+            'data' => $data,
+        ]);
     }
 }

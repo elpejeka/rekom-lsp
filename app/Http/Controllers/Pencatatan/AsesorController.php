@@ -3,49 +3,106 @@
 namespace App\Http\Controllers\Pencatatan;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use App\Http\Requests\Pencatatan\PencatatanAsesorRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\PencatatanAsesor;
 use App\Pencatatan;
+use App\Administration;
+use App\LogPencatatan;
 
 use Auth;
+use Carbon\Carbon;  
+use QrCode;
+use PDF;
 
 class AsesorController extends Controller
 {
     public function index(){
-        $data = PencatatanAsesor::where('users_id', Auth::user()->id)->get();
+        $data = PencatatanAsesor::where('users_id', Auth::user()->id)->whereNull('deleted_at')->get();
+        
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
+        $propinsi = DB::table('propinsi_dagri')->get();
+        $informasi = Administration::where('users_id', Auth::user()->id)->first();
+
         return view('pages.user.pencatatan.asesor', [
             'asesor' => $data,
-            'permohonan' => $permohonan
+            'permohonan' => $permohonan,
+            'propinsi' => $propinsi,
+            'lsp' => $informasi
         ]);
     }
 
     public function store(PencatatanAsesorRequest $request){
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->nama_asesor);
-        $data['users_id'] = Auth::user()->id;
+        $item = Pencatatan::where('users_id', Auth::user()->id)->first();
+        $administrasi = Administration::where('users_id', Auth::user()->id)->first();
+        $nik = $request->nik;
 
-        PencatatanAsesor::create($data);
+        $asesor = PencatatanAsesor::where('nik', $nik)
+                                ->whereNull('deleted_at')
+                                ->where('status_asesor', '=', 'Internal')
+                                ->first();
+
+        if(empty($asesor)){
+                $data = $request->all();
+                $data['slug'] = Str::slug($request->nama_asesor);
+                $data['users_id'] = Auth::user()->id;
+                $data['no_registrasi_asesor'] = rand(1, 999999). "/LPJK-LSP/". $request->nama_lsp;
+                PencatatanAsesor::create($data);
+                
+                if($item->approve != null){
+                    $notif = new LogPencatatan;
+                    $notif->nama_lsp = $administrasi->nama;
+                    $notif->keterangan = 'Permohonan Pencatatan Asesor';
+                    $notif->created_at = Carbon::now();
+                    $notif->save();
+                }
+
+            return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di Simpan');    
+        }
+        
+        if(($asesor->status_asesor == 'Internal') == ($request->status_asesor == 'Internal') && $asesor->users_id != Auth::user()->id){
+            return redirect()->route('pencatatan.asesor')->with('success', 'Asesor Sudah Terdaftar Pada LSP Lain Sebagai Internal Asesor Gunakan Asesor Lain');
+        }else{
+            $data = $request->all();
+            $data['slug'] = Str::slug($request->nama_asesor);
+            $data['users_id'] = Auth::user()->id;
+            $data['no_registrasi_asesor'] = rand(1, 999999). "/LPJK-LSP/". $request->nama_lsp;
+            PencatatanAsesor::create($data);
+            
+                if($item->approve != null){
+                    $notif = new LogPencatatan;
+                    $notif->nama_lsp = $administrasi->nama;
+                    $notif->keterangan = 'Permohonan Pencatatan Asesor';
+                    $notif->created_at = Carbon::now();
+                    $notif->save();
+            }
+
         return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di Simpan');
+        }
     }
 
-    public function edit($slug){
-        $data = PencatatanAsesor::where('slug', $slug)->firstOrFail();
+    public function edit($id){
+        $data = PencatatanAsesor::find($id);
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
+        $propinsi = DB::table('propinsi_dagri')->get();
 
         return view('pages.user.pencatatan.edit.edit-asesor', [
             'data' => $data,
-            'permohonan' => $permohonan
+            'permohonan' => $permohonan,
+            'propinsi' => $propinsi,
         ]);
     }
 
     public function update(PencatatanAsesorRequest $request, $id){
         $data = $request->all();
         $data['slug'] = Str::slug($request->nama_asesor);
-
+        $data['users_id'] = Auth::user()->id;
+        
         $item = PencatatanAsesor::findOrFail($id);
+        $data['no_registrasi_asesor'] = $item->no_registrasi_asesor;
 
         $item->update($data);
 
@@ -59,15 +116,105 @@ class AsesorController extends Controller
         return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di Hapus');  
     }
 
-    public function show($slug){
-        $item = PencatatanAsesor::with('sertifikat')->where('slug', $slug)->firstOrFail();
-      
-        // dd($item);
+    public function show($id){
+        $item = PencatatanAsesor::with(['sertifikat', 'perjanjian'])->find($id);
 
         return view('pages.user.show.sertifikat_asesor', [
             'item' => $item
         ]);
     }
 
+    public function unapprove($id){
+        $data = PencatatanAsesor::findOrFail($id);
+        $data->approve = null;;
+        $data->no_pencatatan = null;
+        $data->save();
+
+        return redirect()->route('pencatatan.approve.list')->with('success', 'Data Asesor Berhasil di Approve');  
+    }
+
+    public function generateSuratAsesor($id){
+        $data = DB::table('pencatatan_asesor')
+                    ->where('pencatatan_asesor.id', $id)
+                    ->whereNull('pencatatan_asesor.deleted_at')
+                    ->leftJoin('sertifikat_asesor', function($join){
+                        $join->on('pencatatan_asesor.id', '=', 'sertifikat_asesor.asesor_id')
+                            ->whereNull('sertifikat_asesor.deleted_at');
+                        })
+                    ->leftJoin('klasifikasi', function($klas){
+                        $klas->on('sertifikat_asesor.klasifikasi', '=', 'klasifikasi.kode');
+                    })
+                    ->leftJoin('subklasifikasi', function($sub){
+                        $sub->on('sertifikat_asesor.subklasifikasi', '=', 'subklasifikasi.kode_sub');
+                    })
+                    ->leftJoin('users' , function($join){
+                        $join->on('pencatatan_asesor.users_id', '=', 'users.id');
+                    })  
+                    ->select('pencatatan_asesor.*', 'sertifikat_asesor.*', 'klasifikasi.nama as klasifikasi', 'subklasifikasi.nama as subklasifikasi', 'users.nama_lsp')
+                    ->first();
+
+        if(!$data){
+            dd($data);
+        }
+
+
+        $pdf = PDF::loadView('pdf.pencatatan-asesor', [
+            'data'=> $data,
+            // 'tgl' => $approveDate,
+        ]);
+
+        return $pdf->stream('surat-pencatatan-asesor.pdf');      
+    }
+
+    public function showAsesor($id){
+        $asesor = PencatatanAsesor::find($id);
+
+        return response()->json($asesor);
+    }
+
+    public function approveAsesor(Request $request){
+        $id = $request->id;
+        $asesor = PencatatanAsesor::with('sertifikat')->find($id);
+        $asesor->approve = $request->approve;
+        $asesor->no_pencatatan = $request->no_pencatatan;
+
+        $asesor->save();
+        return response()->json($asesor);
+    }
+
+    public function penghapusan(Request $request){
+        $id = $request->id;
+        $asesor = PencatatanAsesor::with('sertifikat')->find($id);
+        $asesor->surat_penghapusan = $request->file('surat_penghapusan')->store('file/pencatatan/asesor/penghapusan', 'public');
+        $asesor->approve = null;
+        $asesor->deleted_at = Carbon::now();
+        $asesor->save();
+
+        return response()->json($asesor);
+    }
+
+    public function importToSiki($id){
+        $asesor = PencatatanAsesor::with('sertifikat')->find($id);
+        
+        foreach($asesor->sertifikat as $sertifikat){
+            $asesor = Http::withToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFsaWVmYmFnYXMwNEBnbWFpbC5jb20ifQ.aFZdGhtikkat8UWvB5EEqC3melJR50XN9XJSDOymvDk')
+            ->get('https://siki.pu.go.id/API-Server-LPJK/public/api/get_detail_asesor_bnsp', [
+                'no_reg_asesor_bnsp' => $sertifikat->no_reg_asesor
+            ]);
+            if($asesor->status() != '200'){
+               return response()->json([
+                'status' => 'failed',
+                'message' => 'Sesuaikan no registrasi asesor sesuai yang tercatat pada BNSP'
+               ]);
+            }
+       }
+
+       return response()->json([
+                'status' => 'success',
+                'message' => 'data berhasil di import'
+        ], 200);     
+
+    //    return redirect()->route('pencatatan.approve.list')->with('success', 'Data Asesor Di Simpan Pada Master Asesor Penugasan');  
+    }
 
 }

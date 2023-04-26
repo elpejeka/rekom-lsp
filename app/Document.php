@@ -10,7 +10,8 @@ class Document extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'users_id', 'sk_lisensi', 'laporan_tindak_lanjut', 'rekapitulasi_laporan'
+        'users_id', 'sk_lisensi', 'laporan_tindak_lanjut', 'rekapitulasi_laporan',
+        'id_izin'
     ];
 
     protected $hidden = [];

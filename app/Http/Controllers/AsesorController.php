@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AsesorRequest;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use App\Asesor;
 use App\Qualification;
 use App\Permohonan;
@@ -19,10 +20,16 @@ class AsesorController extends Controller
     }
 
     public function index(Request $request){
-        $asesor = Asesor::where('users_id', Auth::user()->id)->get();
+        $asesor = Asesor::where('users_id', Auth::user()->id)
+                        ->whereNull('deleted_at')
+                            ->get();
         // $permohonan = Permohonan::where('id', Auth::user()->id)->firstOrFail();
+        $provinsi = DB::table('propinsi_dagri')->get();
+        $kabupaten = DB::table('kabupaten_dagri')->get();
         return view('pages.user.asesor', [
             'asesor' => $asesor,
+            'propinsi' => $provinsi,
+            'kabupaten' => $kabupaten
             // 'item' => $permohonan
         ]);
     }
@@ -45,9 +52,11 @@ class AsesorController extends Controller
     
     public function edit($id){
         $asesor = Asesor::findOrFail($id);
+        $provinsi = DB::table('propinsi_dagri')->get();
 
         return view('pages.user.edit.edit_asesor',[
-            'item' => $asesor
+            'item' => $asesor,
+            'propinsi' => $provinsi,
         ]);
     }
 
@@ -80,6 +89,15 @@ class AsesorController extends Controller
             'asesor' => $asesor,
             // 'item' => $permohonan
         ]);
+    }
+    
+
+    public function getKabKota(Request $request){
+        $kabKota =  DB::table('kabupaten_dagri')
+                        ->where('id_propinsi_dagri',  $request->id_propinsi_dagri)
+                        ->pluck('id_kabupaten_dagri', 'nama_kabupaten_dagri');
+
+        return response()->json($kabKota);
     }
 
 }

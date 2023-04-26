@@ -25,8 +25,8 @@ class DetailAsesorRequest extends FormRequest
     {
         return [
             'asesor_id' => 'required',
-            'klasifikasi' => 'required',
-            'subklasifikasi' => 'required',
+            // 'klasifikasi' => 'required',
+            // 'subklasifikasi' => 'required',
             'kualifikasi' => 'required',
             'nrka' => 'required',
             'no_sertifikat_asesor' => 'required',

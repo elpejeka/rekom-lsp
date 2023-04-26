@@ -14,12 +14,20 @@ class PencatatanSkema extends Model
     protected $fillable = [
         'pencatatan_id', 'kode_skema', 'nama_skema', 'jabker',
         'klasifikasi', 'sub_klasifikasi','kualifikasi' ,'jumlah_unit',
-        'acuan_skema', 'upload_persyaratan', 'users_id'
+        'acuan_skema', 'upload_persyaratan', 'users_id', 'jenjang'
     ];
 
     protected $hidden = [];
 
     public function pencatatanSkema(){
         return $this->belongsTo(Pencatatan::class, 'pencatatan_id', 'id');
+    }
+
+    public function setJenjang($value){
+        $this->attributes['jenjang'] = json_encode($value);
+    }
+
+    public function getJenjang($value){
+        return $this->attributtes['jenjang'] = json_decode($value);
     }
 }

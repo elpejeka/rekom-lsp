@@ -1,16 +1,21 @@
-@extends('layouts.app')
+@extends('layouts.authentikasi')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+<div class="page-container">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
+    <!-- Page content -->
+    <div class="page-content">
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content">
+
+                <!-- Registration form -->
+                <form method="POST" action="{{ route('password.update') }}">
                         @csrf
-
+                    <div class="panel panel-body login-form">
                         <input type="hidden" name="token" value="{{ $token }}">
 
                         <div class="form-group row">
@@ -56,10 +61,27 @@
                                 </button>
                             </div>
                         </div>
+                    </div>
                     </form>
+                <!-- /registration form -->
+            
+
+
+                <!-- Footer -->
+                <div class="footer text-muted text-center">
+                    &copy; 2021. <a href="#">Lembaga Pengembangan Jasa Konstruksi</a>
                 </div>
+                
+                <!-- /footer -->
+
             </div>
+            <!-- /content area -->
+
         </div>
+        <!-- /main content -->
+
     </div>
+    <!-- /page content -->
+
 </div>
 @endsection

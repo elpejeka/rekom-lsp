@@ -128,7 +128,19 @@
         <div class="col-md-6">
           <fieldset>
 
-          <div class="form-group">
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Jumlah Skema</label>
+              <div class="col-lg-9">  
+                <input type="number" class="form-control @error('jumlah_skema') is-invalid @enderror" name="jumlah_skema" value="{{$data->jumlah_skema}}">
+              </div>
+              @error('jumlah_skema')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+
+            <div class="form-group">
               <label class="col-lg-3 control-label">Surat Keputusan Lisensi</label>
                 <div class="col-lg-9">
                     <input name="sk_lisensi" type="file" class="file-input @error('sk_lisensi') is-invalid @enderror"
@@ -197,6 +209,81 @@
                 </span>
               @enderror
               </div>
+
+              @if ($item[0]->unsur_pembentuk == 'APT')
+                  
+              <div class="form-group">
+                <label class="col-lg-3 ">SS Verifikasi</label>
+                  <div class="col-lg-9">
+                      <input name="ss_verif" type="file" class="file-input @error('ss_verif') is-invalid @enderror"
+                      data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
+                      <span class="help-block">
+                        Accepted formats: pdf, zip, rar, jpeg, jpg, png Max file size 20Mb
+                      </span>
+                      <div class="progress" style="display:none;">
+                        <div id="progress-bar-1" class="progress-bar progress-bar-success progress-bar-striped active " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+                          20%
+                        </div>
+                      </div>
+                  </div>
+                  
+    
+                  @error('ss_verif')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+                </div>
+
+                       
+              <div class="form-group">
+                <label class="col-lg-3 ">NIB</label>
+                  <div class="col-lg-9">
+                      <input name="nib" type="file" class="file-input @error('nib') is-invalid @enderror"
+                      data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
+                      <span class="help-block">
+                        Accepted formats: pdf, zip, rar, jpeg, jpg, png Max file size 20Mb
+                      </span>
+                      <div class="progress" style="display:none;">
+                        <div id="progress-bar-1" class="progress-bar progress-bar-success progress-bar-striped active " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+                          20%
+                        </div>
+                      </div>
+                  </div>
+                  
+    
+                  @error('nib')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+                </div>
+
+              @else
+              <div class="form-group">
+                <label class="col-lg-3 ">Akreditasi LPK</label>
+                  <div class="col-lg-9">
+                      <input name="nib" type="file" class="file-input @error('nib') is-invalid @enderror"
+                      data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
+                      <span class="help-block">
+                        Accepted formats: pdf, zip, rar, jpeg, jpg, png Max file size 20Mb
+                      </span>
+                      <div class="progress" style="display:none;">
+                        <div id="progress-bar-1" class="progress-bar progress-bar-success progress-bar-striped active " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+                          20%
+                        </div>
+                      </div>
+                  </div>
+                  
+    
+                  @error('nib')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+                </div>
+                @endif
+              
             
           </fieldset>
         </div>

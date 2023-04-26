@@ -42,7 +42,7 @@ class CheckKelengkapan extends Notification
     {
         return (new MailMessage)
                     ->line('Permohonan Rekomendasi Lisensi sudah selesai tahap cek kelengkapan. Mohon cek akun anda untuk melihat apa ada perbaikan atau tidak.')
-                    ->action('Rekomendasi Lisensi', url('/'))
+                    ->action('Rekomendasi LSP', url('/'))
                     ->line('Terimakasih sudah menggunakan Aplikasi kami!');
     }
 

@@ -17,7 +17,7 @@
                     @csrf
                     <div class="panel panel-body login-form">
                         <div class="text-center">
-                            <img src={{url('assets/images/pupr.jpg')}} alt="logo_pupr" style="width: 120px"/>
+                            <img src={{url('/public/assets/images/pupr.jpg')}} alt="logo_pupr" style="width: 120px"/>
                             <h5 class="content-group-lg">SISTEM INFORMASI REKOMENDASI LINSENSI LSP</h5>
                         </div>
 
@@ -46,13 +46,13 @@
                         </div>
 
                         <div class="form-group">
-                        {!! NoCaptcha::display() !!}
-                        {!! NoCaptcha::renderJs() !!}
-                        @error('g-recaptcha-response')
-                        <span class="text-danger" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                                {!! NoCaptcha::display() !!}
+                                {!! NoCaptcha::renderJs() !!}
+                                @error('g-recaptcha-response')
+                                <span class="text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                         </div>
 
                         <div class="form-group">
@@ -61,6 +61,7 @@
 
                         <div class="content-divider text-muted form-group"><span>Tidak mempunyai akun silakan mendaftar</span></i></div>
 							<a href="{{route('pendaftaran')}}" class="btn btn-default btn-block content-group">Daftar</a>
+                            <a href="{{route('password.request')}}" class="mx-auto"> Lupa Password ? </a>
 							<span class="help-block text-center no-margin">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
 
                     </div>

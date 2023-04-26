@@ -16,6 +16,132 @@
 </div>
 @endsection
 @section('content')
+@if($informasi > 0)
+<div class="panel panel-flat">
+  <div class="panel-heading">
+    <h5 class="panel-title">Data Administrasi</h5>
+    <div class="heading-elements">
+      <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+              </ul>
+            </div>
+  </div>
+
+  <div class="panel-body">
+    
+  </div>
+
+  <table class="table table-lg">
+    <thead>
+        <tr>
+            <td>Data</td>
+            <td>Description</td>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>SK Menteri</td>
+        <td>
+          <a href="{{asset('laravel/storage/app/public/'. $item[0]->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+              </td>
+          </tr>
+          <tr>
+            <td>Akte Pendirian</td>
+            <td><a href="{{asset('laravel/storage/app/public/'. $item[0]->akta_pendirian)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Bukti Kepemilikan Kantor</td>
+            <td>
+            <a href="{{asset('laravel/storage/app/public/'. $item[0]->bukti_kepemilikan)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Sertifikat Akreditasi / Surat Pernyataan Akreditasi LPK</td>
+            <td>
+            <a href="{{asset('laravel/storage/app/public/'. $item[0]->surat_akreditasi)}}" target="_blank" type="button" name="btn_cek_13" 
+                class="open-delete btn btn-primary btn-labeled btn-rounded">
+                <b><i class="icon-file-check"></i></b> Softcopy</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Surat Pernyataan Asesor</td>
+            <td>
+            <a href="{{asset('laravel/storage/app/public/'. $item[0]->komitmen_asesor)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+            </td>
+          </tr>
+        <tr>
+            <td>Nama LSP</td>
+            <td>{{$item[0]->nama}}</td>
+        </tr>
+        <tr>
+            <td>Unsur Pembentuk LSP</td>
+            <td>{{$item[0]->unsur_pembentuk}}</td>
+        </tr>
+        <tr>
+            <td>Nama Unsur Pembentuk LSP</td>
+            <td>{{$item[0]->nama_unsur}}</td>
+        </tr>
+        <tr>
+            <td>Kategori Asosiasi Profesi</td>
+            <td>{{$item[0]->kategori_lsp}}</td>
+        </tr>
+        <tr>
+            <td>Ketersediaan Sistem Informasi</td>
+            <td>{{$item[0]->ketersediaan_sistem}}</td>
+        </tr>
+        <tr>
+            <td>No Telepon</td>
+            <td>{{$item[0]->no_telp}}</td>
+        </tr>
+        <tr>
+            <td>Jenis LSP</td>
+            <td>{{$item[0]->jenis_lsp}}</td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>{{$item[0]->alamat}}</td>
+        </tr>
+        <tr>
+          <td>Propinsi</td>
+          <td>{{$item[0]->provinsi}}</td>
+      </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{$item[0]->email}}</td>
+        </tr>   
+        <tr>
+            <td>Status Kepemilikan Kantor</td>
+            <td>{{$item[0]->status_kepemilikan}}</td>
+        </tr>
+        <tr>
+            <td>Website</td>
+            <td>{{$item[0]->website}}</td>
+        </tr>
+        <tr>
+            <td>Jumlah Skema Sertifikasi</td>
+            <td>{{$item[0]->jumlah_skema}}</td>
+        </tr>
+        <tr>
+          <td>Action</td>
+          {{-- @if($item[0]->status_submit ==null) --}}
+          <td><a href="{{route('information.edit', $item[0]->id)}}" class="btn btn-primary">Edit</td>
+          {{-- @else
+          
+          @endif --}}
+        </tr>
+    </tbody>
+</table>
+</div>
+@else
 <form class="form-horizontal" action="{{route('information_store')}}" method="POST" enctype="multipart/form-data">
   @csrf
   <div class="panel panel-flat">
@@ -77,6 +203,32 @@
                 </span>
               @enderror
             </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">
+                Kategori Pembentuk
+              </label>
+              <div class="col-lg-9">
+                <select class="select-search" name="kategori_lsp">
+                  <option value="APT Umum">Asosiasi Profesi Umum (APT)</option>
+                  <option value="APT Khusus">Asosiasi Profesi Khusus (APT)</option>
+                  <option value="SMK">SMK </option>  
+                  <option value="Politeknik">Politeknik</option>  
+                  <option value="Perguruan Tinggi">Perguruan Tinggi</option>    
+                  <option value="LPK Pemerintah">LPK Pemerintah</option>    
+                  <option value="LPK Swasta">LPK Swasta</option>    
+                  <option value="LPK Perusahaan">LPK Perusahaan</option>    
+                </select>
+                {{-- <input name="kategori_lsp" type="text" class="form-control @error('kategori_lsp') is-invalid @enderror"  value="{{old('nama_unsur')}}" 
+                            placeholder="Asosiasi Profesi Umum/Khusus (bagi APT) SMK/Politeknik/Perguruan Tinggi (bagi Lembaga Pendidikan) LPK Pemerintah/Swasta/Perusahaan (bagi LPK)" 
+                            autofocus required> --}}
+              </div>
+              @error('kategori_lsp')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>      
 
             <div class="form-group">
               <label class="col-lg-3 control-label">Nama Unsur Pembentuk</label>
@@ -152,27 +304,7 @@
             @enderror
             </div>
 
-            <div class="form-group">
-              <label class="col-lg-3 control-label">
-                Kategori Pembentuk
-              </label>
-              <div class="col-lg-9">
-                <select class="select-search" name="kategori_lsp">
-                  <option value="APT Umum">Asosiasi Profesi Umum (APT)</option>
-                  <option value="APT Khusus">Asosiasi Profesi Khusus (APT)</option>
-                  <option value="Pendidikan">SMK/Politeknik/Perguruan Tinggi</option>    
-                  <option value="LPK">LPK Pemerintah/Swasta/Perusahaan</option>    
-                </select>
-                {{-- <input name="kategori_lsp" type="text" class="form-control @error('kategori_lsp') is-invalid @enderror"  value="{{old('nama_unsur')}}" 
-                            placeholder="Asosiasi Profesi Umum/Khusus (bagi APT) SMK/Politeknik/Perguruan Tinggi (bagi Lembaga Pendidikan) LPK Pemerintah/Swasta/Perusahaan (bagi LPK)" 
-                            autofocus required> --}}
-              </div>
-              @error('kategori_lsp')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-              @enderror
-            </div>                        
+                  
           </fieldset>
         </div>
 
@@ -224,7 +356,11 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Status Kepemilikan Kantor</label>
                 <div class="col-lg-9">
-                    <input name="status_kepemilikan" type="text" class="form-control @error('status_kepemilikan') is-invalid @enderror" value="{{old('status_kepemilikan')}}" autofocus required>
+                    <!-- <input name="status_kepemilikan" type="text" class="form-control @error('status_kepemilikan') is-invalid @enderror" value="{{old('status_kepemilikan')}}" autofocus required> -->
+                    <select class="select-search" name="status_kepemilikan">
+                      <option value="Hak Milik">Hak Milik</option>
+                      <option value="Sewa">Sewa</option>
+                    </select>
                 </div>
                 @error('status_kepemilikan')
             <span class="invalid-feedback" role="alert">
@@ -234,7 +370,7 @@
         </div>
 
           <div class="form-group">
-            <label class="col-lg-3 control-label">Website</label>
+            <label class="col-lg-3 control-label">Website LSP</label>
                 <div class="col-lg-9">
                     <input name="website" type="text" class="form-control @error('website') is-invalid @enderror" value="{{old('website')}}" autofocus required>
                 </div>
@@ -257,6 +393,23 @@
               </span>
             @enderror
       </div>  
+
+      <div class="form-group">
+        <label class="col-lg-3 control-label">Provinsi</label>
+        <div class="col-lg-9">
+          <select class="select-search" name="provinsi" id="provinsi">
+              <option value="">Pilih Provinsi</option>
+          @foreach ($propinsi as $prov)
+            <option value="{{$prov->id_propinsi_dagri}}">{{$prov->Nama}}</option>
+          @endforeach
+          </select>
+        </div>
+        @error('provinsi')
+          <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+          </span>
+        @enderror
+      </div>
       
           <div class="form-group">
               <label class="col-lg-3 control-label">Alamat</label>
@@ -290,8 +443,19 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group">
-              <label class="col-lg-3 control-label">Kesesuaian dan keabsahan SK Menteri Pekerjaan Umum dan Perumahan Rakyat 
-                tentang penetapan akreditasi asosiasi profesi yang masih berlaku</label>
+              <label class="col-lg-3 control-label">
+                
+              1. surat Keputusan penetapan akreditasi asosiasi profesi bagi LSP yang dibentuk oleh
+Asosiasi Profesi Terakreditasi, atau Surat Tanda Registrasi Lembaga Pendidikan dan 
+Pelatihan  Kerja bagi LSP yang dibentuk oleh LPPK.
+  <br/>
+2. khusus untuk LSP yang dibentuk oleh LPK teregistrasi melampirkan Sertifikasi 
+Akreditasi LPK.
+<br/>
+3. Khusus untuk LSP yang dibentuk LPK Teregistrasi yang belum terakreditasi oleh Lembaga
+Akreditasi Lembaga Pelatihan Kerja (LA-LPK) Kementerian Ketenegakerjaan melampirkan surat
+pernyataan komitmen Akreditasi Lembaga Pelatihan Kerja.
+              </label>
                 <div class="col-lg-9">
                     <input name="upload_persyaratan" type="file" class="file-input @error('upload_persyaratan') is-invalid @enderror"
                     data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
@@ -317,7 +481,13 @@
         <div class="col-md-6">
           <fieldset>
             <div class="form-group">
-              <label class="col-lg-3 control-label">Akta Pendirian LSP</label>
+              <label class="col-lg-3 control-label">
+              1) akte pendirian LSP dan surat keputusan pengesahan sebagai badan hukum dari Kementerian
+              Hukum dan HAM bagi LSP yang dibentuk oleh Asosiasi Prefise Terakreditasi
+              <br/> 
+              2) surat Keputusan pembentukan LSP oleh pimpinan tertinggi LPPK bagi LSP yang dibentuk
+              oleh Lembaga Pendidikan dan Pelatihan Kerja (LPPK)
+              </label>
                 <div class="col-lg-9">
                     <input name="akta_pendirian" type="file" class="file-input @error('akta_pendirian') is-invalid @enderror"
                     data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
@@ -347,7 +517,7 @@
       <div class="col-md-6">
           <fieldset>
             <div class="form-group">
-              <label class="col-lg-3 control-label">Bukti Status Kepemilikan Kantor</label>
+              <label class="col-lg-3 control-label">Bukti Status Kepemilikan dari Sewa Kantor</label>
                 <div class="col-lg-9">
                     <input name="bukti_kepemilikan" type="file" class="file-input @error('bukti_kepemilikan') is-invalid @enderror"
                     data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
@@ -439,4 +609,5 @@
 
   </div>
 </form>
+@endif
 @endsection

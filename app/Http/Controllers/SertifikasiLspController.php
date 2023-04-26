@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\LspCertificateRequest;
 use App\Notifications\PerbaikanNotif;
+use Illuminate\Support\Facades\DB;
 use App\Administration;
 use App\LspCertificate;
 use App\Qualification;
@@ -23,10 +24,19 @@ class SertifikasiLspController extends Controller
 
     public function index(Request $request){
         $permohonan = Permohonan::where('users_id', Auth::user()->id)->get();      
-        $kualifikasi = Qualification::where('users_id', Auth::user()->id)->get();   
-        $jabker = Jabker::all();   
-        $skema = LspCertificate::where('users_id', Auth::user()->id)->get();
-        // $permohonan = Permohonan::where('id', Auth::user()->id)->firstOrFail();
+        $kualifikasi = Qualification::with('klas', 'subklas')->where('users_id', Auth::user()->id)->get();   
+        // $jabker = Jabker::all();   
+        $jabker = DB::table('jabker_07')->get();
+        $skema = DB::table('lsp_certificates')
+                    ->where('lsp_certificates.users_id', '=' ,Auth::user()->id)
+                    ->whereNull('lsp_certificates.deleted_at')
+                    ->join('permohonans', function($skema){
+                        $skema->on('lsp_certificates.permohonans_id', '=', 'permohonans.id');
+                    })
+                    ->select('lsp_certificates.*', 'permohonans.status_permohonan', 'permohonans.status_tolak', 'permohonans.status_submit')
+                    ->get();
+        // $skema = LspCertificate::with('permohonan')->where('users_id', Auth::user()->id)->get();
+
         return view('pages.user.sertifikasi_lsp', [
             'data' => $kualifikasi,
             'skema' => $skema,
@@ -62,9 +72,11 @@ class SertifikasiLspController extends Controller
     
     
     public function edit($id){
-    $permohonan = Permohonan::where('users_id', Auth::user()->id)->get();     
-        $kualifikasi = Qualification::where('users_id', Auth::user()->id)->get();    
-        $jabker = Jabker::all(); 
+        $permohonan = Permohonan::where('users_id', Auth::user()->id)->get();     
+        $kualifikasi = Qualification::with('klas', 'subklas')->where('users_id', Auth::user()->id)->get();      
+        // $jabker = Jabker::all(); 
+        // $jabker = DB::table('jabker_baru')->get();
+        $jabker = DB::table('jabker_07')->get();
             
         $data = LspCertificate::findOrFail($id);
 

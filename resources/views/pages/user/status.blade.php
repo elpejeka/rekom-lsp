@@ -58,9 +58,15 @@
                           @else
                           <td>#</td>
                             <td>{{$data->keterangan_surat}}</td>
-                            @foreach ($user->permohonan as $item)
                             <td><a href="{{route('edit.permohonan', $item->id)}}" class="btn btn-sm btn-primary">Upload</td>
-                              @endforeach
+                          @endif
+                        </tr>
+                        <tr>              
+                            @if($data->keterangan_asosiasi == null)
+                          @else
+                          <td>#</td>
+                            <td>{{$data->keterangan_asosiasi}}</td>
+                            <td><a href="{{route('informasi')}}" class="btn btn-sm btn-primary">Edit</td>
                           @endif
                         </tr>
                         <tr>
@@ -115,6 +121,21 @@
                           <td>#</td>
                           <td>{{$data->keterangan_tuk}}</td>
                           <td><a href="{{route('tuk')}}" class="btn btn-sm btn-primary">Upload</td>
+                          @endif
+                        </tr>
+                        <tr>
+                          @if($data->keterangan_klasifikasi == null)
+                          @else
+                          <td>#</td>
+                          <td>{{$data->keterangan_klasifikasi}}</td>
+                          <td><a href="{{route('sertifikasi-lsp')}}" class="btn btn-sm btn-primary">Upload</td>
+                          @endif
+                        </tr>
+                        <tr>
+                          @if($data->keterangan_akta == null)
+                          @else
+                          <td>#</td>
+                          <td>{{$data->keterangan_akta}}</td>
                           @endif
                         </tr>
                         @empty

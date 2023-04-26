@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\AdministrationRequest;
+use Illuminate\Support\Facades\DB;
 use App\Administration;
 use App\Permohonan;
 use App\User;
@@ -24,17 +25,17 @@ class InformationController extends Controller
     public function index(Request $request){
         $user_file = User::with(['asosiasi', 'asosiasi1', 'asosiasi2'])
                             ->where('id', Auth::user()->id)->firstOrFail();
-        // $permohonan = Permohonan::where('id', Auth::user()->id)->get();
-        // dd($permohonan);
-        // dd($permohonan);
-        // $permohonan = Permohonan::all();
-        // $user = User::with(['asosiasi'])->get();
-        // dd($user);
-        // dd($permohonan);
+
+        $item = Administration::where('users_id', Auth::user()->id)->get();
+        $propinsi = DB::table('propinsi_dagri')->get();
+
         return view('pages.user.informasi', [
             // 'item' => $permohonan,
             // 'data' => $user
-            'data' => $user_file
+            'data' => $user_file,
+            'item' => $item,
+            'informasi' => $item->count(),
+            'propinsi' => $propinsi
         ]);
     }
 
@@ -74,6 +75,14 @@ class InformationController extends Controller
         }else{
             $data['komitmen_asesor'] = 'file/pencatatan/1/nofile.pdf';
         }
+
+        if($request->hasFile('surat_akreditasi')){
+            $data['surat_akreditasi'] = $request->file('surat_akreditasi')->store(
+                'file/surat_akreditasi', 'public'
+            );
+        }else{
+            $data['surat_akreditasi'] = 'file/akreditasi/1/nofile.pdf';
+        }
     
         Administration::create($data);
         return redirect('/')->with('success', 'Data Administrasi Berhasil di Simpan');
@@ -82,6 +91,7 @@ class InformationController extends Controller
     public function edit($id){
         $item = Administration::findOrFail($id);
         $asosiasi = Association::all();
+        $propinsi = DB::table('propinsi_dagri')->get();
         $user_file = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'permohonan', 'asosiasi', 'asosiasi1', 'asosiasi2'])
                         ->where('id', Auth::user()->id)->firstOrFail();
         
@@ -89,7 +99,8 @@ class InformationController extends Controller
         return view('pages.user.edit.edit_administrasi')->with([
             'item' => $item,
             'asosiasi' => $asosiasi,
-            'data' => $user_file
+            'data' => $user_file,
+            'propinsi' => $propinsi
         ]);
     }
     
@@ -127,6 +138,14 @@ class InformationController extends Controller
                 );
             }else{
                 $data['komitmen_asesor'] = $item->komitmen_asesor;
+            }
+
+            if($request->hasFile('surat_akreditasi')){
+                $data['surat_akreditasi'] = $request->file('surat_akreditasi')->store(
+                    'file/surat_akreditasi', 'public'
+                );
+            }else{
+                $data['surat_akreditasi'] = $item->surat_akreditasi;
             }
 
         $item = Administration::findOrFail($id);

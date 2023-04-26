@@ -34,7 +34,7 @@ class SertifikatRequest extends FormRequest
             'no_blanko' => 'required',
             'masa_berlaku_sertifikat' => 'required',
             'ska' => 'required',
-            'sertifikat_asesor' => 'required'
+            'sertifikat_asesors' => 'required'
         ];
     }
 }

@@ -56,8 +56,10 @@
                           </tr>
                         </thead>
                         <tbody>
+                        @php $no = 1; @endphp
                            @foreach ($data as $item)
                                <tr>
+                               <td>{{$no++}}</td>
                                 <td>{{$item->administrations->nama_lsp}}</td>
                                 <td>{{date('d-m-Y', strtotime($item->created_at)) }}</td>
                                 <td>

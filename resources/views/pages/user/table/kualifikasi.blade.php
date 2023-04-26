@@ -31,7 +31,7 @@
   <div class="panel-body">
     
   </div>
-@if($item->status_submit == null)
+{{-- @if($item->status_submit == null) --}}
   <table class="table datatable-show-all">
     <thead>
         <tr>
@@ -60,7 +60,7 @@
         @endforeach
       </tbody>
   </table>
-@else
+{{-- @else
 <table class="table datatable-show-all">
   <thead>
       <tr>
@@ -85,6 +85,6 @@
       @endforeach
     </tbody>
 </table>
-@endif
+@endif --}}
 </div>
 @endsection

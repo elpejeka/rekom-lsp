@@ -54,7 +54,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Nama LSP</label>
               <div class="col-lg-9">
-                <input name="nama" type="text" class="form-control @error('nama') is-invalid @enderror"  value="{{$item->nama}}" autofocus required readonly>
+                <input name="nama" type="text" class="form-control @error('nama') is-invalid @enderror"  value="{{$item->nama}}" autofocus required>
               </div>
               @error('nama')
                 <span class="invalid-feedback" role="alert">
@@ -66,20 +66,53 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Pembentuk LSP</label>
               <div class="col-lg-9">
-                <input name="unsur_pembentuk" type="text" class="form-control @error('unsur_pembentuk') is-invalid @enderror"  value="{{$item->unsur_pembentuk}}" autofocus required>
+                <select class="select-search" name="unsur_pembentuk">
+                  <option value="{{$item->unsur_pembentuk}}">{{$item->unsur_pembentuk}} Teregistrasi</option>
+                  <option value="APT">Asosiasi Profesi Terakreditasi (APT)</option>
+                  <option value="LPPK">LPPK Teregistrasi</option>    
+                </select>
               </div>
-              @error('nama')
+              @error('unsur_pembentuk')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
               @enderror
             </div>
 
+            
             <div class="form-group">
+              <label class="col-lg-3 control-label">
+                Kategori Pembentuk
+              </label>
+              <div class="col-lg-9">
+                <select class="select-search" name="kategori_lsp">
+                  <option value="{{$item->kategori_lsp}}">{{$item->kategori_lsp}}</option>
+                  <option value="APT Umum">Asosiasi Profesi Umum (APT)</option>
+                  <option value="APT Khusus">Asosiasi Profesi Khusus (APT)</option>
+                  <option value="SMK">SMK </option>  
+                  <option value="Politeknik">Politeknik</option>  
+                  <option value="Perguruan Tinggi">Perguruan Tinggi</option>    
+                  <option value="LPK Pemerintah">LPK Pemerintah</option>    
+                  <option value="LPK Swasta">LPK Swasta</option>    
+                  <option value="LPK Perusahaan">LPK Perusahaan</option>    
+                </select>
+                {{-- <input name="kategori_lsp" type="text" class="form-control @error('kategori_lsp') is-invalid @enderror"  value="{{old('nama_unsur')}}" 
+                            placeholder="Asosiasi Profesi Umum/Khusus (bagi APT) SMK/Politeknik/Perguruan Tinggi (bagi Lembaga Pendidikan) LPK Pemerintah/Swasta/Perusahaan (bagi LPK)" 
+                            autofocus required> --}}
+              </div>
+              @error('kategori_lsp')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>      
+
+
+             <div class="form-group">
               <label class="col-lg-3 control-label">Nama Unsur Pembentuk</label>
               <div class="col-lg-9">
                 <select class="select-search" name="nama_unsur">
-                  <option value=""></option>
+                  <option value="{{$item->unsur->id}}">-- {{$item->unsur->asosiasi}}</option>
                   @foreach ($asosiasi as $items)
                   <option value="{{$items->id}}">{{$items->asosiasi}}</option>    
                   @endforeach
@@ -96,7 +129,7 @@
               <label class="col-lg-3 control-label">Nama Unsur Pembentuk</label>
               <div class="col-lg-9">
                 <select class="select-search" name="nama_unsur_1">
-                  <option value=""></option>
+                    <option value="{{$item->unsur1->id}}">-- {{$item->unsur1->asosiasi}}</option>
                   @foreach ($asosiasi as $items)
                   <option value="{{$items->id}}">{{$items->asosiasi}}</option>    
                   @endforeach
@@ -113,7 +146,7 @@
               <label class="col-lg-3 control-label">Nama Unsur Pembentuk</label>
               <div class="col-lg-9">
                 <select class="select-search" name="nama_unsur_2">
-                  <option value=""></option>
+                  <option value="{{$item->unsur2->id}}">-- {{$item->unsur2->asosiasi}}</option>
                   @foreach ($asosiasi as $items)
                   <option value="{{$items->id}}">{{$items->asosiasi}}</option>    
                   @endforeach
@@ -155,29 +188,6 @@
             @enderror
             </div>
 
-            <div class="form-group">
-              <label class="col-lg-3 control-label">
-                Kategori Pembentuk
-              </label>
-              <div class="col-lg-9">
-                <select class="select-search" name="kategori_lsp">
-                  <option value="{{$item->kategori_lsp}}">{{$item->kategori_lsp}}</option>
-                  <option value="APT Umum">Asosiasi Profesi Umum (APT)</option>
-                  <option value="APT Khusus">Asosiasi Profesi Khusus (APT)</option>
-                  <option value="Pendidikan">SMK/Politeknik/Perguruan Tinggi</option>    
-                  <option value="LPK">LPK Pemerintah/Swasta/Perusahaan</option>    
-                </select>
-                {{-- <input name="kategori_lsp" type="text" class="form-control @error('kategori_lsp') is-invalid @enderror"  value="{{old('nama_unsur')}}" 
-                            placeholder="Asosiasi Profesi Umum/Khusus (bagi APT) SMK/Politeknik/Perguruan Tinggi (bagi Lembaga Pendidikan) LPK Pemerintah/Swasta/Perusahaan (bagi LPK)" 
-                            autofocus required> --}}
-              </div>
-              @error('kategori_lsp')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-              @enderror
-            </div>
-            
           </fieldset>
         </div>
 
@@ -229,7 +239,12 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Status Kepemilikan Kantor</label>
                 <div class="col-lg-9">
-                    <input name="status_kepemilikan" type="text" class="form-control @error('status_kepemilikan') is-invalid @enderror" value="{{$item->status_kepemilikan}}" autofocus required>
+                    {{-- <input name="status_kepemilikan" type="text" class="form-control @error('status_kepemilikan') is-invalid @enderror" value="{{$item->status_kepemilikan}}" autofocus required> --}}
+                    <select class="select-search" name="status_kepemilikan">
+                      <option value="{{$item->status_kepemilikan}}">{{$item->status_kepemilikan}}</option>
+                      <option value="Hak Milik">Hak Milik</option>
+                      <option value="Sewa">Sewa</option>
+                    </select>
                 </div>
                 @error('status_kepemilikan')
             <span class="invalid-feedback" role="alert">
@@ -263,6 +278,23 @@
       </div>
 
       <div class="form-group">
+        <label class="col-lg-3 control-label">Provinsi</label>
+        <div class="col-lg-9">
+          <select class="select-search" name="provinsi" id="provinsi">
+              <option value="">Pilih Provinsi</option>
+          @foreach ($propinsi as $prov)
+            <option value="{{$prov->id_propinsi_dagri}}">{{$prov->Nama}}</option>
+          @endforeach
+          </select>
+        </div>
+        @error('provinsi')
+          <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+          </span>
+        @enderror
+      </div>
+
+      <div class="form-group">
         <label class="col-lg-3 control-label">Alamat</label>
         <div class="col-lg-9">
           <input name="alamat" type="text" class="form-control  @error('alamat') is-invalid @enderror" value="{{$item->alamat}}" autofocus required>
@@ -277,7 +309,7 @@
       <div class="form-group">
         <label class="col-lg-3 control-label">Kode Pos</label>
         <div class="col-lg-9">
-          <input name="kode_pos" type="text" class="form-control  @error('kode_pos') is-invalid @enderror" value={{$item->kode_pos}} autofocus required>
+          <input name="kode_pos" type="text" class="form-control  @error('kode_pos') is-invalid @enderror" value="{{$item->kode_pos}}" autofocus required>
         </div>
         @error('kode_pos')
         <span class="invalid-feedback" role="alert">
@@ -293,14 +325,25 @@
       </div>
 
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <fieldset>
             <div class="form-group">
-              <label class="col-lg-3 control-label">Kesesuaian dan keabsahan SK Menteri Pekerjaan Umum dan Perumahan Rakyat 
-                tentang penetapan akreditasi asosiasi profesi yang masih berlaku</label>
+              <label class="col-lg-3 control-label">
+                Kesesuaian dan keabsahan SK Menteri Pekerjaan Umum dan Perumahan Rakyat 
+                tentang penetapan akreditasi asosiasi profesi yang masih berlaku    1. surat Keputusan penetapan akreditasi asosiasi profesi bagi LSP yang dibentuk oleh
+Asosiasi Profesi Terakreditasi, atau Surat Tanda Registrasi Lembaga Pendidikan dan 
+Pelatihan  Kerja bagi LSP yang dibentuk oleh LPPK.
+  <br/>
+2. khusus untuk LSP yang dibentuk oleh LPK teregistrasi melampirkan Sertifikasi 
+Akreditasi LPK.
+<br/>
+3. Khusus untuk LSP yang dibentuk LPK Teregistrasi yang belum terakreditasi oleh Lembaga
+Akreditasi Lembaga Pelatihan Kerja (LA-LPK) Kementerian Ketenegakerjaan melampirkan surat
+pernyataan komitmen Akreditasi Lembaga Pelatihan Kerja.
+              </label>
                 <div class="col-lg-9">
                     <input name="upload_persyaratan" type="file" class="file-input @error('upload_persyaratan') is-invalid @enderror"
-                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
+                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
                     <span class="help-block">
                       Accepted formats: pdf, zip, rar, jpeg, jpg, png Max file size 20Mb
                     </span>
@@ -320,13 +363,19 @@
               </div>
           </fieldset>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <fieldset>
             <div class="form-group">
-              <label class="col-lg-3 control-label">Akta Pendirian LSP</label>
+              <label class="col-lg-3 control-label">
+                Akta Pendirian LSP   1) akte pendirian LSP dan surat keputusan pengesahan sebagai badan hukum dari Kementerian
+              Hukum dan HAM bagi LSP yang dibentuk oleh Asosiasi Prefise Terakreditasi
+              <br/> 
+              2) surat Keputusan pembentukan LSP oleh pimpinan tertinggi LPPK bagi LSP yang dibentuk
+              oleh Lembaga Pendidikan dan Pelatihan Kerja (LPPK)
+              </label>
                 <div class="col-lg-9">
                     <input name="akta_pendirian" type="file" class="file-input @error('akta_pendirian') is-invalid @enderror"
-                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
+                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
                     <span class="help-block">
                       Accepted formats: pdf, zip, rar, jpeg, jpg, png Max file size 20Mb
                     </span>
@@ -347,13 +396,15 @@
 
           </fieldset>
         </div>
-        <div class="col-md-4">
+      </div>
+      <div class="row">
+      <div class="col-md-6">
           <fieldset>
             <div class="form-group">
               <label class="col-lg-3 control-label">Bukti Status Kepemilikan Kantor</label>
                 <div class="col-lg-9">
                     <input name="bukti_kepemilikan" type="file" class="file-input @error('bukti_kepemilikan') is-invalid @enderror"
-                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
+                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
                     <span class="help-block">
                       Accepted formats: pdf, zip, rar, jpeg, jpg, png Max file size 20Mb
                     </span>
@@ -372,9 +423,67 @@
               @enderror
               </div>
           </fieldset>
+        </div>  
+      <div class="col-md-6">
+          <fieldset>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Surat Pernyataan Komitmen Asesor</label>
+                <div class="col-lg-9">
+                    <input name="komitmen_asesor" type="file" class="file-input @error('komitmen_asesor') is-invalid @enderror"
+                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
+                    <span class="help-block">
+                      Accepted formats: pdf, zip, rar Max file size 20Mb
+                    </span>
+                    <div class="progress" style="display:none;">
+                      <div id="progress-bar-1" class="progress-bar progress-bar-success progress-bar-striped active " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+                        20%
+                      </div>
+                    </div>
+                </div>
+
+
+                @error('komitmen_asesor')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+              </div>
+          </fieldset>
         </div>
-        
       </div>
+
+      <div class="row">
+        <div class="col-md-6">
+            <fieldset>
+              <div class="form-group">
+                <label class="col-lg-3 control-label">
+                  Sertifikat Akreditasi LPK atau Surat Pernyataan Komitmen Jika Belum Terakreditasi 
+                  <br/>
+                  <sub>*) Khusus LLPK</sub>
+                </label>
+                  <div class="col-lg-9">
+                      <input name="surat_akreditasi" type="file" class="file-input @error('surat_akreditasi') is-invalid @enderror"
+                      data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
+                      <span class="help-block">
+                        Accepted formats: pdf Max file size 20Mb
+                      </span>
+                      <div class="progress" style="display:none;">
+                        <div id="progress-bar-1" class="progress-bar progress-bar-success progress-bar-striped active " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+                          20%
+                        </div>
+                      </div>
+                  </div>
+  
+  
+                  @error('surat_akreditasi')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+                </div>
+            </fieldset>
+          </div>
+        </div>
 
       <div class="text-right">
         <button type="submit" class="btn btn-primary">Submit <i class="icon-arrow-right14 position-right"></i></button>

@@ -11,7 +11,9 @@ class Asesor extends Model
    
     protected $fillable = [
         'users_id', 'upload_persyaratan', 'surat_pernyataan',
-        'nama_asesor', 'slug', 'nik', 'alamat', 'status_asesor', 'tercatat'
+        'nama_asesor', 'slug', 'nik', 'alamat', 'status_asesor', 'tercatat',
+        'email', 'npwp', 'provinsi', 'kab_kota', 'pendidikan', 'tgl_lahir',
+        'no_telpon', 'tempat_lahir'
     ];
 
 
@@ -25,6 +27,10 @@ class Asesor extends Model
     
      public function sertifikat(){
         return $this->hasMany(DetailAsesor::class, 'asesor_id', 'id');
+    }
+
+    public function perjanjian(){
+        return $this->hasMany(ExtAsesor::class, 'asesor_id', 'id');
     }
 
     // public function administrations(){

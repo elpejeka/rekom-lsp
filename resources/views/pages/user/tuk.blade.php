@@ -69,7 +69,7 @@
             </div>
 
             <div class="form-group">
-              <label class="col-lg-3 control-label">Daftar Sarana dan Prasarana (Daftar inventaris dan fotonya)</label>
+              <label class="col-lg-3 control-label">Daftar Sarana dan Prasarana</label>
                 <div class="col-lg-9">
                     <input name="cakupan" type="file" class="file-input @error('cakupan') is-invalid @enderror"
                     data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>

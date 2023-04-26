@@ -41,7 +41,9 @@
               <div class="col-lg-9">
                 <select class="select-search" name="pencatatan_id">
                     @foreach ($permohonan as $item)
-                        <option value="{{$item->id}}">{{$item->permohonan}}</option>
+                      @if ($loop->first)
+                        <option value="{{$item->id}}">{{$item->permohonan}}</option>  
+                      @endif
                     @endforeach
                 </select>
               </div>
@@ -85,7 +87,13 @@
             <div class="form-group">
                 <label class="col-lg-3 control-label">Jenis TUK</label>
                 <div class="col-lg-9">
-                  <input name="jenis_tuk" type="text" class="form-control @error('jenis_tuk') is-invalid @enderror"  value="{{old('jenis_tuk  ')}}" autofocus required>
+                  {{-- <input name="jenis_tuk" type="text" class="form-control @error('jenis_tuk') is-invalid @enderror"  value="{{old('jenis_tuk  ')}}" autofocus required> --}}
+                  <select class="select-search" name="jenis_tuk">
+                    <option value="">Pilih Jenis TUK</option>
+                    <option value="Sewaktu">Sewaktu</option>
+                    <option value="Mandiri">Mandiri</option>
+                    <option value="Tempat Kerja">Tempat Kerja</option>
+                  </select>
                 </div>
                 @error('jenis_tuk')
                   <span class="invalid-feedback" role="alert">
@@ -102,6 +110,23 @@
                 <input name="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror"  value="{{old('alamat')}}"  autofocus required>
               </div>
               @error('alamat')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Provinsi</label>
+              <div class="col-lg-9">
+                <select class="select-search" name="provinsi" id="provinsi">
+                    <option value="">Pilih Provinsi</option>
+                @foreach ($propinsi as $prov)
+                  <option value="{{$prov->id_propinsi_dagri}}">{{$prov->Nama}}</option>
+                @endforeach
+                </select>
+              </div>
+              @error('provinsi')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
@@ -183,6 +208,7 @@
                 class="open-delete btn btn-primary btn-labeled btn-rounded">
                 <b><i class="icon-file-check"></i></b> Softcopy</a>
             </td>
+            @if ($item->approve == null)
             <td class="text-center">
               <a href="{{route('pencatatan.tuk.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
               <form action="{{route('pencatatan.tuk.delete', $item->id)}}" method="post" class="d-inline mt-2">
@@ -191,6 +217,13 @@
               <button class="btn btn-danger btn-sm mt-5"><i class="icon-trash"></i></button>
               </form>
             </td>
+            @endif
+            @if ($item->approve != null)
+            <td class="text-center">
+              <a href="{{route('pencatatan.tuk.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
+                <span class="badge badge-success">Approved</span>
+            </td>
+            @endif
           </tr>
       @endforeach
     </tbody>

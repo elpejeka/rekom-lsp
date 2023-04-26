@@ -20,7 +20,7 @@
 
 <div class="panel panel-flat">
   <div class="panel-heading">
-    <h5 class="panel-title">Data Kualifikasi</h5>
+    <h5 class="panel-title">Data Asesor</h5>
     <div class="heading-elements">
       <ul class="icons-list">
                 <li><a data-action="collapse"></a></li>
@@ -31,72 +31,79 @@
   <div class="panel-body">
     
   </div>
-@if($item->status_submit == null)
+
   <table class="table datatable-show-all">
     <thead>
       <tr>
         <th>No</th>
-        <th class="text-center">Dokumen Upload Asesor</th>
-        <th class="text-center">Surat Pernyataan Komitmen</th>
-        <th class="text-center">Actions</th>
+        <th>NIK</th>
+        <th>Nama Asesor</th>
+        <th>Tercatat</th>
+        <th>Alamat</th>
+        <th>Status Asesor</th>
+        <th class="text-center">Action</th>
       </tr>
     </thead>
     <tbody>
       @foreach ($asesor as $item)
       <tr>
         <td>#</td>
+        <td>{{$item->nik}}</td>
+        <td>{{$item->nama_asesor}}</td>
+        <td>
+          <span class="badge badge-primary">{{$item->tercatat == 1 ? "Ya" : 'Tidak'}}</span>
+          </td>
+        <td>{{$item->alamat}}</td>
+        <td>{{$item->status_asesor}}</td>
         <td class="text-center">
-          <a href="{{Storage::url($item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
-            class="open-delete btn btn-primary btn-labeled btn-rounded">
-              <b><i class="icon-file-check"></i></b> Softcopy</a>
-        </td>
-        <td class="text-center">
-          <a href="{{Storage::url($item->surat_pernyataan)}}" target="_blank" type="button" name="btn_cek_13" 
-            class="open-delete btn btn-primary btn-labeled btn-rounded">
-              <b><i class="icon-file-check"></i></b> Softcopy</a>
-        </td>
-        <td class="text-center">
-          <form action="{{route('delete.asesor', $item->id)}}" method="post" class="d-inline">
+          <a href="{{route('edit.asesor', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
+          <a href="{{route('sertifikat.asesor', $item->slug)}}" class="btn btn-sm btn-primary"><i class="icon-plus2" aria-hidden="true"></i></a>
+          <a href="#mymodal"
+          data-remote="{{route('asesor.show', $item->slug)}}" 
+          data-toggle="modal"
+          data-target="#mymodal"
+          data-title="Detail Asesor {{$item->nama_asesor}}"
+          class="btn btn-sm btn-info">
+      <i class="icon-eye2"></i></a>
+          {{-- <form action="" method="post" class="d-inline">
             @csrf
             @method('delete')
           <button class="btn btn-danger btn-sm"><i class="icon-trash"></i></button>
-          </form>
+          </form> --}}
         </td>
       </tr> 
       @endforeach
     </tbody>
   </table>
-@else
-<table class="table datatable-show-all">
-  <thead>
-    <tr>
-      <th>No</th>
-      <th class="text-center">Dokumen Upload Asesor</th>
-      <th class="text-center">Surat Pernyataan Komitmen</th>
-      <th class="text-center">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach ($asesor as $item)
-    <tr>
-      <td>#</td>
-      <td class="text-center">
-        <a href="{{Storage::url($item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
-          class="open-delete btn btn-primary btn-labeled btn-rounded">
-            <b><i class="icon-file-check"></i></b> Softcopy</a>
-      </td>
-      <td class="text-center">
-        <a href="{{Storage::url($item->surat_pernyataan)}}" target="_blank" type="button" name="btn_cek_13" 
-          class="open-delete btn btn-primary btn-labeled btn-rounded">
-            <b><i class="icon-file-check"></i></b> Softcopy</a>
-      </td>
-      <td class="text-center">
-        <div class="btn btn-sm btn-success">Submitted</div>
-      </td>
-    </tr> 
-    @endforeach
-  </tbody>
-</table>
-@endif
 </div>
 @endsection
+
+@push('addon-script')
+<script>
+  jQuery(document).ready(function($){
+      $('#mymodal').on('show.bs.modal', function(e){
+          var button = $(e.relatedTarget);
+          var modal = $(this);
+          modal.find('.modal-body').load(button.data("remote"));
+          modal.find('.modal-title').html(button.data("title"));
+      });
+  });
+</script>
+
+
+<div class="modal" id="mymodal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <i class="fa fa-spinner fa-spin"></i>
+          </div>
+      </div>
+  </div>
+</div>
+@endpush

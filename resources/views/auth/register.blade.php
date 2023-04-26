@@ -20,23 +20,24 @@
                             <div class="panel registration-form">
                                 <div class="panel-body">
                                     <div class="text-center">
-                                        <img src={{url('assets/images/pupr.jpg')}} alt="logo_pupr" style="width: 120px"/>
+                                        <img src={{url('/public/assets/images/pupr.jpg')}} alt="logo_pupr" style="width: 120px"/>
                                         <h5 class="content-group-lg">REGISTRASI AKUN REKOMENDASI LISENSI LSP <small class="display-block">* semua form wajib di isi</small></h5>
                                     </div>
 
-                                    <div class="form-group has-feedback">
-                                        <input name="username" type="text" class="form-control @error('username') is-invalid @enderror" placeholder="username" value="{{old('username')}}" autofocus required>
-                                        <div class="form-control-feedback">
-                                            <i class="icon-user-plus text-muted"></i>
-                                        </div>
-                                        @error('username')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                    </div>
-
                                     <div class="row">
+                                        <div class="col-md-6">
+                                        <div class="form-group has-feedback">
+                                            <input name="username" type="text" class="form-control @error('username') is-invalid @enderror" placeholder="username" value="{{old('username')}}" autofocus required>
+                                            <div class="form-control-feedback">
+                                                <i class="icon-user-plus text-muted"></i>
+                                            </div>
+                                            @error('username')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                        </div>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <input type="text" name="nama_lsp" class="form-control @error('nama_lsp') is-invalid @enderror" placeholder="Nama Lembaga Sertifikasi Profesi" value="{{old('nama_lsp')}}" autofocus required>
@@ -50,6 +51,8 @@
                                             @enderror
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
 
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
@@ -64,16 +67,33 @@
                                             @enderror
                                             </div>
                                         </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                    <select class="select-search" name="kategori_pembentuk">
+                                                    <option value="900">Pilih Kategori Pembentuk</option>
+                                                      <option value="APT">Asosiasi Profesi Terakreditasi</option>
+                                                      <option value="LPPK">Lembaga Pendidikan dan Pelatihan Kerja</option>      
+                                                    </select>
+                                                @error('asosiasi_pendiri')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
                                     </div>
 
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                     <select class="select-search" name="asosiasi_pendiri">
-                                                    <option value="Pilih Asosiasi">Pilih Asosiasi</option>
-                                                    @foreach ($asosiasi as $item)
-                                                    <option value="{{$item->id}}">{{$item->asosiasi}}</option>    
-                                                    @endforeach
+                                                    <option value="900">Pilih Asosiasi</option>
+                                                      @foreach ($asosiasi as $item)
+                                                      <option value="{{$item->id}}">{{$item->asosiasi}}</option>    
+                                                      @endforeach
                                                     </select>
                                                 @error('asosiasi_pendiri')
                                                     <span class="invalid-feedback" role="alert">
@@ -86,12 +106,12 @@
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                     <select class="select-search" name="asosiasi_pendiri_1">
-                                                        <option value="0">Pilih Asosiasi</option>
+                                                        <option value="900">Pilih Asosiasi</option>
                                                       @foreach ($asosiasi as $item)
                                                       <option value="{{$item->id}}">{{$item->asosiasi}}</option>    
                                                       @endforeach
                                                     </select>
-                                                @error('asosiasi_pendiri_1')
+                                                @error('asosiasi_pendiri')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -102,12 +122,12 @@
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                     <select class="select-search" name="asosiasi_pendiri_2">
-                                                        <option value="0">Pilih Asosiasi</option>
+                                                        <option value="900">Pilih Asosiasi</option>
                                                       @foreach ($asosiasi as $item)
                                                       <option value="{{$item->id}}">{{$item->asosiasi}}</option>    
                                                       @endforeach
                                                     </select>
-                                                @error('asosiasi_pendiri_2')
+                                                @error('asosiasi_pendiri')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>

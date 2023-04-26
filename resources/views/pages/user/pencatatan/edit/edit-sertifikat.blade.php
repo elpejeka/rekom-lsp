@@ -17,7 +17,8 @@
 @endsection
 
 @section('content')
-<form class="form-horizontal" action="{{route('pencatatan.sertifikat.store')}}" method="POST" enctype="multipart/form-data">
+<form class="form-horizontal" action="{{route('pencatatan.sertifikat.update', $data->id)}}" method="POST" enctype="multipart/form-data">
+@method('PUT')
   @csrf
   <div class="panel panel-flat">
     <div class="panel-heading">
@@ -37,39 +38,43 @@
         <div class="col-md-6">
           <fieldset>
 
-            <div class="form-group">
-                <label class="col-lg-3 control-label">Klasifikasi</label>
-                <div class="col-lg-9">
-                  <select class="select-search" name="klasifikasi">
-                      <option value="{{$data->klasifikasi}}">-- {{$data->klasifikasi}}</option>
-                      <optgroup label="KLASIFIKASI">
-                        @foreach ($klasifikasi as $item)
-                          <option value="{{$item->klasifikasi}}">{{$item->klasifikasi}}</option>
-                        @endforeach
-                      </optgroup>
-                  </select>
-                </div>
-                @error('klasifikasi')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-              @enderror
+              <div class="form-group">
+              <label class="col-lg-3 control-label">Klasifikasi</label>
+              <div class="col-lg-9">
+                <select class="select-search" name="klasifikasi" id="klasifikasi">
+                    <optgroup label="KLASIFIKASI">
+                    <option value="{{$data->klasifikasi}}">-- {{$data->klasifikasi}}</option>
+                      @foreach ($klas as $klasifikasi)
+                      <option value="{{$klasifikasi->kode}}">{{$klasifikasi->nama}}</option>
+                      @endforeach
+                      {{-- @foreach ($data as $item)
+                        <option value="{{$item->klasifikasi}}">{{$item->klasifikasi}}</option>
+                      @endforeach --}}
+                    </optgroup>
+                </select>
               </div>
+              @error('klasifikasi')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+            @enderror
+            </div>
+
           </fieldset>
         </div>
 
         <div class="col-md-6">
-          <fieldset>
-
+          <fieldset>   
+            
             <div class="form-group">
               <label class="col-lg-3 control-label">Subklasifikasi</label>
               <div class="col-lg-9">
-                <select class="select-search" name="subklasifikasi">
-                    <option value="{{$data->subklasifikasi}}">-- {{$data->subklasifikasi}}</option>
+                <select class="select-search" name="subklasifikasi" id="subklas">
                     <optgroup label="SUBKLASIFIKASI">
-                      @foreach ($klasifikasi as $item)
+                    <option value="{{$data->subklasifikasi}}">-- {{$data->subklasifikasi}}</option>
+                      {{-- @foreach ($data as $item)
                         <option value="{{$item->sub_klasifikasi}}">{{$item->sub_klasifikasi}}</option>
-                      @endforeach
+                      @endforeach --}}
                     </optgroup>
                 </select>
               </div>
@@ -79,24 +84,24 @@
               </span>
             @enderror
             </div>
-        
-            
+
           </fieldset>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-12">
-          <legend class="text-semibold"><i class="icon-reading position-left"></i> SKA Asesor</legend>
+          <legend class="text-semibold"><i class="icon-reading position-left"></i> Sertifikat Kompetensi Kerja Asesor (SKA/SKT/SKK)</legend>
         </div>
 
         <div class="col-md-6">
           <fieldset>
 
             <div class="form-group">
-              <label class="col-lg-3 control-label">No Sertifikat</label>
+              <label class="col-lg-3 control-label">Nomor Registrasi</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control @error('no_sertifikat') is-invalid @enderror" name="no_sertifikat" value="{{$data->no_sertifikat}}" required>
+                <input type="hidden" class="form-control @error('asesor_id') is-invalid @enderror" name="asesor_id" value="{{$data->asesor_id}}">
               </div>
               @error('no_sertifikat')
               <span class="invalid-feedback" role="alert">
@@ -105,7 +110,7 @@
             @enderror
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label class="col-lg-3 control-label">NRKA</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control @error('nrka') is-invalid @enderror" name="nrka" value="{{$data->nrka}}" required>
@@ -116,7 +121,7 @@
                 <strong>{{ $message }}</strong>
               </span>
             @enderror
-            </div>
+            </div> -->
 
             
 
@@ -166,6 +171,18 @@
 
         <div class="col-md-6">
           <fieldset>
+
+          <div class="form-group">
+              <label class="col-lg-3 control-label">No Registrasi Asesor</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control @error('no_reg_asesor') is-invalid @enderror" name="no_reg_asesor" value="{{$data->no_reg_asesor}}"  required>
+              </div>
+              @error('no_reg_asesor')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+            @enderror
+            </div>
 
             <div class="form-group">
               <label class="col-lg-3 control-label">No Sertifikat</label>
@@ -236,3 +253,34 @@
   </div>
 </form>
 @endsection
+
+
+@push('addon-script')
+  <script>
+    $('#klasifikasi').change(function(){
+      var kode = $(this).val();
+      console.log(kode)
+      if(kode){
+        $.ajax({
+          type : "GET",
+          url : "/lsp/get-subklas?kode="+kode,
+          dataType : 'JSON',
+          success:function(res){
+            console.log(res)
+            if(res){
+              $('#subklas').empty();
+              $("#subklas").append('<option>---Pilih Subklas---</option>');
+              $.each(res,function(nama,kode_sub){
+                    $("#subklas").append('<option value="'+kode_sub+'">'+nama+'</option>');
+              });
+            }else{
+              $('#subklas').empty();
+            }
+          }
+        })
+      }else{
+        $('#subklas').empty();
+      }
+    })
+  </script>
+@endpush

@@ -38,9 +38,6 @@
         <th>SK Lisensi BNSP</th>
         <th>Sertifikat Lisensi BNSP</th>
         <th class="text-center">Action</th>
-        <th>
-          Surat Pencatatan
-        </th>
       </tr>
     </thead>
     <tbody>
@@ -64,21 +61,13 @@
           <td class="text-center">
           @if($item->submit_pencatatan == null)
           <a href="{{route('pencatatan.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
-            <a href="{{route('pencatatan.liat', $item->slug)}}" class="btn btn-primary btn-sm">Submit Pencatatan</a>
+            <a href="{{route('pencatatan.liat', $item->id)}}" class="btn btn-primary btn-sm">Submit Pencatatan</a>
             @else
               <span class="badge badge-success">Submitted</span>
+              <a href="{{route('pencatatan.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
+              <a href="{{route('list.komen', $item->id  )}}" class="btn btn-sm btn-primary">Cek Perbaikan</a>
             @endif
         </td>
-        <td>
-        @if($item->approve == null)
-        fafnajk
-        @else 
-          <a href="{{route('surat.pencatatan', $item->slug)}}" target="_blank" type="button" name="btn_cek_13" 
-            class="open-delete btn btn-primary btn-labeled btn-rounded">
-            <b><i class="icon-file-check"></i></b> Softcopy</a>
-        @endif
-        </td>
-        
         
       </tr> 
       @endforeach

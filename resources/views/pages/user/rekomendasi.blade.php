@@ -37,6 +37,7 @@
         <div class="col-md-12">
             <input type="text" name="permohonans_id" value="{{$permohonan->id}}" hidden>
             <input type="text" name="users_id" value="{{$permohonan->users_id}}" hidden>
+            <input type="text" name="id_izin" value="{{$permohonan->id_izin}}" hidden/>
           <fieldset>
             
             <div class="form-group">
@@ -65,6 +66,4 @@
 
   </div>
 </form>
-
-            
 @endsection

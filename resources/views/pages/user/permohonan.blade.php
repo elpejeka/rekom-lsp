@@ -88,7 +88,7 @@
               <div class="col-lg-9">
                 <select class="select-search" name="jenis_permohonan">
                         <option value="baru">Baru</option>
-                        <option value="baru ++">Baru ++</option>
+                        {{-- <option value="baru ++">Baru ++</option> --}}
                         <option value="perpanjangan">Perpanjangan</option>
                         <option value="penambahan">Penambahan Ruang Lingkup</option>
                 </select>

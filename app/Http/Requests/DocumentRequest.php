@@ -24,7 +24,6 @@ class DocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            'permohonans_id' => 'required',
             'sk_lisensi' => 'required',
             'laporan_tindak_lanjut' => 'required',
             'rekapitulasi_laporan' => 'required',

@@ -114,7 +114,7 @@
                     <optgroup label="KLASIFIKASI">
                         <option value="{{$data->klasifikasi}}">-- {{$data->klasifikasi}}</option>
                       @foreach ($subklas as $item)
-                        <option value="{{$item->klasifikasi}}">{{$item->klasifikasi}}</option>
+                        <option value="{{$item->klas->nama}}">{{$item->klas->nama}}</option>
                       @endforeach
                     </optgroup>
                 </select>
@@ -130,7 +130,7 @@
               <label class="col-lg-3 control-label">Dokumen Skema Sertifikasi</label>
                 <div class="col-lg-9">
                     <input name="standar_kompetensi" type="file" class="file-input @error('standar_kompetensi') is-invalid @enderror"
-                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
+                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
                     <span class="help-block">
                       Accepted formats: pdf, zip, rar Max file size 50Mb
                     </span>
@@ -163,7 +163,7 @@
                     <optgroup label="SUBKLASIFIKASI">
                         <option value="{{$data->sub_klasifikasi}}">-- {{$data->sub_klasifikasi}}</option>
                       @foreach ($subklas as $item)
-                        <option value="{{$item->sub_klasifikasi}}">{{$item->sub_klasifikasi}}</option>
+                        <option value="{{$item->subklas->nama}}">{{$item->subklas->nama}}</option>
                       @endforeach
                     </optgroup>
                 </select>
@@ -227,7 +227,7 @@
                 Internasional)</label>
                 <div class="col-lg-9">
                     <input name="upload_persyaratan" type="file" class="file-input @error('upload_persyaratan') is-invalid @enderror"
-                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
+                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
                     <span class="help-block">
                       Accepted formats: pdf, zip, rar Max file size 50Mb
                     </span>

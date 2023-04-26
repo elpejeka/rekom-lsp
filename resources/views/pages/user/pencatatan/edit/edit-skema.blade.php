@@ -36,26 +36,11 @@
         </div>
         <div class="col-md-6">
           <fieldset>
-
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Jenis Permohonan</label>
-              <div class="col-lg-9">
-                <select class="select-search" name="pencatatan_id">
-                    @foreach ($permohonan as $item)
-                        <option value="{{$item->id}}">{{$item->permohonan}}</option>
-                    @endforeach
-                </select>
-              </div>
-              @error('pencatatan_id')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-              @enderror
-            </div>
-
+            
             <div class="form-group">
               <label class="col-lg-3 control-label">Kode Skema</label>
               <div class="col-lg-9">
+                <input type="hidden" class="form-control @error('pencatatan_id') is-invalid @enderror" name="pencatatan_id" value={{$data->pencatatan_id}}>
                 <input type="text" class="form-control @error('kode_skema') is-invalid @enderror" name="kode_skema" value={{$data->kode_skema}} required>
               </div>
               @error('kode_skema')
@@ -233,6 +218,28 @@
               </span>
             @enderror
             </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Jenjang</label>
+                  <div class="col-lg-9">
+                    <select class="bootstrap-select" multiple="multiple" name="jenjang[]" title="Pilih Jenjang" data-width="100%" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                  </div>
+                  @error('jumlah_unit')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+          </div>
 
           <div class="form-group">
               <label class="col-lg-3 control-label">Jumlah Unit Kompetensi</label>

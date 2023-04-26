@@ -17,10 +17,6 @@
 @endsection
 
 @section('content')
-{{-- <form action="/pegawai/cari" method="GET">
-	<input type="text" name="cari" placeholder="Cari Pegawai .." value="{{ old('cari') }}">
-	<input type="submit" value="CARI">
-</form> --}}
 <form class="form-horizontal" action="{{route('asesor_store')}}" method="POST" enctype="multipart/form-data">
   @csrf
   <div class="panel panel-flat">
@@ -59,7 +55,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">NIK</label>
                   <div class="col-lg-9">
-                    <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" required>
+                    <input type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" required>
                   </div>
                   @error('nik')
                   <span class="invalid-feedback" role="alert">
@@ -85,6 +81,43 @@
             </div>
 
             
+            <div class="form-group">
+              <label class="col-lg-3 control-label">NPWP</label>
+                  <div class="col-lg-9">
+                    <input type="text" class="form-control @error('npwp') is-invalid @enderror" name="npwp" required>
+                  </div>
+                  @error('npwp')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Email</label>
+                  <div class="col-lg-9">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" required>
+                  </div>
+                  @error('email')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">No Handphone</label>
+                  <div class="col-lg-9">
+                    <input type="number" class="form-control @error('no_telpon') is-invalid @enderror" name="no_telpon" required>
+                  </div>
+                  @error('no_telpon')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
+            
 
           </fieldset>
         </div>
@@ -106,11 +139,42 @@
             </div>
 
             <div class="form-group">
+              <label class="col-lg-3 control-label">Provinsi</label>
+              <div class="col-lg-9">
+                <select class="select-search" name="provinsi" id="provinsi">
+                    <option value="">Pilih Provinsi</option>
+                @foreach ($propinsi as $prov)
+                  <option value="{{$prov->id_propinsi_dagri}}">{{$prov->Nama}}</option>
+                @endforeach
+                </select>
+              </div>
+              @error('provinsi')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Kabupaten / Kota</label>
+              <div class="col-lg-9">
+                <select class="select-search" name="kab_kota" id="kab_kota">
+                  <option value="">Pilih Kabupaten / Kota</option>
+                </select>
+              </div>
+              @error('kab_kota')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+
+            <div class="form-group">
               <label class="col-lg-3 control-label">Status Asesor</label>
               <div class="col-lg-9">
                 <select class="select-search" name="status_asesor">
-                        <option value="Tetap">Tetap</option>
-                        <option value="Tidak Tetap">Tidak Tetap</option>
+                        <option value="Internal">Internal</option>
+                        <option value="External">External</option>
                 </select>
               </div>
               @error('status_asesor')
@@ -120,6 +184,48 @@
               @enderror
             </div>
         
+            
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Tempat Lahir</label>
+                  <div class="col-lg-9">
+                    <select class="select-search" name="tempat_lahir">
+                      <option value="">Pilih Provinsi</option>
+                      @foreach ($propinsi as $prov)
+                        <option value="{{$prov->id_propinsi_dagri}}">{{$prov->Nama}}</option>
+                      @endforeach
+                  </select>
+                  </div>
+                  @error('tgl_lahir')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Tanggal Lahir</label>
+                  <div class="col-lg-9">
+                    <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror" name="tgl_lahir" required>
+                  </div>
+                  @error('tgl_lahir')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
+             
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Pendidikan</label>
+                  <div class="col-lg-9">
+                    <input type="text" class="form-control @error('pendidikan') is-invalid @enderror" name="pendidikan" required>
+                  </div>
+                  @error('pendidikan')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
             
           </fieldset>
         </div>
@@ -201,13 +307,17 @@
         <th>Tercatat</th>
         <th>Alamat</th>
         <th>Status Asesor</th>
+        <th>Skema dan Sertifikat</th>
         <th class="text-center">Action</th>
       </tr>
     </thead>
     <tbody>
+    @php
+    $no = 1;
+    @endphp
       @foreach ($asesor as $item)
       <tr>
-        <td>#</td>
+        <td>{{$no++}}</td>
         <td>{{$item->nik}}</td>
         <td>{{$item->nama_asesor}}</td>
         <td>
@@ -215,21 +325,26 @@
           </td>
         <td>{{$item->alamat}}</td>
         <td>{{$item->status_asesor}}</td>
+        <td>
+          <a href="{{route('skema.asesor', $item->slug)}}" class="btn btn-sm btn-primary">
+            <i class="icon-plus2" aria-hidden="true"></i> Skema Serifikasi
+          </a>
+          <a href="{{route('sertifikat.asesor', $item->slug)}}" class="btn btn-sm btn-primary"><i class="icon-plus2" aria-hidden="true"></i> Sertifikat Asesor</a>
+        </td>
         <td class="text-center">
           <a href="{{route('edit.asesor', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
-          <a href="{{route('sertifikat.asesor', $item->slug)}}" class="btn btn-sm btn-primary"><i class="icon-plus2" aria-hidden="true"></i></a>
           <a href="#mymodal"
           data-remote="{{route('asesor.show', $item->slug)}}" 
           data-toggle="modal"
           data-target="#mymodal"
           data-title="Detail Asesor {{$item->nama_asesor}}"
           class="btn btn-sm btn-info">
-      <i class="icon-eye2"></i></a>
-          {{-- <form action="" method="post" class="d-inline">
+        <i class="icon-eye2"></i> Cek Sertifikat</a>
+          <form action="{{route('delete.asesor', $item->id)}}" method="post">
             @csrf
             @method('delete')
-          <button class="btn btn-danger btn-sm"><i class="icon-trash"></i></button>
-          </form> --}}
+          <button class="btn btn-danger btn-sm mt-5"><i class="icon-trash"></i></button>
+          </form>
         </td>
       </tr> 
       @endforeach
@@ -246,7 +361,39 @@
           modal.find('.modal-body').load(button.data("remote"));
           modal.find('.modal-title').html(button.data("title"));
       });
+      
+      $(".modal").on("hidden.bs.modal", function(){
+        $(".modal-body").html("");
+      });
   });
+</script>
+
+<script>
+    $('#provinsi').change(function(){
+      var kode = $(this).val();
+      console.log(kode)
+      if(kode){
+        $.ajax({
+          type : "GET",
+          url : "/lsp/kab_kota?id_propinsi_dagri="+kode,
+          dataType : 'JSON',
+          success:function(res){
+            console.log(res)
+            if(res){
+              $('#kab_kota').empty();
+              $("#kab_kota").append('<option>---Pilih Kabupaten / Kota---</option>');
+              $.each(res,function(nama_kabupaten_dagri,id_kabupaten_dagri){
+                    $("#kab_kota").append('<option value="'+id_kabupaten_dagri+'">'+nama_kabupaten_dagri+'</option>');
+              });
+            }else{
+              $('#kab_kota').empty();
+            }
+          }
+        })
+      }else{
+        $('#kab_kota').empty();
+      }
+    })
 </script>
 
 
@@ -261,7 +408,9 @@
           </div>
           <div class="modal-body">
               <i class="fa fa-spinner fa-spin"></i>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
+            
       </div>
   </div>
 </div>

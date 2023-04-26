@@ -35,6 +35,7 @@
           <legend class="text-semibold"><i class="icon-reading position-left"></i> Struktur Organisasi</legend>
         </div>
         <div class="col-md-6">
+          <div class="col-md-8">
           <fieldset>
 
             <div class="form-group">
@@ -97,13 +98,76 @@
               @enderror
             </div>
 
+            </fieldset>
+          </div>
+          <div class="col-md-4">
+          <fieldset>
+            <div class="form-group">
+              <div class="col-lg-12">
+                <input name="no_telp_pengarah" type="number" class="form-control @error('no_telp_pengarah') is-invalid @enderror" placeholder="Nomor Handphone" required>
+              </div>
+              @error('no_telp_pengarah')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+
+             <div class="form-group">
+              <div class="col-lg-12">
+                <input name="no_telp_pengarah_1" type="number" class="form-control @error('no_telp_pengarah_1') is-invalid @enderror" placeholder="Nomor Handphone" required>
+              </div>
+              @error('no_telp_pengarah_1')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+
+            <div class="form-group">
+              <div class="col-lg-12">
+                <input name="no_telp_pengarah_2" type="number" class="form-control @error('no_telp_pengarah_2') is-invalid @enderror" placeholder="Nomor Handphone" required>
+              </div>
+              @error('no_telp_pengarah_2')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+
+            <div class="form-group">
+              <div class="col-lg-12">
+                <input name="no_telp_pengarah_3" type="number" class="form-control @error('no_telp_pengarah_3') is-invalid @enderror" placeholder="Nomor Handphone" required>
+              </div>
+              @error('no_telp_pengarah_3')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+
+            <div class="form-group">
+              <div class="col-lg-12">
+                <input name="no_telp_pengarah_4" type="number" class="form-control @error('no_telp_pengarah_4') is-invalid @enderror" placeholder="Nomor Handphone" required>
+              </div>
+              @error('no_telp_pengarah_4')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+
+          
             
           </fieldset>
+          </div>
         </div>
 
         <div class="col-md-6">
+          <div class="col-md-8">
           <fieldset>
 
+           
             <div class="form-group">
               <label class="col-lg-3 control-label">Ketua Pelaksana</label>
               <div class="col-lg-9">
@@ -164,9 +228,58 @@
               </span>
             @enderror
         </div>
-    
-            
-          </fieldset>
+        
+      </fieldset>
+      </div> 
+      <div class="col-md-4">
+        
+        <div class="form-group">
+          <div class="col-lg-12">
+            <input name="no_ketua" type="number" class="form-control @error('no_ketua') is-invalid @enderror" placeholder="Nomor Handphone" required>
+          </div>
+          @error('no_ketua')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-12">
+            <input name="no_umum" type="number" class="form-control @error('no_umum') is-invalid @enderror" placeholder="Nomor Handphone" required>
+          </div>
+          @error('no_umum')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-12">
+            <input name="no_sertifikasi" type="number" class="form-control @error('no_sertifikasi') is-invalid @enderror" placeholder="Nomor Handphone" required>
+          </div>
+          @error('no_sertifikasi')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-12">
+            <input name="no_manajemen" type="number" class="form-control @error('no_manajemen') is-invalid @enderror" placeholder="Nomor Handphone" required>
+          </div>
+          @error('no_manajemen')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+        </div>
+
+        
+
+          </div>
         </div>
 
         <div class="row">
@@ -202,10 +315,10 @@
       </div>
 
 
-
       <div class="text-right">
         <button type="submit" class="btn btn-primary">Submit<i class="icon-arrow-right14 position-right"></i></button>
       </div>
+    
     </div>
 
   </div>

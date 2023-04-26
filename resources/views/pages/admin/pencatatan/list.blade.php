@@ -38,6 +38,8 @@
         <th>Nama LSP</th>
         <th>Jenis Permohonan</th>
         <th>Tanggal Submit</th>
+        <th>Tanggal Pencatatan</th>
+        <th>Status</th>
         <th class="text-center">Action</th>
       </tr>
     </thead>
@@ -50,9 +52,26 @@
         <td>{{$no++}}</td>
         <td>{{$item->administrations->nama}}
         <td>{{$item->permohonan}}</td>
-        <td>{{$item->pencatatan_submit}}</td>
-        <td>   <a href="{{route('pencatatan.liat', $item->slug)}}" class="btn btn-primary btn-sm">Cek Kesesuaian</a></td>
-      </tr> 
+        <td>{{$item->submit_pencatatan}}</td>
+        <td>{{$item->approve}}</td>
+        @if($item->approve == null)
+        <td class="text-center"><span class="badge badge-warning">---</span></td>
+        <td class="text-center">
+          <a href="{{route('pencatatan.approve', $item->slug)}}" class="btn btn-primary btn-sm">Cek Kesesuaian</a>
+          <a href="{{route('pencatatan.edit', $item->id)}}" class="btn btn-warning btn-sm">Edit</a>
+        </td>
+        @else
+        <td class="text-center>
+        <span class="badge badge-success">Selesai</span></td>
+        <td class="text-center">   
+          <a href="{{route('kirim.email', $item->users_id)}}" class="btn btn-sm btn-primary">Kirim Dokumentasi</a>
+          <a href="{{route('pencatatan.approve', $item->slug)}}" class="btn btn-primary btn-sm">Detail</a>
+          <a href="{{route('sekretariat.edit', $item->id)}}" class="btn btn-warning btn-sm">Edit</a>
+        </td>
+        
+        </td>
+        @endif
+      </tr>
       @endforeach
     </tbody>
   </table>

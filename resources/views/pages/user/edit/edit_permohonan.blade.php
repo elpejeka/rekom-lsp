@@ -16,7 +16,7 @@
 </div>
 @endsection
 @section('content')
-<form class="form-horizontal" action="{{route('penambahan.update', $item->id)}}" method="POST" enctype="multipart/form-data">
+<form class="form-horizontal" action="{{route('permohonan.update', $item->id)}}" method="POST" enctype="multipart/form-data">
 @method('PUT')
   @csrf
   <div class="panel panel-flat">

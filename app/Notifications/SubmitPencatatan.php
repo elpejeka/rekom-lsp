@@ -44,6 +44,7 @@ class SubmitPencatatan extends Notification
                     ->line('Permohonan Pencatata Lembaga Sertifikasi Profesi Terlinsesi disubmit')
                     ->line('Harap menunggu Sekretariat LPJK untuk melakukan pengecekan berkas')
                     ->line('Terima Kasih sudah menggunakan Aplikasi kamu');
+                    
     }
 
     /**

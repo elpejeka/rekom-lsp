@@ -10,7 +10,8 @@ class CheckController extends Controller
 {
     public function store(Request $request){
         $data = $request->all();
-
+        $data['keterangan_skema'] = $request->nama_skema . ' ' .  $request->keterangan_skema;
+        $data['keterangan_acuan'] = $request->nama_skema . ' ' .  $request->keterangan_acuan;
         Check::create($data);
         return redirect('/verifikasi')->with('success', 'Data kelengkapan berhasil dicek');
     }
@@ -26,7 +27,7 @@ class CheckController extends Controller
             'data' => $kelengkapan
             ]);
         
-            return $pdf->download('dokumen-cek-kelengkapan.pdf');
+            return $pdf->stream('dokumen-cek-kelengkapan.pdf');
         
     }
 

@@ -14,7 +14,7 @@ class Administration extends Model
         'website', 'email', 'jumlah_skema', 'users_id', 'unsur_pembentuk', 
         'nama_unsur', 'kategori_lsp', 'ketersediaan_sistem', 'upload_persyaratan', 'nama_unsur_1', 
         'nama_unsur_2', 'no_registrasi',
-        'kode_pos', 'akta_pendirian', 'bukti_kepemilikan', 'komitmen_asesor'
+        'kode_pos', 'akta_pendirian', 'bukti_kepemilikan', 'komitmen_asesor', 'surat_akreditasi', 'provinsi'
     ];
 
     protected $hidden = [
@@ -43,6 +43,10 @@ class Administration extends Model
 
     public function permohonan(){
         return $this->hasMany(Permohonan::class, 'administrations_id', 'id');
+    }
+
+    public function propinsi(){
+        return $this->belongsTo(Propinsi::class, 'provinsi', 'id_propinsi_dagri');
     }
 
     // public function asesors(){

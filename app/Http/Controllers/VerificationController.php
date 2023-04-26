@@ -28,7 +28,7 @@ class VerificationController extends Controller
     
     public function index(Request $request, $id){
         // $user = Administration::with(['akta_pendirian', 'organization'])->where('slug', $slug)->firstOrFail();
-        $user = Permohonan::with('administrations', 'user')->where('id', $id)->firstOrFail();
+        $user = Permohonan::with('administrations', 'user', 'skema')->where('id', $id)->firstOrFail();
         
         // dd($permohonan);
         $user_file = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'permohonan'])

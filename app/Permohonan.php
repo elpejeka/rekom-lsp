@@ -17,6 +17,10 @@ class Permohonan extends Model
 
     protected $hidden = [];
 
+    public function skema(){
+        return $this->hasMany(LspCertificate::class, 'permohonans_id', 'id');
+    }
+
     public function administrations(){
         return $this->belongsTo(Administration::class, 'administrations_id', 'id');
         }

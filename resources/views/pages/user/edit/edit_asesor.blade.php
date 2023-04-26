@@ -81,11 +81,78 @@
               @enderror
             </div>
 
+            <div class="form-group">
+              <label class="col-lg-3 control-label">NPWP</label>
+                  <div class="col-lg-9">
+                    <input type="text" class="form-control @error('npwp') is-invalid @enderror" name="npwp" required>
+                  </div>
+                  @error('npwp')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Email</label>
+                  <div class="col-lg-9">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" required>
+                  </div>
+                  @error('email')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">No Handphone</label>
+                  <div class="col-lg-9">
+                    <input type="number" class="form-control @error('no_telpon') is-invalid @enderror" name="no_telpon" required>
+                  </div>
+                  @error('no_telpon')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
           </fieldset>
         </div>
 
         <div class="col-md-6">
           <fieldset>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Provinsi</label>
+              <div class="col-lg-9">
+                <select class="select-search" name="provinsi" id="provinsi">
+                    <option value="">Pilih Provinsi</option>
+                @foreach ($propinsi as $prov)
+                  <option value="{{$prov->id_propinsi_dagri}}">{{$prov->Nama}}</option>
+                @endforeach
+                </select>
+              </div>
+              @error('provinsi')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Kabupaten / Kota</label>
+              <div class="col-lg-9">
+                <select class="select-search" name="kab_kota" id="kab_kota">
+                  <option value="">Pilih Kabupaten / Kota</option>
+                </select>
+              </div>
+              @error('kab_kota')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
 
             
             <div class="form-group">
@@ -105,8 +172,8 @@
               <div class="col-lg-9">
                 <select class="select-search" name="status_asesor">
                         <option value="{{$item->status_asesor}}">{{$item->status_asesor}}</option>
-                        <option value="Tetap">Tetap</option>
-                        <option value="Tidak Tetap">Tidak Tetap</option>
+                        <option value="internal">Internal</option>
+                        <option value="external">External</option>
                 </select>
               </div>
               @error('status_asesor')
@@ -114,6 +181,48 @@
                   <strong>{{ $message }}</strong>
                 </span>
               @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Tempat Lahir</label>
+                  <div class="col-lg-9">
+                    <select class="select-search" name="tempat_lahir">
+                      <option value="">Pilih Provinsi</option>
+                      @foreach ($propinsi as $prov)
+                        <option value="{{$prov->id_propinsi_dagri}}">{{$prov->Nama}}</option>
+                      @endforeach
+                  </select>
+                  </div>
+                  @error('tgl_lahir')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Tanggal Lahir</label>
+                  <div class="col-lg-9">
+                    <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror" name="tgl_lahir" required>
+                  </div>
+                  @error('tgl_lahir')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
+             
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Pendidikan</label>
+                  <div class="col-lg-9">
+                    <input type="text" class="form-control @error('pendidikan') is-invalid @enderror" name="pendidikan" required>
+                  </div>
+                  @error('pendidikan')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
             </div>
         
             

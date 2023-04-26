@@ -3,7 +3,7 @@
 @section('content')
 <div class="container text-center">
     <div class="row justify-content-center">
-        <img src={{url('assets/images/email.png')}} alt="logo_pupr" style="width:540px"/>
+        <img src={{url('/public/assets/images/email.png')}} alt="logo_pupr" style="width:540px"/>
 
         <div class="col-md-12">
             <div class="card">

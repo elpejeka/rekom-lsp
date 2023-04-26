@@ -58,7 +58,7 @@
                         <tbody>
                            @foreach ($data as $item)
                                <tr>
-                                <td>{{$item->administrations->nama}}</td>
+                                <td>{{$item->user->nama_lsp}}</td>
                                 <td><span class="badge badge-success">{{$item->status_submit}}</span></td>
                                 <td><span class="badge badge-success">{{$item->status_kelengkapan}}</span></td>
                                 <td><span class="badge badge-success">{{$item->status_verifikasi}}</span></td>

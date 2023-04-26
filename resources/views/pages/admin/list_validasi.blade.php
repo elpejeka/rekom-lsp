@@ -48,6 +48,8 @@
                     <table class="table datatable-show-all">
                         <thead>
                           <tr>
+                            <th>No</th>
+                            <th>Jenis Permohonan</th>
                             <th>Nama Lembaga Sertifikasi Profesi</th>
                             <th>Tanggal Permohonan</th>
                             <th>Status</th>
@@ -56,30 +58,41 @@
                           </tr>
                         </thead>
                         <tbody>
+                        @php $no = 1; @endphp
                            @foreach ($data as $item)
                                <tr>
+                                <td>{{$no++}}</td>
+                                <td>{{ucfirst($item->jenis_permohonan)}}</td>
                                 <td>{{$item->user->nama_lsp}} </td>
                                 <td>{{date('d-m-Y', strtotime($item->status_submit)) }}</td>
                                 <td>
-                                @if ($item->status_verifikasi == null)
+                                @if ($item->status_verifikasi == null && $item->status_tolak == null)
                                     <span class="badge badge-info">Not Submit</span> 
-                                @else
+                                @elseif($item->status_tolak == null)
                                     <span class="badge badge-success">{{$item->status_verifikasi}}</span>
+                                @else
+                                    <span class="badge badge-danger">Tolak Permohonan</span>
                                 @endif
                                 </td>
-                                <td class="text-center">
-                                    <a href="{{route('validasi', $item->id)}}?verifikasi-validasi" class="btn btn-success">Cek Dokumen</a>
-                                </td>
-                                @if($item->status_verifikasi == null)
+                                @if ($item->id_izin == null)
+                                    <td class="text-center">
+                                        <a href="{{route('validasi', $item->id)}}?verifikasi-validasi" class="btn btn-success">Cek Dokumen</a>
+                                    </td>
+                                @endif
+                                @if ($item->id_izin != null)
+                                    <td class="text-center">
+                                        <a href="{{route('validasi.portal', $item->id_izin)}}" class="btn btn-success">Cek Dokumen</a>
+                                    </td>    
+                                @endif
+                                @if($item->status_verifikasi == null && $item->status_tolak == null)
                                 <td class="text-center">
                                     <a href="{{route('submit.validasi', $item->id)}}?status_verifikasi=submit" class="btn btn-primary">Submit<i class="icon-arrow-right14 position-right"></i></a>
-                                    <a href="javascript:void(0)" onclick="updateKeabsahan({{$item->id}})" class="btn btn-info">Tolak</a>
-                                    {{-- <a href="{{route('submit.tolak', $item->id)}}?status_tolak=submit" class="btn btn-danger">Tolak</a> --}}
-                                    {{-- <a href="{{route('submit.tolak', $item->id)}}?status_tolak=submit" class="btn btn-danger">Tolak<i class="icon-arrow-down14 position-right"></i></a> --}}
+                                    <a href="javascript:void(0)" onclick="updateKeabsahan({{$item->id}})" class="btn btn-info"><i class="icon-pencil2"></i></a>
+                                    <a href="{{route('submit.tolak', $item->id)}}?status_tolak=submit" class="btn btn-danger">Submit Tolak</a>
                                 </td>
-                                @else
+                                @elseif($item->status_permohonan == null)
                                 <td class="text-center">
-                                    <ul class="icons-list">
+                                    <ul class="icons-list"> 
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                 <i class="icon-menu9"></i>
@@ -88,14 +101,22 @@
                                             <ul class="dropdown-menu dropdown-menu-right">
                                                 <li><a href="{{route('pdf.vv_berita', $item->id)}}" target="_blank" type="button" name="submit"><i class=" icon-printer"></i></b> Print VV Berita Acara</a></li>
                                                 <li><a href="{{route('rekomendasi',  $item->id)}}"><i class="icon-file-excel"></i> Upload Surat Rekomendasi</a></li>
+                                                @if ($item->id_izin == null)
+                                                    <li><a href="{{route('submit.selesai',  $item->id)}}?status_permohonan=submit"><i class="icon-checklist2"></i> Selesai</a></li>
+                                                @endif
+                                                @if ($item->id_izin != null)
+                                                    <li><a href="{{route('final.portal',  $item->id_izin)}}"><i class="icon-checklist2"></i> Selesai</a></li>
+                                                @endif
                                             </ul>
                                         </li>
                                     </ul>
                                     
                                 </td>
-                                @endif
-
-                                    
+                                @else
+                                <td class="text-center">
+                                    <div class="badge badge-primary">Permohonan Selesai</div>
+                                </td>
+                                @endif   
                                </tr>
                            @endforeach
                         </tbody>
@@ -111,12 +132,13 @@
 </div>
 <!-- /detached content -->
 @endsection
+
 @push('addon-script')
 <div class="modal fade" id="penolakan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Update Keabsahan Skema Sertifikasi</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Komen Penolakan</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -139,7 +161,7 @@
             </form>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success mt-5">Save changes</button>
+            <a href="{{route('submit.tolak', $item->id)}}?status_tolak=submit" class="btn btn-danger">Submit Tolak</a>
         </div>
     
       </div>
@@ -149,7 +171,7 @@
     <script>
 
     function updateKeabsahan(id){
-            $.get('/penolakan/'+id, function(data){
+            $.get('/lsp/penolakan/'+id, function(data){
                 $("#permohonan_id").val(data.id);
                 $("#penolakan").modal("toggle");
             })
@@ -170,7 +192,7 @@
                   "_token": "{{ csrf_token() }}",
               },
               success:function(response){
-                //   $("#penolakan").modal('toggle');
+                  $("#penolakan").modal('toggle');
                   $("#studentForm")[0].reset();
               }
           })

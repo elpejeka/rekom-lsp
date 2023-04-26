@@ -33,14 +33,17 @@
         <th>Klasifikasi</th>
         <th>Subklasifikasi</th>
         <th>Kualifikasi</th>
-        <th>NRKA</th>
+        <th>No Registrasi SKK/SKA/SKT</th>
         <th>No Sertifikat</th>
         <th>Kualifikasi</th>
         <th>Subklasifikasi</th>
     </tr>
+    @php
+    $no = 1;
+    @endphp
     @foreach ($item->sertifikat as $detail)
         <tr>
-            <td>1</td>
+            <td>{{$no++}}</td>
             <td>{{$detail->klasifikasi}}</td>
             <td>{{$detail->subklasifikasi}}</td>
             <td>{{$detail->kualifikasi}}</td>
@@ -51,3 +54,38 @@
         </tr>
     @endforeach
 </table>
+
+<table class="table table-bordered w-100">
+    <tr>
+        <th>SKA</th>
+        <th>Sertifikat Asesor</th>
+    </tr>
+    @php
+    $no = 1;
+    @endphp
+    @foreach ($item->sertifikat as $detail)
+        <tr>
+            <td>
+            <a href="{{asset('laravel/storage/app/public/'. $detail->ska)}}" target="_blank" type="button" name="btn_cek_13"
+                                                    class="open-delete btn btn-primary btn-labeled btn-rounded">
+                                                    <b><i class="icon-file-check"></i></b> Softcopy</a> 
+            
+                                                    {{-- <iframe id="iframepdf" src="{{asset('laravel/storage/app/public/'. $detail->ska)}}" width="250" height="100"></iframe> --}}
+            
+        
+            
+            </td>
+            <td>
+            <a href="{{asset('laravel/storage/app/public/'. $detail->sertifikat_asesors)}}" target="_blank" type="button" name="btn_cek_13"
+                                                    class="open-delete btn btn-primary btn-labeled btn-rounded">
+                                                    <b><i class="icon-file-check"></i></b> Softcopy</a>
+
+                                                    {{-- <iframe id="iframepdf" src="{{asset('laravel/storage/app/public/'. $detail->sertifikat_asesors)}}" width="250" height="100"></iframe> --}}
+            </td>
+        </tr>
+    @endforeach
+</table>
+
+<div class="modal-footer">
+    <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  </div>

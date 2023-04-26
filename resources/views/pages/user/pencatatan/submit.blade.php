@@ -276,7 +276,7 @@
 
                 <div class="text-right">
                     <td class="text-center">
-                        <a href="{{route('submit.status', $data->id)}}?submit_pencatatan=submit" class="btn btn-sm btn-primary">Submit <i class="icon-arrow-right14 position-right"></i></a>
+                        <a href="{{route('pencatatan.submit', $data->id)}}" class="btn btn-sm btn-primary">Submit <i class="icon-arrow-right14 position-right"></i></a>
                     </td>
                 </div>
             

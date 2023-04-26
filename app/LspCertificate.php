@@ -22,6 +22,10 @@ class LspCertificate extends Model
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
 
+    public function permohonan(){
+        return $this->belongsTo(Permohonan::class, 'permohonans_id', 'id');
+    }
+
     // public function administrations(){
     //     return $this->belongsTo(Administration::class, 'adminstrations_id', 'id');
     // }

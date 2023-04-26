@@ -21,8 +21,13 @@ class StrukturOrganisasiController extends Controller
 
     public function index(Request $request){
         // $permohonan = Permohonan::where('id', Auth::user()->id)->get();
+        $pengurus = OrganizationStructure::where('users_id', Auth::user()->id)->get();
+
+        // dd($pengurus);
         return view('pages.user.struktur_organisasi', [
             // 'item' => $permohonan
+            'item' => $pengurus,
+            'pengurus' => $pengurus->count()
         ]);
     }
 

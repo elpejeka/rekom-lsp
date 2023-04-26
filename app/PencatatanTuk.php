@@ -13,13 +13,17 @@ class PencatatanTuk extends Model
 
     protected $fillable = [
         'pencatatan_id' , 'kode_tuk', 'jenis_tuk', 'nama_tuk',
-        'alamat', 'upload_persyaratan', 'users_id'
+        'alamat', 'upload_persyaratan', 'users_id', 'provinsi'
     ];
 
     protected $hidden = [];
 
     public function pencatatanTuk(){
         return $this->belongsTo(Pencatatan::class, 'pencatatan_id', 'id');
+    }
+
+    public function propinsi(){
+        return $this->belongsTo(Propinsi::class, 'provinsi', 'id_propinsi_dagri');
     }
 
 }

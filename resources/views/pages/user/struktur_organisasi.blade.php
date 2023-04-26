@@ -16,6 +16,103 @@
 </div>
 @endsection
 @section('content')
+@if ($pengurus > 0)
+<div class="panel panel-flat">
+  <div class="panel-heading">
+    <h5 class="panel-title">Struktur Organisasi</h5>
+    <div class="heading-elements">
+      <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+              </ul>
+            </div>
+  </div>
+
+  <div class="panel-body">
+    
+  </div>
+
+  <table class="table table-lg">
+    <thead>
+        <tr>
+            <td>Data</td>
+            <td>Description</td>
+            <td>No HP</td>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+      <td>
+        Struktur Organisasi
+      </td>
+        <td colspan="2">
+        
+          <a href="{{asset('laravel/storage/app/public/'. $item[0]->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+            class="open-delete btn btn-primary btn-labeled btn-rounded">
+            <b><i class="icon-file-check"></i></b> Softcopy</a>
+        </td>
+      <tr>
+        <tr>
+            <td>Pengarah</td>
+            <td>{{$item[0]->pengarah}}</td>
+            <td>{{$item[0]->no_telp_pengarah}}</td>
+        </tr>
+        <tr>
+            <td>Pengarah</td>
+            <td>{{$item[0]->pengarah_1}}</td>
+            <td>{{$item[0]->no_telp_pengarah_1}}</td>
+        </tr>
+        <tr>
+            <td>Pengarah</td>
+            <td>{{$item[0]->pengarah_2}}</td>
+            <td>{{$item[0]->no_telp_pengarah_2}}</td>
+        </tr>
+        <tr>
+            <td>Pengarah</td>
+            <td>{{$item[0]->pengarah_3}}</td>
+            <td>{{$item[0]->no_telp_pengarah_3}}</td>
+        </tr>
+        <tr>
+            <td>Pengarah</td>
+            <td>{{$item[0]->pengarah_4}}</td>
+            <td>{{$item[0]->no_telp_pengarah_4}}</td>
+        </tr>
+        <tr>
+            <td>Ketua Pelaksana</td>
+            <td>{{$item[0]->ketua}}</td>
+            <td>{{$item[0]->no_ketua}}</td>
+        </tr>
+        <tr>
+            <td>Penanggungjawab Bagian Umum </td>
+            <td>{{$item[0]->umum}}</td>
+            <td>{{$item[0]->no_umum}}</td>
+        </tr>
+        <tr>
+            <td>Penanggungjawab Bagian Sertifikasi </td>
+            <td>{{$item[0]->sertifikasi}}</td>
+            <td>{{$item[0]->no_sertifikasi}}</td>
+        </tr>
+        <tr>
+            <td>Penanggungjawab Bagian Manajemen Mutu</td>
+            <td>{{$item[0]->manajemen_mutu}}</td>
+            <td>{{$item[0]->no_manajemen}}</td>
+        </tr>
+        <tr>
+            <td>Jumlah Karyawan LSP</td>
+            <td colspan="2">{{$item[0]->jumlah_karyawan}}</td>
+        </tr>
+        <tr>
+          <td>Action</td>
+          <td colspan="2">
+            {{-- @if($item[0]->status_submit == null) --}}
+            <a href="{{route('pengurus.edit', $item[0]->id)}}" class="btn btn-primary">Edit</  
+            {{-- @else
+            @endif   --}}
+          </td>
+      </tr>
+    </tbody>
+</table>
+</div>
+@else
 <form method="POST" class="form-horizontal" action="{{route('struktur_organisasi_store')}}" enctype="multipart/form-data">
   @csrf
   <div class="panel panel-flat">
@@ -114,7 +211,7 @@
 
              <div class="form-group">
               <div class="col-lg-12">
-                <input name="no_telp_pengarah_1" type="number" class="form-control @error('no_telp_pengarah_1') is-invalid @enderror" placeholder="Nomor Handphone" required>
+                <input name="no_telp_pengarah_1" type="number" class="form-control @error('no_telp_pengarah_1') is-invalid @enderror" placeholder="Nomor Handphone">
               </div>
               @error('no_telp_pengarah_1')
                 <span class="invalid-feedback" role="alert">
@@ -125,7 +222,7 @@
 
             <div class="form-group">
               <div class="col-lg-12">
-                <input name="no_telp_pengarah_2" type="number" class="form-control @error('no_telp_pengarah_2') is-invalid @enderror" placeholder="Nomor Handphone" required>
+                <input name="no_telp_pengarah_2" type="number" class="form-control @error('no_telp_pengarah_2') is-invalid @enderror" placeholder="Nomor Handphone">
               </div>
               @error('no_telp_pengarah_2')
                 <span class="invalid-feedback" role="alert">
@@ -136,7 +233,7 @@
 
             <div class="form-group">
               <div class="col-lg-12">
-                <input name="no_telp_pengarah_3" type="number" class="form-control @error('no_telp_pengarah_3') is-invalid @enderror" placeholder="Nomor Handphone" required>
+                <input name="no_telp_pengarah_3" type="number" class="form-control @error('no_telp_pengarah_3') is-invalid @enderror" placeholder="Nomor Handphone">
               </div>
               @error('no_telp_pengarah_3')
                 <span class="invalid-feedback" role="alert">
@@ -147,7 +244,7 @@
 
             <div class="form-group">
               <div class="col-lg-12">
-                <input name="no_telp_pengarah_4" type="number" class="form-control @error('no_telp_pengarah_4') is-invalid @enderror" placeholder="Nomor Handphone" required>
+                <input name="no_telp_pengarah_4" type="number" class="form-control @error('no_telp_pengarah_4') is-invalid @enderror" placeholder="Nomor Handphone">
               </div>
               @error('no_telp_pengarah_4')
                 <span class="invalid-feedback" role="alert">
@@ -288,7 +385,7 @@
             <fieldset>
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Struktur Organisasi</label>
+                  <label class="col-lg-3 control-label">SK Struktur Organisasi</label>
                     <div class="col-lg-9">
                         <input name="upload_persyaratan" type="file" class="file-input @error('upload_persyaratan') is-invalid @enderror"
                         data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
@@ -324,4 +421,5 @@
 
   </div>
 </form>
+@endif
 @endsection

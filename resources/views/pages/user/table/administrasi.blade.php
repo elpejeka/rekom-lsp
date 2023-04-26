@@ -42,11 +42,24 @@
     @foreach ($data as $data)
     <tbody>
       <tr>
-        <td>SK Menteri</td>
+        <td>Dokumen Upload</td>
         <td>
-          <a href="{{Storage::url($data->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+          <a href="{{asset('laravel/storage/app/public/'. $data->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
               class="open-delete btn btn-primary btn-labeled btn-rounded">
-              <b><i class="icon-file-check"></i></b> Softcopy</a></td>
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+               <a href="{{asset('laravel/storage/app/public/'. $data->akta_pendirian)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+               <a href="{{asset('laravel/storage/app/public/'. $data->bukti_kepemilikan)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+              <a href="{{asset('laravel/storage/app/public/'. $data->komitmen_asesor)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+              <a href="{{asset('laravel/storage/app/public/'. $data->surat_akreditasi)}}" target="_blank" type="button" name="btn_cek_13" 
+                class="open-delete btn btn-primary btn-labeled btn-rounded">
+                <b><i class="icon-file-check"></i></b> Softcopy</a>
+              </td>
       </tr>
         <tr>
             <td>Nama LSP</td>
@@ -100,9 +113,9 @@
           <td>Action</td>
           {{-- @if($item->status_submit ==null) --}}
           <td><a href="{{route('information.edit', $data->id)}}" class="btn btn-primary">Edit</td>
-          {{-- @else --}}
+          {{-- @else
           
-          {{-- @endif --}}
+          @endif --}}
         </tr>
     </tbody>
     @endforeach

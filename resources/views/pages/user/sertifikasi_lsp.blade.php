@@ -10,7 +10,7 @@
   <div class="breadcrumb-line">
     <ul class="breadcrumb">
       <li><a href="{{route('home')}}"><i class="icon-home2 position-left"></i> Home</a></li>
-      <li class="active">Ruang Lingkup LSP</li>
+      <li class="active">Skema Sertifikasi</li>
     </ul>
   </div>
 </div>
@@ -39,15 +39,18 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Jenis Permohonan</label>
               <div class="col-lg-9">
-                <select class="select-search" name="permohonans_id">
-                    <optgroup label="Permohonan">
+                <select class="select-search" name="permohonans_id" required>
+                    <optgroup label="PERMOHONAN">
                       @foreach ($permohonan as $pmhn)
                         @if (!$pmhn->status_submit)
-                        <option value="{{$pmhn->id}}">{{$pmhn->jenis_permohonan}}</option>
+                        <option value="{{$pmhn->id}}">{{$pmhn->jenis_permohonan}} ({{ date('d-m-Y', strtotime($pmhn->created_at)) }})</option>
                         @endif
                       @endforeach
                     </optgroup>
                 </select>
+                <span class="invalid-feedback text-sm" role="alert">
+                  *) Pastikan untuk memilih jenis permohonan pada menu permohonan terlebih dahulu.
+                </span>
               </div>
               @error('klasifikasi')
               <span class="invalid-feedback" role="alert">
@@ -113,7 +116,7 @@
                 <select class="select-search" name="klasifikasi">
                     <optgroup label="KLASIFIKASI">
                       @foreach ($data as $item)
-                        <option value="{{$item->klasifikasi}}">{{$item->klasifikasi}}</option>
+                        <option value="{{$item->klas->nama}}">{{$item->klas->nama}}</option>
                       @endforeach
                     </optgroup>
                 </select>
@@ -160,7 +163,7 @@
                 <select class="select-search" name="sub_klasifikasi">
                     <optgroup label="SUBKLASIFIKASI">
                       @foreach ($data as $item)
-                        <option value="{{$item->sub_klasifikasi}}">{{$item->sub_klasifikasi}}</option>
+                        <option value="{{$item->subklas->nama}}">{{$item->subklas->nama}}</option>
                       @endforeach
                     </optgroup>
                 </select>
@@ -205,8 +208,15 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Acuan Skema</label>
               <div class="col-lg-9">
-                  <input class="form-control @error('acuan_skema') is-invalid @enderror"  name="acuan_skema" type="text" 
-                    placeholder="SKKNI/SKK Khusus/Standar Internasional" required>
+                  {{-- <input class="form-control @error('acuan_skema') is-invalid @enderror"  name="acuan_skema" type="text" 
+                    placeholder="SKKNI/SKK Khusus/Standar Internasional" required> --}}
+                    <select class="select-search" name="acuan_skema">
+                      <optgroup label="Acuan Skema">
+                          <option value="SKKNI">SKKNI</option>
+                          <option value="SKK Khusus">SKK Khusus</option>
+                          <option value="Standar Internasional">Standar Internasional</option>
+                      </optgroup>
+                  </select>
               </div>
               @error('acuan_skema')
               <span class="invalid-feedback" role="alert">
@@ -274,25 +284,46 @@
         <th>No</th>
         <th>Kode Skema</th>
         <th>Nama Skema</th>
+        <th>Jabatan Kerja</th>
         <th>Klasifikasi</th>
         <th>Subklasifikasi</th>
         <th>Kualifikasi</th>
         <th>Jumlah Unit</th>
         <th>Acuan Skema</th>
+        <th>Dokumen</th>
+        <th>Dokumen</th>
         <th class="text-center">Actions</th>
       </tr>
     </thead>
     <tbody>
+      @php
+          $no = 1;
+      @endphp
       @foreach ($skema as $skema)
       <tr>
-        <td>#</td>
+        <td>{{$no++}}</td>
         <td>{{$skema->kode_skema}}</td>
         <td>{{$skema->nama_skema}}</td>
+        <td>{{$skema->jabker}}</td>
         <td>{{$skema->klasifikasi}}</td>
         <td>{{$skema->sub_klasifikasi}}</td>
         <td>{{$skema->kualifikasi}}</td>
         <td>{{$skema->jumlah_unit}}</td>
         <td>{{$skema->acuan_skema}}</td>
+
+         <td>
+             <a href="{{asset('laravel/storage/app/public/'. $skema->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+        </td>
+        
+            <td>
+             <a href="{{asset('laravel/storage/app/public/'. $skema->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" 
+              class="open-delete btn btn-primary btn-labeled btn-rounded">
+              <b><i class="icon-file-check"></i></b> Softcopy</a>
+        </td>
+
+        @if ($skema->status_tolak == null)
         <td class="text-center">
           <a href="{{route('edit.skema', $skema->id)}}" class="btn btn-primary" style="margin-bottom: 2px;">Edit</a>
           <form action="{{route('delete.sertifikasi', $skema->id)}}" method="post" class="d-inline">
@@ -301,8 +332,14 @@
           <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>
           </form>
         </td>
-      </tr>
-      @endforeach
+        @endif
+
+        @if ($skema->status_tolak != null)
+            <td class="text-center">
+              Permohonan Terproses
+            </td>
+        @endif
+      @endforeach 
     </tbody>
   </table>
 @endsection

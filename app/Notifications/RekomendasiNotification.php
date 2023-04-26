@@ -18,7 +18,7 @@ class RekomendasiNotification extends Notification
      */
     public function __construct($data)
     {
-        $this->data = $data; 
+        $this->data = $data;
     }
 
     /**
@@ -40,10 +40,11 @@ class RekomendasiNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = asset('//'.$this->invoice->id);
+        // $url = asset('//'.$this->invoice->id);
+        // laravel/storage/app/public'. $this->data->surat_rekomendasi
         return (new MailMessage)
                     ->line('Surat Rekomendasi Lisensi sudah dapat di download')
-                    ->action('Download', url('/dadadad'))
+                    ->action('Download', url('/laravel/storage/app/public/'. $this->data['surat_rekomendasi']))
                     ->line('Terimakasih sudah menggunakan Aplilkasi kami!');
     }
 

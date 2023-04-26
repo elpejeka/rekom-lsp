@@ -11,10 +11,6 @@
         #halaman{
             width: auto; 
             height: auto; 
-            word-wrap:break-word;
-            font-size: 12px;
-            font-style: normal;
-            font-family: 'Times New Roman', Times, serif;
         }
 
     </style>
@@ -46,11 +42,17 @@
             <br/>
     
             <p>Berdasarkan pemeriksaan terhadap data dokumen permohonan dari Pemohon Rekomendasi 
-                Lisensi {{$permohonan->jenis_permohonan}} Ruang
+                Lisensi Baru/Perpanjangan/Penambahan Ruang
                 Lingkup*) LSP yang dilaksanakan di Jakarta pada tanggal
-                {{date('d', strtotime($data->updated_at)) }} bulan {{date('F', strtotime($data->updated_at)) }} tahun {{date('Y', strtotime($data->updated_at)) }} diusulkan untuk
-                diberikan Rekomendasi Lisensi LSP sesuai dengan ruang lingkup yang dinyatakan telah memenuhi hasil kesesuaian, 
-                dengan rincian pemeriksaan sebagai berikut :
+                {{date('d', strtotime($data->updated_at)) }} bulan {{date('F', strtotime($data->updated_at)) }} tahun {{date('Y', strtotime($data->updated_at)) }} diusulkan untuk:</p>
+
+            <p style="text-align:center; font-weight:bold" >
+                diberikan / <strike>ditolak</strike> *)
+            </p>
+
+            <p>
+                Rekomendasi Lisensi LSP sesuai dengan ruang lingkup lisensi sebagai
+                berikut:
             </p>
 
             <table class="table table-bordered">
@@ -58,31 +60,22 @@
                   <tr>
                     <th scope="col">No</th>
                     <th scope="col">Skema Sertifikasi</th>
-                    <th scope="col">Jabatan Kerja</th>
-                    <th scope="col">Acuan Skema Sertifikasi</th>
                     <th scope="col">Klasifikasi</th>
                     <th scope="col">Subklasifikasi</th>
                     <th scope="col">Kualifikasi</th>
-                    <th scope="col">Hasil Kesesuaian</th>
                   </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $no=1;
-                    @endphp
+                    <?php $no=0 ?>
                     @foreach ($data->sertifikat_lsp as $item)   
-                     @if ($item->kesesuaian == 1)
+                    <?php $no++ ?>
                      <tr>
-                        <td>{{$no++}}</td>
-                        <td>{{$item->nama_skema}}</td>
-                        <td>{{$item->jabker}}</td>
-                        <td>{{$item->acuan_skema}}</td>
-                        <td>{{$item->klasifikasi}}</td>
-                        <td>{{$item->sub_klasifikasi}}</td>
-                        <td>{{$item->kualifikasi}}</td>
-                        <td>{{$item->kesesuaian}}</td>
-                    </tr>
-                     @endif
+                         <td>{{$no}}</td>
+                         <td>{{$item->nama_skema}}</td>
+                         <td>{{$item->klasifikasi}}</td>
+                         <td>{{$item->sub_klasifikasi}}</td>
+                         <td>{{$item->kualifikasi}}</td>
+                     </tr>
                  @endforeach
                 </tbody>
               </table>

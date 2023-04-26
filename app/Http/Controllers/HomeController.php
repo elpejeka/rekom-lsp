@@ -11,6 +11,7 @@ use App\OrganizationStructure;
 use App\Asesor;
 use App\User;
 use App\Permohonan;
+use App\TerimaPermohonan;
 use Auth;
 
 class HomeController extends Controller
@@ -44,10 +45,11 @@ class HomeController extends Controller
         $jumlah_masuk = Permohonan::whereNotNull('status_submit')->get();
         $jumlah_proses = Permohonan::whereNotNull('status_kelengkapan')->get();
         $jumlah_selesai = Permohonan::whereNotNull('status_verifikasi')->get();
+        $portal = TerimaPermohonan::all();
 
         // dd($permohonan);
 
-         return view('home', [
+         return view('home_1', [
              'data' => $data,
              'kualifikasi' => $kualifikasi,
              'organisasi' => $organisasi,
@@ -58,7 +60,8 @@ class HomeController extends Controller
              'permohonan' => $permohonan,
              'jumlah_masuk' => $jumlah_masuk,
              'jumlah_proses' => $jumlah_proses,
-             'jumlah_selesai' => $jumlah_selesai
+             'jumlah_selesai' => $jumlah_selesai,
+             'portal' => $portal
          ]);
      }
 

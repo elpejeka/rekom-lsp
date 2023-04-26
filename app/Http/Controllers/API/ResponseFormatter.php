@@ -34,6 +34,3 @@ class ResponseFormatter{
         return response()->json(self::$response, self::$response['status']['code']);
     } 
 }
-
-// 45069316375
-// 537620230841

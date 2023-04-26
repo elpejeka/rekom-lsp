@@ -42,7 +42,9 @@
               <div class="col-lg-9">
                 <select class="select-search" name="pencatatan_id">
                     @foreach ($permohonan as $item)
-                        <option value="{{$item->id}}">{{$item->permohonan}}</option>
+                      @if ($loop->first)
+                        <option value="{{$item->id}}">{{$item->permohonan}} </option>
+                      @endif
                     @endforeach
                 </select>
               </div>
@@ -77,6 +79,42 @@
                 @enderror
             </div>
 
+            <div class="form-group">
+              <label class="col-lg-3 control-label">NPWP</label>
+                  <div class="col-lg-9">
+                    <input type="text" class="form-control @error('npwp') is-invalid @enderror" name="npwp" required>
+                  </div>
+                  @error('npwp')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Email</label>
+                  <div class="col-lg-9">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" required>
+                  </div>
+                  @error('email')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">No Handphone</label>
+                  <div class="col-lg-9">
+                    <input type="number" class="form-control @error('no_telpon') is-invalid @enderror" name="no_telpon" required>
+                  </div>
+                  @error('no_telpon')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
 
 
             
@@ -87,16 +125,47 @@
         <div class="col-md-6">
           <fieldset>
             
-            <div class="form-group">
+            {{-- <div class="form-group">
               <label class="col-lg-3">Nomor Registrasi Asesor Di LPJK</label>
                   <div class="col-lg-9">
-                    <input type="text" class="form-control @error('no_registrasi_asesor') is-invalid @enderror" name="no_registrasi_asesor" required>
+                    <input type="text" class="form-control @error('no_registrasi_asesor') is-invalid @enderror" name="no_registrasi_asesor">
                   </div>
                   @error('no_registrasi_asesor')
                   <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                   </span>
                 @enderror
+            </div> --}}
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Provinsi</label>
+              <div class="col-lg-9">
+                <select class="select-search" name="provinsi" id="provinsi">
+                    <option value="">Pilih Provinsi</option>
+                @foreach ($propinsi as $prov)
+                  <option value="{{$prov->id_propinsi_dagri}}">{{$prov->Nama}}</option>
+                @endforeach
+                </select>
+              </div>
+              @error('provinsi')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Kabupaten / Kota</label>
+              <div class="col-lg-9">
+                <select class="select-search" name="kab_kota" id="kab_kota">
+                  <option value="">Pilih Kabupaten / Kota</option>
+                </select>
+              </div>
+              @error('kab_kota')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
             </div>
 
             
@@ -104,6 +173,7 @@
               <label class="col-lg-3 control-label">Alamat</label>
                   <div class="col-lg-9">
                     <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" required>
+                    <input type="hidden" class="form-control" name="nama_lsp" value="{{$lsp->nama}}">
                   </div>
                   @error('alamat')
                   <span class="invalid-feedback" role="alert">
@@ -116,8 +186,8 @@
               <label class="col-lg-3 control-label">Status Asesor</label>
               <div class="col-lg-9">
                 <select class="select-search" name="status_asesor">
-                        <option value="Tetap">Tetap</option>
-                        <option value="Tidak Tetap">Tidak Tetap</option>
+                        <option value="Internal">Internal</option>
+                        <option value="External">External</option>
                 </select>
               </div>
               @error('status_asesor')
@@ -125,6 +195,49 @@
                   <strong>{{ $message }}</strong>
                 </span>
               @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Tempat Lahir</label>
+              <div class="col-lg-9">
+                <select class="select-search" name="tempat_lahir">
+                    <option value="">Pilih Provinsi</option>
+                @foreach ($propinsi as $prov)
+                  <option value="{{$prov->id_propinsi_dagri}}">{{$prov->Nama}}</option>
+                @endforeach
+                </select>
+              </div>
+              @error('provinsi')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
+
+            
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Tanggal Lahir</label>
+                  <div class="col-lg-9">
+                    <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror" name="tgl_lahir" required>
+                  </div>
+                  @error('tgl_lahir')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+            </div>
+
+             
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Pendidikan</label>
+                  <div class="col-lg-9">
+                    <input type="text" class="form-control @error('pendidikan') is-invalid @enderror" name="pendidikan" required>
+                  </div>
+                  @error('pendidikan')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
             </div>
         
             
@@ -161,8 +274,12 @@
         <th>No</th>
         <th>Nama Asesor</th>
         <th>Alamat</th>
+        <th>Email</th>
+        <th>Tanggal Lahir/th>
+        <th>Pendidikan</th>
         <th>Status Asesor</th>
-        <th>Nomor Registrasi Asesor</th>
+        <th>Nomor Registrasi Asesor LPJK</th>
+        <th>Status</th>
         <th class="text-center">Actions</th>
       </tr>
     </thead>
@@ -175,24 +292,46 @@
         <td>{{$no++}}</td>
         <td>{{$item->nama_asesor}}</td>
         <td>{{$item->alamat}}</td>
+        <td>{{$item->email}}</td>
+        <td>{{$item->tangal_lahir}}</td>
+        <td>{{$item->pendidikan}}</td>
         <td><span class="label label-success">{{$item->status_asesor}}</span></td>
         <td>{{$item->no_registrasi_asesor}}</td>
+        <td>
+          @if($item->approve == null)
+          <span class="label label-primary">Not Approve</span>
+          @endif
+          @if($item->approve == 1)
+          <span class="label label-success">Approved</span>
+          @endif
+        </td>
+        @if ($item->approve_at == null)
         <td class="text-center">
-          <a href="{{route('pencatatan.asesor.edit', $item->slug)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
-          <a href="{{route('pencatatan.sertifikat.asesor', $item->slug)}}" class="btn btn-sm btn-primary"><i class="icon-plus2" aria-hidden="true"></i></a>
-          <a href="#mymodal"
-          data-remote="{{route('sertifikat.show', $item->slug)}}" 
-          data-toggle="modal"
-          data-target="#mymodal"
-          data-title="Detail Asesor {{$item->nama_asesor}}"
-          class="btn btn-sm btn-info">
-      <i class="icon-eye2"></i></a>
+          <a href="{{route('pencatatan.asesor.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
+          <a href="{{route('pencatatan.sertifikat.asesor', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-plus2" aria-hidden="true"></i></a>
+          <a data-toggle="modal" id="smallButton" data-target="#smallModal"
+                            data-attr="{{ route('sertifikat.show', $item->id) }}" title="show" class="btn btn-sm btn-info">
+                            <i class="icon-eye2"></i></a>
           <form action="{{route('pencatatan.asesor.delete', $item->id)}}" method="post" class="d-inline mt-2">
             @csrf
             @method('delete')
           <button class="btn btn-danger btn-sm"><i class="icon-trash"></i></button>
           </form>
+            <a href="{{route('ext.index', $item->id)}}" class="btn btn-sm btn-primary mt-5">Dokumen Perjanjian</a>
         </td>
+        @endif
+        @if ($item->approve_at != null)
+        <td class="text-center">
+        <a href="{{route('pencatatan.asesor.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
+        <a href="{{route('pencatatan.sertifikat.asesor', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-plus2" aria-hidden="true"></i></a>
+        <a data-toggle="modal" id="smallButton" data-target="#smallModal"
+                            data-attr="{{ route('sertifikat.show', $item->id) }}" title="show" class="btn btn-sm btn-info">
+                            <i class="icon-eye2"></i></a>
+        <a href="javascript:void(0)" onclick="updateAsesor({{$item->id}})" class="btn btn-danger"><i class="icon-trash"></i></a>
+        <a href="{{route('qr.surat', $item->id)}}" class="btn btn-sm btn-primary mt-5">Surat Pencatatan Asesor</a>
+            <a href="{{route('ext.index', $item->id)}}" class="btn btn-sm btn-primary mt-5">Dokumen Perjanjian</a>
+        </td>
+        @endif
       </tr> 
       @endforeach
     </tbody>
@@ -201,17 +340,26 @@
 @endsection
 
 @push('addon-script')
-<script>
-  jQuery(document).ready(function($){
-      $('#mymodal').on('show.bs.modal', function(e){
-          var button = $(e.relatedTarget);
-          var modal = $(this);
-          modal.find('.modal-body').load(button.data("remote"));
-          modal.find('.modal-title').html(button.data("title"));
-      });
-  });
-</script>
 
+<div class="modal" id="smallModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title-asesor"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body-asesor" id="smallBody">
+                <i class="fa fa-spinner fa-spin"></i>
+
+            </div>
+            <div class="modal-footer-asesor">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal" id="mymodal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
@@ -228,4 +376,136 @@
       </div>
   </div>
 </div>
+
+<div class="modal fade" id="keabsahanAsesor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Keabsahan Asesor LSP</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form id="asesorForm" enctype="multipart/form-data">
+              @csrf
+              <input type="text" name="idAsesor" id="idAsesor" hidden/>
+              <div class="form-group">
+                  <label for="namaSkema">Nama Asesor</label>
+                  <input type="text" name="nama_asesor" id="asesor" class="form-control" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="kesesuaian">Surat Keterangan Penghapusan</label>
+                  <input type="file" name="surat_penghapusan" id="surat_penghapusan" class="form-control" />
+              </div>   
+      </div>
+          <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save changes</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).on('click', '#smallButton', function(event) {
+            event.preventDefault();
+            let href = $(this).attr('data-attr');
+            $.ajax({
+                url: href,
+                beforeSend: function() {
+                    $('#loader').show();
+                },
+                // return the result
+                success: function(result) {
+                    $('#smallModal').modal("show");
+                    $('#smallBody').html(result).show();
+                },
+                complete: function() {
+                    $('#loader').hide();
+                },
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                    $('#loader').hide();
+                },
+                timeout: 8000
+            })
+        });
+</script>
+
+
+<script>
+  $('#provinsi').change(function(){
+    var kode = $(this).val();
+    console.log(kode)
+    if(kode){
+      $.ajax({
+        type : "GET",
+        url : "/kab_kota?id_propinsi_dagri="+kode,
+        dataType : 'JSON',
+        success:function(res){
+          console.log(res)
+          if(res){
+            $('#kab_kota').empty();
+            $("#kab_kota").append('<option>---Pilih Kabupaten / Kota---</option>');
+            $.each(res,function(nama_kabupaten_dagri,id_kabupaten_dagri){
+                  $("#kab_kota").append('<option value="'+id_kabupaten_dagri+'">'+nama_kabupaten_dagri+'</option>');
+            });
+          }else{
+            $('#kab_kota').empty();
+          }
+        }
+      })
+    }else{
+      $('#kab_kota').empty();
+    }
+  })
+
+  function updateAsesor(id){
+          var noPencatatan = $("#pencatatan").val()
+            $.get('/pencatatan/asesor-approve/'+id, function(asesor){
+              console.log(asesor)
+                $("#idAsesor").val(asesor.id);
+                $("#asesor").val(asesor.nama_asesor);
+                $("#keabsahanAsesor").modal("toggle");
+      })
+  }
+
+  $('#asesorForm').submit(function(e){
+    e.preventDefault();
+    var id = $('#idAsesor').val();
+    var nama_asesor = $('#asesor').val();
+    var surat_penghapusan = $('#surat_penghapusan')[0].files[0]; // get the selected file
+    var _token = $('input[name=_token]').val();
+
+    console.log(_token)
+
+    var formData = new FormData();
+    formData.append('id', id);
+    formData.append('nama_asesor', nama_asesor);
+    formData.append('surat_penghapusan', surat_penghapusan);
+    formData.append('_token', _token);
+
+    $.ajax({
+        url: "{{ route('asesor.penghapusan') }}",
+        type: 'PUT',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response){
+            $("#keabsahanAsesor").modal('toggle');
+            $("#asesorForm")[0].reset();
+        },
+        error: function(xhr, status, error){
+            console.log(xhr.responseText);
+        }
+    });
+  });
+</script>
+
+
+
+
+
 @endpush

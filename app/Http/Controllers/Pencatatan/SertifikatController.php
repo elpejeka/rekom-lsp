@@ -8,18 +8,23 @@ use Illuminate\Http\Request;
 use App\PencatatanAsesor;
 use App\PencatatanSertifikat;
 use App\Qualification;
+use App\Klasifikasi;
 use Auth;
 
 class SertifikatController extends Controller
 {
-    public function index($slug){
+    public function index($id){
         $kualifikasi = Qualification::where('users_id', Auth::user()->id)->get();     
-        $asesor = PencatatanAsesor::where('slug', $slug)->firstOrFail();
-        $sertifikat = PencatatanSertifikat::where('users_id', Auth::user()->id)->get(); 
+        $asesor = PencatatanAsesor::find($id);
+        $sertifikat = PencatatanSertifikat::with('klas', 'subklas')->where('asesor_id', $asesor->id)->get(); 
+
+        // dd($sertifikat);
+        $klasifikasi = Klasifikasi::all();
         return view('pages.user.pencatatan.sertifikat', [
             'asesor' => $asesor,
             'data' => $kualifikasi,
-            'sertifikat' => $sertifikat
+            'sertifikat' => $sertifikat,
+            'klas' => $klasifikasi
         ]);
     }
 
@@ -50,15 +55,17 @@ class SertifikatController extends Controller
     public function edit($id){
         $data = PencatatanSertifikat::findOrFail($id);
         $kualifikasi = Qualification::where('users_id', Auth::user()->id)->get();     
+        $klasifikasi = Klasifikasi::all();
 
         return view('pages.user.pencatatan.edit.edit-sertifikat', [
             'data' => $data,
             'klasifikasi' => $kualifikasi,
+            'klas' => $klasifikasi
         ]);
     }
 
     public function update(Request $request, $id){
-        $item = PencatatanSertifikat::findOrFail($id);
+        $item = PencatatanSertifikat::find($id);
         $data = $request->all();
 
         if($request->hasFile('ska')){
@@ -79,6 +86,7 @@ class SertifikatController extends Controller
 
         $item->update($data);
 
+        return redirect()->route('pencatatan.asesor')->with('success', 'Data Sertifikat Berhasil di update');
     }
 
     public function destroy($id){

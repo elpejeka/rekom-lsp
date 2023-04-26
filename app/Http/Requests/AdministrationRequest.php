@@ -35,7 +35,7 @@ class AdministrationRequest extends FormRequest
             'status_kepemilikan' => 'required|max:255',
             'no_telp' => 'required|max:255',
             'website' => 'required|max:255',
-            'email' => 'required|max:255',
+            'email' => 'required|max:255, unique:users',
             'jumlah_skema' => 'required|max:255',
             'upload_persyaratan' => 'required',
             'akta_pendirian' => 'required',

@@ -7,10 +7,14 @@ use Illuminate\Http\Request;
 use App\Qualification;
 use App\Permohonan;
 use App\Administration;
+use App\Subklasifikasi;
+use App\Klasifikasi;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class KualifikasiController extends Controller
-{
+{   
+
 
     public function __construct()
     {
@@ -18,11 +22,14 @@ class KualifikasiController extends Controller
     }
 
     public function index(Request $request){
-        $kualifikasi = Qualification::where('users_id', Auth::user()->id)->get();
+        $kualifikasi = Qualification::with('klas', 'subklas')->where('users_id', Auth::user()->id)->get();
+        // dd($kualifikasi);
         $permohonan = Permohonan::where('id', Auth::user()->id)->get();
+        $klasifikasi = Klasifikasi::all();
         return view('pages.user.kualifikasi', [
             'data' => $kualifikasi,
-            'item' => $permohonan
+            'item' => $permohonan,
+            'klas' => $klasifikasi
         ]);
     }
 
@@ -54,5 +61,10 @@ class KualifikasiController extends Controller
             // 'item' => $permohonan
             
         ]);
+    }
+
+    public function getSubklas(Request $request){
+        $subklas = Subklasifikasi::where("klas", $request->kode)->pluck('kode_sub','nama');
+        return response()->json($subklas);
     }
 }

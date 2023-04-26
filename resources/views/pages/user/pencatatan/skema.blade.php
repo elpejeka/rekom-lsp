@@ -41,7 +41,9 @@
               <div class="col-lg-9">
                 <select class="select-search" name="pencatatan_id">
                     @foreach ($permohonan as $item)
+                      @if ($loop->first)
                         <option value="{{$item->id}}">{{$item->permohonan}}</option>
+                      @endif
                     @endforeach
                 </select>
               </div>
@@ -230,6 +232,28 @@
             @enderror
             </div>
 
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Jenjang</label>
+                  <div class="col-lg-9">
+                    <select class="bootstrap-select" multiple="multiple" name="jenjang[]" title="Pilih Jenjang" data-width="100%" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                  </div>
+                  @error('jumlah_unit')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+          </div>
+
           <div class="form-group">
               <label class="col-lg-3 control-label">Jumlah Unit Kompetensi</label>
                   <div class="col-lg-9">
@@ -256,7 +280,7 @@
             </div>
 
             <div class="form-group">
-              <label class="col-lg-3 control-label">Upload Acuan Skema</label>
+              <label class="col-lg-3 control-label">Upload Skema Sertifikasi</label>
                 <div class="col-lg-9">
                     <input name="upload_persyaratan" type="file" class="file-input @error('upload_persyaratan') is-invalid @enderror"
                     data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
@@ -315,6 +339,7 @@
         <th>Klasifikasi</th>
         <th>Subklasifikasi</th>
         <th>Kualifikasi</th>
+        <th>Jenjang</th>
         <th>Jumlah Unit</th>
         <th>Acuan Skema</th>
         <th>Dokumen</th>
@@ -331,6 +356,7 @@
         <td>{{$skema->klasifikasi}}</td>
         <td>{{$skema->sub_klasifikasi}}</td>
         <td>{{$skema->kualifikasi}}</td>
+        <td>{{$skema->jenjang}}</td>
         <td>{{$skema->jumlah_unit}}</td>
         <td>{{$skema->acuan_skema}}</td>
         <td>

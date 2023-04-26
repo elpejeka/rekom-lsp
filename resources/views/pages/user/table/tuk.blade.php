@@ -30,7 +30,7 @@
   <div class="panel-body">
     
   </div>
-  @if($item->submit_status == null)
+  {{-- @if($item->submit_status == null) --}}
   <table class="table datatable-show-all">
     <thead>
       <tr>
@@ -48,7 +48,7 @@
             <td>{{$item->nama_tuk}}</td>
             <td>{{$item->alamat}}</td>
             <td>
-                <a href="{{Storage::url($item->cakupan)}}" target="_blank" type="button" name="btn_cek_13" 
+                <a href="{{asset('laravel/storage/app/public/'.$item->cakupan)}}" target="_blank" type="button" name="btn_cek_13" 
                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                     <b><i class="icon-file-check"></i></b> Softcopy</a>
               </td>
@@ -63,7 +63,7 @@
       @endforeach
     </tbody>
   </table>
-  @else
+  {{-- @else
   <table class="table datatable-show-all">
     <thead>
       <tr>
@@ -92,6 +92,6 @@
       @endforeach
     </tbody>
   </table>
-  @endif
+  @endif --}}
 </div>
 @endsection

@@ -41,6 +41,17 @@
     </thead>
     @foreach ($items as $data)
     <tbody>
+      <tr>
+      <td>
+        Struktur Organisasi
+      </td>
+        <td>
+        
+          <a href="{{asset('laravel/storage/app/public/'. $data->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+            class="open-delete btn btn-primary btn-labeled btn-rounded">
+            <b><i class="icon-file-check"></i></b> Softcopy</a>
+        </td>
+      <tr>
         <tr>
             <td>Pengarah</td>
             <td>{{$data->pengarah}}</td>
@@ -84,10 +95,10 @@
         <tr>
           <td>Action</td>
           <td>
-            @if($item->status_submit == null)
+            {{-- @if($item->status_submit == null) --}}
             <a href="{{route('pengurus.edit', $data->id)}}" class="btn btn-primary">Edit</  
-            @else
-            @endif  
+            {{-- @else
+            @endif   --}}
           </td>
       </tr>
     </tbody>

@@ -26,7 +26,10 @@ class PencatatanRequest extends FormRequest
         return [
             'upload_persyaratan' => 'required',
             'sk_lisensi' => 'required',
-            'sertifikat' => 'required'
+            'sertifikat' => 'required',
+            'foto_lsp' => 'required',
+            'logo_lsp' => 'required',
+            'jumlah_skema' => 'required'
         ];
     }
 }

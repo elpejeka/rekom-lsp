@@ -58,11 +58,15 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Klasifikasi</label>
               <div class="col-lg-9">
-                <select class="select-search" name="klasifikasi">
+                <select class="select-search" name="klasifikasi" id="klasifikasi">
                     <optgroup label="KLASIFIKASI">
-                      @foreach ($data as $item)
-                        <option value="{{$item->klasifikasi}}">{{$item->klasifikasi}}</option>
+                      <option value="">Pilih Klasifikasi</option>
+                      @foreach ($klas as $klasifikasi)
+                      <option value="{{$klasifikasi->kode}}">{{$klasifikasi->nama}}</option>
                       @endforeach
+                      {{-- @foreach ($data as $item)
+                        <option value="{{$item->klasifikasi}}">{{$item->klasifikasi}}</option>
+                      @endforeach --}}
                     </optgroup>
                 </select>
               </div>
@@ -76,11 +80,12 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Subklasifikasi</label>
               <div class="col-lg-9">
-                <select class="select-search" name="subklasifikasi">
+                <select class="select-search" name="subklasifikasi" id="subklas">
                     <optgroup label="SUBKLASIFIKASI">
-                      @foreach ($data as $item)
+                      <option value="">Pilih Subklasifikasi</option>
+                      {{-- @foreach ($data as $item)
                         <option value="{{$item->sub_klasifikasi}}">{{$item->sub_klasifikasi}}</option>
-                      @endforeach
+                      @endforeach --}}
                     </optgroup>
                 </select>
               </div>
@@ -98,14 +103,14 @@
 
       <div class="row">
         <div class="col-md-12">
-          <legend class="text-semibold"><i class="icon-reading position-left"></i> SKA Asesor</legend>
+          <legend class="text-semibold"><i class="icon-reading position-left"></i> Sertifikat Kompetensi Kerja Asesor (SKA/SKT/SKK)</legend>
         </div>
 
         <div class="col-md-6">
           <fieldset>
 
             <div class="form-group">
-              <label class="col-lg-3 control-label">No Sertifikat</label>
+              <label class="col-lg-3 control-label">Nomor Registrasi</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control @error('no_sertifikat') is-invalid @enderror" name="no_sertifikat" required>
               </div>
@@ -116,7 +121,7 @@
             @enderror
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label class="col-lg-3 control-label">NRKA</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control @error('nrka') is-invalid @enderror" name="nrka" required>
@@ -126,7 +131,7 @@
                 <strong>{{ $message }}</strong>
               </span>
             @enderror
-            </div>
+            </div> -->
 
             
 
@@ -174,9 +179,22 @@
           <fieldset>
 
             <div class="form-group">
-              <label class="col-lg-3 control-label">No Sertifikat</label>
+              <label class="col-lg-3 control-label">No Registrasi Asesor</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control @error('no_sertifikat_asesor') is-invalid @enderror" name="no_sertifikat_asesor" required>
+                <input type="text" class="form-control @error('no_reg_asesor') is-invalid @enderror" name="no_reg_asesor" value="MET."  required>
+              </div>
+              @error('no_reg_asesor')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+            @enderror
+            </div>
+
+            
+            <div class="form-group">
+              <label class="col-lg-3 control-label">No Sertifikat Asesor</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control @error('no_sertifikat_asesor') is-invalid @enderror" name="no_sertifikat_asesor"  required>
               </div>
               @error('no_sertifikat_asesor')
               <span class="invalid-feedback" role="alert">
@@ -260,9 +278,9 @@
     <thead>
       <tr>
         <th>No</th>
-        <th>Klasifikasi</th>
-        <th>Subklasifikasi</th>
-        <th>NRKA</th>
+        <!-- <th>Klasifikasi</th>
+        <th>Subklasifikasi</th> -->
+        <th>No Registrasi Asesor</th>
         <th>No SKK / SKA</th>
         <th>Dokumen</th>
         <th>No Sertifikat</th>
@@ -278,9 +296,9 @@
       @foreach ($sertifikat as $item)
       <tr>
         <td>{{$no++}}</td>
-        <td>{{$item->klasifikasi}}</td>
-        <td>{{$item->subklasifikasi}}</td>
-        <td>{{$item->nrka}}</td>
+        {{-- <td>{{$item->klas->nama}}</td>
+        <td>{{$item->subklas->nama}}</td> --}}
+        <td>{{$item->no_reg_asesor}}</td>
         <td>{{$item->no_sertifikat}}</td>
         <td>
           <a href="{{asset('laravel/storage/app/public/'. $item->ska)}}" target="_blank" type="button" name="btn_cek_13" 
@@ -308,3 +326,33 @@
   </table>
 </div>
 @endsection
+
+@push('addon-script')
+  <script>
+    $('#klasifikasi').change(function(){
+      var kode = $(this).val();
+      console.log(kode)
+      if(kode){
+        $.ajax({
+          type : "GET",
+          url : "/lsp/get-subklas?kode="+kode,
+          dataType : 'JSON',
+          success:function(res){
+            console.log(res)
+            if(res){
+              $('#subklas').empty();
+              $("#subklas").append('<option>---Pilih Subklas---</option>');
+              $.each(res,function(nama,kode_sub){
+                    $("#subklas").append('<option value="'+kode_sub+'">'+nama+'</option>');
+              });
+            }else{
+              $('#subklas').empty();
+            }
+          }
+        })
+      }else{
+        $('#subklas').empty();
+      }
+    })
+  </script>
+@endpush

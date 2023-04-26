@@ -8,31 +8,35 @@
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-	<link href="{{url('/aset/css/icons/icomoon/styles.css')}}" rel="stylesheet" type="text/css">
-	<link href="{{url('/aset/css/bootstrap.css')}}" rel="stylesheet" type="text/css">
-	<link href="{{url('/aset/css/core.css')}}" rel="stylesheet" type="text/css">
-	<link href="{{url('/aset/css/components.css')}}" rel="stylesheet" type="text/css">
-	<link href="{{url('/aset/css/colors.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{url('aset/css/extras/animate.min.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{secure_url('/public/aset/css/icons/icomoon/styles.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{secure_url('/public/aset/css/bootstrap.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{secure_url('/public/aset/css/core.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{secure_url('/public/aset/css/components.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{secure_url('/public/aset/css/colors.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{secure_url('/public/aset/css/extras/animate.min.css')}}" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
-	<script type="text/javascript" src="{{url('/aset/js/plugins/loaders/pace.min.js')}}"></script>
-	<script type="text/javascript" src="{{url('/aset/js/core/libraries/jquery.min.js')}}"></script>
-	<script type="text/javascript" src="{{url('/aset/js/core/libraries/bootstrap.min.js')}}"></script>
-	<script type="text/javascript" src="{{url('/aset/js/plugins/loaders/blockui.min.js')}}"></script>
-	<script type="text/javascript" src="{{url('/aset/js/plugins/ui/nicescroll.min.js')}}"></script>
-	<script type="text/javascript" src="{{url('/aset/js/plugins/ui/drilldown.js')}}"></script>
-	<script type="text/javascript" src="{{url('/aset/js/plugins/ui/fab.min.js')}}"></script>
+	<script type="text/javascript" src="{{secure_url('/public/aset/js/plugins/loaders/pace.min.js')}}"></script>
+	<script type="text/javascript" src="{{secure_url('/public/aset/js/core/libraries/jquery.min.js')}}"></script>
+	<script type="text/javascript" src="{{secure_url('/public/aset/js/core/libraries/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="{{secure_url('/public/aset/js/plugins/loaders/blockui.min.js')}}"></script>
+	<script type="text/javascript" src="{{secure_url('/public/aset/js/plugins/ui/nicescroll.min.js')}}"></script>
+	<script type="text/javascript" src="{{secure_url('/public/aset/js/plugins/ui/drilldown.js')}}"></script>
+	<script type="text/javascript" src="{{secure_url('/public/aset/js/plugins/ui/fab.min.js')}}"></script>
+	<!-- /core JS files -->
 	<!-- /core JS files -->
 
-	<!-- Theme JS files -->
-	<script type="text/javascript" src="{{('/aset/js/plugins/tables/datatables/datatables.min.js')}}"></script>
-	<script type="text/javascript" src="{{('/aset/js/plugins/forms/selects/select2.min.js')}}"></script>
+		<!-- Theme JS files -->
+	<script type="text/javascript" src="{{secure_url('/public/aset/js/plugins/tables/datatables/datatables.min.js')}}"></script>
+	<script type="text/javascript" src="{{secure_url('/public/aset/js/plugins/forms/selects/select2.min.js')}}"></script>
 
-	<script type="text/javascript" src="{{('/aset/js/core/app.js')}}"></script>
-	<script type="text/javascript" src="{{('/aset/js/pages/datatables_basic.js')}}"></script>
+	<script type="text/javascript" src="{{secure_url('/public/aset/js/core/app.js')}}"></script>
+	<script type="text/javascript" src="{{secure_url('/public/aset/js/pages/datatables_basic.js')}}"></script>
 	<!-- /theme JS files -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
 </head>
 
@@ -44,7 +48,7 @@
 		<!-- Main navbar -->
 		<div class="navbar navbar-inverse navbar-transparent">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="index.html"><img src="{{url('aset/images/logo.png')}}" alt=""></a>
+				<a class="navbar-brand" href="index.html"><img src="{{secure_url('/public/aset/images/logo.png')}}" alt=""></a>
 
 				<ul class="nav navbar-nav pull-right visible-xs-block">
 					<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-grid3"></i></a></li>
@@ -89,106 +93,80 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="table-responsive mb-5">
-                            <table class="table table-lg">
-                                <thead>
-                                    <tr>
-                                        <td>Data</td>
-                                        <td>Description</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Nama LSP</td>
-                                        <td>{{$data->administrations->nama}}</td>
-                                    </tr>
-                                    <tr>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="table-responsive mb-5">
+                                    <table class="table table-lg">
+                                        <thead>
+                                            <tr>
+                                                <td>Data</td>
+                                                <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Nama LSP</td>
+                                                <td>{{$data->administrations->nama}}</td>
+                                            </tr>
+                                            <tr>
 
-                                        <div class="breadcrumb-line">
-                                        <td>Asosiasi Pembentuk</td>
-                                        <td>
-                                        <span class="badge badge-info">{{$item->administrasi->unsur->asosiasi}}</span>
-                                        <span class="badge badge-info">{{$item->administrasi->unsur1->asosiasi}}</span>
-                                        <span class="badge badge-info">{{$item->administrasi->unsur2->asosiasi}}</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td>{{$data->administrations->email}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Website</td>
-                                        <td>{{$data->administrations->website}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>No Telepon</td>
-                                        <td>{{$data->administrations->no_telp}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kategori</td>
-                                        <td>{{$data->administrations->kategori_lsp}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jenis LSP</td>
-                                        <td>{{ucfirst($data->administrations->jenis_lsp)}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kategori</td>
-                                        <td>{{$data->administrations->kategori_lsp}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alamat</td>
-                                        <td>{{$data->administrations->alamat}}</td>
-                                    </tr>
+                                                <div class="breadcrumb-line">
+                                                <td>Asosiasi Pembentuk</td>
+                                                <td>
+                                                <span class="badge badge-info">{{$item->administrasi->unsur->asosiasi}}</span>
+                                                <span class="badge badge-info">{{$item->administrasi->unsur1->asosiasi}}</span>
+                                                <span class="badge badge-info">{{$item->administrasi->unsur2->asosiasi}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>No SK</td>
+                                                <td>{{$data->no_sk}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>No Lisensi</td>
+                                                <td>{{$data->no_lisensi}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Masa Berlaku</td>
+                                                <td>{{$data->status_sk}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email</td>
+                                                <td>{{$data->administrations->email}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Website</td>
+                                                <td>{{$data->administrations->website}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>No Telepon</td>
+                                                <td>{{$data->administrations->no_telp}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jenis LSP</td>
+                                                <td>{{ucfirst($data->administrations->jenis_lsp)}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alamat</td>
+                                                <td>{{$data->administrations->alamat}}</td>
+                                            </tr>
 
-                                </tbody>
-                            </table>
-                        </div>  
+                                        </tbody>
+                                    </table>
+                                </div>  
+                            </div>
+                            <div class="col-md-4">
+                                <img src="{{asset('laravel/storage/app/public/'. $data->logo_lsp)}}" alt="Logo LSP" width="400px" height="480px" />
+                            </div>
+                        </div>
                         <div class="tabbable">
                             <ul class="nav nav-tabs nav-tabs-solid nav-justified">
-                                {{-- <li class="active"><a href="#administrasi" data-toggle="tab">Administrasi</a></li> --}}
-                                <li><a href="#sertifikasi-lsp" data-toggle="tab" data-toggle="tab">Skema LSP</a></li>   
-                                <li><a href="#asesor" data-toggle="tab">Asesor</a></li>   
-                                <li><a href="#tuk" data-toggle="tab">Tempat Uji Kompetensi</a></li>   
+                                <li><a href="#sertifikasi-lsp" data-toggle="tab" data-toggle="tab" class="bg-warning">Skema LSP</a></li>   
+                                <li><a href="#asesor" data-toggle="tab" class="bg-warning">Asesor</a></li>   
+                                <li><a href="#tuk" data-toggle="tab" class="bg-warning">Tempat Uji Kompetensi</a></li>   
                             </ul>
         
                             <div class="tab-content">
-                                {{-- <div class="tab-pane active" id="administrasi">
-                                    <div class="col-md-12">
-                                        <div class="panel panel-flat panel-collapsed">
-                                            <div class="panel-heading">
-                                                <h5 class="panel-title">
-                                                    Administrasi
-                                                </h5>
-                                                <div class="heading-elements">
-                                                    <ul class="icons-list">
-                                                        <li><a data-action="collapse"></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <div class="content-group-lg">
-                                                            <h6 class="text-semibold">#1</h6>
-                                                            <p class="content-group">Surat Permohonan</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="content-group-lg">
-                                                            <a href="{{Storage::url($data->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
-                                                                class="open-delete btn btn-primary btn-labeled btn-rounded">
-                                                                <b><i class="icon-file-check"></i></b> Softcopy</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        
-                                    </div>
-                                </div> --}}
         
                                 <div class="tab-pane active" id="sertifikasi-lsp">
                                     <div class="col-md-12">
@@ -202,13 +180,14 @@
                                                 <th>Klasifikasi</th>
                                                 <th>Subklasifikasi</th>
                                                 <th>Kualifikasi</th>
+                                                <th>Jenjang</th>
                                               </tr>
                                             </thead>
                                             <tbody>
                                                 @php
                                                 $no = 1;
                                             @endphp
-                                                @foreach ($data->skema as $item)   
+                                                @foreach ($skema as $item)   
                                               <tr>
                                                 <td>{{$no++}}</td>
                                                 <td>{{$item->kode_skema}}</td>
@@ -217,6 +196,7 @@
                                                 <td>{{$item->klasifikasi}}</td>
                                                 <td>{{$item->sub_klasifikasi}}</td>
                                                 <td>{{$item->kualifikasi}}</td>
+                                                <td>{{$item->jenjang}}</td>
                                               </tr>
                                               @endforeach
                                             </tbody>
@@ -226,31 +206,32 @@
                                 </div>
         
                                 <div class="tab-pane" id="asesor">
-                                    <table class="table datatable-basic">
+                                    <table class="table" id="dataTable">
                                         <thead>
                                           <tr>
-                                            <th>No</th>
-                                            <th>Nama Asesor</th>
-                                            <th>Alamat</th>
-                                            <th>Status Asesor</th>
-                                            <th>Nomor Registrasi Asesor</th>
-                                            <th class="text-center">Actions</th>
+                                            <td>No</td>
+                                            <td>Nama Asesor</td>
+                                            <td>Status Asesor</td>
+                                            <td>Nomor Registrasi Asesor LPJK</td>
+                                            <td>Pendidikan</td>
+                                            <td>Actions</td>
                                           </tr>
                                         </thead>
-                                        <tbody>
                                         @php
                                             $no = 1;
                                         @endphp
+                                        <tbody>
                                           @foreach ($data->asesor as $item)
+                                          @if ($item->approve == 1)
                                           <tr>
                                             <td>{{$no++}}</td>
                                             <td>{{$item->nama_asesor}}</td>
-                                            <td>{{$item->alamat}}</td>
                                             <td><span class="label label-success">{{$item->status_asesor}}</span></td>
                                             <td>{{$item->no_registrasi_asesor}}</td>
+                                            <td>{{$item->pendidikan}}</td>
                                             <td class="text-center">
                                               <a href="#mymodal"
-                                              data-remote="{{route('show.detail', $item->slug)}}" 
+                                              data-remote="{{route('show.detail', $item->id)}}" 
                                               data-toggle="modal"
                                               data-target="#mymodal"
                                               data-title="Detail Asesor {{$item->nama_asesor}}"
@@ -258,6 +239,7 @@
                                           <i class="icon-eye2"></i></a>
                                             </td>
                                           </tr> 
+                                          @endif
                                           @endforeach
                                         </tbody>
                                       </table>
@@ -265,30 +247,29 @@
         
                                 <div class="tab-pane" id="tuk">
                                     <div class="col-md-12">
-                                        <table class="table datatable-basic">
+                                        <table class="table" id="example">
                                             <thead>
                                               <tr>
-                                                <th>No</th>
-                                                <th>Kode TUK</th>
-                                                <th>Nama TUK</th>
-                                                <th>Jenis TUK</th>
-                                                <th>Alamat</th>
-                                                <th>Dokumen</th>
+                                                <td>No</td>
+                                                <td>Kode TUK</td>
+                                                <td>Nama TUK</td>
+                                                <td>Jenis TUK</td>
+                                                <td>Alamat</th>
+                                                <th>Action</th>
                                               </tr>
                                             </thead>
+                                            @php
+                                            $no = 1;
+                                        @endphp
                                             <tbody>
-                                              @foreach ($data->tuk as $item)
+                                              @foreach ($tuk as $item)
                                                   <tr>
-                                                    <td>1</td>
+                                                    <td>{{$no++}}</td>
                                                     <td>{{$item->kode_tuk}}</td>
                                                     <td>{{$item->nama_tuk}}</td>
                                                     <td>{{$item->jenis_tuk}}</td>
                                                     <td>{{$item->alamat}}</td>
-                                                    <td>
-                                                      <a href="{{Storage::url($item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
-                                                        class="open-delete btn btn-primary btn-labeled btn-rounded">
-                                                        <b><i class="icon-file-check"></i></b> Softcopy</a>
-                                                    </td>
+                                                    <td><span class="badge badge-success">Tercatat</span></td>
                                                   </tr>
                                               @endforeach
                                             </tbody>
@@ -296,8 +277,7 @@
                                     </div>
                                   
                                 </div>
-        
-        
+             
                                 </div>
                         </div>
                     
@@ -349,7 +329,19 @@
         </div>
       </div>
 
+      <!-- <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js" ></script> -->
+
     <script>
+        
+        $(document).ready(function () {
+                    $('#example').DataTable();
+                });
+
+            
+                $(document).ready(function () {
+                    $('#dataTable').DataTable();
+                });
+
         jQuery(document).ready(function($){
             $('#mymodal').on('show.bs.modal', function(e){
                 var button = $(e.relatedTarget);
@@ -358,7 +350,13 @@
                 modal.find('.modal-title').html(button.data("title"));
             });
         });
+
       </script>
+      <script>
+        $(document).ready(function () {
+                $('#example').DataTable();
+        });
+    </script>
       
 </body>
 </html>

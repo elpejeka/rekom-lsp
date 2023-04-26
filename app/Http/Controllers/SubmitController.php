@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Notifications\CheckKelengkapan;
 use App\Notifications\SubmitPermohonan;
 use App\Notifications\VerifikasiValidasi;
+use App\Notifications\DokumentasiAPI;
+use Illuminate\Support\Facades\DB;
 use App\Check;
 use App\User;
 use Carbon\Carbon;
@@ -41,6 +43,24 @@ class SubmitController extends Controller
             'data' => $user_file,
         ]);
     }
+
+    public function detailPermohonan($id){
+        $user = Permohonan::with('administrations', 'user', 'skema')->where('id', $id)->firstOrFail();
+        $user_file = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'permohonan'])
+                            ->where('id', $user->users_id)->firstOrFail();
+
+        $klasifikasi = DB::select("select k.nama , s.nama as subklas from qualifications q 
+        join klasifikasi k on q.klasifikasi = k.kode 
+        join subklasifikasi s on q.sub_klasifikasi = s.kode_sub 
+        where q.deleted_at is null and q.users_id =". $user->users_id);
+
+
+        return view('pages.user.apply', [
+            'permohonan' => $user_file,
+            'data' => $user,
+            'klasifikasi' => $klasifikasi
+        ]);
+    }
    
     public function setStatusSubmit(Request $request, $id)
     {
@@ -50,11 +70,8 @@ class SubmitController extends Controller
 
         $item = Permohonan::findOrFail($id);
         $item->status_submit = Carbon::now();
-        
-        $user = User::where('id', $item->users_id)->get();
-
         $item->save();
-        
+        $user = User::where('id', $item->users_id)->first();
         Notification::send($user, new SubmitPermohonan());
 
         return redirect('/')->with('success', 'Permohonan berhasil di submit');
@@ -104,6 +121,9 @@ class SubmitController extends Controller
         $item->status_permohonan = Carbon::now();
 
         $item->save();
+        $user = User::where('id', $item->users_id)->first();
+        
+        Notification::send($user, new DokumentasiAPI());
 
         return redirect('/validasi')->with('success', 'Permohonan berhasil di update');
     }
