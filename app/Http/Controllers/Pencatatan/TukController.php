@@ -12,6 +12,7 @@ use App\PencatatanTuk;
 use App\LogPencatatan;
 use Auth;
 use Carbon\Carbon;
+use App\Administration;
 
 class TukController extends Controller
 {
@@ -106,6 +107,12 @@ class TukController extends Controller
 
         $tuk->save();
         return response()->json($tuk);
+    }
+
+    public function unactive($id){
+        return view('pages.user.pencatatan.unactice.tuk', [
+            'tuk' => PencatatanTuk::find($id)
+        ]);
     }
 
     public function unapprove($id){

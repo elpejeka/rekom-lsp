@@ -184,6 +184,8 @@ Route::prefix('pencatatan')
                 Route::put('/asesor/update/{id}', 'AsesorController@update')->name('pencatatan.asesor.update');
                 Route::delete('/asesor/delete/{id}', 'AsesorController@destroy')->name('pencatatan.asesor.delete');
 
+                Route::get('/unactive-asesor/{id}', 'AsesorController@unactive')->name('asesor.unactive');
+                Route::put('/proses-unactive/{id}', 'AsesorController@prosesUnactive')->name('proses.unactive');
                 Route::put('/asesor/hapus', 'AsesorController@penghapusan')->name('asesor.penghapusan');
 
                 Route::get('/asesor-approve/{id}', 'AsesorController@showAsesor')->name('asesor.approve');

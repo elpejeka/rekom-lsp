@@ -182,6 +182,35 @@ class AsesorController extends Controller
         return response()->json($asesor);
     }
 
+    public function unactive($id){
+        return view('pages.user.pencatatan.unactive.asesor', [
+            'asesor' => PencatatanAsesor::find($id)
+        ]);
+    }
+
+    public function prosesUnactive(Request $request, $id){
+        $item = PencatatanAsesor::find($id);
+        $administrasi = Administration::where('users_id', Auth::user()->id)->first();
+        $data = $request->all();
+        $data['surat_penghapusan'] = $request->file('surat_penghapusan')->store('file/pencatatan/asesor/penghapusan', 'public');
+        $data['approve'] = null;
+        $data['deleted_at'] = Carbon::now();
+        $data['approved_at'] = null;
+        
+
+        $item->update($data);
+
+        $notif = new LogPencatatan;
+        $notif->nama_lsp = $administrasi->nama;
+        $notif->keterangan = 'Permohonan Pengahapusan Asesor '. $item->nama_asesor;
+        $notif->created_at = Carbon::now();
+        $notif->save();
+
+        $item->delete();
+
+        return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di hapus');    
+    }
+
     public function penghapusan(Request $request){
         $id = $request->id;
         $asesor = PencatatanAsesor::with('sertifikat')->find($id);

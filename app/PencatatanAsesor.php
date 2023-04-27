@@ -17,7 +17,7 @@ class PencatatanAsesor extends Model
     protected $fillable = [
         'pencatatan_id', 'nama_asesor', 'nik', 'alamat', 'status_asesor','users_id','slug',
         'no_registrasi_asesor', 'npwp', 'email', 'tgl_lahir', 'pendidikan', 'no_telpon',
-        'provinsi', 'kab_kota', 'tempat_lahir', 'no_reg_asesor', 'surat_penghapusan'
+        'provinsi', 'kab_kota', 'tempat_lahir', 'no_reg_asesor', 'surat_penghapusan', 'ket_hapus'
     ];
 
     protected $hidden = [

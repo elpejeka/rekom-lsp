@@ -327,7 +327,7 @@
         <a data-toggle="modal" id="smallButton" data-target="#smallModal"
                             data-attr="{{ route('sertifikat.show', $item->id) }}" title="show" class="btn btn-sm btn-info">
                             <i class="icon-eye2"></i></a>
-        <a href="javascript:void(0)" onclick="updateAsesor({{$item->id}})" class="btn btn-danger"><i class="icon-trash"></i></a>
+        <a href="{{route('asesor.unactive', $item->id)}}" class="btn btn-danger"><i class="icon-trash"></i></a>
         <a href="{{route('qr.surat', $item->id)}}" class="btn btn-sm btn-primary mt-5">Surat Pencatatan Asesor</a>
             <a href="{{route('ext.index', $item->id)}}" class="btn btn-sm btn-primary mt-5">Dokumen Perjanjian</a>
         </td>
@@ -388,7 +388,7 @@
       </div>
       <div class="modal-body">
           <form id="asesorForm" enctype="multipart/form-data">
-              @csrf
+            @csrf
               <input type="text" name="idAsesor" id="idAsesor" hidden/>
               <div class="form-group">
                   <label for="namaSkema">Nama Asesor</label>
@@ -465,7 +465,6 @@
   function updateAsesor(id){
           var noPencatatan = $("#pencatatan").val()
             $.get('/pencatatan/asesor-approve/'+id, function(asesor){
-              console.log(asesor)
                 $("#idAsesor").val(asesor.id);
                 $("#asesor").val(asesor.nama_asesor);
                 $("#keabsahanAsesor").modal("toggle");
@@ -479,16 +478,17 @@
     var surat_penghapusan = $('#surat_penghapusan')[0].files[0]; // get the selected file
     var _token = $('input[name=_token]').val();
 
-    console.log(_token)
+    console.log("token csrf : " + _token)
 
     var formData = new FormData();
     formData.append('id', id);
     formData.append('nama_asesor', nama_asesor);
     formData.append('surat_penghapusan', surat_penghapusan);
-    formData.append('_token', _token);
+    formData.append('_token', "{{ csrf_token() }}" );
 
     $.ajax({
         url: "{{ route('asesor.penghapusan') }}",
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'PUT',
         data: formData,
         contentType: false,
