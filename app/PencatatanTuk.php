@@ -13,7 +13,8 @@ class PencatatanTuk extends Model
 
     protected $fillable = [
         'pencatatan_id' , 'kode_tuk', 'jenis_tuk', 'nama_tuk',
-        'alamat', 'upload_persyaratan', 'users_id', 'provinsi'
+        'alamat', 'upload_persyaratan', 'users_id', 'provinsi',
+        'surat_penghapusan', 'ket_hapus'
     ];
 
     protected $hidden = [];

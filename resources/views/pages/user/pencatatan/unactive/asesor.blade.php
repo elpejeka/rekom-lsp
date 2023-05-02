@@ -17,7 +17,7 @@
 @endsection
 
 @section('content')
-<form class="form-horizontal" action="{{route('proses.unactive', $asesor->id)}}" method="POST" enctype="multipart/form-data">
+<form class="form-horizontal" action="{{route('proses.asesor.unactive', $asesor->id)}}" method="POST" enctype="multipart/form-data">
     @method('PUT')
   @csrf
   <div class="panel panel-flat">

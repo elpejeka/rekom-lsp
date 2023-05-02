@@ -10,19 +10,19 @@
   <div class="breadcrumb-line">
     <ul class="breadcrumb">
       <li><a href="{{route('home')}}"><i class="icon-home2 position-left"></i> Home</a></li>
-      <li class="active">Penghapusan Asesor</li>
+      <li class="active">Penghapusan TUK</li>
     </ul>
   </div>
 </div>
 @endsection
 
 @section('content')
-<form class="form-horizontal" action="{{route('proses.unactive', $asesor->id)}}" method="POST" enctype="multipart/form-data">
+<form class="form-horizontal" action="{{route('proses.tuk.unactive', $tuk->id)}}" method="POST" enctype="multipart/form-data">
     @method('PUT')
   @csrf
   <div class="panel panel-flat">
     <div class="panel-heading">
-      <h5 class="panel-title">Asesor</h5>
+      <h5 class="panel-title">Tempat Uji Kompetensi</h5>
       <div class="heading-elements">
         <ul class="icons-list">
                   <li><a data-action="collapse"></a></li>
@@ -33,15 +33,15 @@
     <div class="panel-body">
       <div class="row">
         <div class="col-md-12">
-          <legend class="text-semibold"><i class="icon-reading position-left"></i> Detail Asesor</legend>
+          <legend class="text-semibold"><i class="icon-reading position-left"></i> Detail TUK</legend>
         </div>
         <div class="col-md-6">
           <fieldset>
-            <input type="hidden" class="form-control @error('asesor_id') is-invalid @enderror" name="asesor_id" value="{{$asesor->id}}">
+            <input type="hidden" class="form-control @error('asesor_id') is-invalid @enderror" name="asesor_id" value="{{$tuk->id}}">
             <div class="form-group">
-              <label class="col-lg-3 control-label">Nama Asesor</label>
+              <label class="col-lg-3 control-label">Nama TUK</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control @error('nama_asesor') is-invalid @enderror" name="" value={{$asesor->nama_asesor}} readonly>
+                <input type="text" class="form-control @error('nama_asesor') is-invalid @enderror" name="" value={{$tuk->nama_tuk}} readonly>
               </div>
               @error('nama_asesor')
               <span class="invalid-feedback" role="alert">

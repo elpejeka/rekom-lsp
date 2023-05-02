@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,7 +72,6 @@ Route::post('/skema-sertifikasi-asesor/save', 'SkemaAsesorController@store')->na
 Route::get('/skema-sertifikasi-asesor/edit/{id}', 'SkemaAsesorController@edit')->name('skema.edit');
 Route::put('/skema-sertifikasi-asesor/update/{id}', 'SkemaAsesorController@update')->name('skema.update');
 Route::delete('/skema-sertifikasi-asesor/hapus/{id}', 'SkemaAsesorController@destroy')->name('skema.delete');
-
 
 Route::get('/tempat-uji-kompetensi', 'TukController@index')->name('tuk');
 Route::get('/tempat-uji-kompetensi/preview', 'TukController@table')->name('table.tuk');
@@ -185,7 +182,7 @@ Route::prefix('pencatatan')
                 Route::delete('/asesor/delete/{id}', 'AsesorController@destroy')->name('pencatatan.asesor.delete');
 
                 Route::get('/unactive-asesor/{id}', 'AsesorController@unactive')->name('asesor.unactive');
-                Route::put('/proses-unactive/{id}', 'AsesorController@prosesUnactive')->name('proses.unactive');
+                Route::put('/proses-unactive/{id}', 'AsesorController@prosesUnactive')->name('proses.asesor.unactive');
                 Route::put('/asesor/hapus', 'AsesorController@penghapusan')->name('asesor.penghapusan');
 
                 Route::get('/asesor-approve/{id}', 'AsesorController@showAsesor')->name('asesor.approve');
@@ -218,6 +215,10 @@ Route::prefix('pencatatan')
                 Route::get('/tuk-approve/{id}', 'TukController@showTuk')->name('tuk.approve');
                 Route::put('/tuk-approve', 'TukController@approveTuk')->name('tuk.approve.update');
                 Route::get('/tuk-unapprove/{id}', 'TukController@unapprove')->name('tuk.unapprove');
+
+                Route::get('/unactive-tuk/{id}', 'TukController@unactive')->name('unactive.tuk');
+                Route::put('/proses-tuk-unactive/{id}','TukController@prosesUnactive' )->name('proses.tuk.unactive');
+                
 
                 Route::get('/surat-pencatatan/{slug}', 'PencatatanController@surat')->name('surat.pencatatan');
                 Route::get('/komen-perbaikan/{id}', 'KomenController@index')->name('list.komen');

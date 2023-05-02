@@ -1,5 +1,5 @@
 <?php
-
+ 
 namespace App\Http\Controllers\Pencatatan;
 
 use App\Http\Controllers\Controller;
@@ -12,7 +12,6 @@ use App\PencatatanTuk;
 use App\LogPencatatan;
 use Auth;
 use Carbon\Carbon;
-use App\Administration;
 
 class TukController extends Controller
 {
@@ -110,7 +109,7 @@ class TukController extends Controller
     }
 
     public function unactive($id){
-        return view('pages.user.pencatatan.unactice.tuk', [
+        return view('pages.user.pencatatan.unactive.tuk', [
             'tuk' => PencatatanTuk::find($id)
         ]);
     }
@@ -124,4 +123,25 @@ class TukController extends Controller
         return redirect()->route('pencatatan.approve.list')->with('success', 'Pencatatan TUK Tidak Ditayangkan');
     }
 
+    public function prosesUnactive(Request $request, $id){
+        $item = PencatatanTuk::find($id);
+        $administrasi = Administration::where('users_id', Auth::user()->id)->first();
+        $data = $request->all();
+        $data['surat_penghapusan'] = $request->file('surat_penghapusan')->store('file/pencatatan/tuk/penghapusan', 'public');
+        $data['approve'] = null;
+        $data['deleted_at'] = Carbon::now();
+        $data['approved_at'] = null;
+
+        $item->update($data);
+
+        $notif = new LogPencatatan;
+        $notif->nama_lsp = $administrasi->nama;
+        $notif->keterangan = 'Permohonan Penghapusan TUK '. $item->nama_tuk;
+        $notif->created_at = Carbon::now();
+        $notif->save();
+
+        $item->delete();
+
+        return redirect()->route('pencatatan.tuk')->with('success', 'Pencatatan TUK Berhasil di Hapus');
+    }
 }

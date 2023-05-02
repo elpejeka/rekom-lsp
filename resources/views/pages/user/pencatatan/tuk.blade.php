@@ -220,8 +220,9 @@
             @endif
             @if ($item->approve != null)
             <td class="text-center">
+              <span class="badge badge-success">Approved</span>
               <a href="{{route('pencatatan.tuk.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
-                <span class="badge badge-success">Approved</span>
+              <a href="{{route('unactive.tuk', $item->id)}}" class="btn btn-sm btn-danger"><i class="icon-trash"></i></a>
             </td>
             @endif
           </tr>
