@@ -184,6 +184,7 @@ Route::prefix('pencatatan')
                 Route::get('/unactive-asesor/{id}', 'AsesorController@unactive')->name('asesor.unactive');
                 Route::put('/proses-unactive/{id}', 'AsesorController@prosesUnactive')->name('proses.asesor.unactive');
                 Route::put('/asesor/hapus', 'AsesorController@penghapusan')->name('asesor.penghapusan');
+                Route::get('/status-tayang/{id}', 'AsesorController@tayang')->name('asesor.tayang');
 
                 Route::get('/asesor-approve/{id}', 'AsesorController@showAsesor')->name('asesor.approve');
                 Route::put('/asesor-approve', 'AsesorController@approveAsesor')->name('asesor.approve.update');
@@ -232,6 +233,8 @@ Route::prefix('pencatatan')
             });
 
 Route::get('/check/asesor/{nik}', 'ApiController@index')->name('check.asesor');
+Route::get('/get-sertifikat/{nik}', 'References\SertifikatController@index');
+Route::get('/detail-sertifikat/{noReg}', 'References\SertifikatController@detail');
 Auth::routes(['verify' => true]);
 
 // Auth::routes(['register' => false]);

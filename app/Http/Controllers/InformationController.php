@@ -26,7 +26,7 @@ class InformationController extends Controller
         $user_file = User::with(['asosiasi', 'asosiasi1', 'asosiasi2'])
                             ->where('id', Auth::user()->id)->firstOrFail();
 
-        $item = Administration::where('users_id', Auth::user()->id)->get();
+        $item = Administration::with(['propinsi', 'unsur', 'unsur1', 'unsur2'])->where('users_id', Auth::user()->id)->get();
         $propinsi = DB::table('propinsi_dagri')->get();
 
         return view('pages.user.informasi', [

@@ -44,16 +44,11 @@ class Administration extends Model
     public function permohonan(){
         return $this->hasMany(Permohonan::class, 'administrations_id', 'id');
     }
-
-    public function propinsi(){
-        return $this->belongsTo(Propinsi::class, 'provinsi', 'id_propinsi_dagri');
-    }
-
     // public function asesors(){
     //     return $this->hasMany(Asesor::class, 'adminstrations_id', 'id');
     // }
     
-    // public function locations(){
-    //     return $this->hasMany(Location::class, 'adminstrations_id', 'id');
-    // }
+    public function propinsi(){
+        return $this->hasOne(Propinsi::class,'id_propinsi_dagri', 'provinsi');
+    }
 }

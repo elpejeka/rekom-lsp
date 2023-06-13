@@ -21,7 +21,7 @@ use PDF;
 class AsesorController extends Controller
 {
     public function index(){
-        $data = PencatatanAsesor::where('users_id', Auth::user()->id)->whereNull('deleted_at')->get();
+        $data = PencatatanAsesor::with(['propinsi'])->where('users_id', Auth::user()->id)->whereNull('deleted_at')->get();
         
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $propinsi = DB::table('propinsi_dagri')->get();
@@ -50,6 +50,7 @@ class AsesorController extends Controller
                 $data['slug'] = Str::slug($request->nama_asesor);
                 $data['users_id'] = Auth::user()->id;
                 $data['no_registrasi_asesor'] = rand(1, 999999). "/LPJK-LSP/". $request->nama_lsp;
+                $data['is_active'] = 1;
                 PencatatanAsesor::create($data);
                 
                 if($item->approve != null){
@@ -220,6 +221,21 @@ class AsesorController extends Controller
         $asesor->save();
 
         return response()->json($asesor);
+    }
+
+    public function tayang($id){
+        $data = PencatatanAsesor::find($id);
+        if($data->is_active == 1){
+            $data->update([
+                'is_active' => 0
+            ]);
+            return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di ubah');
+        }else{
+            $data->update([
+                'is_active' => 1
+            ]);
+            return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di ubah');
+        }
     }
 
     public function importToSiki($id){

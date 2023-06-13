@@ -124,19 +124,6 @@
 
         <div class="col-md-6">
           <fieldset>
-            
-            {{-- <div class="form-group">
-              <label class="col-lg-3">Nomor Registrasi Asesor Di LPJK</label>
-                  <div class="col-lg-9">
-                    <input type="text" class="form-control @error('no_registrasi_asesor') is-invalid @enderror" name="no_registrasi_asesor">
-                  </div>
-                  @error('no_registrasi_asesor')
-                  <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                  </span>
-                @enderror
-            </div> --}}
-
             <div class="form-group">
               <label class="col-lg-3 control-label">Provinsi</label>
               <div class="col-lg-9">
@@ -273,13 +260,15 @@
       <tr>
         <th>No</th>
         <th>Nama Asesor</th>
+        <th>Propinsi</th>
         <th>Alamat</th>
         <th>Email</th>
-        <th>Tanggal Lahir/th>
+        <th>Tanggal Lahir</th>
         <th>Pendidikan</th>
         <th>Status Asesor</th>
         <th>Nomor Registrasi Asesor LPJK</th>
         <th>Status</th>
+        <th>Tayang</th>
         <th class="text-center">Actions</th>
       </tr>
     </thead>
@@ -291,9 +280,10 @@
       <tr>
         <td>{{$no++}}</td>
         <td>{{$item->nama_asesor}}</td>
+        <td>{{$item->provinsi == null ? "-" : $item->propinsi->Nama}}</td>
         <td>{{$item->alamat}}</td>
         <td>{{$item->email}}</td>
-        <td>{{$item->tangal_lahir}}</td>
+        <td>{{$item->tgl_lahir}}</td>
         <td>{{$item->pendidikan}}</td>
         <td><span class="label label-success">{{$item->status_asesor}}</span></td>
         <td>{{$item->no_registrasi_asesor}}</td>
@@ -305,31 +295,53 @@
           <span class="label label-success">Approved</span>
           @endif
         </td>
+        <td>
+          <span class="label label-success">{{$item->is_active == 1 ? 'YA' : 'Tidak'}}</span>
+        </td>
         @if ($item->approve_at == null)
         <td class="text-center">
-          <a href="{{route('pencatatan.asesor.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
-          <a href="{{route('pencatatan.sertifikat.asesor', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-plus2" aria-hidden="true"></i></a>
-          <a data-toggle="modal" id="smallButton" data-target="#smallModal"
-                            data-attr="{{ route('sertifikat.show', $item->id) }}" title="show" class="btn btn-sm btn-info">
-                            <i class="icon-eye2"></i></a>
-          <form action="{{route('pencatatan.asesor.delete', $item->id)}}" method="post" class="d-inline mt-2">
-            @csrf
-            @method('delete')
-          <button class="btn btn-danger btn-sm"><i class="icon-trash"></i></button>
-          </form>
-            <a href="{{route('ext.index', $item->id)}}" class="btn btn-sm btn-primary mt-5">Dokumen Perjanjian</a>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Actions
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="{{route('pencatatan.asesor.edit', $item->id)}}"><i class="icon-pencil"></i> Edit</a></li>
+              <li><a href="{{route('pencatatan.sertifikat.asesor', $item->id)}}"><i class="icon-plus2" aria-hidden="true"></i> Tambah Sertifikat</a></li>
+              <li><a data-toggle="modal" id="smallButton" data-target="#smallModal"
+                data-attr="{{ route('sertifikat.show', $item->id) }}" title="show" >
+                <i class="icon-eye2"></i> Detail Asesor</a></li>
+              <li><form action="{{route('pencatatan.asesor.delete', $item->id)}}" method="post" class="d-inline mt-2">
+                @csrf
+                @method('delete')
+              <button><i class="icon-trash"></i> Hapus</button>
+              </form>
+              </li>
+              <li>
+                <a href="{{route('ext.index', $item->id)}}">Dokumen Perjanjian</a>
+              </li>
+              <li>
+                <a href="{{route('asesor.tayang', $item->id)}}">Ubah Status Tayang</a>
+              </li>
+            </ul>
+          </div>        
         </td>
         @endif
         @if ($item->approve_at != null)
         <td class="text-center">
-        <a href="{{route('pencatatan.asesor.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
-        <a href="{{route('pencatatan.sertifikat.asesor', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-plus2" aria-hidden="true"></i></a>
-        <a data-toggle="modal" id="smallButton" data-target="#smallModal"
-                            data-attr="{{ route('sertifikat.show', $item->id) }}" title="show" class="btn btn-sm btn-info">
-                            <i class="icon-eye2"></i></a>
-        <a href="{{route('asesor.unactive', $item->id)}}" class="btn btn-danger"><i class="icon-trash"></i></a>
-        <a href="{{route('qr.surat', $item->id)}}" class="btn btn-sm btn-primary mt-5">Surat Pencatatan Asesor</a>
-            <a href="{{route('ext.index', $item->id)}}" class="btn btn-sm btn-primary mt-5">Dokumen Perjanjian</a>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Actions
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="{{route('pencatatan.asesor.edit', $item->id)}}"><i class="icon-pencil"></i> Edit</a></li>
+              <li><a href="{{route('pencatatan.sertifikat.asesor', $item->id)}}"><i class="icon-plus2" aria-hidden="true"></i> Tambah Sertifikat</a></li>
+              <li><a data-toggle="modal" id="smallButton" data-target="#smallModal"
+                data-attr="{{ route('sertifikat.show', $item->id) }}" title="show" >
+                <i class="icon-eye2"></i> Detail Asesor</a></li>
+              <li><a href="{{route('asesor.unactive', $item->id)}}" ><i class="icon-trash"></i> Hapus</a></li>
+              <li><a href="{{route('qr.surat', $item->id)}}" >Surat Pencatatan Asesor</a></li>
+              <li><a href="{{route('ext.index', $item->id)}}">Dokumen Perjanjian</a></li>
+              <li><a href="{{route('asesor.tayang', $item->id)}}">Ubah Status Tayang</a></li>
+            </ul>
+          </div>
         </td>
         @endif
       </tr> 

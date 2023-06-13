@@ -88,7 +88,7 @@
         </tr>
         <tr>
             <td>Nama Unsur Pembentuk LSP</td>
-            <td>{{$item[0]->nama_unsur}}</td>
+            <td>{{$item[0]->nama_unsur == null ? "-" : $item[0]->unsur1->asosiasi}}</td>
         </tr>
         <tr>
             <td>Kategori Asosiasi Profesi</td>
@@ -112,7 +112,7 @@
         </tr>
         <tr>
           <td>Propinsi</td>
-          <td>{{$item[0]->provinsi}}</td>
+          <td>{{$item[0]->provinsi == null ? "-" : $item[0]->propinsi->Nama}}</td>
       </tr>
         <tr>
             <td>Email</td>

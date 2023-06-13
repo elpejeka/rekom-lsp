@@ -41,6 +41,7 @@
               <label class="col-lg-3 control-label">Nama Asesor</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control @error('nama_asesor') is-invalid @enderror" name="" value={{$asesor->nama_asesor}} readonly>
+                <input type="text" id="nik" value="{{$asesor->nik}}" hidden/>
               </div>
               @error('nama_asesor')
               <span class="invalid-feedback" role="alert">
@@ -58,17 +59,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Klasifikasi</label>
               <div class="col-lg-9">
-                <select class="select-search" name="klasifikasi" id="klasifikasi">
-                    <optgroup label="KLASIFIKASI">
-                      <option value="">Pilih Klasifikasi</option>
-                      @foreach ($klas as $klasifikasi)
-                      <option value="{{$klasifikasi->kode}}">{{$klasifikasi->nama}}</option>
-                      @endforeach
-                      {{-- @foreach ($data as $item)
-                        <option value="{{$item->klasifikasi}}">{{$item->klasifikasi}}</option>
-                      @endforeach --}}
-                    </optgroup>
-                </select>
+                <input type="text" class="form-control" name="klasifikasi" id="klasifikasi" readonly />
               </div>
               @error('klasifikasi')
               <span class="invalid-feedback" role="alert">
@@ -80,14 +71,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Subklasifikasi</label>
               <div class="col-lg-9">
-                <select class="select-search" name="subklasifikasi" id="subklas">
-                    <optgroup label="SUBKLASIFIKASI">
-                      <option value="">Pilih Subklasifikasi</option>
-                      {{-- @foreach ($data as $item)
-                        <option value="{{$item->sub_klasifikasi}}">{{$item->sub_klasifikasi}}</option>
-                      @endforeach --}}
-                    </optgroup>
-                </select>
+                <input type="text" class="form-control" name="subklasifikasi" id="subklasifikasi" readonly />
               </div>
               @error('sub_klasifikasi')
               <span class="invalid-feedback" role="alert">
@@ -112,7 +96,8 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Nomor Registrasi</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control @error('no_sertifikat') is-invalid @enderror" name="no_sertifikat" required>
+                <select class="form-control @error('no_sertifikat') is-invalid @enderror" name="no_sertifikat" id="noreg">
+                </select>
               </div>
               @error('no_sertifikat')
               <span class="invalid-feedback" role="alert">
@@ -142,7 +127,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Masa Berlaku</label>
               <div class="col-lg-9">
-                <input type="date" class="form-control @error('masa_berlaku') is-invalid @enderror" name="masa_berlaku" required>
+                <input type="date" class="form-control @error('masa_berlaku') is-invalid @enderror" name="masa_berlaku" id="masa_berlaku" readonly>
               </div>
               @error('masa_berlaku')
               <span class="invalid-feedback" role="alert">
@@ -150,22 +135,6 @@
               </span>
             @enderror
             </div>
-
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Dokumen Persyaratan SKA</label>
-                <div class="col-lg-9">
-                    <input name="ska" type="file" class="file-input @error('ska') is-invalid @enderror"
-                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
-                    <span class="help-block">
-                      Accepted formats: pdf, zip, rar, jpeg, jpg, png Max file size 20Mb
-                    </span>
-                    <div class="progress" style="display:none;">
-                      <div id="progress-bar-1" class="progress-bar progress-bar-success progress-bar-striped active " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
-                        20%
-                      </div>
-                    </div>
-                </div>
-
           </fieldset>
         </div>
       </div>
@@ -329,30 +298,37 @@
 
 @push('addon-script')
   <script>
-    $('#klasifikasi').change(function(){
-      var kode = $(this).val();
-      console.log(kode)
-      if(kode){
+    $(document).ready(function(){
+      var nik = $('#nik').val()
         $.ajax({
-          type : "GET",
-          url : "/lsp/get-subklas?kode="+kode,
-          dataType : 'JSON',
+          url : "/get-sertifikat/"+nik,
+          type : 'GET',
           success:function(res){
-            console.log(res)
-            if(res){
-              $('#subklas').empty();
-              $("#subklas").append('<option>---Pilih Subklas---</option>');
-              $.each(res,function(nama,kode_sub){
-                    $("#subklas").append('<option value="'+kode_sub+'">'+nama+'</option>');
-              });
-            }else{
-              $('#subklas').empty();
+            console.log(res.data)
+            $('#noreg').empty();
+            $('#noreg').append('<option>Pilih Sertifikat</option>');
+            for (var i = 0; i <= res.data.length; i++){
+              $('#noreg').append('<option value="'+res.data[i].nomor_registrasi+'">'+res.data[i].nomor_registrasi +"-" +res.data[i].subklasifikasi+'</option>');
             }
           }
         })
-      }else{
-        $('#subklas').empty();
-      }
+    })
+
+    $('#noreg').on('change', function(){
+      var noreg = $(this).find('option').filter(':selected').val()
+      $.ajax({
+        url : '/detail-sertifikat/'+noreg,
+        type : 'GET',
+        success:function(res){
+          var klas = res.data[0].klasifikasi;
+          var sub = res.data[0].subklasifikasi;
+          var berlaku = res.data[0].tanggal_masa_berlaku;
+
+          $('#klasifikasi').val(klas)
+          $('#subklasifikasi').val(sub)
+          $('#masa_berlaku').val(berlaku)
+        }
+      })
     })
   </script>
 @endpush

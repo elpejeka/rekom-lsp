@@ -41,17 +41,7 @@
               <div class="form-group">
               <label class="col-lg-3 control-label">Klasifikasi</label>
               <div class="col-lg-9">
-                <select class="select-search" name="klasifikasi" id="klasifikasi">
-                    <optgroup label="KLASIFIKASI">
-                    <option value="{{$data->klasifikasi}}">-- {{$data->klasifikasi}}</option>
-                      @foreach ($klas as $klasifikasi)
-                      <option value="{{$klasifikasi->kode}}">{{$klasifikasi->nama}}</option>
-                      @endforeach
-                      {{-- @foreach ($data as $item)
-                        <option value="{{$item->klasifikasi}}">{{$item->klasifikasi}}</option>
-                      @endforeach --}}
-                    </optgroup>
-                </select>
+                <input type="text" class="form-control" value="{{$data->klasifikasi}}" readonly/>
               </div>
               @error('klasifikasi')
               <span class="invalid-feedback" role="alert">
@@ -69,14 +59,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Subklasifikasi</label>
               <div class="col-lg-9">
-                <select class="select-search" name="subklasifikasi" id="subklas">
-                    <optgroup label="SUBKLASIFIKASI">
-                    <option value="{{$data->subklasifikasi}}">-- {{$data->subklasifikasi}}</option>
-                      {{-- @foreach ($data as $item)
-                        <option value="{{$item->sub_klasifikasi}}">{{$item->sub_klasifikasi}}</option>
-                      @endforeach --}}
-                    </optgroup>
-                </select>
+                <input type="text" class="form-control" value="{{$data->klasifikasi}}" readonly/>
               </div>
               @error('sub_klasifikasi')
               <span class="invalid-feedback" role="alert">
@@ -100,7 +83,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Nomor Registrasi</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control @error('no_sertifikat') is-invalid @enderror" name="no_sertifikat" value="{{$data->no_sertifikat}}" required>
+                <input type="text" class="form-control @error('no_sertifikat') is-invalid @enderror" name="no_sertifikat" value="{{$data->no_sertifikat}}" readonly>
                 <input type="hidden" class="form-control @error('asesor_id') is-invalid @enderror" name="asesor_id" value="{{$data->asesor_id}}">
               </div>
               @error('no_sertifikat')
@@ -132,7 +115,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Masa Berlaku</label>
               <div class="col-lg-9">
-                <input type="date" class="form-control @error('masa_berlaku') is-invalid @enderror" name="masa_berlaku" value="{{$data->masa_berlaku}}" required>
+                <input type="date" class="form-control @error('masa_berlaku') is-invalid @enderror" name="masa_berlaku" value="{{$data->masa_berlaku}}" readonly>
               </div>
               @error('masa_berlaku')
               <span class="invalid-feedback" role="alert">
@@ -140,22 +123,6 @@
               </span>
             @enderror
             </div>
-
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Dokumen Persyaratan SKA</label>
-                <div class="col-lg-9">
-                    <input name="ska" type="file" class="file-input @error('ska') is-invalid @enderror"
-                    data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
-                    <span class="help-block">
-                      Accepted formats: pdf, zip, rar, jpeg, jpg, png Max file size 20Mb
-                    </span>
-                    <div class="progress" style="display:none;">
-                      <div id="progress-bar-1" class="progress-bar progress-bar-success progress-bar-striped active " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
-                        20%
-                      </div>
-                    </div>
-                </div>
-
           </fieldset>
         </div>
       </div>

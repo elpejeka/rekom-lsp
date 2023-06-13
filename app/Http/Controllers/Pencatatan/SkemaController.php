@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\DB;
 use App\Jabker;
 use App\Pencatatan;
 use App\PencatatanSkema;
+use Illuminate\Support\Facades\Auth;
 use App\LogPencatatan;
-use Auth;
+use App\LogSkema;
 use Carbon\Carbon;
 
 class SkemaController extends Controller
@@ -85,6 +86,17 @@ class SkemaController extends Controller
         }else{
             $data['upload_persyaratan'] = $item->upload_persyaratan;
         }
+
+        if($item->approve == 1){
+            LogSkema::create([
+                'file' => $item->upload_persyaratan,
+                'user_id' => Auth::user()->id
+            ]);
+        }
+
+        LogSkema::create([
+            'file' => $data
+        ]);
 
         $item->update($data);
 
