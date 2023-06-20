@@ -175,7 +175,6 @@
                                               <tr>
                                                 <th>No</th>
                                                 <th>Kode Skema</th>
-                                                <th>Nama Skema</th>
                                                 <th>Jabatan Kerja</th>
                                                 <th>Klasifikasi</th>
                                                 <th>Subklasifikasi</th>
@@ -191,7 +190,6 @@
                                               <tr>
                                                 <td>{{$no++}}</td>
                                                 <td>{{$item->kode_skema}}</td>
-                                                <td>{{$item->nama_skema}}</td>
                                                 <td>{{$item->jabker}}</td>
                                                 <td>{{$item->klasifikasi}}</td>
                                                 <td>{{$item->sub_klasifikasi}}</td>

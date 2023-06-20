@@ -86,7 +86,7 @@ class AsesorController extends Controller
     }
 
     public function edit($id){
-        $data = PencatatanAsesor::find($id);
+        $data = PencatatanAsesor::with(['kabkota'])->find($id);
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $propinsi = DB::table('propinsi_dagri')->get();
 
@@ -178,6 +178,7 @@ class AsesorController extends Controller
         $asesor = PencatatanAsesor::with('sertifikat')->find($id);
         $asesor->approve = $request->approve;
         $asesor->no_pencatatan = $request->no_pencatatan;
+        $asesor->is_active = 1;
 
         $asesor->save();
         return response()->json($asesor);
@@ -223,21 +224,6 @@ class AsesorController extends Controller
         return response()->json($asesor);
     }
 
-    public function tayang($id){
-        $data = PencatatanAsesor::find($id);
-        if($data->is_active == 1){
-            $data->update([
-                'is_active' => 0
-            ]);
-            return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di ubah');
-        }else{
-            $data->update([
-                'is_active' => 1
-            ]);
-            return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di ubah');
-        }
-    }
-
     public function importToSiki($id){
         $asesor = PencatatanAsesor::with('sertifikat')->find($id);
         
@@ -259,7 +245,51 @@ class AsesorController extends Controller
                 'message' => 'data berhasil di import'
         ], 200);     
 
-    //    return redirect()->route('pencatatan.approve.list')->with('success', 'Data Asesor Di Simpan Pada Master Asesor Penugasan');  
+    }
+
+
+    public function tayang($id){
+        $data = PencatatanAsesor::find($id);
+        $administrasi = Administration::where('users_id', Auth::user()->id)->first();
+        if($data->is_active == 1){
+            $data->update([
+                'status' => 1
+            ]);
+            $notif = new LogPencatatan;
+            $notif->nama_lsp = $administrasi->nama;
+            $notif->keterangan = 'Permohonan Tayang Asesor ' . $data->nama_asesor  ;
+            $notif->created_at = Carbon::now();
+            $notif->save();
+            return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di ubah');
+        }else{
+            $data->update([
+                'status' => 1
+            ]);
+            $notif = new LogPencatatan;
+            $notif->nama_lsp = $administrasi->nama;
+            $notif->keterangan = 'Permohonan Tayang TUK ' . $data->nama_tuk  ;
+            $notif->created_at = Carbon::now();
+            $notif->save();
+            return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di ubah');
+        }
+    }
+
+    public function done ($id){
+        $data = PencatatanAsesor::find($id);
+
+        if($data->is_active == 1){
+            $data->update([
+                'is_active' => 0,
+                'status' => null
+            ]);
+        }else{
+            $data->update([
+                'is_active' => 1,
+                'status' => null
+            ]);
+        }
+
+        return redirect(route('pencatatan.approve.list'))->with('success', 'Data Asesor Berhasil di ubah');
     }
 
 }

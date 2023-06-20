@@ -190,8 +190,10 @@
         <th>Kode TUK</th>
         <th>Nama TUK</th>
         <th>Jenis TUK</th>
+        <th>Provinsi</th>
         <th>Alamat</th>
-        <th>Dokumen</th>s
+        <th>Dokumen</th>
+        <th>Tayang</th>
         <th class="text-center">Actions</th>
       </tr>
     </thead>
@@ -202,11 +204,16 @@
             <td>{{$item->kode_tuk}}</td>
             <td>{{$item->nama_tuk}}</td>
             <td>{{$item->jenis_tuk}}</td>
+            <td>{{$item->provinsi == null ? "-" : $item->propinsi->Nama}}</td>
             <td>{{$item->alamat}}</td>
             <td>
               <a href="{{asset('laravel/storage/app/public/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                 class="open-delete btn btn-primary btn-labeled btn-rounded">
                 <b><i class="icon-file-check"></i></b> Softcopy</a>
+            </td>
+            <td>
+              <span class="label label-success">{{$item->is_active == 1 ? 'YA' : 'Tidak'}}</span> <br />
+              <span class="label label-primary">{{$item->status == null ? '-' : 'Permohonan Tayang / Tidak Tayang'}}</span>
             </td>
             @if ($item->approve == null)
             <td class="text-center">
@@ -216,6 +223,7 @@
                 @method('delete')
               <button class="btn btn-danger btn-sm mt-5"><i class="icon-trash"></i></button>
               </form>
+              <a href="{{route('tuk.tayang', $item->id)}}" class="btn btn-sm btn-success mt-5">Ubah Status Tayang</a>
             </td>
             @endif
             @if ($item->approve != null)
@@ -223,6 +231,7 @@
               <span class="badge badge-success">Approved</span>
               <a href="{{route('pencatatan.tuk.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
               <a href="{{route('unactive.tuk', $item->id)}}" class="btn btn-sm btn-danger"><i class="icon-trash"></i></a>
+              <a href="{{route('tuk.tayang', $item->id)}}" class="btn btn-sm btn-success mt-5">Ubah Status Tayang</a>
             </td>
             @endif
           </tr>

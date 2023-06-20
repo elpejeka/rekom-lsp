@@ -647,6 +647,7 @@
                                             <span class="label label-success">Approved</span>
                                             <a href="{{route('asesor.unapprove', $item->id)}}" class="btn btn-sm btn-danger mt-5" target="_blank">Unapproved</a>
                                             <a href="javascript:void(0)" onclick="importAsesor({{$item->id}})" class="btn btn-sm btn-primary mt-5" >Import To Master Penugasan</a>
+                                            <a href="{{route('asesor.done', $item->id)}}" class="btn btn-sm btn-success">Update Status Tayang</a>
                                             {{-- <a data-id={{$item->id}} id="importAsesor" class="btn btn-sm btn-primary mt-5">Import To Master Penugasan</a> --}}
                                         </td>
                                         @endif
@@ -730,6 +731,7 @@
                                         <th>Provinsi</th>
                                         <th>Alamat</th>
                                         <th>Dokumen</th>
+                                        <th>Permohonan Tayang</th>
                                         <th>Status</th>
                                       </tr>
                                     </thead>
@@ -750,10 +752,14 @@
                                                 class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                 <b><i class="icon-file-check"></i></b> Softcopy</a>
                                             </td>
+                                            <td>
+                                                <span class="badge badge-primary">{{$item->status == 0 ? 'Permohonan Tidak Tayang' : 'Permohonan Tayang'}}</span>
+                                            </td>
                                             @if ($item->approve == 1)
                                             <td>
                                                 <span class="label label-success">Approved</span>
-                                                <a href="{{route('tuk.unapprove', $item->id)}}" class="btn btn-sm btn-danger mt-5" target="_blank">Unapproved</a>
+                                                <a href="{{route('tuk.unapprove', $item->id)}}" class="btn btn-sm btn-danger" target="_blank">Unapproved</a>
+                                                <a href="{{route('tuk.done', $item->id)}}" class="btn btn-sm btn-success">Update Status Tayang</a>
                                             </td>
                                             @endif
                                             @if ($item->approve == 0)
@@ -991,7 +997,7 @@
   <script>
       function updateKeabsahan(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/lsp/pencatatan/skema-approve/'+id, function(skema){
+            $.get('/pencatatan/skema-approve/'+id, function(skema){
                 $("#id").val(skema.id);
                 $("#nama_skema").val(skema.nama_skema);
                 $("#approve").val(skema.approve);
@@ -1028,7 +1034,7 @@
 
         function updateAsesor(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/lsp/pencatatan/asesor-approve/'+id, function(asesor){
+            $.get('/pencatatan/asesor-approve/'+id, function(asesor){
                 $("#idAsesor").val(asesor.id);
                 $("#nama_asesor").val(asesor.nama_asesor);
                 $("#approve_asesor").val(asesor.approve);
@@ -1065,7 +1071,7 @@
 
         function updateTuk(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/lsp/pencatatan/tuk-approve/'+id, function(tuk){
+            $.get('/pencatatan/tuk-approve/'+id, function(tuk){
                 $("#idTuk").val(tuk.id);
                 $("#nama_tuk").val(tuk.nama_tuk);
                 $("#approve_tuk").val(tuk.approve);
@@ -1206,7 +1212,7 @@
         // })
 
         function importAsesor(id){
-            $.get('/lsp/pencatatan/import-to-siki/'+id, function(data){
+            $.get('/pencatatan/import-to-siki/'+id, function(data){
                 alert(data.message);
             });
         }

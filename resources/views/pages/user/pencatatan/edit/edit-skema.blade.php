@@ -53,11 +53,11 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Nama Skema</label>
               <div class="col-lg-9">
-                <select class="select-search" name="nama_skema">
+                <select class="select-search" id="nama_skema">
                     <optgroup label="RUANG LINGKUP">
                         <option value="{{$data->nama_skema}}">-- {{$data->nama_skema}}</option>   
                       @foreach ($items as $jabker)
-                        <option value="{{$jabker->jabatan_kerja}}">{{$jabker->jabatan_kerja}}</option>
+                        <option value="{{$jabker->id}}">{{$jabker->jabatan_kerja}}</option>
                       @endforeach
                     </optgroup>
                 </select>
@@ -72,14 +72,8 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Jabatan Kerja</label>
               <div class="col-lg-9">
-                <select class="select-search" name="jabker">
-                    <optgroup label="JABATAN KERJA">
-                        <option value="{{$data->jabker}}">-- {{$data->jabker}}</option>   
-                      @foreach ($items as $jabker)
-                        <option value="{{$jabker->jabatan_kerja}}">{{$jabker->jabatan_kerja}}</option>
-                      @endforeach
-                    </optgroup>
-                </select>
+                  <input type="text" name="jabker" id="jabker" class="form-control" value="{{$data->jabker}}" readonly/>
+                  <input type="hidden" name="nama_skema" id="skema" class="form-control" value="{{$data->nama_skema}}" />
               </div>
               @error('jabker')
               <span class="invalid-feedback" role="alert">
@@ -91,19 +85,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Klasifikasi</label>
               <div class="col-lg-9">
-                <select class="select-search" name="klasifikasi">
-                    <optgroup label="KLASIFIKASI">
-                        <option value="{{$data->klasifikasi}}">-- {{$data->klasifikasi}}</option>
-                        <option value="Arsitektur">Arsitektur</option>
-                        <option value="Sipil">Sipil</option>
-                        <option value="Mekanikal">Mekanikal</option>
-                        <option value="Tata Lingkungan">Tata Lingkungan</option>
-                        <option value="Manajemen Pelaksanaan">Manajemen Pelaksanaan</option>
-                        <option value="Arsitektur Lanskap, Iluminasi dan Desain Interior">Arsitektur Lanskap, Iluminasi dan Desain Interior</option>
-                        <option value="Perencanaan Wilayah dan Kota">Perencanaan Wilayah dan Kota</option>
-                        <option value="Sains dan Rekayasa Teknik">Sains dan Rekayasa Teknik</option>
-                    </optgroup>
-                </select>
+                <input type="text" name="klasifikasi" id="klasifikasi" class="form-control" value="{{$data->klasifikasi}}" readonly />
               </div>
               @error('klasifikasi')
                 <span class="invalid-feedback" role="alert">
@@ -122,76 +104,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Sub Kualifikasi</label>
               <div class="col-lg-9">
-                <select class="select-search" name="sub_klasifikasi">
-                    <option value={{$data->sub_klasifikasi}}>-- {{$data->sub_klasifikasi}}</option>
-                    <optgroup label="ARSITEKTUR">
-                        <option value="Arsitektural">Arsitektural</option>
-                    </optgroup>
-                    <optgroup label="SIPIL">
-                        <option value="Gedung">Gedung</option>
-                        <option value="Material">Material</option>
-                        <option value="Jalan">Jalan</option>
-                        <option value="Jembatan">Jembatan</option>
-                        <option value="Landasan Udara">Landasan Udara</option>
-                        <option value="Terowongan">Terowongan</option>
-                        <option value="Bendung dan Bendungan">Bendung dan Bendungan</option>
-                        <option value="Irigasi dan Rawa">Irigasi dan Rawa</option>
-                        <option value="Sungai dan Pantai">Sungai dan Pantai</option>
-                        <option value="Air Tanah dan Air Baku">Air Tanah dan Air Baku</option>
-                        <option value="Bangunan Air  Minum">Bangunan Air  Minum</option>
-                        <option value="Bangunan Air Limbah">Bangunan Air Limbah</option>
-                        <option value="Bangunan Persampahan">Bangunan Persampahan</option>
-                        <option value="Drainase Perkotaan">Drainase Perkotaan</option>
-                        <option value="Geoteknik dan Pondasi">Geoteknik dan Pondasi</option>
-                        <option value="Geodesi">Geodesi</option>
-                        <option value="Jalan Rel">Jalan Rel</option>
-                        <option value="Bangunan Menara">Bangunan Menara</option>
-                        <option value="Bangunan Pelabuhan">Bangunan Pelabuhan</option>
-                        <option value="Testing Analisis Teknik">Testing Analisis Teknik</option>
-                        <option value="Bangunan Lepas Pantai">Bangunan Lepas Pantai</option>
-                        <option value="Pembongkaran Bangunan">Pembongkaran Bangunan</option>
-                        <option value="Grouting">Grouting</option>
-                    </optgroup>
-                    <optgroup label="MEKANIKAL">
-                        <option value="Teknik Tata Udara dan Refrigasi">Teknik Tata Udara dan Refrigasi</option>
-                        <option value="Plambing dan Pompa Mekanik">Plambing dan Pompa Mekanik</option>
-                        <option value="Proteksi Kebakaran">Proteksi Kebakaran</option>
-                        <option value="Transportasi Dalam Gedung">Transportasi Dalam Gedung</option>
-                        <option value="Teknik Mekanikal">Teknik Mekanikal</option>
-                        <option value="Alat Berat">Alat Berat</option>
-                        <option value="Teknik Lifting">Teknik Lifting</option>
-                    </optgroup>
-                    <optgroup label="TATA LINGKUNGAN">
-                      <option value="Teknik Air Minum">Teknik Air Minum</option>
-                      <option value="Teknik Lingkungan">Teknik Lingkungan</option>
-                      <option value="Teknik Air Limbah">Teknik Air Limbah</option>
-                      <option value="Teknik Perpipaan">Teknik Perpipaan</option>
-                      <option value="Teknik Persampahan">Teknik Persampahan</option>
-                  </optgroup>
-                  <optgroup label="MANAJEMEN PELAKSANAAN">
-                      <option value="Keselamatan Konstruksi">Keselamatan Konstruksi</option>
-                      <option value="Manajemen Konstruksi / Manajemen Proyek">Manajemen Konstruksi / Manajemen Proyek</option>
-                      <option value="Hukum Kontrak Konstruksi">Hukum Kontrak Konstruksi</option>
-                      <option value="Pengendalian Mutu Pekerjaan Konstruksi">Pengendalian Mutu Pekerjaan Konstruksi</option>
-                      <option value="Estimasi Biaya Konstruksi">Estimasi Biaya Konstruksi</option>
-                      <option value="Manajemen Aset Hasil Pekerjaan Konstruksi">Manajemen Aset Hasil Pekerjaan Konstruksi</option>
-                  </optgroup>
-                  <optgroup label="ARSITEKTUR LANSKAP, ILUMINASI DAN DESAIN INTERIOR">
-                      <option value="Arsitektur Lanskap">Arsitektur Lanskap</option>
-                      <option value="Teknik Iluminasi">Teknik Iluminasi</option>
-                      <option value="Desain Interior">Desain Interior</option>
-                  </optgroup>
-                  <optgroup label="PERENCANAAN  WILAYAH DAN KOTA">
-                      <option value="Perencanaan Wilayah">Perencanaan Wilayah</option>
-                      <option value="Perencanaan Kota (Urban Planning)">Perencanaan Kota (Urban Planning)</option>
-                      <option value="Perancangan Kota (Urban Design)">Perancangan Kota (Urban Design)</option>
-                  </optgroup>
-                  <optgroup label="SAINS DAN REKAYASA TEKNIK">
-                      <option value="Investasi Infrastruktur">Investasi Infrastruktur</option>
-                      <option value="Komputasi Konstruksi">Komputasi Konstruksi</option>
-                      <option value="Peledakan">Peledakan</option>
-                  </optgroup>
-                </select>
+                <input type="text" name="sub_klasifikasi" id="subklasifikasi" class="form-control" value="{{$data->sub_klasifikasi}}" readonly />
               </div>
               @error('sub_klasifikasi')
                 <span class="invalid-feedback" role="alert">
@@ -203,14 +116,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Kualifikasi</label>
               <div class="col-lg-9">
-                <select class="select-search" name="kualifikasi">
-                    <option value="{{$data->kualifikasi}}">{{$data->kualifikasi}}</option>
-                    <optgroup label="KUALIFIKASI">
-                        <option value="Ahli">Ahli</option>
-                        <option value="Teknisi">Teknisi/Analis</option>
-                        <option value="Operator">Operator</option>
-                    </optgroup>
-                </select>
+                <input type="text" name="kualifikasi" id="kualifikasi" class="form-control" value="{{$data->kualifikasi}}" readonly />
               </div>
               @error('kualifikasi')
               <span class="invalid-feedback" role="alert">
@@ -222,17 +128,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Jenjang</label>
                   <div class="col-lg-9">
-                    <select class="bootstrap-select" multiple="multiple" name="jenjang[]" title="Pilih Jenjang" data-width="100%" required>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                    </select>
+                    <input type="text" name="jenjang" id="jenjang" class="form-control" value="{{$data->jenjang}}" readonly />
                   </div>
                   @error('jumlah_unit')
                 <span class="invalid-feedback" role="alert">
@@ -256,8 +152,8 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Acuan Skema</label>
               <div class="col-lg-9">
-                  <input class="form-control @error('acuan_skema') is-invalid @enderror"  name="acuan_skema" type="text" 
-                    placeholder="SKKNI/SKK Khusus/Standar Internasional" value="{{$data->acuan_skema}}" required>
+                <input class="form-control @error('acuan_skema') is-invalid @enderror"  name="acuan_skema" type="text" 
+                placeholder="SKKNI/SKK Khusus/Standar Internasional" id="acuan" value="{{$data->acuan_skema}}" readonly>
               </div>
               @error('acuan_skema')
               <span class="invalid-feedback" role="alert">
@@ -303,3 +199,29 @@
   </div>
 </form>
 @endsection
+
+@push('addon-script')
+    <script>
+      $('#nama_skema').on('change', function(){
+          var id = $(this).find('option').filter(':selected').val();
+          
+          console.log(id)
+
+          $.ajax({
+            url : '/reference/jabker/'+id,
+            type : 'GET',
+            success:function(res){
+              var data = res.data
+
+              $('#klasifikasi').val(data.klasifikasi)
+              $('#subklasifikasi').val(data.subklasifikasi)
+              $('#kualifikasi').val(data.kualifikasi)
+              $('#jabker').val(data.jabatan_kerja)
+              $('#skema').val(data.jabatan_kerja)
+              $('#jenjang').val(data.jenjang)
+              $('#acuan').val(data.acuan)
+            }
+          })
+      })
+    </script>
+@endpush

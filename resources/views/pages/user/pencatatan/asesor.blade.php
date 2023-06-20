@@ -283,7 +283,7 @@
         <td>{{$item->provinsi == null ? "-" : $item->propinsi->Nama}}</td>
         <td>{{$item->alamat}}</td>
         <td>{{$item->email}}</td>
-        <td>{{$item->tgl_lahir}}</td>
+        <td>{{date_format(date_create($item->tgl_lahir), 'Y-m-d')}}</td>
         <td>{{$item->pendidikan}}</td>
         <td><span class="label label-success">{{$item->status_asesor}}</span></td>
         <td>{{$item->no_registrasi_asesor}}</td>

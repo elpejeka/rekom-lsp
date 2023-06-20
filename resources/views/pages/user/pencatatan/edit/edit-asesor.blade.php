@@ -126,25 +126,14 @@
         <div class="col-md-6">
           <fieldset>
 
-            <!-- <div class="form-group">
-              <label class="col-lg-3">Nomor Registrasi Asesor Di LPJK</label>
-                  <div class="col-lg-9">
-                    <input type="hidden" class="form-control @error('no_registrasi_asesor') is-invalid @enderror" name="no_registrasi_asesor" value="{{$data->no_registrasi_asesor}}">
-                  </div>
-                  @error('no_registrasi_asesor')
-                  <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                  </span>
-                @enderror
-            </div>  -->
-
             <div class="form-group">
               <label class="col-lg-3 control-label">Provinsi</label>
               <div class="col-lg-9">
                 <select class="select-search" name="provinsi" id="provinsi">
-                    <option value="{{$data->provinsi}}">{{$data->provinsi}}</option>
                 @foreach ($propinsi as $prov)
-                  <option value="{{$prov->id_propinsi_dagri}}">{{$prov->Nama}}</option>
+                  <option value="{{$prov->id_propinsi_dagri}}" @if ($prov->id_propinsi_dagri == $data->provinsi)
+                      selected
+                  @endif>{{$prov->Nama}}</option>
                 @endforeach
                 </select>
               </div>
@@ -159,7 +148,7 @@
               <label class="col-lg-3 control-label">Kabupaten / Kota</label>
               <div class="col-lg-9">
                 <select class="select-search" name="kab_kota" id="kab_kota">
-                  <option value="{{$data->kab_kota}}">{{$data->kab_kota}}</option>
+                  <option value="{{$data->kab_kota}}">{{$data->kabkota == null ? $data->kabkota->nama_kabupaten_dagri : 'pilih kabupaten/kota'}}</option>
                 </select>
               </div>
               @error('kab_kota')

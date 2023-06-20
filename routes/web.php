@@ -185,6 +185,7 @@ Route::prefix('pencatatan')
                 Route::put('/proses-unactive/{id}', 'AsesorController@prosesUnactive')->name('proses.asesor.unactive');
                 Route::put('/asesor/hapus', 'AsesorController@penghapusan')->name('asesor.penghapusan');
                 Route::get('/status-tayang/{id}', 'AsesorController@tayang')->name('asesor.tayang');
+                Route::get('/asesor-done', 'AsesorController@done')->name('asesor.done');
 
                 Route::get('/asesor-approve/{id}', 'AsesorController@showAsesor')->name('asesor.approve');
                 Route::put('/asesor-approve', 'AsesorController@approveAsesor')->name('asesor.approve.update');
@@ -212,6 +213,8 @@ Route::prefix('pencatatan')
                 Route::get('/tempat-uji-kompetensi/edit/{id}', 'TukController@edit')->name('pencatatan.tuk.edit');
                 Route::put('/tempat-uji-kompetensi/update/{id}', 'TukController@update')->name('pencatatan.tuk.update');
                 Route::delete('/tempat-uji-kompetensi/delete/{id}', 'TukController@destroy')->name('pencatatan.tuk.delete');
+                Route::get("/tayang-tuk/{id}", 'TukController@tayang')->name('tuk.tayang');
+                Route::get("/tayang-approve/{id}", 'TukController@done')->name('tuk.done');
 
                 Route::get('/tuk-approve/{id}', 'TukController@showTuk')->name('tuk.approve');
                 Route::put('/tuk-approve', 'TukController@approveTuk')->name('tuk.approve.update');
@@ -235,6 +238,11 @@ Route::prefix('pencatatan')
 Route::get('/check/asesor/{nik}', 'ApiController@index')->name('check.asesor');
 Route::get('/get-sertifikat/{nik}', 'References\SertifikatController@index');
 Route::get('/detail-sertifikat/{noReg}', 'References\SertifikatController@detail');
+Route::prefix('reference')
+            ->namespace('References')
+            ->group(function(){
+                Route::get('/jabker/{id}', 'MasterController@jabker');
+            });
 Auth::routes(['verify' => true]);
 
 // Auth::routes(['register' => false]);

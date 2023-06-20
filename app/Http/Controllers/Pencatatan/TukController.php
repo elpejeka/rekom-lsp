@@ -32,6 +32,7 @@ class TukController extends Controller
         
         $data = $request->all();
         $data['users_id'] = Auth::user()->id;
+        $data['is_active'] = 0;
 
         if($request->hasFile('upload_persyaratan')){
             $data['upload_persyaratan'] = $request->file('upload_persyaratan')->store(
@@ -103,6 +104,7 @@ class TukController extends Controller
         $tuk->nama_tuk = $request->nama_tuk;
         $tuk->approve = $request->approve;
         $tuk->no_pencatatan = $request->no_pencatatan;
+        $tuk->is_active = 1;
 
         $tuk->save();
         return response()->json($tuk);
@@ -143,5 +145,49 @@ class TukController extends Controller
         $item->delete();
 
         return redirect()->route('pencatatan.tuk')->with('success', 'Pencatatan TUK Berhasil di Hapus');
+    }
+
+    public function tayang($id){
+        $data = PencatatanTuk::find($id);
+        $administrasi = Administration::where('users_id', Auth::user()->id)->first();
+        if($data->is_active == 1){
+                $data->update([
+                    'status' => 1
+                ]);
+                $notif = new LogPencatatan;
+                $notif->nama_lsp = $administrasi->nama;
+                $notif->keterangan = 'Permohonan Tayang TUK ' . $data->nama_tuk  ;
+                $notif->created_at = Carbon::now();
+                $notif->save();
+            return redirect()->route('pencatatan.tuk')->with('success', 'Data TUK Berhasil di ajukan');
+        }else{
+            $data->update([
+                'status' => 1
+            ]);
+            $notif = new LogPencatatan;
+            $notif->nama_lsp = $administrasi->nama;
+            $notif->keterangan = 'Permohonan Tayang TUK';
+            $notif->created_at = Carbon::now();
+            $notif->save();
+            return redirect()->route('pencatatan.tuk')->with('success', 'Data TUK Berhasil di ajukan');
+        }
+    }
+
+    public function done($id){
+        $data = PencatatanTuk::find($id);
+
+        if($data->is_active == 1){
+            $data->update([
+                'is_active' => 0,
+                'status' => null
+            ]);
+        }else{
+            $data->update([
+                'is_active' => 1,
+                'status' => null
+            ]);
+        }
+
+        return redirect(route('pencatatan.approve.list'))->with('success', 'Data TUK Berhasil di ubah');
     }
 }

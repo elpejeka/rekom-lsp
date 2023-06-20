@@ -88,7 +88,6 @@
             <div class="form-group">
                 <label class="col-lg-3 control-label">Jenis TUK</label>
                 <div class="col-lg-9">
-                  {{-- <input name="jenis_tuk" type="text" class="form-control @error('jenis_tuk') is-invalid @enderror"  value="{{$data->jenis_tuk}}" autofocus required> --}}
                   <select class="select-search" name="jenis_tuk">
                     <option value="{{$data->jenis_tuk}}">{{$data->jenis_tuk}}</option>
                     <option value="Sewaktu">Sewaktu</option>
@@ -121,9 +120,10 @@
               <label class="col-lg-3 control-label">Provinsi</label>
               <div class="col-lg-9">
                 <select class="select-search" name="provinsi" id="provinsi">
-                    <option value="">Pilih Provinsi</option>
                 @foreach ($propinsi as $prov)
-                  <option value="{{$prov->id_propinsi_dagri}}">{{$prov->Nama}}</option>
+                <option value="{{$prov->id_propinsi_dagri}}" @if ($prov->id_propinsi_dagri == $data->provinsi)
+                  selected
+              @endif>{{$prov->Nama}}</option>
                 @endforeach
                 </select>
               </div>

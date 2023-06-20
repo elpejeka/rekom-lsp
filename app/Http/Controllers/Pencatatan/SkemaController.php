@@ -34,8 +34,6 @@ class SkemaController extends Controller
         $item = Pencatatan::where('users_id', Auth::user()->id)->first();
         $administrasi = Administration::where('users_id', Auth::user()->id)->first();
         $data = $request->all();
-        $jenjang = $request->input('jenjang');
-        $data["jenjang"] = implode(',' , $jenjang);
         $data['users_id'] = Auth::user()->id;
 
         if($request->hasFile('upload_persyaratan')){
@@ -55,7 +53,7 @@ class SkemaController extends Controller
         }
 
         PencatatanSkema::create($data);
-        return redirect('/')->with('success', 'Pencatatan Skema Berhasil diSimpan');
+        return redirect(route('pencatatan.skema'))->with('success', 'Pencatatan Skema Berhasil diSimpan');
     }
 
     public function edit($id){

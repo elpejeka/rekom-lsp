@@ -14,7 +14,7 @@ class PencatatanTuk extends Model
     protected $fillable = [
         'pencatatan_id' , 'kode_tuk', 'jenis_tuk', 'nama_tuk',
         'alamat', 'upload_persyaratan', 'users_id', 'provinsi',
-        'surat_penghapusan', 'ket_hapus'
+        'surat_penghapusan', 'ket_hapus', 'is_active', 'status'
     ];
 
     protected $hidden = [];
@@ -24,7 +24,7 @@ class PencatatanTuk extends Model
     }
 
     public function propinsi(){
-        return $this->belongsTo(Propinsi::class, 'provinsi', 'id_propinsi_dagri');
+        return $this->hasOne(Propinsi::class,'id_propinsi_dagri', 'provinsi');
     }
 
 }
