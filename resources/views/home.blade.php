@@ -9,14 +9,6 @@
             <span class="text-semibold">Dashboard</span></h4>
         </div>
     </div>
-
-    {{-- <div class="breadcrumb-line">
-        <ul class="breadcrumb">
-            <li><a href="index.html"> Home</a></li>
-            <li><a href="detached_right.html">Starters</a></li>
-            <li class="active">Right detached</li>
-        </ul>
-    </div> --}}
 </div>
 @endsection
 

@@ -247,4 +247,6 @@ Auth::routes(['verify' => true]);
 
 // Auth::routes(['register' => false]);
 
+require __DIR__.'./mockup.php';
+
 
