@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class MasterController extends Controller
 {
     public function jabker($id){
-        $jabker = DB::table('jabker_07')->where('id', $id)->first();
+        $jabker = DB::table('jabker_02')->where('id', $id)->first();
 
         return response()->json([
             'message' => 'success',

@@ -26,7 +26,7 @@ class SertifikasiLspController extends Controller
         $permohonan = Permohonan::where('users_id', Auth::user()->id)->get();      
         $kualifikasi = Qualification::with('klas', 'subklas')->where('users_id', Auth::user()->id)->get();   
         // $jabker = Jabker::all();   
-        $jabker = DB::table('jabker_07')->get();
+        $jabker = DB::table('jabker_02')->get();
         $skema = DB::table('lsp_certificates')
                     ->where('lsp_certificates.users_id', '=' ,Auth::user()->id)
                     ->whereNull('lsp_certificates.deleted_at')
@@ -76,7 +76,7 @@ class SertifikasiLspController extends Controller
         $kualifikasi = Qualification::with('klas', 'subklas')->where('users_id', Auth::user()->id)->get();      
         // $jabker = Jabker::all(); 
         // $jabker = DB::table('jabker_baru')->get();
-        $jabker = DB::table('jabker_07')->get();
+        $jabker = DB::table('jabker_02')->get();
             
         $data = LspCertificate::findOrFail($id);
 

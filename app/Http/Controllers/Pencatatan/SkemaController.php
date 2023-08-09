@@ -20,7 +20,7 @@ class SkemaController extends Controller
     public function index(){
         // $jabker = Jabker::all();
         // $jabker = DB::table('jabker_baru')->get();
-        $jabker = DB::table('jabker_07')->get();
+        $jabker = DB::table('jabker_02')->orderBy('id', 'asc')->get();
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $skema = PencatatanSkema::where('users_id', Auth::user()->id)->get();
         return view('pages.user.pencatatan.skema', [
