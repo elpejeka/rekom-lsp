@@ -17,12 +17,17 @@ class VerificationController extends Controller
     }
 
     public function list(){
-        $permohonan = Permohonan::with(['administrations'])->whereNotNull('status_submit')->get();
-        // dd($permohonan);
-        $id = Permohonan::with(['administrations'])->firstOrFail();
+        $permohonan = Permohonan::with(['administrations'])
+                                ->whereNotNull('status_submit')
+                                ->whereNull('status_kelengkapan')
+                                ->whereNull('status_verifikasi')
+                                ->whereNull('status_permohonan')
+                                ->whereNull('status_tolak')
+                                ->get();
         
-        return view('pages.admin.index', [
+        return view('pages.admin.rekomendasi.list-kelengkapan', [
             'data' => $permohonan,
+            'title' => 'List Permohonan'
         ]);
     }
     
@@ -37,10 +42,11 @@ class VerificationController extends Controller
         $cek_kelengkapan = Check::where('permohonans_id', $user->id)->get();
 
         // dd($user_file);
-        return view('pages.admin.verifikasi', [
+        return view('pages.admin.rekomendasi.detail-kelengkapan', [
             'data' => $user_file,
             'permohonan' => $user,
-            'cek' => $cek_kelengkapan
+            'cek' => $cek_kelengkapan,
+            'title' => "Cek Kelengkapan"
         ]);
     }
 

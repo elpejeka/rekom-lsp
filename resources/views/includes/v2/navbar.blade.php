@@ -29,8 +29,10 @@
           <use href="../assets/svg/icon-sprite.svg#fill-widget"></use>
         </svg><span>Rekomendasi Lisensi LSP</span></a>
       <ul class="sidebar-submenu">
-        <li><a href="general-widget.html">Kelengkapan Dokumen</a></li>
-        <li><a href="chart-widget.html">Verifikasi dan Validasi</a></li>
+        <li><a href="{{route('list.verifikasi')}}">Kelengkapan Dokumen</a></li>
+        <li><a href="{{route('list.validasi')}}">Verifikasi dan Validasi</a></li>
+        <li><a href="chart-widget.html">Selesai</a></li>
+        <li><a href="chart-widget.html">Tolak</a></li>
       </ul>
     </li>
     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">

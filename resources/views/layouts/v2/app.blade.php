@@ -62,8 +62,8 @@
           <!-- Container-fluid Ends-->
         </div>
         <!-- footer start-->
-        @include('includes.v2.footer')
       </div>
+      @include('includes.v2.footer')
     </div>
     <!-- latest jquery-->
     @stack('prepend-script')

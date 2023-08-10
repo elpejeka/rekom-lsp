@@ -19,12 +19,18 @@ class ValidationController extends Controller
     }
     
     public function index(){
-        $permohonan = Permohonan::with(['administrations'])->whereNotNull('status_kelengkapan')->get();
+        $permohonan = Permohonan::with(['administrations'])
+                                ->whereNotNull('status_kelengkapan')
+                                ->whereNull('status_verifikasi')
+                                ->whereNull('status_permohonan')
+                                ->whereNull('status_tolak')
+                                ->get();
         $id = Permohonan::with(['administrations'])->firstOrFail(); 
         
         // dd($validasi);
-        return view('pages.admin.list_validasi', [
+        return view('pages.admin.rekomendasi.list-verifikasi', [
             'data' => $permohonan,
+            'title' => "List Verifikasi Validasi"
         ]);
     }
 

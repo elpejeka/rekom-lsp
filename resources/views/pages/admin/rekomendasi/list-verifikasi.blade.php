@@ -28,7 +28,7 @@
       <div class="col-sm-12 col-xl-12">
         <div class="card">
           <div class="card-header">
-              <h4>List Kelengkapan Dokumen</h4>
+              <h4>{{$title}}</h4>
           </div>
           <div class="card-body">
               <div class="table-responsive">
@@ -53,11 +53,24 @@
                           <td>
                             <a href="{{route('verifikasi', $item->id)}}?cek-kelengkapan" class="btn btn-success">Cek Kelengkapan</a>
                           </td>
-                          <td>
-                            <a href="{{route('submit.kelengkapan', $item->id)}}?status_kelengkapan=submit" class="btn btn-primary">Submit<i class="icon-arrow-right14 position-right"></i></a>  
-                            <a href="javascript:void(0)" onclick="updateKeabsahan({{$item->id}})" class="btn btn-info"><i class="icon-pencil"></i></a>
-                            <a href="{{route('submit.tolak', $item->id)}}?status_tolak=submit" class="btn btn-danger">Submit Tolak</a>
+                          @if($item->status_verifikasi == null && $item->status_tolak == null)
+                          <td class="text-center">
+                              <a href="{{route('submit.validasi', $item->id)}}?status_verifikasi=submit" class="btn btn-primary">Submit<i class="icon-arrow-right14 position-right"></i></a>
+                              <a href="javascript:void(0)" onclick="updateKeabsahan({{$item->id}})" class="btn btn-info"><i class="icon-pencil2"></i></a>
+                              <a href="{{route('submit.tolak', $item->id)}}?status_tolak=submit" class="btn btn-danger">Submit Tolak</a>
                           </td>
+                          @else
+                          <td class="text-center">
+                              <div class="btn-group">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Action</button>
+                                <ul class="dropdown-menu dropdown-block">
+                                  <li><a href="{{route('pdf.vv_berita', $item->id)}}" target="_blank" type="button" name="submit" class="dropdown-item"><i class=" icon-printer"></i></b> Print VV Berita Acara</a></li>
+                                  <li><a href="{{route('rekomendasi',  $item->id)}}" class="dropdown-item"><i class="icon-file-excel"></i> Upload Surat Rekomendasi</a></li>
+                                  <li><a href="{{route('submit.selesai',  $item->id)}}?status_permohonan=submit" class="dropdown-item"><i class="icon-checklist2"></i> Selesai</a></li>
+                                </ul>
+                              </div>
+                          </td>
+                          @endif
                         </tr>
                         @endforeach
                         </tbody>
