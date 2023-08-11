@@ -23,6 +23,8 @@ Route::get('/detail-pencatatan-asesor/{id}', 'LspController@showPencatatanAsesor
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/{id}/submit', 'HomeController@show')->name('show_status');
+Route::get('/permohonan-selesai', 'VerificationController@selesai')->name('permohonan.selesai');
+Route::get('/permohonan-tolak', 'VerificationController@tolak')->name('permohonan.tolak');
 
 Route::get('/informasi-umum', 'InformationController@index')->name('informasi');
 Route::get('/informasi-umum/preview', 'InformationController@table')->name('table.informasi-umum');

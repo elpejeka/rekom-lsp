@@ -31,8 +31,8 @@
       <ul class="sidebar-submenu">
         <li><a href="{{route('list.verifikasi')}}">Kelengkapan Dokumen</a></li>
         <li><a href="{{route('list.validasi')}}">Verifikasi dan Validasi</a></li>
-        <li><a href="chart-widget.html">Selesai</a></li>
-        <li><a href="chart-widget.html">Tolak</a></li>
+        <li><a href="{{route('permohonan.selesai')}}">Selesai</a></li>
+        <li><a href="{{route('permohonan.tolak')}}">Tolak</a></li>
       </ul>
     </li>
     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
