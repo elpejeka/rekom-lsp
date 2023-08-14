@@ -39,6 +39,9 @@
                             <th>Nama LSP</th>
                             <th>Jenis Permohonan</th>
                             <th>Tanggal Submit</th>
+                            <th>Tanggal Pencatatan</th>
+                            <th>No Pencatatan</th>
+                            <th>Masa Berlaku SK</th>
                             <th class="text-center">Action</th>
                           </tr>
                         </thead>
@@ -49,9 +52,13 @@
                             <td>{{$item->administrations->nama}}
                             <td>{{$item->permohonan}}</td>
                             <td>{{$item->submit_pencatatan}}</td>
+                            <td>{{$item->approve}}</td>
+                            <td>{{$item->no_pencatatan}}</td>
+                            <td>{{$item->status_sk}}</td>
                             <td>
-                              <a href="{{route('pencatatan.approve', $item->slug)}}" class="btn btn-primary btn-sm">Cek Kesesuaian</a>
-                              <a href="{{route('pencatatan.edit', $item->id)}}" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="{{route('kirim.email', $item->users_id)}}" class="btn btn-sm btn-primary">API</a>
+                                <a href="{{route('pencatatan.approve', $item->slug)}}" class="btn btn-primary btn-sm">Detail</a>
+                                <a href="{{route('sekretariat.edit', $item->id)}}" class="btn btn-warning btn-sm">Edit</a>
                             </td>
                         </tr>
                         @endforeach

@@ -23,7 +23,24 @@
               </svg><span class="badge rounded-pill badge-secondary">4 </span>
             </div>
             <div class="onhover-show-div notification-dropdown">
-              <h6 class="f-18 mb-0 dropdown-title">Notitications                               </h6>
+              <h6 class="f-18 mb-0 dropdown-title">Notitications</h6>
+              @foreach (auth()->user()->unreadNotifications as $notification)
+              <ul>
+                <li class="b-l-primary border-4">
+                  <p>Delivery processing <span class="font-danger">10 min.</span></p>
+                </li>
+              </ul>
+              @endforeach
+            </div>
+          </li>
+          <li class="onhover-dropdown">
+            <div class="notification-box">
+              <svg>
+                <use href="new/assets/svg/icon-sprite.svg#notification"></use>
+              </svg><span class="badge rounded-pill badge-secondary">4 </span>
+            </div>
+            <div class="onhover-show-div notification-dropdown">
+              <h6 class="f-18 mb-0 dropdown-title">Notitications</h6>
               <ul>
                 <li class="b-l-primary border-4">
                   <p>Delivery processing <span class="font-danger">10 min.</span></p>
@@ -43,16 +60,18 @@
           </li>
           <li class="profile-nav onhover-dropdown pe-0 py-0">
             <div class="media profile-media"><img class="b-r-10" src="../assets/images/dashboard/profile.png" alt="">
-              <div class="media-body"><span>Emay Walter</span>
-                <p class="mb-0">Admin <i class="middle fa fa-angle-down"></i></p>
+              <div class="media-body"><span>{{Auth::user()->nama_lsp}}</span>
+                <p class="mb-0"><i class="middle fa fa-angle-down"></i></p>
               </div>
             </div>
             <ul class="profile-dropdown onhover-show-div">
-              <li><a href="#"><i data-feather="user"></i><span>Account </span></a></li>
-              <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
-              <li><a href="#"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
-              <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
-              <li><a href="#"><i data-feather="log-in"> </i><span>Log in</span></a></li>
+              <li>
+                <form action="{{url('logout')}}" method="POST">
+                  @csrf
+                <i class="fas fa-power-off" data-feather="log-in"></i> 
+                <button type="submit" class="btn">Logout</button>
+                </form>
+              </li>
             </ul>
           </li>
         </ul>

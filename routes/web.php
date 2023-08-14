@@ -22,6 +22,7 @@ Route::get('/detail/asesor/sertifikat/{id}', 'LspController@show')->name('show.d
 Route::get('/detail-pencatatan-asesor/{id}', 'LspController@showPencatatanAsesor')->name('detail.qr.asesor');
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/dashboard-user', 'HomeController@dashboard')->name('dashboard.user');
 Route::get('/{id}/submit', 'HomeController@show')->name('show_status');
 Route::get('/permohonan-selesai', 'VerificationController@selesai')->name('permohonan.selesai');
 Route::get('/permohonan-tolak', 'VerificationController@tolak')->name('permohonan.tolak');
@@ -155,6 +156,7 @@ Route::prefix('pencatatan')
                 Route::get('/sekretariat/edit/{id}', 'PencatatanController@sekretariatEdit')->name('sekretariat.edit');
 	    
 	            Route::get('/sekretariat/list', 'IndexController@listApprove')->name('pencatatan.approve.list');
+                Route::get('/sekretariat/selesai', 'indexController@selesai')->name('pencatatan.list.selesai');
                 Route::get('/sekretariat/cek/{slug}', 'IndexController@approve')->name('pencatatan.approve');
                 Route::get('/cek-kesesuaian/{id}/approve', 'IndexController@setApprove')->name('pencatatan.submit.approve');
                 Route::post('/komen/pencatatan', 'IndexController@setKomen')->name('komen.pencatatan');

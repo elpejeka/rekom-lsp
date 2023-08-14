@@ -80,11 +80,27 @@ class IndexController extends Controller
         return redirect('/')->with('success', 'Pencatatan berhasil di submit');
     }
     
-      public function listApprove(){
-        $data = Pencatatan::with('administrations')->whereNotNull('submit_pencatatan')->get();
+    public function listApprove(){
+        $data = Pencatatan::with('administrations')
+                            ->whereNotNull('submit_pencatatan')
+                            ->whereNull('approve')
+                            ->get();
    
         return view('pages.admin.pencatatan.list', [
             'permohonan' => $data,
+            'title' => "List Permohonan Pencatatan"
+        ]);
+    }
+
+    public function selesai(){
+        $data = Pencatatan::with('administrations')
+                            ->whereNotNull('submit_pencatatan')
+                            ->whereNotNull('approve')
+                            ->get();
+
+        return view('pages.admin.pencatatan.selesai', [
+            'permohonan' => $data,
+            'title' => "List LSP Pencatatan"
         ]);
     }
 
@@ -103,19 +119,17 @@ class IndexController extends Controller
         ->where('pencatatan_id', $data->id)
         ->get();
 
-        // dd($asesor);
-
-        return view('pages.admin.pencatatan.approve', [
+        return view('pages.admin.pencatatan.detail', [
             'data' => $data,
             'administrasi' => $administrasi,
             'item' => $user_file,
-            'asesor' => $asesor
+            'asesor' => $asesor,
+            'title' => "Detail Pencatatan"
         ]);
     }
 
     public function setApprove(Request $request, $id)
-    {
-        
+    {      
         $request->validate([
             'approve' => 'required'
         ]);

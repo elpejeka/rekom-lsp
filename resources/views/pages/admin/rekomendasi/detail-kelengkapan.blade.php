@@ -25,6 +25,7 @@
 @section('content')
 <div class="container-fluid">
   <form action="{{route('cek.kelengkapan')}}" method="POST" class="form-horizontal">
+    @csrf
     <input type="text" value="{{$permohonan->id}}" name="permohonans_id" hidden/>
     <div class="row">
       <div class="col-sm-12 col-xl-12">

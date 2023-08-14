@@ -414,6 +414,10 @@
                                                 <td>{{$data->administrations->no_telp}}</td>
                                             </tr>
                                             <tr>
+                                                <td>Jenis LSP</td>
+                                                <td>{{$data->administrations->jenis_lsp}}</td>
+                                            </tr>
+                                            <tr>
                                                 <td>Kategori</td>
                                                 <td>{{$data->administrations->kategori_lsp}}</td>
                                             </tr>
@@ -624,7 +628,7 @@
                                     <td>{{$item->alamat}}</td>
                                     <td><span class="label label-success">{{$item->status_asesor}}</span></td>
                                     <td>{{$item->no_registrasi_asesor}}</td>
-                                    <td>{{$item->provinsi}}</td>
+                                    <td>{{$item->provinsi == null ? "-" : $item->propinsi->Nama}}</td>
                                     <td>
                                         <a href="{{route('check.asesor', $item->nik)}}" class="btn btn-primary" target="_blank">Check</a>
                                     </td>
@@ -647,7 +651,6 @@
                                             <span class="label label-success">Approved</span>
                                             <a href="{{route('asesor.unapprove', $item->id)}}" class="btn btn-sm btn-danger mt-5" target="_blank">Unapproved</a>
                                             <a href="javascript:void(0)" onclick="importAsesor({{$item->id}})" class="btn btn-sm btn-primary mt-5" >Import To Master Penugasan</a>
-                                            <a href="{{route('asesor.done', $item->id)}}" class="btn btn-sm btn-success">Update Status Tayang</a>
                                             {{-- <a data-id={{$item->id}} id="importAsesor" class="btn btn-sm btn-primary mt-5">Import To Master Penugasan</a> --}}
                                         </td>
                                         @endif
@@ -731,7 +734,6 @@
                                         <th>Provinsi</th>
                                         <th>Alamat</th>
                                         <th>Dokumen</th>
-                                        <th>Permohonan Tayang</th>
                                         <th>Status</th>
                                       </tr>
                                     </thead>
@@ -752,13 +754,10 @@
                                                 class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                 <b><i class="icon-file-check"></i></b> Softcopy</a>
                                             </td>
-                                            <td>
-                                                <span class="badge badge-primary">{{$item->status == 0 ? 'Permohonan Tidak Tayang' : 'Permohonan Tayang'}}</span>
-                                            </td>
                                             @if ($item->approve == 1)
                                             <td>
                                                 <span class="label label-success">Approved</span>
-                                                <a href="{{route('tuk.unapprove', $item->id)}}" class="btn btn-sm btn-danger" target="_blank">Unapproved</a>
+                                                <a href="{{route('tuk.unapprove', $item->id)}}" class="btn btn-sm btn-danger mt-5" target="_blank">Unapproved</a>
                                                 <a href="{{route('tuk.done', $item->id)}}" class="btn btn-sm btn-success">Update Status Tayang</a>
                                             </td>
                                             @endif
@@ -997,7 +996,7 @@
   <script>
       function updateKeabsahan(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/pencatatan/skema-approve/'+id, function(skema){
+            $.get('/lsp/pencatatan/skema-approve/'+id, function(skema){
                 $("#id").val(skema.id);
                 $("#nama_skema").val(skema.nama_skema);
                 $("#approve").val(skema.approve);
@@ -1034,7 +1033,7 @@
 
         function updateAsesor(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/pencatatan/asesor-approve/'+id, function(asesor){
+            $.get('/lsp/pencatatan/asesor-approve/'+id, function(asesor){
                 $("#idAsesor").val(asesor.id);
                 $("#nama_asesor").val(asesor.nama_asesor);
                 $("#approve_asesor").val(asesor.approve);
@@ -1071,7 +1070,7 @@
 
         function updateTuk(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/pencatatan/tuk-approve/'+id, function(tuk){
+            $.get('/lsp/pencatatan/tuk-approve/'+id, function(tuk){
                 $("#idTuk").val(tuk.id);
                 $("#nama_tuk").val(tuk.nama_tuk);
                 $("#approve_tuk").val(tuk.approve);
@@ -1212,7 +1211,7 @@
         // })
 
         function importAsesor(id){
-            $.get('/pencatatan/import-to-siki/'+id, function(data){
+            $.get('/lsp/pencatatan/import-to-siki/'+id, function(data){
                 alert(data.message);
             });
         }

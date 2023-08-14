@@ -13,6 +13,7 @@ use App\User;
 use App\Permohonan;
 use App\TerimaPermohonan;
 use Auth;
+use App\Http\Middleware\IsAdmin;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,7 @@ class HomeController extends Controller
     {
         // $this->middleware('auth');
         $this->middleware(['auth','verified']);
+        $this->middleware(['isAdmin'])->only(['index']);
     }
 
     /**
@@ -34,6 +36,19 @@ class HomeController extends Controller
      */
 
      public function index(Request $request){
+        $jumlah_masuk = Permohonan::whereNotNull('status_submit')->get();
+        $jumlah_proses = Permohonan::whereNotNull('status_kelengkapan')->get();
+        $jumlah_selesai = Permohonan::whereNotNull('status_verifikasi')->get();
+
+         return view('dashboard.sekretariat', [
+             'jumlah_masuk' => $jumlah_masuk,
+             'jumlah_proses' => $jumlah_proses,
+             'jumlah_selesai' => $jumlah_selesai,
+             'title' => "Dashboard"
+         ]);
+     }
+
+     public function dashboard(Request $request){
         $users = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'locations'])->where('id', Auth::user()->id)->get();
         $permohonan = Permohonan::with(['administrations'])->where('users_id', Auth::user()->id)->get();
         $data = Administration::where('users_id', Auth::user()->id)->get();
@@ -42,27 +57,18 @@ class HomeController extends Controller
         $tuk = Tuk::where('users_id', Auth::user()->id)->get();
         $asesor = Asesor::where('users_id', Auth::user()->id)->get();
         $lsp = LspCertificate::where('users_id', Auth::user()->id)->get();
-        $jumlah_masuk = Permohonan::whereNotNull('status_submit')->get();
-        $jumlah_proses = Permohonan::whereNotNull('status_kelengkapan')->get();
-        $jumlah_selesai = Permohonan::whereNotNull('status_verifikasi')->get();
-        $portal = TerimaPermohonan::all();
 
-        // dd($permohonan);
-
-         return view('home_1', [
-             'data' => $data,
-             'kualifikasi' => $kualifikasi,
-             'organisasi' => $organisasi,
-             'tuk' => $tuk,
-             'asesor' => $asesor,
-             'lsp' => $lsp,
-             'users'  => $users,
-             'permohonan' => $permohonan,
-             'jumlah_masuk' => $jumlah_masuk,
-             'jumlah_proses' => $jumlah_proses,
-             'jumlah_selesai' => $jumlah_selesai,
-             'portal' => $portal
-         ]);
+        return view('dashboard.user', [
+            'data' => $data,
+            'kualifikasi' => $kualifikasi,
+            'organisasi' => $organisasi,
+            'tuk' => $tuk,
+            'asesor' => $asesor,
+            'lsp' => $lsp,
+            'users'  => $users,
+            'permohonan' => $permohonan,
+            'title' => "Dashboard"
+        ]);
      }
 
      public function show($id){
