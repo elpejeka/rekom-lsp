@@ -13,6 +13,7 @@ use PDF;
 
 class ValidationController extends Controller
 {
+    
     public function __construct()
     {
         $this->middleware(['auth','verified']);
@@ -21,13 +22,10 @@ class ValidationController extends Controller
     public function index(){
         $permohonan = Permohonan::with(['administrations'])
                                 ->whereNotNull('status_kelengkapan')
-                                ->whereNull('status_verifikasi')
                                 ->whereNull('status_permohonan')
                                 ->whereNull('status_tolak')
                                 ->get();
-        $id = Permohonan::with(['administrations'])->firstOrFail(); 
-        
-        // dd($validasi);
+
         return view('pages.admin.rekomendasi.list-verifikasi', [
             'data' => $permohonan,
             'title' => "List Verifikasi Validasi"
@@ -41,10 +39,11 @@ class ValidationController extends Controller
         
         $validasi = Verification::where('permohonans_id', $user->id)->get();
 
-        return view('pages.admin.validasi', [
+        return view('pages.admin.rekomendasi.detail-verifikasi', [
             'data' => $user_file,
             'permohonan' => $user,
-            'verifikasi' => $validasi
+            'verifikasi' => $validasi,
+            'title' => 'Verifikasi Validasi Rekomendasi'
         ]);
     }
     

@@ -19,4 +19,8 @@ class Tuk extends Model
     public function user(){
     return $this->belongsTo(User::class, 'users_id', 'id');
     }
+
+    public function propinsi(){
+        return $this->hasOne(Propinsi::class,'id_propinsi_dagri', 'provinsi');
+    }
 }

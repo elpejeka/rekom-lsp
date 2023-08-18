@@ -103,9 +103,12 @@ class SubmitController extends Controller
         $item = Permohonan::findOrFail($id);
         $item->status_verifikasi = Carbon::now();
         
-        $user = User::where('id', $item->users_id)->get();
+        $user = User::where('id', $item->users_id)->first();
+
+        // dd($user);
+
         
-        Notification::send($user, new VerifikasiValidasi());
+        // Notification::send($user, new VerifikasiValidasi());
 
         $item->save();
 

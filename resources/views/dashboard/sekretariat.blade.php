@@ -35,7 +35,7 @@
                     </svg>
                   </div>
                   <div> 
-                    <h4 class="mb-0">100+</h4><span class="f-light">Permohonan Masuk</span>
+                    <h4 class="mb-0">{{$jumlah_masuk}}</h4><span class="f-light">Permohonan Masuk</span>
                   </div>
                 </div>
               </div>
@@ -61,7 +61,7 @@
                     </svg>
                   </div>
                   <div> 
-                    <h4 class="mb-0">100+</h4><span class="f-light">Kelengkapan Dokumen</span>
+                    <h4 class="mb-0">{{$kelengkapan}}</h4><span class="f-light">Kelengkapan Dokumen</span>
                   </div>
                 </div>
               </div>
@@ -87,7 +87,7 @@
                     </svg>
                   </div>
                   <div> 
-                    <h4 class="mb-0">100+</h4><span class="f-light">Verifikasi Validasi</span>
+                    <h4 class="mb-0">{{$verifikasi}}</h4><span class="f-light">Verifikasi Validasi</span>
                   </div>
                 </div>
               </div>
@@ -113,7 +113,7 @@
                     </svg>
                   </div>
                   <div> 
-                    <h4 class="mb-0">100+</h4><span class="f-light">Selesai</span>
+                    <h4 class="mb-0">{{$jumlah_selesai}}</h4><span class="f-light">Selesai</span>
                   </div>
                 </div>
               </div>
@@ -128,13 +128,65 @@
                 <li class="square-7 success"></li>
               </ul>
             </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="card course-box"> 
+            <div class="card-body"> 
+              <div class="course-widget"> 
+                <div class="course-icon"> 
+                  <svg class="fill-icon">
+                    <use href="../assets/svg/icon-sprite.svg#course-1"></use>
+                  </svg>
+                </div>
+                <div> 
+                  <h4 class="mb-0">{{$tolak}}</h4><span class="f-light">Tolak</span>
+                </div>
+              </div>
+            </div>
+            <ul class="square-group">
+              <li class="square-1 warning"></li>
+              <li class="square-1 primary"></li>
+              <li class="square-2 warning1"></li>
+              <li class="square-3 danger"></li>
+              <li class="square-4 light"></li>
+              <li class="square-5 warning"></li>
+              <li class="square-6 success"></li>
+              <li class="square-7 success"></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="card course-box"> 
+            <div class="card-body"> 
+              <div class="course-widget"> 
+                <div class="course-icon"> 
+                  <svg class="fill-icon">
+                    <use href="../assets/svg/icon-sprite.svg#course-1"></use>
+                  </svg>
+                </div>
+                <div> 
+                  <h4 class="mb-0">{{$pencatatan}}</h4><span class="f-light">Pencatatan</span>
+                </div>
+              </div>
+            </div>
+            <ul class="square-group">
+              <li class="square-1 warning"></li>
+              <li class="square-1 primary"></li>
+              <li class="square-2 warning1"></li>
+              <li class="square-3 danger"></li>
+              <li class="square-4 light"></li>
+              <li class="square-5 warning"></li>
+              <li class="square-6 success"></li>
+              <li class="square-7 success"></li>
+            </ul>
+          </div>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12 col-xl-6 box-col-12">
             <div class="card">
               <div class="card-header">
-                <h5>bar-chart2</h5>
+                <h5>Rekomendasi</h5>
               </div>
               <div class="card-body chart-block">
                 <canvas id="chartPermohonan"></canvas>
@@ -156,21 +208,24 @@
                                         "Masuk",
                                         "Cek Kelengkapan",
                                         "Verifikasi Validasi",
-                                        "Selesai"
+                                        "Selesai",
+                                        "Tolak"
                                     ],
                                     datasets: [{
                                         label : "JUMLAH PERMOHONAN REKOMENDASI LSP",
                                         data: [
-                                            "1000",
-                                            "450",
-                                            "150",
-                                            "400",
+                                            "{{$jumlah_masuk}}",
+                                            "{{$kelengkapan}}",
+                                            "{{$verifikasi}}",
+                                            "{{$jumlah_selesai}}",
+                                            '{{$tolak}}'
                                         ],
                                         backgroundColor: [
                                             'rgba(54, 162, 45, 0.5)',
                                             'rgba(27, 40, 255, 0.2)',
                                             'rgba(27, 40, 255, 0.2)',
                                             'rgba(54, 162, 2, 0.2)',
+                                            'rgba(255,0,0,0.5)'
                                             
                                         ],
                                         borderColor: [
@@ -178,6 +233,7 @@
                                             'rgba(27, 40, 255, 1)',
                                             'rgba(27, 40, 255, 1)',
                                             'rgba(54, 162, 2, 1)',
+                                            'rgba(255,0,0,1)'
                                         ],
                                         borderWidth: 1
                                     }]

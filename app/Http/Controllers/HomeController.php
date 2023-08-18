@@ -14,6 +14,7 @@ use App\Permohonan;
 use App\TerimaPermohonan;
 use Auth;
 use App\Http\Middleware\IsAdmin;
+use App\Pencatatan;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
         $this->middleware(['auth','verified']);
         $this->middleware(['isAdmin'])->only(['index']);
     }
@@ -37,13 +37,28 @@ class HomeController extends Controller
 
      public function index(Request $request){
         $jumlah_masuk = Permohonan::whereNotNull('status_submit')->get();
-        $jumlah_proses = Permohonan::whereNotNull('status_kelengkapan')->get();
-        $jumlah_selesai = Permohonan::whereNotNull('status_verifikasi')->get();
+        $kelengkapan = Permohonan::whereNull('status_kelengkapan')
+                                    ->whereNull('status_verifikasi')
+                                    ->whereNull('status_permohonan')
+                                    ->whereNull('status_tolak')->get();
+
+        $verifikasi = Permohonan::whereNotNull('status_kelengkapan')
+                                ->whereNull('status_verifikasi')
+                                ->whereNull('status_permohonan')
+                                ->whereNull('status_tolak')->get();
+
+        $jumlah_selesai = Permohonan::whereNotNull('status_permohonan')->get();
+
+        $tolak = Permohonan::whereNotNull('status_tolak')->get();
+        $pencatatan = Pencatatan::whereNotNull('approve')->get();
 
          return view('dashboard.sekretariat', [
-             'jumlah_masuk' => $jumlah_masuk,
-             'jumlah_proses' => $jumlah_proses,
-             'jumlah_selesai' => $jumlah_selesai,
+             'jumlah_masuk' => count($jumlah_masuk),
+             'kelengkapan' => count($kelengkapan),
+             'verifikasi' => count($verifikasi),
+             'jumlah_selesai' => count($jumlah_selesai),
+             'tolak' => count($tolak),
+             'pencatatan' => count($pencatatan),
              'title' => "Dashboard"
          ]);
      }
