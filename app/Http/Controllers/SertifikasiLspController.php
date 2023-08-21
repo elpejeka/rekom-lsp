@@ -22,10 +22,9 @@ class SertifikasiLspController extends Controller
         $this->middleware(['auth','verified']);
     }
 
-    public function index(Request $request){
+    public function index(){
         $permohonan = Permohonan::where('users_id', Auth::user()->id)->get();      
         $kualifikasi = Qualification::with('klas', 'subklas')->where('users_id', Auth::user()->id)->get();   
-        // $jabker = Jabker::all();   
         $jabker = DB::table('jabker_02')->get();
         $skema = DB::table('lsp_certificates')
                     ->where('lsp_certificates.users_id', '=' ,Auth::user()->id)
@@ -35,13 +34,13 @@ class SertifikasiLspController extends Controller
                     })
                     ->select('lsp_certificates.*', 'permohonans.status_permohonan', 'permohonans.status_tolak', 'permohonans.status_submit')
                     ->get();
-        // $skema = LspCertificate::with('permohonan')->where('users_id', Auth::user()->id)->get();
 
-        return view('pages.user.sertifikasi_lsp', [
+        return view('pages.user.rekomendasi.skema', [
             'data' => $kualifikasi,
             'skema' => $skema,
             'items' => $jabker,
-            'permohonan' => $permohonan
+            'permohonan' => $permohonan,
+            'title' => "Skema Sertifikasi LSP"
         ]);
     }
 

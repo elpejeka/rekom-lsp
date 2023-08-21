@@ -29,13 +29,14 @@ class InformationController extends Controller
         $item = Administration::with(['propinsi', 'unsur', 'unsur1', 'unsur2'])->where('users_id', Auth::user()->id)->get();
         $propinsi = DB::table('propinsi_dagri')->get();
 
-        return view('pages.user.informasi', [
+        return view('pages.user.rekomendasi.informasi', [
             // 'item' => $permohonan,
             // 'data' => $user
             'data' => $user_file,
             'item' => $item,
             'informasi' => $item->count(),
-            'propinsi' => $propinsi
+            'propinsi' => $propinsi,
+            'title' => 'Informasi Umum'
         ]);
     }
 
@@ -96,11 +97,12 @@ class InformationController extends Controller
                         ->where('id', Auth::user()->id)->firstOrFail();
         
 
-        return view('pages.user.edit.edit_administrasi')->with([
+        return view('pages.user.rekomendasi.edit.informasi')->with([
             'item' => $item,
             'asosiasi' => $asosiasi,
             'data' => $user_file,
-            'propinsi' => $propinsi
+            'propinsi' => $propinsi,
+            'title' => 'Update Informasi Umum'
         ]);
     }
     
