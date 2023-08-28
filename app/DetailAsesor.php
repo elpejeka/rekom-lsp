@@ -15,7 +15,7 @@ class DetailAsesor extends Model
         'asesor_id', 'klasifikasi', 'subklasifikasi', 'kualifikasi',
         'nrka','no_sertifikat_asesor', 'sub_klasifikasi_sertifikat',
         'kualifikasi_sertifikat', 'ska' , 'sertifikat_asesors', 'users_id',
-        'tgl_akhir_sertifikat_asesor','tgl_akhir_sertifikat_kompetensi'
+        'tgl_akhir_sertifikat_asesor','tgl_akhir_sertifikat_kompetensi',
     ];
 
     protected $hidden = [];

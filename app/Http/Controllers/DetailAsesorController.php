@@ -16,10 +16,11 @@ class DetailAsesorController extends Controller
         $asesor = Asesor::where('slug', $slug)->firstOrFail();
         $sertifikat = DetailAsesor::where('asesor_id', $asesor->id)->get();
 
-        return view('pages.user.detail_asesor', [
+        return view('pages.user.rekomendasi.sertifikat', [
             'asesor' => $asesor,
             'data' => $kualifikasi,
-            'sertifikat' => $sertifikat
+            'sertifikat' => $sertifikat,
+            'title' => "Detail Asesor"
         ]);
     }
 
@@ -53,13 +54,14 @@ class DetailAsesorController extends Controller
         $item = DetailAsesor::with('asesor')->findOrFail($id);
 
 
-        return view('pages.user.edit.edit_detail_asesor', [
+        return view('pages.user.rekomendasi.edit.sertifikat', [
             'item' => $item,
             'data' => $kualifikasi,
+            'title' => "Edit Sertifikat Asesor"
         ]);
     }
 
-    public function update(DetailAsesorRequest $request, $id){
+    public function update(Request $request, $id){
         $item = DetailAsesor::findOrFail($id);
         $data = $request->all();
         $data['users_id'] = Auth::user()->id;

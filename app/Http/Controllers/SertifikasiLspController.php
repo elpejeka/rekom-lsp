@@ -24,7 +24,7 @@ class SertifikasiLspController extends Controller
 
     public function index(){
         $permohonan = Permohonan::where('users_id', Auth::user()->id)->get();      
-        $kualifikasi = Qualification::with('klas', 'subklas')->where('users_id', Auth::user()->id)->get();   
+        $kualifikasi = Qualification::with(['klas', 'subklas'])->where('users_id', Auth::user()->id)->get();   
         $jabker = DB::table('jabker_02')->get();
         $skema = DB::table('lsp_certificates')
                     ->where('lsp_certificates.users_id', '=' ,Auth::user()->id)
@@ -73,17 +73,16 @@ class SertifikasiLspController extends Controller
     public function edit($id){
         $permohonan = Permohonan::where('users_id', Auth::user()->id)->get();     
         $kualifikasi = Qualification::with('klas', 'subklas')->where('users_id', Auth::user()->id)->get();      
-        // $jabker = Jabker::all(); 
-        // $jabker = DB::table('jabker_baru')->get();
         $jabker = DB::table('jabker_02')->get();
             
         $data = LspCertificate::findOrFail($id);
 
-        return view('pages.user.edit.edit_skema', [
+        return view('pages.user.rekomendasi.edit.skema', [
             'data' => $data,
             'subklas' => $kualifikasi,
             'items' => $jabker,
-            'permohonan' => $permohonan
+            'permohonan' => $permohonan,
+            'title' => "Edit Skema"
         ]);
     }
 

@@ -19,8 +19,9 @@ class PerpanjanganController extends Controller
         $permohonan = Permohonan::where('id', Auth::user()->id)
                         ->where('jenis_permohonan', 'penambahan')
                         ->get();
-        return view('pages.user.perpanjangan', [
-            'permohonan' => $permohonan
+        return view('pages.user.rekomendasi.perpanjangan', [
+            'permohonan' => $permohonan,
+            'title' => "Dokumen Perpanjangan"
         ]);
     }
 

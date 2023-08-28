@@ -78,6 +78,8 @@ Route::delete('/skema-sertifikasi-asesor/hapus/{id}', 'SkemaAsesorController@des
 
 Route::get('/tempat-uji-kompetensi', 'TukController@index')->name('tuk');
 Route::get('/tempat-uji-kompetensi/preview', 'TukController@table')->name('table.tuk');
+Route::get('/tempat-uji/edit/{id}', 'TukController@edit')->name('rekom.tuk.edit');
+Route::put('/tuk/update/{id}','TukController@update')->name('rekom.tuk.update');
 Route::delete('/tempat-uji-kompetensi/{id}/hapus', 'TukController@destroy')->name('delete.tuk');
 Route::post('/tempat-uji-kompetensi', 'TukController@store')->name('tuk_store');
 

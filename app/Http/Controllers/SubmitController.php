@@ -55,10 +55,11 @@ class SubmitController extends Controller
         where q.deleted_at is null and q.users_id =". $user->users_id);
 
 
-        return view('pages.user.apply', [
+        return view('pages.user.rekomendasi.submit', [
             'permohonan' => $user_file,
             'data' => $user,
-            'klasifikasi' => $klasifikasi
+            'klasifikasi' => $klasifikasi,
+            'title' => "Detail Permohonan"
         ]);
     }
    

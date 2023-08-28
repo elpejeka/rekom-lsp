@@ -60,9 +60,9 @@
             </div>
 
             <div class="form-group">
-              <label class="col-lg-3 control-label">SK Lisensi dan Sertifikat Lisensi LSP</label>
+              <label class="col-lg-3 control-label">Sertifikat Lisensi LSP</label>
                 <div class="col-lg-9">
-                    <input name="sertiikasi_lsp" type="file" class="file-input @error('sertiikasi_lsp') is-invalid @enderror"
+                    <input name="sertifikasi_lsp" type="file" class="file-input @error('sertifikasi_lsp') is-invalid @enderror"
                     data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
                     <span class="help-block">
                       Accepted formats: pdf, zip, rar  Max file size 50Mb
@@ -82,7 +82,7 @@
           <fieldset>
 
             <div class="form-group">
-              <label class="col-lg-3 control-label">SK Lisensi dan Sertifikat Lisensi LSP</label>
+              <label class="col-lg-3 control-label">SK Lisensi LSP</label>
                 <div class="col-lg-9">
                     <input name="sk_lisensi" type="file" class="file-input @error('sk_lisensi') is-invalid @enderror"
                     data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>

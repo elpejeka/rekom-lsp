@@ -15,8 +15,9 @@ class PenambahanController extends Controller
     public function index(){
         $permohonan = Permohonan::where('users_id', Auth::user()->id)
                         ->where('status_submit', NULL)->get();
-        return view('pages.user.penambahan', [
+        return view('pages.user.rekomendasi.penambahan', [
             'permohonan' => $permohonan,
+            'title' => "Dokumen Penambahan Skema"
         ]);
     }
 

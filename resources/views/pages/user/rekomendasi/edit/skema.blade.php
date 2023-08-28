@@ -31,7 +31,8 @@
               <h4>{{$title}}</h4>
             </div>
             <div class="card-body">
-                <form class="form-horizontal" action="{{route('sertifikasi_lsp_store')}}" method="POST" enctype="multipart/form-data">
+                <form class="form-horizontal" action="{{route('update.skema', $data->id)}}" method="POST" enctype="multipart/form-data">
+                    @method('PUT')
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
@@ -41,7 +42,9 @@
                               <optgroup label="PERMOHONAN">
                                 @foreach ($permohonan as $pmhn)
                                   @if (!$pmhn->status_submit)
-                                  <option value="{{$pmhn->id}}">{{$pmhn->jenis_permohonan}} ({{ date('d-m-Y', strtotime($pmhn->created_at)) }})</option>
+                                  <option value="{{$pmhn->id}}" @if ($pmhn->id == $data->permohonans_id)
+                                      selected
+                                  @endif>{{$pmhn->jenis_permohonan}}> ({{ date('d-m-Y', strtotime($pmhn->created_at)) }})</option>
                                   @endif
                                 @endforeach
                               </optgroup>
@@ -59,7 +62,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Kode Skema</label>
-                            <input type="text" class="form-control @error('kode_skema') is-invalid @enderror" name="kode_skema" required>
+                            <input type="text" class="form-control @error('kode_skema') is-invalid @enderror" name="kode_skema" value="{{$data->kode_skema}}" required>
                             @error('kode_skema')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -71,12 +74,13 @@
                 <div class="row mt-4">
                   <div class="col-md-6">
                       <div class="form-group">
-                          <label class="control-label">Permohonan</label>
+                          <label class="control-label">Skema</label>
                           <select class="form-control" name="nama_skema">
                             <optgroup label="RUANG LINGKUP">
-                                <option value="">Pilih Skema Sertifikasi</option>   
                               @foreach ($items as $jabker)
-                                <option value="{{$jabker->jabatan_kerja}}">{{$jabker->jabatan_kerja}}</option>
+                                <option value="{{$jabker->jabatan_kerja}}" @if ($jabker->jabatan_kerja == $data->nama_skema)
+                                    selected
+                                @endif>{{$jabker->jabatan_kerja}}</option>
                               @endforeach
                             </optgroup>
                         </select>
@@ -92,9 +96,10 @@
                           <label class="control-label">Jabatan Kerja</label>
                           <select class="form-control" name="jabker">
                             <optgroup label="RUANG LINGKUP">
-                                <option value="">Pilih Skema Sertifikasi</option>   
                               @foreach ($items as $jabker)
-                                <option value="{{$jabker->jabatan_kerja}}">{{$jabker->jabatan_kerja}}</option>
+                                <option value="{{$jabker->jabatan_kerja}}" @if ($jabker->jabatan_kerja == $data->jabker)
+                                    selected
+                                @endif>{{$jabker->jabatan_kerja}}</option>
                               @endforeach
                             </optgroup>
                         </select>
@@ -112,8 +117,10 @@
                           <label class="control-label">Klasifikasi</label>
                           <select class="form-control" name="klasifikasi">
                             <optgroup label="RUANG LINGKUP">
-                              @foreach ($data as $item)
-                              <option value="{{$item->klas->nama}}">{{$item->klas->nama}}</option>
+                              @foreach ($subklas as $item)
+                              <option value="{{$item->klas->nama}}" @if ($item->klas->nama == $data->klasifikasi)
+                                  selected
+                              @endif>{{$item->klas->nama}}</option>
                               @endforeach
                             </optgroup>
                         </select>
@@ -129,8 +136,10 @@
                           <label class="control-label">Subklasifikasi</label>
                           <select class="form-control" name="sub_klasifikasi">
                             <optgroup label="SUBKLASIFIKASI">
-                              @foreach ($data as $item)
-                                <option value="{{$item->subklas->nama}}">{{$item->subklas->nama}}</option>
+                              @foreach ($subklas as $item)
+                                <option value="{{$item->subklas->nama}}" @if ($item->subklas->nama == $data->sub_klasifikasi)
+                                    selected
+                                @endif>{{$item->subklas->nama}}</option>
                               @endforeach
                             </optgroup>
                         </select>
@@ -148,10 +157,9 @@
                           <label class="control-label">Kualifikasi</label>
                           <select class="form-control" name="kualifikasi">
                               <optgroup label="KUALIFIKASI">
-                                <option value="">Pilih Kualifikasi</option>
-                                <option value="Ahli">Ahli</option>
-                                <option value="Teknisi">Teknisi/Analis</option>
-                                <option value="Operator">Operator</option>
+                                <option value="Ahli" @if($data->kualifikasi == 'Ahli') selected @endif>Ahli</option>
+                                <option value="Teknisi" @if($data->kualifikasi == 'Teknisi') selected @endif>Teknisi/Analis</option>
+                                <option value="Operator" @if($data->kualifikasi == 'Operator') selected @endif>Operator</option>
                               </optgroup>
                         </select>
                       </div>
@@ -164,7 +172,7 @@
                   <div class="col-md-6">
                       <div class="form-group">
                           <label class="control-label">Jumlah Unit Kompetensi</label>
-                          <input type="number" class="form-control @error('jumlah_unit') is-invalid @enderror" name="jumlah_unit" min="0" required>
+                          <input type="number" class="form-control @error('jumlah_unit') is-invalid @enderror" name="jumlah_unit" min="0" value="{{$data->jumlah_unit}}" required>
                           @error('jumlah_unit')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -179,9 +187,9 @@
                           <label class="control-label">Acuan Skema</label>
                           <select class="form-control" name="acuan_skema">
                             <optgroup label="Acuan Skema">
-                              <option value="SKKNI">SKKNI</option>
-                              <option value="SKK Khusus">SKK Khusus</option>
-                              <option value="Standar Internasional">Standar Internasional</option>
+                              <option value="SKKNI" @if($data->acuan_skema == 'SKKNI') selected @endif>SKKNI</option>
+                              <option value="SKK Khusus" @if($data->acuan_skema == 'SKK Khusus') selected @endif>SKK Khusus</option>
+                              <option value="Standar Internasional" @if($data->acuan_skema == 'Standar Internasional') selected @endif>Standar Internasional</option>
                           </optgroup>
                         </select>
                       </div>
@@ -194,7 +202,7 @@
                   <div class="col-md-6">
                       <div class="form-group">
                           <label class="control-label">Jenjang</label>
-                          <input type="number" class="form-control @error('jenjang') is-invalid @enderror" name="jenjang" min="0" required>
+                          <input type="number" class="form-control @error('jenjang') is-invalid @enderror" name="jenjang" value="{{$data->jenjang}}" required>
                           @error('jenjang')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -217,7 +225,7 @@
                               </div>
                               <div class="col-md-6">
                                   <input name="upload_persyaratan" type="file" class="form-control @error('upload_persyaratan') is-invalid @enderror"
-                                  data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
+                                  data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
                                   <span class="help-block">
                                     Accepted formats: pdf, zip, rar, jpeg, jpg, png Max file size 20Mb
                                   </span>
@@ -243,7 +251,7 @@
                             </div>
                             <div class="col-md-6">
                                 <input name="standar_kompetensi" type="file" class="form-control @error('standar_kompetensi') is-invalid @enderror"
-                                data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
+                                data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
                                 <span class="help-block">
                                   Accepted formats: pdf, zip, rar, jpeg, jpg, png Max file size 20Mb
                                 </span>
@@ -270,83 +278,12 @@
                 </form>    
             </div>
       </div>
-      <div class="col-sm-12 col-xl-12">
-        <div class="card">
-          <div class="card-header">
-            <h4>List Skema</h4>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="list" width="100%" cellspacing="0">
-                  <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>Kode Skema</th>
-                        <th>Nama Skema</th>
-                        <th>Jabatan Kerja</th>
-                        <th>Klasifikasi</th>
-                        <th>Subklasifikasi</th>
-                        <th>Kualifikasi</th>
-                        <th>Jenjang</th>
-                        <th>Jumlah Unit</th>
-                        <th>Acuan Skema</th>
-                        <th>Dokumen</th>
-                        <th>Dokumen</th>
-                        <th class="text-center">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($skema as $skema)
-                      <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$skema->kode_skema}}</td>
-                        <td>{{$skema->nama_skema}}</td>
-                        <td>{{$skema->jabker}}</td>
-                        <td>{{$skema->klasifikasi}}</td>
-                        <td>{{$skema->sub_klasifikasi}}</td>
-                        <td>{{$skema->kualifikasi}}</td>
-                        <td>{{$skema->jenjang}}</td>
-                        <td>{{$skema->jumlah_unit}}</td>
-                        <td>{{$skema->acuan_skema}}</td>
-                        <td>
-                          <a href="{{asset('laravel/storage/app/public/'. $skema->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
-                           class="open-delete btn btn-primary btn-labeled btn-rounded">
-                           <b><i class="icon-file-check"></i></b> Softcopy</a>
-                        </td>
-                        <td>
-                          <a href="{{asset('laravel/storage/app/public/'. $skema->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" 
-                           class="open-delete btn btn-primary btn-labeled btn-rounded">
-                           <b><i class="icon-file-check"></i></b> Softcopy</a>
-                        </td>
-                        @if ($skema->status_submit == null)
-                        <td class="text-center">
-                          <a href="{{route('edit.skema', $skema->id)}}" class="btn btn-primary" style="margin-bottom: 2px;">Edit</a>
-                          <form action="{{route('delete.sertifikasi', $skema->id)}}" method="post" class="d-inline">
-                            @csrf
-                            @method('delete')
-                          <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>
-                          </form>
-                        </td>
-                        @else
-                            <td class="text-center">
-                              Permohonan Skema Sudah Di Submit
-                            </td>
-                        @endif
-                      @endforeach
-                    </tbody>
-              </table>
-          </div>
-          </div>
-      </div>
   </div>
 </div>
 @endsection
 
 @push('addon-script')
 <script>
-    $(document).ready(function () {
-        $('#list').DataTable();
-    });
 
     $('#klasifikasi').change(function(){
       var kode = $(this).val();
