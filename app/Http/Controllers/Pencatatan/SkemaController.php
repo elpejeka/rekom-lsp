@@ -17,16 +17,16 @@ use Carbon\Carbon;
 
 class SkemaController extends Controller
 {
+
     public function index(){
-        // $jabker = Jabker::all();
-        // $jabker = DB::table('jabker_baru')->get();
         $jabker = DB::table('jabker_02')->orderBy('id', 'asc')->get();
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $skema = PencatatanSkema::where('users_id', Auth::user()->id)->get();
-        return view('pages.user.pencatatan.skema', [
+        return view('pages.user.catat.skema', [
             'items' => $jabker,
             'permohonan' => $permohonan,
-            'skema' => $skema
+            'skema' => $skema,
+            'title' => "Skema Sertifikasi"
         ]);
     }
 
@@ -59,23 +59,20 @@ class SkemaController extends Controller
     public function edit($id){
         $data = PencatatanSkema::findOrFail($id);
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
-        // $jabker = Jabker::all();
-        // $jabker = DB::table('jabker_baru')->get();
-        $jabker = DB::table('jabker_07')->get();
+        $jabker = DB::table('jabker_02')->get();
     
-        return view('pages.user.pencatatan.edit.edit-skema', [
+        return view('pages.user.catat.edit.skema', [
             'data' => $data,
             'permohonan' => $permohonan,
             'items' => $jabker,
-            
+            'title' => "Edit Skema"
         ]);
     }
 
     public function update(Request $request, $id){
         $item = PencatatanSkema::findOrFail($id);
         $data = $request->all();
-        $jenjang = $request->input('jenjang');
-        $data["jenjang"] = implode(',' , $jenjang);
+
 
         if($request->hasFile('upload_persyaratan')){
             $data['upload_persyaratan'] = $request->file('upload_persyaratan')->store(
@@ -85,16 +82,13 @@ class SkemaController extends Controller
             $data['upload_persyaratan'] = $item->upload_persyaratan;
         }
 
+
         if($item->approve == 1){
             LogSkema::create([
                 'file' => $item->upload_persyaratan,
                 'user_id' => Auth::user()->id
             ]);
         }
-
-        LogSkema::create([
-            'file' => $data
-        ]);
 
         $item->update($data);
 

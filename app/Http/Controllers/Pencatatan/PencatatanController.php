@@ -15,11 +15,12 @@ class PencatatanController extends Controller
 {
     public function index(){
         $data = Administration::where('users_id', Auth::user()->id)->get();
-        $pencatatan = Pencatatan::where('users_id', Auth::user()->id)->get();
-        return view('pages.user.pencatatan.pencatatan', [
+        $pencatatan = Pencatatan::where('users_id', Auth::user()->id)->first();
+
+        return view('pages.user.catat.permohonan', [
             'data' => $data,
-            'item' => $pencatatan,
-            'informasi' => $pencatatan->count()
+            'pencatatan' => $pencatatan,
+            'title' => "Permohonan Pencatatan"
         ]);
     }
 
@@ -95,9 +96,10 @@ class PencatatanController extends Controller
         $item = Administration::where('users_id', Auth::user()->id)->get();
         $data = Pencatatan::findOrFail($id);
 
-        return view('pages.user.pencatatan.edit.edit-pencatatan', [
-            'data' => $data,
-            'item' => $item
+        return view('pages.user.catat.edit.permohonan', [
+            'pencatatan' => $data,
+            'data' => $item,
+            'title' => "Edit Permohonan Pencatatan"
         ]);
     }
 

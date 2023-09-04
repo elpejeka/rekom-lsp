@@ -27,11 +27,12 @@ class AsesorController extends Controller
         $propinsi = DB::table('propinsi_dagri')->get();
         $informasi = Administration::where('users_id', Auth::user()->id)->first();
 
-        return view('pages.user.pencatatan.asesor', [
+        return view('pages.user.catat.asesor', [
             'asesor' => $data,
             'permohonan' => $permohonan,
             'propinsi' => $propinsi,
-            'lsp' => $informasi
+            'lsp' => $informasi,
+            'title' => 'Asesor LSP'
         ]);
     }
 
@@ -86,14 +87,15 @@ class AsesorController extends Controller
     }
 
     public function edit($id){
-        $data = PencatatanAsesor::with(['kabkota'])->find($id);
+        $data = PencatatanAsesor::with(['kabkota', 'propinsi'])->find($id);
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $propinsi = DB::table('propinsi_dagri')->get();
 
-        return view('pages.user.pencatatan.edit.edit-asesor', [
+        return view('pages.user.catat.edit.asesor', [
             'data' => $data,
             'permohonan' => $permohonan,
             'propinsi' => $propinsi,
+            'title' => 'Edit Asesor'
         ]);
     }
 

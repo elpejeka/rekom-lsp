@@ -212,7 +212,6 @@
                     <b><i class="icon-file-check"></i></b> Softcopy</a>
                 </div>
             </div>
-
             <div class="form-group">
               <label class="col-lg-3 ">NIB</label>
                 <div class="col-lg-9">
@@ -282,7 +281,6 @@
                 </span>
               @enderror
             </div>
-
             
             <div class="form-group">
               <label class="col-lg-3 control-label">Nomor SK</label>
@@ -301,7 +299,7 @@
               <div class="col-lg-9">
                 <input type="text" class="form-control @error('no_lisensi') is-invalid @enderror" name="no_lisensi" required>
               </div>
-              @error('administrations_id')
+              @error('no_lisensi')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
@@ -477,7 +475,7 @@
                     <strong>{{ $message }}</strong>
                   </span>
                 @enderror
-                </div>
+              </div>
 
                        
               <div class="form-group">

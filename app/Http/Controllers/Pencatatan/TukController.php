@@ -19,10 +19,11 @@ class TukController extends Controller
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $tuk = PencatatanTuk::where('users_id', Auth::user()->id)->get();
         $propinsi = DB::table('propinsi_dagri')->get();
-        return view('pages.user.pencatatan.tuk', [
+        return view('pages.user.catat.tuk', [
             'permohonan' => $permohonan,
             'data' => $tuk,
             'propinsi' => $propinsi,
+            'title' => "Tempat Uji Kompetensi"
         ]);
     }
 
@@ -61,10 +62,11 @@ class TukController extends Controller
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $propinsi = DB::table('propinsi_dagri')->get();
 
-        return view('pages.user.pencatatan.edit.edit-tuk', [
+        return view('pages.user.catat.edit.tuk', [
             'data' => $data,
             'permohonan' => $permohonan,
             'propinsi' => $propinsi,
+            'title' => "Edit TUK"
         ]);
     }
 

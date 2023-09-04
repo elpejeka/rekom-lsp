@@ -37,8 +37,9 @@ class IndexController extends Controller
     public function index(){
         $data = Pencatatan::with('administrations')->where('users_id', Auth::user()->id)->get();
 
-        return view('pages.user.pencatatan.preview', [
-            'permohonan' => $data
+        return view('pages.user.catat.preview', [
+            'permohonan' => $data,
+            'title' => 'List Permohonan'
         ]);
     }
 

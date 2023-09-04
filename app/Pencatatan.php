@@ -18,6 +18,8 @@ class Pencatatan extends Model
         'submit_pencatatan', 'approve', 'administrations_id', 'slug', 'jumlah_skema', 'nib', 'ss_verif'
     ];
 
+    protected $guarded = [];
+
     protected $hidden = [
 
     ];

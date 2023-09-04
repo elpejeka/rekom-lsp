@@ -16,9 +16,10 @@ class LisensiController extends Controller
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $data = SKLisensi::where('users_id', Auth::user()->id)->get();
 
-        return view('pages.user.pencatatan.sk', [
+        return view('pages.user.catat.legalitas', [
             'permohonan' => $permohonan,
             'data' => $data,
+            'title' => 'Legalitas LSP'
         ]);
     }
 
@@ -52,8 +53,9 @@ class LisensiController extends Controller
     public function edit($id){
         $data = SKLisensi::find($id);
 
-        return view('pages.user.pencatatan.edit.edit-sk', [
+        return view('pages.user.catat.edit.legalitas', [
             'data' => $data,
+            'title' => 'Edit Legalitas'
         ]);
     }
 
