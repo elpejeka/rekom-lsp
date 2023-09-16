@@ -106,20 +106,6 @@
             @enderror
             </div>
 
-            <!-- <div class="form-group">
-              <label class="col-lg-3 control-label">NRKA</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control @error('nrka') is-invalid @enderror" name="nrka" required>
-              </div>
-              @error('nrka')
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-            @enderror
-            </div> -->
-
-            
-
           </fieldset>
         </div>
         <div class="col-md-6">
@@ -221,6 +207,9 @@
         </div>
       </div>
 
+      <h5 class="font-bold">*) LSP tidak perlu mendaftarkan kepemilikan SKA/SKK untuk asesor LSP</h5>
+
+
       <div class="text-right">
         <button type="submit" class="btn btn-primary">Submit<i class="icon-arrow-right14 position-right"></i></button>
       </div>
@@ -298,10 +287,10 @@
 
 @push('addon-script')
   <script>
-    $(document).ready(function(){
+   $(document).ready(function(){
       var nik = $('#nik').val()
         $.ajax({
-          url : "/get-sertifikat/"+nik,
+          url : "/lsp/get-sertifikat/"+nik,
           type : 'GET',
           success:function(res){
             console.log(res.data)
@@ -317,7 +306,7 @@
     $('#noreg').on('change', function(){
       var noreg = $(this).find('option').filter(':selected').val()
       $.ajax({
-        url : '/detail-sertifikat/'+noreg,
+        url : '/lsp/detail-sertifikat/'+noreg,
         type : 'GET',
         success:function(res){
           var klas = res.data[0].klasifikasi;

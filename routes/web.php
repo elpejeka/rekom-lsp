@@ -145,6 +145,10 @@ Route::post('/validasi-update', 'Portal\PermohonanController@submitValidasi')->n
 Route::get('/permohonan-final/{idIzin}', 'Portal\PermohonanController@SuratRekomendasi')->name('final.portal');
 Route::get('/permohonan-tolak/{idIzin}', 'Portal\PermohonanController@TolakPermohonan')->name('tolak.portal');
 
+Route::get('/profile', 'ProfileController@index')->name('user.profile');
+Route::get('profile-edit', 'ProfileController@edit')->name('user.edit');
+Route::post('profile-update', 'ProfileController@update')->name('user.update');
+
 Route::prefix('pencatatan')
             ->namespace('Pencatatan')
             ->middleware(['auth'])
@@ -219,8 +223,8 @@ Route::prefix('pencatatan')
                 Route::get('/tempat-uji-kompetensi/edit/{id}', 'TukController@edit')->name('pencatatan.tuk.edit');
                 Route::put('/tempat-uji-kompetensi/update/{id}', 'TukController@update')->name('pencatatan.tuk.update');
                 Route::delete('/tempat-uji-kompetensi/delete/{id}', 'TukController@destroy')->name('pencatatan.tuk.delete');
-                Route::get("/tayang-tuk/{id}", 'TukController@tayang')->name('tuk.tayang');
                 Route::get("/tayang-approve/{id}", 'TukController@done')->name('tuk.done');
+                Route::post("/tayang-tuk", 'TukController@tayang')->name('tuk.tayang');
 
                 Route::get('/tuk-approve/{id}', 'TukController@showTuk')->name('tuk.approve');
                 Route::put('/tuk-approve', 'TukController@approveTuk')->name('tuk.approve.update');

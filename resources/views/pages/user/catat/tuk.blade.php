@@ -190,15 +190,16 @@
                             @method('delete')
                           <button class="btn btn-danger btn-sm"><i class="icon-trash"></i></button>
                           </form>
-                          <a href="{{route('tuk.tayang', $item->id)}}" class="btn btn-sm btn-success">Ubah Status Tayang</a>
                         </td>
                         @endif
                         @if ($item->approve != null)
                         <td class="text-center">
                           <span class="badge badge-success">Approved</span>
                           <a href="{{route('pencatatan.tuk.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
-                          <a href="{{route('unactive.tuk', $item->id)}}" class="btn btn-sm btn-danger"><i class="icon-trash"></i></a>
-                          <a href="{{route('tuk.tayang', $item->id)}}" class="btn btn-sm btn-success">Ubah Status Tayang</a>
+                          {{-- <a href="{{route('unactive.tuk', $item->id)}}" class="btn btn-sm btn-danger"><i class="icon-trash"></i></a> --}}
+                          {{-- <a href="{{route('tuk.tayang', $item->id)}}" class="btn btn-sm btn-success">Ubah Status Tayang</a> --}}
+                          <a href="javascript:void(0)" onclick="statusTayang({{$item->id}})" 
+                            class="btn btn-sm btn-success"><i class="icon-x text-white-50 flaticon-paper-plane"></i>Status Tayang</a>
                         </td>
                         @endif
                       </tr>
@@ -213,9 +214,72 @@
 @endsection
 
 @push('addon-script')
+<div class="modal fade" id="tolak" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Update Status Tayang</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body">
+          <form id="tolakForm">
+              <div class="form-group">
+                  <label>Nama TUK</label>
+                  <input type="text" class="form-control" name="namaTuk" id="namaTuk" readonly/>
+                  <input type="text" class="form-control" name="idTuk" id="idTuk" hidden/>
+              </div>
+              <div class="form-group mt-2">
+                <label for="">Pilih Status Tayang</label>
+                <select name="status" class="form-control" id="status">
+                  <option value="1">Tayang</option>
+                  <option value="0">Tidak Tayang</option>
+                </select>
+              </div>
+      </div>
+
+      <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save changes</button>
+      </div>
+      </form>
+
+  </div>
+  </div>
+</div>
+
 <script>
     $(document).ready(function () {
         $('#list').DataTable();
     });
+
+    function statusTayang(id){
+               $.get('/pencatatan/tuk-approve/'+id, function(data){
+                   $("#idTuk").val(data.id);
+                   $("#namaTuk").val(data.nama_tuk);
+                   $("#tolak").modal("toggle");
+               })
+    }
+
+    $('#tolakForm').submit(function(e){
+           e.preventDefault();
+           var idTuk = $("#idTuk").val();
+           var status = $("#status").val();
+
+           $.ajax({
+               url : " {{route('tuk.tayang', $item->id)}}",
+               type : "POST",
+               data : {
+                   id : idTuk,
+                   status : status,
+                   _token : "{{csrf_token()}}"
+               },
+               success:function(response){
+                    $("#tolakForm")[0].reset();
+                    $("#tolak").modal('toggle');
+                    alert('Permohonan tayang di berhasil');
+                }
+          })
+        })
 </script>
 @endpush

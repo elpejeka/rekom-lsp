@@ -170,7 +170,7 @@ class AsesorController extends Controller
     }
 
     public function showAsesor($id){
-        $asesor = PencatatanAsesor::find($id);
+        $asesor = PencatatanAsesor::with(['propinsi', 'kabkota', 'tmptLhir'])->find($id);
 
         return response()->json($asesor);
     }

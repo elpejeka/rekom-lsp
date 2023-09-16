@@ -419,6 +419,7 @@
                                 <th>Status Asesor</th>
                                 <th>Nomor Registrasi Asesor</th>
                                 <th>Provinsi</th>
+                                <th>Profil Asesor</th>
                                 <th>Cek Asesor SIKI</th>
                                 <th class="text-center">Actions</th>
                                 <th>Status</th>
@@ -433,7 +434,11 @@
                                 <td>{{$item->alamat}}</td>
                                 <td><span class="label label-success">{{$item->status_asesor}}</span></td>
                                 <td>{{$item->no_registrasi_asesor}}</td>
-                                <td>{{$item->provinsi}}</td>
+                                <td>{{$item->propinsi->Nama ?? '-'}}</td>
+                                <td>
+                                  <a href="javascript:void(0)" onclick="detailAsesor({{$item->id}})" class="btn btn-info">Profil Asesor</a>
+                                  </a>
+                                </td>
                                 <td>
                                     <a href="{{route('check.asesor', $item->nik)}}" class="btn btn-primary" target="_blank">Check</a>
                                 </td>
@@ -740,6 +745,81 @@
     </div>
 </div>
 
+<div class="modal fade" id="detailAsesor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Profil Asesor</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body">
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>Nama Asesor</label>
+                      <input type="text" class="form-control" id="namaAsesor" readonly/>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>NIK Asesor</label>
+                      <input type="text" class="form-control" id="nikAsesor" readonly/>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>Email</label>
+                      <input type="text" class="form-control" id="emailAsesor" readonly/>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>No Telepon</label>
+                      <input type="text" class="form-control" id="tlpAsesor" readonly/>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>Tempat Lahir</label>
+                      <input type="text" class="form-control" id="tempatLahir" readonly/>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>Tanggal Lahir</label>
+                      <input type="text" class="form-control" id="tglLahir" readonly/>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>Alamat</label>
+                      <input type="text" class="form-control" id="address" readonly/>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>Pendidikan</label>
+                      <input type="text" class="form-control" id="education" readonly/>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>Provinsi</label>
+                      <input type="text" class="form-control" id="prov" readonly/>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>Kabupaten/Kota</label>
+                      <input type="text" class="form-control" id="kab" readonly/>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
 <script>
     $(document).ready(function () {
         $('#subklas').DataTable();
@@ -775,6 +855,27 @@
                 timeout: 8000
             })
     });
+
+    function detailAsesor(id){
+            $.get('/pencatatan/asesor-approve/'+id, function(data){
+                  console.log(data)
+                    let tmpatLahir = data.tempat_lahir == null ? '-' : data.tmpt_lhir.Nama
+                    let prov = data.provinsi == null ? '-' : data.propinsi.Nama
+                    let kab = data.kab_kota == null ? '-' : data.kabkota.nama_kabupaten_dagri
+
+                   $("#namaAsesor").val(data.nama_asesor);
+                   $("#nikAsesor").val(data.nik);
+                   $("#emailAsesor").val(data.email);
+                   $("#tglLahir").val(data.tgl_lahir);
+                   $("#address").val(data.alamat);
+                   $("#education").val(data.pendidikan);
+                   $("#tempatLahir").val(tmpatLahir);
+                   $("#prov").val(prov);
+                   $("#kab").val(kab);
+                   $('#tlpAsesor').val(data.no_telpon);
+                   $("#detailAsesor").modal("toggle");
+            })
+      }
 
     function updateKeabsahan(id){
           var noPencatatan = $("#pencatatan").val()

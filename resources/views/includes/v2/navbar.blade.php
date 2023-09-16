@@ -13,7 +13,7 @@
         <h6 class="lan-1">General</h6>
       </div>
     </li>
-    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="file-manager.html">
+    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{route('home')}}">
       <svg class="stroke-icon">
         <use href="../assets/svg/icon-sprite.svg#stroke-file"></use>
       </svg>

@@ -26,3 +26,10 @@
 <link rel="stylesheet" type="text/css" href="{{asset('/new/assets/css/responsive.css')}}">
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+<style>
+  .scroll-notif {
+    max-height: 400px;
+    overflow: scroll;
+  }
+</style>

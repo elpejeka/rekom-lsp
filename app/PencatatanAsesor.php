@@ -43,5 +43,9 @@ class PencatatanAsesor extends Model
     public function kabkota(){
         return $this->hasOne(KabKota::class, 'id_kabupaten_dagri', 'kab_kota');
     }
+
+    public function tmptLhir(){
+        return $this->hasOne(Propinsi::class,'id_propinsi_dagri', 'tempat_lahir');
+    }
     
 }
