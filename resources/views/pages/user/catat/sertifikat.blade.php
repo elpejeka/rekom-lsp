@@ -104,9 +104,9 @@
                     <div class="col-md-6 mt-2">
                         <div class="form-group">
                             <label class="control-label">Nomor Registrasi Sertifikat</label>
-                            <input type="text" class="form-control @error('no_sertifikat_asesor') is-invalid @enderror" name="no_sertifikat_asesor" value="MET." required>
+                            <input type="text" class="form-control @error('no_reg_asesor') is-invalid @enderror" name="no_reg_asesor" value="MET." required>
                         </div>
-                        @error('no_sertifikat_asesor')
+                        @error('no_reg_asesor')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                         </span>
@@ -128,9 +128,9 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">No Blanko</label>
-                            <input type="date" class="form-control @error('tgl_akhir_sertifikat_asesor') is-invalid @enderror" name="tgl_akhir_sertifikat_asesor" required>
+                            <input type="text" class="form-control @error('no_blanko') is-invalid @enderror" name="no_blanko" required>
                         </div>
-                        @error('kualifikasi')
+                        @error('no_blanko')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                         </span>

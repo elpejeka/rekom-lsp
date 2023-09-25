@@ -308,6 +308,7 @@
                                     <li><a class="dropdown-item" href="{{route('qr.surat', $item->id)}}">Surat Pencatatan Asesor</a></li>
                                     <li><a class="dropdown-item" href="{{route('ext.index', $item->id)}}">Dokumen Perjanjian</a></li>
                                     <li><a class="dropdown-item" href="{{route('asesor.tayang', $item->id)}}">Ubah Status Tayang</a></li>
+                                    <li><a class="dropdown-item" href="javascript:void(0)" onclick="importAsesor({{$item->id}})">Import To Master Penugasan</a></li>
                               </ul>
                             </div>        
                         </td>

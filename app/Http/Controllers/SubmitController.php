@@ -65,9 +65,9 @@ class SubmitController extends Controller
    
     public function setStatusSubmit(Request $request, $id)
     {
-        $request->validate([
-            'status_submit' => 'required'
-        ]);
+        // $request->validate([
+        //     'status_submit' => 'required'
+        // ]);
 
         $item = Permohonan::findOrFail($id);
         $item->status_submit = Carbon::now();

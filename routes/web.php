@@ -162,7 +162,7 @@ Route::prefix('pencatatan')
                 Route::get('/sekretariat/edit/{id}', 'PencatatanController@sekretariatEdit')->name('sekretariat.edit');
 	    
 	            Route::get('/sekretariat/list', 'IndexController@listApprove')->name('pencatatan.approve.list');
-                Route::get('/sekretariat/selesai', 'indexController@selesai')->name('pencatatan.list.selesai');
+                Route::get('/sekretariat/selesai', 'IndexController@selesai')->name('pencatatan.list.selesai');
                 Route::get('/sekretariat/cek/{slug}', 'IndexController@approve')->name('pencatatan.approve');
                 Route::get('/cek-kesesuaian/{id}/approve', 'IndexController@setApprove')->name('pencatatan.submit.approve');
                 Route::post('/komen/pencatatan', 'IndexController@setKomen')->name('komen.pencatatan');

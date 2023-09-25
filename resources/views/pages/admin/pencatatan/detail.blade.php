@@ -242,7 +242,7 @@
                             </tr>
                             <tr>
                               <td>Nama LSP</td>
-                              <td>{{$data->nama}}</td>
+                              <td>{{$data->administrations->nama}}</td>
                             </tr>
                             <tr>
                               <td>Asosiasi Pembentuk</td>
@@ -345,6 +345,8 @@
                                 <th>Acuan Skema</th>
                                 <th>Skema Sertifikasi</th>
                                 <th>Acuan Skema</th>
+                                <th>Action</th>
+                                <th>Status</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -366,6 +368,20 @@
                                 <td> <a href="{{asset('laravel/storage/app/public/'.$item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                   class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
                                   <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
+                                  <td>
+                                    <a href="{{route('pencatatan.skema.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
+                                </td>
+                                @if ($item->approve == 1)
+                                <td>
+                                    <span class="label label-success">Approved</span>
+                                    <a href="{{route('skema.unapprove', $item->id)}}" class="btn btn-sm btn-danger" target="_blank">Unapproved</a>
+                                </td>
+                                @endif
+                                @if ($item->approve == 0)
+                                <td>
+                                    <a href="javascript:void(0)" onclick="updateKeabsahan({{$item->id}})" class="btn btn-info">Approve</a>
+                                </td>
+                                @endif
                               </tr>
                               @endforeach
                             </tbody>
