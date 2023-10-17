@@ -456,7 +456,8 @@
                                   </a>
                                 </td>
                                 <td>
-                                    <a href="{{route('check.asesor', $item->nik)}}" class="btn btn-primary" target="_blank">Check</a>
+                                    {{-- <a href="{{route('check.asesor', $item->nik)}}" class="btn btn-primary" target="_blank">Check</a> --}}
+                                    <a href="javascript:void(0)" onclick="sertifikat({{$item->nik}})" class="btn btn-sm btn-secondary mt-2">Detail Sertifikat</a>
                                 </td>
                                 <td class="text-center">
                                   <a data-toggle="modal" id="smallButton" data-target="#smallModal"
@@ -836,6 +837,25 @@
   </div>
 </div>
 
+<div class="modal fade bd-example-modal-lg" id="detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detail Sertifikat</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body" id="modal-body">
+              
+          </div>
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Save changes</button>
+          </div>
+      </div>
+  </div>
+</div>
+
 <script>
     $(document).ready(function () {
         $('#subklas').DataTable();
@@ -874,7 +894,6 @@
 
     function detailAsesor(id){
             $.get('/pencatatan/asesor-approve/'+id, function(data){
-                  console.log(data)
                     let tmpatLahir = data.tempat_lahir == null ? '-' : data.tmpt_lhir.Nama
                     let prov = data.provinsi == null ? '-' : data.propinsi.Nama
                     let kab = data.kab_kota == null ? '-' : data.kabkota.nama_kabupaten_dagri
@@ -902,7 +921,7 @@
                 $("#no_pencatatan").val(noPencatatan);
                 $("#keabsahan").modal("toggle");
             })
-        }
+    }
 
         $('#skemaForm').submit(function(e){
             e.preventDefault();
@@ -1100,14 +1119,40 @@
             });
         });
 
-        // $(document).ready(function(){
-        //     $("#importAsesor").click(function(){
-        //         id = $(this).data("id");
-        //         $.ajax({
-        //             url : "/import-to-siki/".id
-        //         })
-        //     })
-        // })
+        function sertifikat(nik){
+          $.get('/reference/get-sertifikat/'+nik, function(res){
+                var sertifikat = res.data;
+                var table = '<table class="table table-bordered">' +
+                        '<thead>' +
+                            '<tr>' +
+                                '<th>ID Sub Bidang</th>' +
+                                '<th>Jabatan Kerja</th>' +
+                                '<th>Kualifikasi</th>' +
+                                '<th>Asosiasi</th>' +
+                                '<th>Tanggal Cetak</th' +
+                            '</tr>' +
+                        '</thead>' +
+                        '<tbody>';
+
+
+                sertifikat.forEach(function(item) {
+                    table += '<tr>' +
+                                '<td>' + item.id_sub_bidang + '</td>' +
+                                '<td>' + item.des_sub_klas + '</td>' +
+                                '<td>' + item.kualifikasi + '</td>' +
+                                '<td>' + item.asosiasi + '</td>' +
+                                '<td>' + item.tanggal_cetak + '</td>' +
+                            '</tr>';
+                });
+
+                table += '</tbody></table>';
+
+                $('#modal-body').html(table);
+
+
+                $('#detail').modal("toggle")
+            });
+        }
 
         function importAsesor(id){
             $.get('/pencatatan/import-to-siki/'+id, function(data){

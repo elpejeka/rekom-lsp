@@ -248,11 +248,14 @@ Route::prefix('pencatatan')
 Route::get('/check/asesor/{nik}', 'ApiController@index')->name('check.asesor');
 Route::get('/get-sertifikat/{nik}', 'References\SertifikatController@index');
 Route::get('/detail-sertifikat/{noReg}', 'References\SertifikatController@detail');
+
 Route::prefix('reference')
             ->namespace('References')
             ->group(function(){
                 Route::get('/jabker/{id}', 'MasterController@jabker');
+                Route::get('/get-sertifikat/{nik}', 'MasterController@getSertifikat');
             });
+            
 Auth::routes(['verify' => true]);
 
 // Auth::routes(['register' => false]);
