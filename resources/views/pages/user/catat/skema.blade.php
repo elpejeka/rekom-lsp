@@ -204,6 +204,20 @@
                         </div>
                     </div>
                   </div>    
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">Asesmen Jarak Jauh</label>
+                      <select name="is_ajj" class="form-control">
+                        <option value="0">Tidak</option>
+                        <option value="1">Iya</option>
+                      </select>
+                      @error('jumlah_unit')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
+                  </div>
+                  </div>
                 </div>
                 <div class="row mt-5">
                     <div class="text-right">
