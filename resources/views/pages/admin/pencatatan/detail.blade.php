@@ -242,7 +242,11 @@
                             </tr>
                             <tr>
                               <td>Nama LSP</td>
-                              <td>{{$data->administrations->nama}}</td>
+                              <td>{{$item->administrations->nama}}</td>
+                            </tr>
+                            <tr>
+                              <td>Jumlah Skema</td>
+                              <td>{{count($data->skema)}}</td>
                             </tr>
                             <tr>
                               <td>Asosiasi Pembentuk</td>
@@ -288,6 +292,14 @@
                             <tr>
                                 <td>Kategori</td>
                                 <td>{{$data->administrations->kategori_lsp}}</td>
+                            </tr>
+                            <tr>
+                              <td>Unsur Pembentuk</td>
+                              <td>{{$data->administrations->unsur_pembentuk}}</td>
+                            </tr>
+                            <tr>
+                              <td>Unsur Pembentuk</td>
+                              <td>{{$data->administrations->unsur_pembentuk}}</td>
                             </tr>
                           </tbody>
                         </table>
