@@ -10,6 +10,7 @@ use App\PencatatanSertifikat;
 use App\Qualification;
 use App\Klasifikasi;
 use Auth;
+use App\Administration;
 
 class SertifikatController extends Controller
 {
@@ -17,8 +18,8 @@ class SertifikatController extends Controller
         $kualifikasi = Qualification::where('users_id', Auth::user()->id)->get();     
         $asesor = PencatatanAsesor::find($id);
         $sertifikat = PencatatanSertifikat::with('klas', 'subklas')->where('asesor_id', $asesor->id)->get(); 
+        $administrasi = Administration::where('users_id', Auth::user()->id)->get();
 
-        // dd($sertifikat);
         $klasifikasi = Klasifikasi::all();
         return view('pages.user.catat.sertifikat', [
             'asesor' => $asesor,

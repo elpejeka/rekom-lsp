@@ -106,6 +106,40 @@
                         </div>    
                     </div>    
                 </div>
+                <div class="row mt-4">
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label class="control-label">SK Asesment Jarak Jauh (AJJ) *)Jika Ada</label>
+                          <br/>
+                          <input name="sk_ajj" type="file" class="file-input @error('sk_ajj') is-invalid @enderror"
+                          data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
+                          <span class="help-block">
+                              Accepted formats: pdf, zip, rar  Max file size 50Mb
+                            </span>
+                      </div>    
+                  </div>    
+                </div>
+                @if ($administrasi[0]->unsur_pembentuk == 'APT')
+                <div class="row mt-4">
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label class="control-label">Sertifikat Akreditasi KAN</label>
+                          <br/>
+                          <input name="akreditasi_kan" type="file" class="file-input @error('akreditasi_kan') is-invalid @enderror"
+                          data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
+                          <span class="help-block">
+                              Accepted formats: pdf, zip, rar  Max file size 50Mb
+                            </span>
+                      </div>    
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="">Masa Berlaku Sertifikat Akreditasi KAN</label>
+                      <input type="date" class="form-control" name="masa_berlaku_kan" />
+                    </div>
+                  </div>  
+                </div>
+                @endif
                 <div class="row mt-5">
                     <div class="text-right">
                         <button type="submit" class="btn btn-primary">Submit <i class="icon-arrow-right14 position-right"></i></button>
@@ -126,6 +160,11 @@
                     <th>Masa Berlaku SK</th>
                     <th>SK Lisensi</th>
                     <th>Sertifikat Lisensi</th>
+                    <th>SK Asesment Jarak Jauh</th>
+                    @if ($administrasi[0]->unsur_pembentuk == 'APT')
+                    <th>Akreditasi KAN</th>
+                    <th>Masa Berlaku Kan</th>
+                    @endif
                     <th class="text-center">Actions</th>
                   </tr>
                 </thead>
@@ -146,6 +185,21 @@
                               class="open-delete btn btn-primary btn-labeled btn-rounded">
                               <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
+                        <td>
+                          <a href="{{asset('laravel/storage/app/public/'. $item->sk_ajj)}}" target="_blank" type="button" name="btn_cek_13" 
+                            class="open-delete btn btn-primary btn-labeled btn-rounded">
+                            <b><i class="icon-file-check"></i></b> Softcopy</a>
+                        </td>
+                        @if ($administrasi[0]->unsur_pembentuk == 'APT')
+                        <td>
+                          <a href="{{asset('laravel/storage/app/public/'. $item->akreditasi_kan)}}" target="_blank" type="button" name="btn_cek_13" 
+                            class="open-delete btn btn-primary btn-labeled btn-rounded">
+                            <b><i class="icon-file-check"></i></b> Softcopy</a>
+                        </td>
+                        <td>
+                          {{$item->masa_berlaku_kan}}
+                        </td>
+                        @endif
                         <td>
                             <a href="{{route('sk.lisensi.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
                             <form action="{{route('sk.lisensi.delete', $item->id)}}" method="post" class="d-inline">

@@ -14,7 +14,8 @@ class SKLisensi extends Model
 
     protected $fillable = [
         'pencatatan_id', 'sk_lisensi', 'sertifikat_lisensi',
-        'no_sk', 'no_lisensi', 'masa_berlaku_sk', 'users_id'
+        'no_sk', 'no_lisensi', 'masa_berlaku_sk', 'users_id',
+        'sk_ajj', 'akreditasi_kan', 'masa_berlaku_kan'
     ];
 
     public function pencatatan(){

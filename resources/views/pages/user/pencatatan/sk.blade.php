@@ -143,6 +143,34 @@
 
           </fieldset>
         </div>
+        
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">SK Asesment Jarak Jauh (AJJ)</label>
+              <div class="col-lg-9">
+                  <input name="sk_ajj" type="file" class="file-input @error('sk_ajj') is-invalid @enderror"
+                  data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs" required>
+                  <span class="help-block">
+                    Accepted formats: pdf, zip, rar, jpeg, jpg, png Max file size 20Mb
+                  </span>
+                  <div class="progress" style="display:none;">
+                    <div id="progress-bar-1" class="progress-bar progress-bar-success progress-bar-striped active " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+                      20%
+                    </div>
+                  </div>
+              </div>
+
+
+              @error('sk_ajj')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+            @enderror
+            </div>
+        </div>
+
+        <div class="cold-md-6">
+        </div>
       </div>
 
       <div class="text-right">
