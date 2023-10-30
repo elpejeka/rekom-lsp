@@ -19,7 +19,11 @@ class MasterController extends Controller
     }
 
     public function getSertifikat($nik){
-        $sertifikat = DB::connection('siki')->select("SELECT  a.`nik`,a.nama,a.`id_jabatan_kerja` AS id_sub_bidang,a.`jabatan_kerja` AS des_sub_klas,a.`jenjang` AS kualifikasi,a.`tanggal_ditetapkan` AS tanggal_cetak,a.`asosiasi`,a.`propinsi` AS provinsi_registrasi,b.pas_foto
+        $sertifikat = DB::connection('siki')->select("SELECT  a.`nik`,a.nama,a.`id_jabatan_kerja` AS id_sub_bidang,
+          a.`jabatan_kerja` AS des_sub_klas,
+          a.`jenjang` AS kualifikasi,
+          DATE_ADD(tanggal_ditetapkan, INTERVAL 5 year) as tanggal_cetak, 
+          a.`asosiasi`,a.`propinsi` AS provinsi_registrasi,b.pas_foto
         FROM lsp_pencatatan a
         LEFT JOIN lsp_personal b ON a.`id_izin`=b.id_izin
         WHERE a.`nik`='$nik' AND a.final_at IS NOT NULL AND valid='1' HAVING MAX(a.`id`)
@@ -30,7 +34,7 @@ class MasterController extends Controller
           id_sub_bidang,
           des_sub_klas,
           kualifikasi,
-          tanggal_cetak,
+          DATE_ADD(tanggal_cetak, INTERVAL 3 year) as tanggal_cetak , 
           asosiasi,
           provinsi_registrasi,
           foto

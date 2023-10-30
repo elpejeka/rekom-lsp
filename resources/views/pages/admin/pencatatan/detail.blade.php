@@ -242,7 +242,7 @@
                             </tr>
                             <tr>
                               <td>Nama LSP</td>
-                              <td>{{$item->administrations->nama}}</td>
+                              <td>{{$item->administrations->nama ?? "-"}}</td>
                             </tr>
                             <tr>
                               <td>Jumlah Skema</td>
@@ -559,7 +559,7 @@
                                 <td>{{$item->kode_tuk}}</td>
                                 <td>{{$item->nama_tuk}}</td>
                                 <td>{{$item->jenis_tuk}}</td>
-                                <td>{{$item->provinsi}}</td>
+                                <td>{{$item->propinsi->Nama ?? '-'}}</td>
                                 <td>{{$item->alamat}}</td>
                                 <td>
                                     <a href="{{asset('laravel/storage/app/public/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
@@ -1133,10 +1133,12 @@
 
         function sertifikat(nik){
           $.get('/reference/get-sertifikat/'+nik, function(res){
+                const dateNow = new Date();
                 var sertifikat = res.data;
                 var table = '<table class="table table-bordered">' +
                         '<thead>' +
                             '<tr>' +
+                                '<th>Nama</th>' + 
                                 '<th>ID Sub Bidang</th>' +
                                 '<th>Jabatan Kerja</th>' +
                                 '<th>Kualifikasi</th>' +
@@ -1148,7 +1150,10 @@
 
 
                 sertifikat.forEach(function(item) {
-                    table += '<tr>' +
+                  const serDate= new Date(item.tanggal_cetak);
+                  var style = (serDate > dateNow) ? 'background-color:#ff0000;' : 'background-color:#fff;';
+                    table += '<tr style="'+ style +'">' +
+                                '<td>' + item.nama + '</td>' + 
                                 '<td>' + item.id_sub_bidang + '</td>' +
                                 '<td>' + item.des_sub_klas + '</td>' +
                                 '<td>' + item.kualifikasi + '</td>' +
