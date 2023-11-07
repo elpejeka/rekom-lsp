@@ -261,5 +261,6 @@ Auth::routes(['verify' => true]);
 // Auth::routes(['register' => false]);
 
 require __DIR__.'./mockup.php';
+require __DIR__.'./searching.php';
 
 

@@ -47,5 +47,9 @@ class PencatatanAsesor extends Model
     public function tmptLhir(){
         return $this->hasOne(Propinsi::class,'id_propinsi_dagri', 'tempat_lahir');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
     
 }
