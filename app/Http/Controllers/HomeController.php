@@ -37,15 +37,18 @@ class HomeController extends Controller
 
      public function index(Request $request){
         $jumlah_masuk = Permohonan::whereNotNull('status_submit')->get();
-        $kelengkapan = Permohonan::whereNull('status_kelengkapan')
+        $kelengkapan = Permohonan::whereNotNull('status_submit')
+                                    ->whereNull('status_kelengkapan')
+                                    ->whereNull('status_verifikasi')
+                                    ->whereNull('status_permohonan')
+                                    ->whereNull('status_tolak')
+                                    ->get();
+
+        $verifikasi = Permohonan::whereNotNull('status_submit')
+                                    ->whereNotNull('status_kelengkapan')
                                     ->whereNull('status_verifikasi')
                                     ->whereNull('status_permohonan')
                                     ->whereNull('status_tolak')->get();
-
-        $verifikasi = Permohonan::whereNotNull('status_kelengkapan')
-                                ->whereNull('status_verifikasi')
-                                ->whereNull('status_permohonan')
-                                ->whereNull('status_tolak')->get();
 
         $jumlah_selesai = Permohonan::whereNotNull('status_permohonan')->get();
 

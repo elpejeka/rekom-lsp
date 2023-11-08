@@ -608,6 +608,11 @@
                                 <th>SK Lisensi</th>
                                 <th>Sertifikat Lisensi</th>
                                 <th>Masa Berlaku</th>
+                                <th>SK AJJ</th>
+                                @if ($data->administrations->unsur_pembentuk == 'APT')
+                                <th>Akreditasi KAN</th>
+                                <th>Masa Berlaku KAN</th>
+                                @endif
                               </tr>
                             </thead>
                             <tbody>
@@ -627,9 +632,24 @@
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icon-file-check"></i></b> Softcopy</a>
                                   </td>
-                                  <td>
-                                    {{$item->masa_berlaku_sk}}
-                                  </td>
+                                <td>
+                                  {{$item->masa_berlaku_sk}}
+                                </td>
+                                <td>
+                                  <a href="{{asset('laravel/storage/app/public/'. $item->sk_ajj)}}" target="_blank" type="button" name="btn_cek_13" 
+                                    class="open-delete btn btn-primary btn-labeled btn-rounded">
+                                    <b><i class="icon-file-check"></i></b> Softcopy</a>
+                                </td>
+                                @if ($data->administrations->unsur_pembentuk == 'APT')
+                                <td>
+                                  <a href="{{asset('laravel/storage/app/public/'. $item->akreditasi_kan)}}" target="_blank" type="button" name="btn_cek_13" 
+                                    class="open-delete btn btn-primary btn-labeled btn-rounded">
+                                    <b><i class="icon-file-check"></i></b> Softcopy</a>
+                                </td>
+                                <td>
+                                  {{$item->masa_berlaku_kan}}
+                                </td>
+                                @endif
                               </tr>
                               @endforeach
                             </tbody>
