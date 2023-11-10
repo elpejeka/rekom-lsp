@@ -357,6 +357,7 @@
                                 <th>Acuan Skema</th>
                                 <th>Skema Sertifikasi</th>
                                 <th>Acuan Skema</th>
+                                <th>AJJ</th>
                                 <th>Action</th>
                                 <th>Status</th>
                               </tr>
@@ -374,6 +375,7 @@
                                 <td>{{$item->jenjang}}</td>
                                 <td>{{$item->jumlah_unit}}</td>
                                 <td>{{$item->acuan_skema}}</td>
+                                <td>{{$item->is_ajj == 1 ? 'Ya' : 'Tidak'}}</td>
                                 <td> <a href="{{asset('laravel/storage/app/public/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                   class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
                                   <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
