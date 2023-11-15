@@ -487,6 +487,11 @@
                                         <ul class="dropdown-menu dropdown-block">
                                           <li><a class="dropdown-item"  href="{{route('asesor.unapprove', $item->id)}}">Unapproved</a></li>
                                           <li><a class="dropdown-item" href="javascript:void(0)" onclick="importAsesor({{$item->id}})">Import Asesor API</a></li>
+                                          <li><form action="{{route('pencatatan.asesor.delete', $item->id)}}" method="post" class="d-inline mt-2">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger btn-sm"><i class="icon-trash"></i> Unactive Asesor</button>
+                                        </form></li>
                                           {{-- <li><a class="dropdown-item" href="{{route('asesor.done', $item->id)}}">Update Status Tayang</a></li> --}}
                                       </ul>
                                     </div>

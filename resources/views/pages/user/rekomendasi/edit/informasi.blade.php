@@ -318,15 +318,11 @@
                                 <div class="col-md-6">
                                     <label class="control-label">
                                         1. surat Keputusan penetapan akreditasi asosiasi profesi bagi LSP yang dibentuk oleh
-                                        Asosiasi Profesi Terakreditasi, atau Surat Tanda Registrasi Lembaga Pendidikan dan 
-                                        Pelatihan  Kerja bagi LSP yang dibentuk oleh LPPK.
-                                          <br/>
-                                        2. khusus untuk LSP yang dibentuk oleh LPK teregistrasi melampirkan Sertifikasi 
-                                        Akreditasi LPK.
+                                        Asosiasi Profesi Terakreditasi. 
                                         <br/>
-                                        3. Khusus untuk LSP yang dibentuk LPK Teregistrasi yang belum terakreditasi oleh Lembaga
-                                        Akreditasi Lembaga Pelatihan Kerja (LA-LPK) Kementerian Ketenegakerjaan melampirkan surat
-                                        pernyataan komitmen Akreditasi Lembaga Pelatihan Kerja.
+                                        2. atau Surat Tanda Registrasi Lembaga Pendidikan dan 
+                                        Pelatihan  Kerja bagi LSP yang dibentuk oleh LPPK.
+                                
                                     </label>
                                 </div>
                                 <div class="col-md-6">

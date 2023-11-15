@@ -198,9 +198,9 @@ class AsesorController extends Controller
         $data = $request->all();
         $data['surat_penghapusan'] = $request->file('surat_penghapusan')->store('file/pencatatan/asesor/penghapusan', 'public');
         $data['approve'] = null;
-        $data['deleted_at'] = Carbon::now();
+        $data['acc_deleted'] = Carbon::now();
         $data['approved_at'] = null;
-        
+        $data['is_deleted'] = true;        
 
         $item->update($data);
 
@@ -209,8 +209,6 @@ class AsesorController extends Controller
         $notif->keterangan = 'Permohonan Pengahapusan Asesor '. $item->nama_asesor;
         $notif->created_at = Carbon::now();
         $notif->save();
-
-        $item->delete();
 
         return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di hapus');    
     }
