@@ -70,7 +70,7 @@
     <div class="row mt-5">
         <div class="col-md-10" style="margin-left: 25px">
             <p style="margin-right: 25px;" align="left">
-                Jakarta , {{date("Y-m-d", strtotime($data->approve_at))}} <br/>
+                Jakarta , {{date("Y-m-d", strtotime($data->created_at))}} <br/>
                 Lembaga Pengembangan Jasa Konstruksi
             </p>
         </div>

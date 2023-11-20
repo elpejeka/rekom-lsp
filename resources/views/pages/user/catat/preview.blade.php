@@ -63,6 +63,9 @@
                             <span class="badge badge-success">Submitted</span>
                             <a href="{{route('pencatatan.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
                             <a href="{{route('list.komen', $item->id  )}}" class="btn btn-sm btn-primary">Cek Perbaikan</a>
+                            @if ($item->approve != null)
+                            <a href="{{route('surat.pencatatan', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
+                            @endif
                           @endif
                       </td>
                       
