@@ -208,7 +208,7 @@
                     <div class="form-group">
                       <label class="control-label">Asesmen Jarak Jauh</label>
                       <select name="is_ajj" class="form-control">
-                        <option value="0">Tidak</option>
+                        <option value="0" selected>Tidak</option>
                         <option value="1">Iya</option>
                       </select>
                       @error('jumlah_unit')

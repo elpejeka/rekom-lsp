@@ -19,32 +19,32 @@
         Konstruksi, <br/> menerangkan bahwa:</p>
     <table border="1" align="center">
         <tr>
-            <td width="220px" height="40px">Nama LPPK</td>
+            <td width="220px" height="40px">Nama LSP</td>
             <td width="20px" class="text-center">:</td>
             <td width="400px">{{ucfirst(Auth::user()->name)}}</td>
         </tr>
         <tr>
-            <td width="220px" height="40px">Jenis LPPK</td>
+            <td width="220px" height="40px">Nomor Lisensi</td>
             <td width="20px" class="text-center">:</td>
             <td width="400px">{{ucfirst(Auth::user()->jenis)}}</td>
         </tr>
         <tr>
-            <td width="220px" height="40px">Tahun Berdiri</td>
+            <td width="220px" height="40px">Jenis LSP</td>
             <td width="20px" class="text-center">:</td>
             <td width="400px">{{$informasi->tahun_berdiri}}</td>
         </tr>
         <tr>
-            <td width="220px" height="40px">Alamat</td>
+            <td width="220px" height="40px">Alamat LSP</td>
             <td width="20px" class="text-center">:</td>
             <td width="400px">{{ucfirst($informasi->alamat)}}</td>
         </tr>
         <tr>
-            <td width="220px" height="40px">Kode Pos</td>
+            <td width="220px" height="40px">Provinsi</td>
             <td width="20px" class="text-center">:</td>
             <td width="400px">{{$informasi->kode_pos}}</td>
         </tr>
         <tr>
-            <td width="220px" height="40px">Nomor Telepon</td>
+            <td width="220px" height="40px">Kode Pos</td>
             <td width="20px" class="text-center">:</td>
             <td width="400px">{{$informasi->telp}}</td>
         </tr>
@@ -56,10 +56,10 @@
         <tr>
             <td width="220px" height="40px">Status</td>
             <td width="20px" class="text-center">:</td>
-            <td width="400px" style="font-weight: bold;">Teregistrasi</td>
+            <td width="400px" style="font-weight: bold;">Terlisensi dan Tercatat</td>
         </tr>
         <tr>
-            <td width="220px" height="40px">Nomor Registrasi</td>
+            <td width="220px" height="40px">Nomor Pencatatan</td>
             <td width="20px" class="text-center">:</td>
             <td width="400px">{{ucfirst(Auth::user()->nomor_registrasi)}}</td>
         </tr>

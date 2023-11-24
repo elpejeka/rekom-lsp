@@ -30,9 +30,20 @@
             <div class="card-header">
                 <form class="theme-form">
                     <div class="input-group m-0 flex-nowrap">
-                      <input class="form-control-plaintext" type="search" placeholder="NIK Asesor" id="nik">
+                      <input class="form-control-plaintext" type="search" placeholder="Input Search ...." id="input">
                       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" id="token">
                       <button type="button" class="btn btn-primary input-group-text" id="searchAsesor">Search</button>
+                    </div>
+                    <br/>
+                    <div class="col-12"> 
+                      <div class="card-wrapper border rounded-3 checkbox-checked">
+                        <h6 class="sub-title">Search By</h6>
+                        <select class="form-control" id="type">
+                          <option value="nik" selected>NIK</option>
+                          <option value="nama">Nama</option>
+                          <option value="noreg">Noreg BNSP</option>
+                        </select>
+                      </div>
                     </div>
                 </form>
             </div>
@@ -65,13 +76,17 @@
 @endsection
 
 @push('addon-script')
+<script src="{{asset('/new/assets/js/form-validation-custom.js')}}"></script>
 <script>
      $("#searchAsesor").on("click", function() {
-        let nik = $("#nik").val();
+        let input = $('#input').val();
         let token = $('#token').val();
+        let type = $('#type').val();
 
-        if(nik == null || nik == ''){
-            alert('Masukan nik terlebih dahulu')
+        console.log(type)
+
+        if(input == null || input == ''){
+            alert('Masukan input terlebih dahulu')
         }
 
         $.ajax({
@@ -79,15 +94,22 @@
             type : "POST",
             data : {
                 "_token" : token,
-                "nik" : nik
+                "type" : type,
+                "input" : input
             },
             success:function(res){
+              console.log(res)
                 if(res !== 'NODATA'){
                     rowIndex = 0;
                     for(let i = 0; i < res.length; i++){
                         $('#list > tbody .nofound').remove();
                         rowIndex++;
-                        const lsp = res[i].user == null ? '-' : res[i].user.nama_lsp;
+                        let lsp;
+                        if(type == 'nik'){
+                          lsp = res[i].user == null ? '-' : res[i].user.nama_lsp;
+                        }else{
+                          lsp = res[i].nama_lsp == null ? '-' : res[i].nama_lsp;
+                        }
                         
                         txt = '<tr id="row_" +>' + rowIndex + '</td>'
                         txt += '<td>#</td>'
@@ -99,12 +121,15 @@
                         txt += '</tr>';
                         
                         $('#list > tbody').append(txt)
+                        $("#type").val("");
                     }
                 }else{
                     alert('Data tidak ditemukan')
                 }
             },
-            error: function(xhr, status, error){}
+            error: function(xhr, status, error){
+              alert(xhr)
+            }
         })
      })
 </script>

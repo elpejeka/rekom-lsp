@@ -234,7 +234,7 @@ Route::prefix('pencatatan')
                 Route::put('/proses-tuk-unactive/{id}','TukController@prosesUnactive' )->name('proses.tuk.unactive');
                 
 
-                Route::get('/surat-pencatatan/{slug}', 'PencatatanController@surat')->name('surat.pencatatan');
+                Route::get('/surat-pencatatan/{id}', 'PencatatanController@surat')->name('surat.pencatatan');
                 Route::get('/komen-perbaikan/{id}', 'KomenController@index')->name('list.komen');
 
                 Route::get('/lisensi', 'LisensiController@index')->name('sk.lisensi');

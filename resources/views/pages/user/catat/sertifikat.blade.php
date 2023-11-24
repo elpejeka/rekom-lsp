@@ -49,7 +49,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Klasifikasi</label>
-                            <input type="text" class="form-control @error('klasifikasi') is-invalid @enderror" id="klasifikasi" readonly>
+                            <input type="text" class="form-control @error('klasifikasi') is-invalid @enderror" id="klasifikasi" name="klasifikasi" readonly>
                         </div>
                         @error('klasifikasi')
                         <span class="invalid-feedback" role="alert">
@@ -60,7 +60,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Subklasifikasi</label>
-                            <input type="text" class="form-control @error('subklasifikasi') is-invalid @enderror" id="subklasifikasi" readonly>
+                            <input type="text" class="form-control @error('subklasifikasi') is-invalid @enderror" id="subklasifikasi" name="subklasifikasi" readonly>
                         </div>
                         @error('subklasifikasi')
                         <span class="invalid-feedback" role="alert">

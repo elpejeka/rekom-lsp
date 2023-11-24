@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use App\Pencatatan;
 use App\Administration;
 use Auth;
+use QrCode;
 
 class PencatatanController extends Controller
 {
@@ -171,8 +172,8 @@ class PencatatanController extends Controller
         return redirect()->route('home')->with('success', 'Permohonan Pencatatan Berhasil di Update');
     }
 
-    public function surat($slug){
-        $data = Pencatatan::with(['administrations', 'asesor', 'skema', 'tuk'])->where('slug', $slug)->firstOrFail();
+    public function surat($id){
+        $data = Pencatatan::with(['administrations', 'asesor', 'skema', 'tuk'])->findOrFail($id);
         $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate('string'));
         $registeredAt = $data->approve->isoFormat('D MMMM Y');
 

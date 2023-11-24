@@ -235,6 +235,7 @@
                   <thead>
                       <tr>
                         <th>No</th>
+                        <th>NIK</th>
                         <th>Nama Asesor</th>
                         <th>Propinsi</th>
                         <th>Alamat</th>
@@ -252,6 +253,7 @@
                       @foreach ($asesor as $item)
                       <tr>
                         <td>{{$loop->iteration}}</td>
+                        <td>{{$item->nik}}</td>
                         <td>{{$item->nama_asesor}}</td>
                         <td>{{$item->provinsi == null ? "-" : $item->propinsi->Nama}}</td>
                         <td>{{$item->alamat}}</td>

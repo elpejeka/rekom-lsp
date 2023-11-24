@@ -357,6 +357,7 @@
                                 <th>Acuan Skema</th>
                                 <th>Skema Sertifikasi</th>
                                 <th>Acuan Skema</th>
+                                <th>AJJ</th>
                                 <th>Action</th>
                                 <th>Status</th>
                               </tr>
@@ -374,6 +375,7 @@
                                 <td>{{$item->jenjang}}</td>
                                 <td>{{$item->jumlah_unit}}</td>
                                 <td>{{$item->acuan_skema}}</td>
+                                <td>{{$item->is_ajj == 1 ? 'Ya' : 'Tidak'}}</td>
                                 <td> <a href="{{asset('laravel/storage/app/public/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                   class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
                                   <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
@@ -485,6 +487,11 @@
                                         <ul class="dropdown-menu dropdown-block">
                                           <li><a class="dropdown-item"  href="{{route('asesor.unapprove', $item->id)}}">Unapproved</a></li>
                                           <li><a class="dropdown-item" href="javascript:void(0)" onclick="importAsesor({{$item->id}})">Import Asesor API</a></li>
+                                          <li><form action="{{route('pencatatan.asesor.delete', $item->id)}}" method="post" class="d-inline mt-2">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger btn-sm"><i class="icon-trash"></i> Unactive Asesor</button>
+                                        </form></li>
                                           {{-- <li><a class="dropdown-item" href="{{route('asesor.done', $item->id)}}">Update Status Tayang</a></li> --}}
                                       </ul>
                                     </div>
@@ -608,6 +615,11 @@
                                 <th>SK Lisensi</th>
                                 <th>Sertifikat Lisensi</th>
                                 <th>Masa Berlaku</th>
+                                <th>SK AJJ</th>
+                                @if ($data->administrations->unsur_pembentuk == 'APT')
+                                <th>Akreditasi KAN</th>
+                                <th>Masa Berlaku KAN</th>
+                                @endif
                               </tr>
                             </thead>
                             <tbody>
@@ -627,9 +639,24 @@
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icon-file-check"></i></b> Softcopy</a>
                                   </td>
-                                  <td>
-                                    {{$item->masa_berlaku_sk}}
-                                  </td>
+                                <td>
+                                  {{$item->masa_berlaku_sk}}
+                                </td>
+                                <td>
+                                  <a href="{{asset('laravel/storage/app/public/'. $item->sk_ajj)}}" target="_blank" type="button" name="btn_cek_13" 
+                                    class="open-delete btn btn-primary btn-labeled btn-rounded">
+                                    <b><i class="icon-file-check"></i></b> Softcopy</a>
+                                </td>
+                                @if ($data->administrations->unsur_pembentuk == 'APT')
+                                <td>
+                                  <a href="{{asset('laravel/storage/app/public/'. $item->akreditasi_kan)}}" target="_blank" type="button" name="btn_cek_13" 
+                                    class="open-delete btn btn-primary btn-labeled btn-rounded">
+                                    <b><i class="icon-file-check"></i></b> Softcopy</a>
+                                </td>
+                                <td>
+                                  {{$item->masa_berlaku_kan}}
+                                </td>
+                                @endif
                               </tr>
                               @endforeach
                             </tbody>
