@@ -26,10 +26,11 @@ class KualifikasiController extends Controller
         // dd($kualifikasi);
         $permohonan = Permohonan::where('id', Auth::user()->id)->get();
         $klasifikasi = Klasifikasi::all();
-        return view('pages.user.kualifikasi', [
+        return view('pages.user.rekomendasi.klasifikasi', [
             'data' => $kualifikasi,
             'item' => $permohonan,
-            'klas' => $klasifikasi
+            'klas' => $klasifikasi,
+            'title' => 'Klasifikasi dan Subklasifikasi'
         ]);
     }
 
@@ -61,6 +62,10 @@ class KualifikasiController extends Controller
             // 'item' => $permohonan
             
         ]);
+    }
+
+    public function edit(){
+        
     }
 
     public function getSubklas(Request $request){

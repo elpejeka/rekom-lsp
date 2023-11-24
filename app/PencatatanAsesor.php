@@ -18,7 +18,7 @@ class PencatatanAsesor extends Model
         'pencatatan_id', 'nama_asesor', 'nik', 'alamat', 'status_asesor','users_id','slug',
         'no_registrasi_asesor', 'npwp', 'email', 'tgl_lahir', 'pendidikan', 'no_telpon',
         'provinsi', 'kab_kota', 'tempat_lahir', 'no_reg_asesor', 'surat_penghapusan', 'ket_hapus',
-        'is_active', 'status'
+        'is_active', 'status', 'acc_deleted', 'is_deleted', 'approved_at', 'approve'
     ];
 
     protected $hidden = [
@@ -42,6 +42,14 @@ class PencatatanAsesor extends Model
 
     public function kabkota(){
         return $this->hasOne(KabKota::class, 'id_kabupaten_dagri', 'kab_kota');
+    }
+
+    public function tmptLhir(){
+        return $this->hasOne(Propinsi::class,'id_propinsi_dagri', 'tempat_lahir');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'users_id', 'id');
     }
     
 }

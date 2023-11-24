@@ -103,6 +103,8 @@
                                 <th>No</th>
 								<th>Nama LSP</th>
 								<th>Jumlah Skema</th>
+								<th>Jumlah Asesor</th>
+								<th>Jumlah TUK</th>
                                 <th>Jenis LSP</th>
                                 <th>No SK</th>
 								<th class="text-nowrap">No Lisensi</th>
@@ -120,6 +122,8 @@
 							<td>{{$no++}}</td>
 							<td>{{$item->administrations->nama}}
 							<td>{{$item->jumlah_skema}}</td>
+							<td>{{count($item->asesor)}}</td>
+							<td>{{count($item->tuk)}}</td>
 							<td>{{$item->administrations->jenis_lsp}}</td>
 							<td>{{$item->no_sk}}</td>
 							<td class="text-nowrap">{{$item->no_lisensi}}</td>

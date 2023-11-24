@@ -212,8 +212,13 @@
                 <b><i class="icon-file-check"></i></b> Softcopy</a>
             </td>
             <td>
-              <span class="label label-success">{{$item->is_active == 1 ? 'YA' : 'Tidak'}}</span> <br />
-              <span class="label label-primary">{{$item->status == null ? '-' : 'Permohonan Tayang / Tidak Tayang'}}</span>
+              <span class="label label-success">
+                @if ($item->is_active == 1)
+                Ya
+                @else    
+                Tidak
+                @endif</span> <br />
+                <span class="label label-primary">{{$item->status == null ? '-' : 'Permohonan Tayang / Tidak Tayang'}}</span>
             </td>
             @if ($item->approve == null)
             <td class="text-center">

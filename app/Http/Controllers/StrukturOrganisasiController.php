@@ -19,15 +19,13 @@ class StrukturOrganisasiController extends Controller
         $this->middleware(['auth','verified']);
     }
 
-    public function index(Request $request){
-        // $permohonan = Permohonan::where('id', Auth::user()->id)->get();
+    public function index(){
         $pengurus = OrganizationStructure::where('users_id', Auth::user()->id)->get();
 
-        // dd($pengurus);
-        return view('pages.user.struktur_organisasi', [
-            // 'item' => $permohonan
+        return view('pages.user.rekomendasi.struktur', [
             'item' => $pengurus,
-            'pengurus' => $pengurus->count()
+            'pengurus' => $pengurus->count(),
+            'title' => 'Struktur Organisasi'
         ]);
     }
 
@@ -54,19 +52,16 @@ class StrukturOrganisasiController extends Controller
     public function edit($id){
         $item = OrganizationStructure::findOrFail($id);
 
-        return view('pages.user.edit.edit_pengurus', [
-            'items' => $item
+        return view('pages.user.rekomendasi.edit.struktur', [
+            'items' => $item,
+            'title' => 'Edit Struktur Organisasi'
         ]);
     }
 
     public function update(Request $request, $id){
         $data = $request->all();
-        // $data['users_id'] = Auth::user()->id;
-        $data['upload_persyaratan'] = $request->file('upload_persyaratan')->store(
-            'file/struktur-organisasi', 'public'
-        );
-
         $item = OrganizationStructure::findOrFail($id);
+        $item->upload_persyaratan = $request->hasFile('upload_persyaratan') ? $request->file('upload_persyaratan')->store('file/struktur-organisasi', 'public') : $item->upload_persyaratan;
         $item->update($data);
         
         

@@ -55,18 +55,19 @@ class SubmitController extends Controller
         where q.deleted_at is null and q.users_id =". $user->users_id);
 
 
-        return view('pages.user.apply', [
+        return view('pages.user.rekomendasi.submit', [
             'permohonan' => $user_file,
             'data' => $user,
-            'klasifikasi' => $klasifikasi
+            'klasifikasi' => $klasifikasi,
+            'title' => "Detail Permohonan"
         ]);
     }
    
     public function setStatusSubmit(Request $request, $id)
     {
-        $request->validate([
-            'status_submit' => 'required'
-        ]);
+        // $request->validate([
+        //     'status_submit' => 'required'
+        // ]);
 
         $item = Permohonan::findOrFail($id);
         $item->status_submit = Carbon::now();
@@ -103,9 +104,12 @@ class SubmitController extends Controller
         $item = Permohonan::findOrFail($id);
         $item->status_verifikasi = Carbon::now();
         
-        $user = User::where('id', $item->users_id)->get();
+        $user = User::where('id', $item->users_id)->first();
+
+        // dd($user);
+
         
-        Notification::send($user, new VerifikasiValidasi());
+        // Notification::send($user, new VerifikasiValidasi());
 
         $item->save();
 

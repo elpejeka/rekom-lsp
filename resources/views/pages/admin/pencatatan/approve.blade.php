@@ -414,6 +414,10 @@
                                                 <td>{{$data->administrations->no_telp}}</td>
                                             </tr>
                                             <tr>
+                                                <td>Jenis LSP</td>
+                                                <td>{{$data->administrations->jenis_lsp}}</td>
+                                            </tr>
+                                            <tr>
                                                 <td>Kategori</td>
                                                 <td>{{$data->administrations->kategori_lsp}}</td>
                                             </tr>
@@ -607,15 +611,13 @@
                                     <th>Status Asesor</th>
                                     <th>Nomor Registrasi Asesor</th>
                                     <th>Provinsi</th>
+                                    <th>Profil Asesor</th>
                                     <th>Cek Asesor SIKI</th>
                                     <th class="text-center">Actions</th>
                                     <th>Status</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                @php
-                                    $no = 1;
-                                @endphp
                                   @foreach ($data->asesor as $item)
                                   <tr>
                                     <td>{{$no++}}</td>
@@ -624,19 +626,18 @@
                                     <td>{{$item->alamat}}</td>
                                     <td><span class="label label-success">{{$item->status_asesor}}</span></td>
                                     <td>{{$item->no_registrasi_asesor}}</td>
-                                    <td>{{$item->provinsi}}</td>
+                                    <td>{{$item->provinsi == null ? "-" : $item->propinsi->Nama}}</td>
+                                    <td>
+                                        <a data-toggle="modal" id="smallButton" data-target="#smallModal"
+                                        data-attr="{{ route('sertifikat.show', $item->id) }}" title="show" class="btn btn-sm btn-info">
+                                        <i class="icon-eye2"></i>
+                                        </a>
+                                    </td>
                                     <td>
                                         <a href="{{route('check.asesor', $item->nik)}}" class="btn btn-primary" target="_blank">Check</a>
                                     </td>
                                     <td class="text-center">
-                                      <!-- <a href="#mymodalAsesor"
-                                      data-remote="{{route('sertifikat.show', $item->id)}}" 
-                                      data-toggle="modal"
-                                      data-target="#mymodalAsesor"
-                                      data-title="Detail Asesor {{$item->nama_asesor}}"
-                                      class="btn btn-sm btn-info">
-                                  <i class="icon-eye2"></i></a> -->
-                                  <a data-toggle="modal" id="smallButton" data-target="#smallModal"
+                                  <a data-toggle="modal" id="smallButton" data-target="#detailAsesor"
                             data-attr="{{ route('sertifikat.show', $item->id) }}" title="show" class="btn btn-sm btn-info">
                             <i class="icon-eye2"></i>
                         </a>
@@ -647,7 +648,6 @@
                                             <span class="label label-success">Approved</span>
                                             <a href="{{route('asesor.unapprove', $item->id)}}" class="btn btn-sm btn-danger mt-5" target="_blank">Unapproved</a>
                                             <a href="javascript:void(0)" onclick="importAsesor({{$item->id}})" class="btn btn-sm btn-primary mt-5" >Import To Master Penugasan</a>
-                                            <a href="{{route('asesor.done', $item->id)}}" class="btn btn-sm btn-success">Update Status Tayang</a>
                                             {{-- <a data-id={{$item->id}} id="importAsesor" class="btn btn-sm btn-primary mt-5">Import To Master Penugasan</a> --}}
                                         </td>
                                         @endif
@@ -731,7 +731,6 @@
                                         <th>Provinsi</th>
                                         <th>Alamat</th>
                                         <th>Dokumen</th>
-                                        <th>Permohonan Tayang</th>
                                         <th>Status</th>
                                       </tr>
                                     </thead>
@@ -752,13 +751,10 @@
                                                 class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                 <b><i class="icon-file-check"></i></b> Softcopy</a>
                                             </td>
-                                            <td>
-                                                <span class="badge badge-primary">{{$item->status == 0 ? 'Permohonan Tidak Tayang' : 'Permohonan Tayang'}}</span>
-                                            </td>
                                             @if ($item->approve == 1)
                                             <td>
                                                 <span class="label label-success">Approved</span>
-                                                <a href="{{route('tuk.unapprove', $item->id)}}" class="btn btn-sm btn-danger" target="_blank">Unapproved</a>
+                                                <a href="{{route('tuk.unapprove', $item->id)}}" class="btn btn-sm btn-danger mt-5" target="_blank">Unapproved</a>
                                                 <a href="{{route('tuk.done', $item->id)}}" class="btn btn-sm btn-success">Update Status Tayang</a>
                                             </td>
                                             @endif
@@ -924,7 +920,7 @@
         </form>
       </div>
     </div>
-  </div>
+</div>
 
   <div class="modal fade" id="keabsahanAsesor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -994,10 +990,105 @@
     </div>
   </div>
 
+<div class="modal fade" id="detailAsesor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Profil Asesor</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Nama Asesor</label>
+                        <input type="text" class="form-control" id="namaAsesor" readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>NIK Asesor</label>
+                        <input type="text" class="form-control" id="nikAsesor" readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" id="emailAsesor" readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>No Telepon</label>
+                        <input type="text" class="form-control" id="tlpAsesor" readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tempat Lahir</label>
+                        <input type="text" class="form-control" id="tempatLahir" readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tanggal Lahir</label>
+                        <input type="text" class="form-control" id="tglLahir" readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <input type="text" class="form-control" id="address" readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Pendidikan</label>
+                        <input type="text" class="form-control" id="education" readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Provinsi</label>
+                        <input type="text" class="form-control" id="prov" readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Kabupaten/Kota</label>
+                        <input type="text" class="form-control" id="kab" readonly/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
   <script>
+        function detailAsesor(id){
+            $.get('/asesor-approve/'+id, function(data){
+                    let tmpatLahir = data.tempat_lahir == null ? '-' : data.tmpt_lhir.Nama
+                    let prov = data.provinsi == null ? '-' : data.propinsi.Nama
+                    let kab = data.kab_kota == null ? '-' : data.kabkota.nama_kabupaten_dagri
+
+                   $("#namaAsesor").val(data.nama_asesor);
+                   $("#nikAsesor").val(data.nik);
+                   $("#emailAsesor").val(data.email);
+                   $("#tglLahir").val(data.tgl_lahir);
+                   $("#address").val(data.alamat);
+                   $("#education").val(data.pendidikan);
+                   $("#tempatLahir").val(tmpatLahir);
+                   $("#prov").val(prov);
+                   $("#kab").val(kab);
+                   $('#tlpAsesor').val(data.no_telpon);
+                   $("#detailAsesor").modal("toggle");
+            })
+        }
+
       function updateKeabsahan(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/pencatatan/skema-approve/'+id, function(skema){
+            $.get('/lsp/pencatatan/skema-approve/'+id, function(skema){
                 $("#id").val(skema.id);
                 $("#nama_skema").val(skema.nama_skema);
                 $("#approve").val(skema.approve);
@@ -1034,7 +1125,7 @@
 
         function updateAsesor(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/pencatatan/asesor-approve/'+id, function(asesor){
+            $.get('/lsp/pencatatan/asesor-approve/'+id, function(asesor){
                 $("#idAsesor").val(asesor.id);
                 $("#nama_asesor").val(asesor.nama_asesor);
                 $("#approve_asesor").val(asesor.approve);
@@ -1071,7 +1162,7 @@
 
         function updateTuk(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/pencatatan/tuk-approve/'+id, function(tuk){
+            $.get('/lsp/pencatatan/tuk-approve/'+id, function(tuk){
                 $("#idTuk").val(tuk.id);
                 $("#nama_tuk").val(tuk.nama_tuk);
                 $("#approve_tuk").val(tuk.approve);
@@ -1202,17 +1293,8 @@
             });
         });
 
-        // $(document).ready(function(){
-        //     $("#importAsesor").click(function(){
-        //         id = $(this).data("id");
-        //         $.ajax({
-        //             url : "/import-to-siki/".id
-        //         })
-        //     })
-        // })
-
         function importAsesor(id){
-            $.get('/pencatatan/import-to-siki/'+id, function(data){
+            $.get('/lsp/pencatatan/import-to-siki/'+id, function(data){
                 alert(data.message);
             });
         }

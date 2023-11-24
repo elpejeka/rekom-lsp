@@ -144,6 +144,7 @@
               <label class="col-lg-3 control-label">Kabupaten / Kota</label>
               <div class="col-lg-9">
                 <select class="select-search" name="kab_kota" id="kab_kota">
+                  <option value="{{$item->kab_kota}}">-- selected --</option>
                   <option value="">Pilih Kabupaten / Kota</option>
                 </select>
               </div>

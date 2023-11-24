@@ -22,7 +22,10 @@ Route::get('/detail/asesor/sertifikat/{id}', 'LspController@show')->name('show.d
 Route::get('/detail-pencatatan-asesor/{id}', 'LspController@showPencatatanAsesor')->name('detail.qr.asesor');
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/dashboard-user', 'HomeController@dashboard')->name('dashboard.user');
 Route::get('/{id}/submit', 'HomeController@show')->name('show_status');
+Route::get('/permohonan-selesai', 'VerificationController@selesai')->name('permohonan.selesai');
+Route::get('/permohonan-tolak', 'VerificationController@tolak')->name('permohonan.tolak');
 
 Route::get('/informasi-umum', 'InformationController@index')->name('informasi');
 Route::get('/informasi-umum/preview', 'InformationController@table')->name('table.informasi-umum');
@@ -75,6 +78,8 @@ Route::delete('/skema-sertifikasi-asesor/hapus/{id}', 'SkemaAsesorController@des
 
 Route::get('/tempat-uji-kompetensi', 'TukController@index')->name('tuk');
 Route::get('/tempat-uji-kompetensi/preview', 'TukController@table')->name('table.tuk');
+Route::get('/tempat-uji/edit/{id}', 'TukController@edit')->name('rekom.tuk.edit');
+Route::put('/tuk/update/{id}','TukController@update')->name('rekom.tuk.update');
 Route::delete('/tempat-uji-kompetensi/{id}/hapus', 'TukController@destroy')->name('delete.tuk');
 Route::post('/tempat-uji-kompetensi', 'TukController@store')->name('tuk_store');
 
@@ -140,6 +145,10 @@ Route::post('/validasi-update', 'Portal\PermohonanController@submitValidasi')->n
 Route::get('/permohonan-final/{idIzin}', 'Portal\PermohonanController@SuratRekomendasi')->name('final.portal');
 Route::get('/permohonan-tolak/{idIzin}', 'Portal\PermohonanController@TolakPermohonan')->name('tolak.portal');
 
+Route::get('/profile', 'ProfileController@index')->name('user.profile');
+Route::get('profile-edit', 'ProfileController@edit')->name('user.edit');
+Route::post('profile-update', 'ProfileController@update')->name('user.update');
+
 Route::prefix('pencatatan')
             ->namespace('Pencatatan')
             ->middleware(['auth'])
@@ -153,6 +162,7 @@ Route::prefix('pencatatan')
                 Route::get('/sekretariat/edit/{id}', 'PencatatanController@sekretariatEdit')->name('sekretariat.edit');
 	    
 	            Route::get('/sekretariat/list', 'IndexController@listApprove')->name('pencatatan.approve.list');
+                Route::get('/sekretariat/selesai', 'IndexController@selesai')->name('pencatatan.list.selesai');
                 Route::get('/sekretariat/cek/{slug}', 'IndexController@approve')->name('pencatatan.approve');
                 Route::get('/cek-kesesuaian/{id}/approve', 'IndexController@setApprove')->name('pencatatan.submit.approve');
                 Route::post('/komen/pencatatan', 'IndexController@setKomen')->name('komen.pencatatan');
@@ -213,8 +223,8 @@ Route::prefix('pencatatan')
                 Route::get('/tempat-uji-kompetensi/edit/{id}', 'TukController@edit')->name('pencatatan.tuk.edit');
                 Route::put('/tempat-uji-kompetensi/update/{id}', 'TukController@update')->name('pencatatan.tuk.update');
                 Route::delete('/tempat-uji-kompetensi/delete/{id}', 'TukController@destroy')->name('pencatatan.tuk.delete');
-                Route::get("/tayang-tuk/{id}", 'TukController@tayang')->name('tuk.tayang');
                 Route::get("/tayang-approve/{id}", 'TukController@done')->name('tuk.done');
+                Route::post("/tayang-tuk", 'TukController@tayang')->name('tuk.tayang');
 
                 Route::get('/tuk-approve/{id}', 'TukController@showTuk')->name('tuk.approve');
                 Route::put('/tuk-approve', 'TukController@approveTuk')->name('tuk.approve.update');
@@ -224,7 +234,7 @@ Route::prefix('pencatatan')
                 Route::put('/proses-tuk-unactive/{id}','TukController@prosesUnactive' )->name('proses.tuk.unactive');
                 
 
-                Route::get('/surat-pencatatan/{slug}', 'PencatatanController@surat')->name('surat.pencatatan');
+                Route::get('/surat-pencatatan/{id}', 'PencatatanController@surat')->name('surat.pencatatan');
                 Route::get('/komen-perbaikan/{id}', 'KomenController@index')->name('list.komen');
 
                 Route::get('/lisensi', 'LisensiController@index')->name('sk.lisensi');
@@ -238,13 +248,19 @@ Route::prefix('pencatatan')
 Route::get('/check/asesor/{nik}', 'ApiController@index')->name('check.asesor');
 Route::get('/get-sertifikat/{nik}', 'References\SertifikatController@index');
 Route::get('/detail-sertifikat/{noReg}', 'References\SertifikatController@detail');
+
 Route::prefix('reference')
             ->namespace('References')
             ->group(function(){
                 Route::get('/jabker/{id}', 'MasterController@jabker');
+                Route::get('/get-sertifikat/{nik}', 'MasterController@getSertifikat');
             });
+            
 Auth::routes(['verify' => true]);
 
 // Auth::routes(['register' => false]);
+
+require __DIR__.'./mockup.php';
+require __DIR__.'./searching.php';
 
 

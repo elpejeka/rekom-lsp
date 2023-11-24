@@ -19,10 +19,9 @@ class TukController extends Controller
 
     public function index(){
         $tuk = Tuk::where('users_id', Auth::user()->id)->get();
-        // $permohonan = Permohonan::where('id', Auth::user()->id)->firstOrFail();
-        return view('pages.user.tuk', [
+        return view('pages.user.rekomendasi.tuk', [
             'data' => $tuk,
-            // 'item' => $permohonan
+            'title' => "Tempat Uji Kompetensi"
         ]);
     }
 
@@ -35,6 +34,27 @@ class TukController extends Controller
         
         Tuk::create($data);
         return redirect('/tempat-uji-kompetensi')->with('success', 'Data Tempat Uji Kompetensi Berhasil di Simpan');
+    }
+
+    public function edit($id){
+        $tuk = Tuk::find($id);
+
+        return view('pages.user.rekomendasi.edit.tuk', [
+            'item' => $tuk,
+            'title' => "Edit Tempat Uji Kompetensi"
+        ]);
+    }
+
+    public function update(Request $request, $id){
+        $tuk = Tuk::find($id);
+
+        $tuk->nama_tuk = $request->nama_tuk;
+        $tuk->alamat = $request->alamat;
+        $tuk->cakupan = $request->hasFile('cakupan') ? $request->file('cakupan')->store('file/sarana', 'public') : $tuk->cakupan;
+        $tuk->save();
+
+        return redirect('/tempat-uji-kompetensi')->with('success', 'Data Tempat Uji Kompetensi Berhasil di Update');
+
     }
 
     public function destroy($id)

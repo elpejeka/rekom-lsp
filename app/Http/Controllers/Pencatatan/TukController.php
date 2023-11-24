@@ -19,10 +19,11 @@ class TukController extends Controller
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $tuk = PencatatanTuk::where('users_id', Auth::user()->id)->get();
         $propinsi = DB::table('propinsi_dagri')->get();
-        return view('pages.user.pencatatan.tuk', [
+        return view('pages.user.catat.tuk', [
             'permohonan' => $permohonan,
             'data' => $tuk,
             'propinsi' => $propinsi,
+            'title' => "Tempat Uji Kompetensi"
         ]);
     }
 
@@ -61,10 +62,11 @@ class TukController extends Controller
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $propinsi = DB::table('propinsi_dagri')->get();
 
-        return view('pages.user.pencatatan.edit.edit-tuk', [
+        return view('pages.user.catat.edit.tuk', [
             'data' => $data,
             'permohonan' => $permohonan,
             'propinsi' => $propinsi,
+            'title' => "Edit TUK"
         ]);
     }
 
@@ -147,34 +149,40 @@ class TukController extends Controller
         return redirect()->route('pencatatan.tuk')->with('success', 'Pencatatan TUK Berhasil di Hapus');
     }
 
-    public function tayang($id){
+    public function tayang(Request $request){
+        $id = $request->id;
+        $status = $request->status;
         $data = PencatatanTuk::find($id);
         $administrasi = Administration::where('users_id', Auth::user()->id)->first();
-        if($data->is_active == 1){
-                $data->update([
-                    'status' => 1
-                ]);
-                $notif = new LogPencatatan;
-                $notif->nama_lsp = $administrasi->nama;
-                $notif->keterangan = 'Permohonan Tayang TUK ' . $data->nama_tuk  ;
-                $notif->created_at = Carbon::now();
-                $notif->save();
-            return redirect()->route('pencatatan.tuk')->with('success', 'Data TUK Berhasil di ajukan');
+        
+        if($status == 1){
+            $data->update([
+                'status' => 1
+            ]);
+            $notif = new LogPencatatan;
+            $notif->nama_lsp = $administrasi->nama;
+            $notif->keterangan = 'Permohonan Tayang TUK ' . $data->nama_tuk  ;
+            $notif->created_at = Carbon::now();
+            $notif->save();
         }else{
             $data->update([
                 'status' => 1
             ]);
             $notif = new LogPencatatan;
             $notif->nama_lsp = $administrasi->nama;
-            $notif->keterangan = 'Permohonan Tayang TUK';
+            $notif->keterangan = 'Permohonan Tidak Tayang TUK ' . $data->nama_tuk  ;
             $notif->created_at = Carbon::now();
             $notif->save();
-            return redirect()->route('pencatatan.tuk')->with('success', 'Data TUK Berhasil di ajukan');
         }
+
+        return response()->json([
+            'message' => "success"
+        ]);
     }
 
     public function done($id){
         $data = PencatatanTuk::find($id);
+        $administrasi = Pencatatan::where('id', $data->pencatatan->id)->first();
 
         if($data->is_active == 1){
             $data->update([
@@ -188,6 +196,6 @@ class TukController extends Controller
             ]);
         }
 
-        return redirect(route('pencatatan.approve.list'))->with('success', 'Data TUK Berhasil di ubah');
+        return redirect(route('pencatatan.approve', $administrasi->slug))->with('success', 'Data TUK Berhasil di ubah');
     }
 }

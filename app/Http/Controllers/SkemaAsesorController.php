@@ -15,15 +15,14 @@ class SkemaAsesorController extends Controller
         $asesor = Asesor::where('slug', $slug)->firstOrFail();
         $subklas = DB::table('subklasifikasi')->get();
         $skemaAsesor = SkemaAsesor::where('asesor_id', $asesor->id)->get();
-        $skema = Jabker::all();
+        $skema = DB::table('jabker_02')->get();
 
-        // dd($subklas);
-
-        return view('pages.user.skema_asesor', [
+        return view('pages.user.rekomendasi.skema-asesor', [
             'asesor' => $asesor,
             'subklas' => $subklas,
             'sertifikat' => $skemaAsesor,
-            'skema' => $skema
+            'skema' => $skema,
+            'title' => "Skema Asesor"
         ]);
     }   
 

@@ -13,9 +13,10 @@ class ExtAsesorController extends Controller
     public function index($id){
         $asesor = PencatatanAsesor::find($id);
         $data = ExtAsesor::where('asesor_id', $id)->get();
-        return view('pages.user.pencatatan.ext_asesor', [
+        return view('pages.user.catat.ext-asesor', [
             'asesor' => $asesor,
-            'data' => $data
+            'data' => $data,
+            'title' => 'Dokumen Perjanjian Asesor'
         ]);
     }
 
@@ -40,8 +41,9 @@ class ExtAsesorController extends Controller
     public function edit($id){
         $data = ExtAsesor::find($id);
 
-        return view('pages.user.pencatatan.edit.edit-ext-asesor', [
-            'item' => $data
+        return view('pages.user.catat.edit.ext-asesor', [
+            'item' => $data,
+            'title' => 'Dokumen Perjanjian Asesor'
         ]);
     }
 

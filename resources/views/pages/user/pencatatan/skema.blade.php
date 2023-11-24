@@ -118,7 +118,7 @@
           <fieldset>
 
             <div class="form-group">
-              <label class="col-lg-3 control-label">Sub Kualifikasi</label>
+              <label class="col-lg-3 control-label">SubKualifikasi</label>
               <div class="col-lg-9">
                 <input type="text" name="sub_klasifikasi" id="subklasifikasi" class="form-control" readonly />
               </div>

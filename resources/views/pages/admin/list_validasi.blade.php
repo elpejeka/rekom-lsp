@@ -166,7 +166,7 @@
     
       </div>
     </div>
-  </div>
+</div>
 
     <script>
 
@@ -175,7 +175,7 @@
                 $("#permohonan_id").val(data.id);
                 $("#penolakan").modal("toggle");
             })
-        }
+    }
 
       $("#commentForm").submit(function(e){
           e.preventDefault();     

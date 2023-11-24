@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Pencatatan;
 use App\SKLisensi;
+use App\Administration;
 use Auth;
 
 class LisensiController extends Controller
@@ -15,10 +16,13 @@ class LisensiController extends Controller
     {
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $data = SKLisensi::where('users_id', Auth::user()->id)->get();
+        $administrasi = Administration::where('users_id', Auth::user()->id)->get();
 
-        return view('pages.user.pencatatan.sk', [
+        return view('pages.user.catat.legalitas', [
             'permohonan' => $permohonan,
             'data' => $data,
+            'administrasi' => $administrasi,
+            'title' => 'Legalitas LSP'
         ]);
     }
 
@@ -43,6 +47,22 @@ class LisensiController extends Controller
             $data['sertifikat_lisensi'] = 'file/pencatatan/1/nofile.pdf';
         }
 
+        if($request->hasFile('sk_ajj')){
+            $data['sk_ajj'] = $request->file('sk_ajj')->store(
+                'file/sk-ajj', 'public'
+            );
+        }else{
+            $data['sk_ajj'] = 'file/pencatatan/1/nofile.pdf';
+        }
+
+        if($request->hasFile('akreditasi_kan')){
+            $data['akreditasi_kan'] = $request->file('akreditasi_kan')->store(
+                'file/kan', 'public'
+            );
+        }else{
+            $data['akreditasi_kan'] = 'file/pencatatan/1/nofile.pdf';
+        }
+
         SKLisensi::create($data);
 
         return redirect()->route('sk.lisensi')->with('success', 'Data Berhasil di Simpan');
@@ -51,9 +71,12 @@ class LisensiController extends Controller
 
     public function edit($id){
         $data = SKLisensi::find($id);
+        $administrasi = Administration::where('users_id', Auth::user()->id)->get();
 
-        return view('pages.user.pencatatan.edit.edit-sk', [
+        return view('pages.user.catat.edit.legalitas', [
             'data' => $data,
+            'title' => 'Edit Legalitas',
+            'administrasi' => $administrasi,
         ]);
     }
 
@@ -75,6 +98,22 @@ class LisensiController extends Controller
             );
         }else{
             $data['sertifikat_lisensi'] = $item->sertifikat_lisensi;
+        }
+
+        if($request->hasFile('sk_ajj')){
+            $data['sk_ajj'] = $request->file('sk_ajj')->store(
+                'file/sk-ajj', 'public'
+            );
+        }else{
+            $data['sk_ajj'] = $item->sk_ajj;
+        }
+
+        if($request->hasFile('akreditasi_kan')){
+            $data['akreditasi_kan'] = $request->file('akreditasi_kan')->store(
+                'file/kan', 'public'
+            );
+        }else{
+            $data['akreditasi_kan'] = $item->akreditasi_kan;
         }
 
         $item->update($data);

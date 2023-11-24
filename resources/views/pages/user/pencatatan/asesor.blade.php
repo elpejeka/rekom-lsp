@@ -514,6 +514,12 @@
         }
     });
   });
+
+  function importAsesor(id){
+            $.get('/lsp/pencatatan/import-to-siki/'+id, function(data){
+                alert(data.message);
+            });
+        }
 </script>
 
 

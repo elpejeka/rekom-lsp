@@ -13,7 +13,7 @@ class LspCertificate extends Model
     protected $fillable = [
          'users_id', 'kode_skema', 'nama_skema', 'jabker', 'permohonans_id',
         'jumlah_unit', 'acuan_skema', 'upload_persyaratan', 'klasifikasi',
-        'sub_klasifikasi', 'kualifikasi', 'standar_kompetensi', 'kesesuaian'
+        'sub_klasifikasi', 'kualifikasi', 'standar_kompetensi', 'kesesuaian', 'jenjang'
     ];
 
     protected $hidden = [];

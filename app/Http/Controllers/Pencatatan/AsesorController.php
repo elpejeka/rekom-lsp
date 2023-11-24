@@ -27,11 +27,12 @@ class AsesorController extends Controller
         $propinsi = DB::table('propinsi_dagri')->get();
         $informasi = Administration::where('users_id', Auth::user()->id)->first();
 
-        return view('pages.user.pencatatan.asesor', [
+        return view('pages.user.catat.asesor', [
             'asesor' => $data,
             'permohonan' => $permohonan,
             'propinsi' => $propinsi,
-            'lsp' => $informasi
+            'lsp' => $informasi,
+            'title' => 'Asesor LSP'
         ]);
     }
 
@@ -86,14 +87,15 @@ class AsesorController extends Controller
     }
 
     public function edit($id){
-        $data = PencatatanAsesor::with(['kabkota'])->find($id);
+        $data = PencatatanAsesor::with(['kabkota', 'propinsi'])->find($id);
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $propinsi = DB::table('propinsi_dagri')->get();
 
-        return view('pages.user.pencatatan.edit.edit-asesor', [
+        return view('pages.user.catat.edit.asesor', [
             'data' => $data,
             'permohonan' => $permohonan,
             'propinsi' => $propinsi,
+            'title' => 'Edit Asesor'
         ]);
     }
 
@@ -168,7 +170,7 @@ class AsesorController extends Controller
     }
 
     public function showAsesor($id){
-        $asesor = PencatatanAsesor::find($id);
+        $asesor = PencatatanAsesor::with(['propinsi', 'kabkota', 'tmptLhir'])->find($id);
 
         return response()->json($asesor);
     }
@@ -196,9 +198,9 @@ class AsesorController extends Controller
         $data = $request->all();
         $data['surat_penghapusan'] = $request->file('surat_penghapusan')->store('file/pencatatan/asesor/penghapusan', 'public');
         $data['approve'] = null;
-        $data['deleted_at'] = Carbon::now();
+        $data['acc_deleted'] = Carbon::now();
         $data['approved_at'] = null;
-        
+        $data['is_deleted'] = true;        
 
         $item->update($data);
 
@@ -207,8 +209,6 @@ class AsesorController extends Controller
         $notif->keterangan = 'Permohonan Pengahapusan Asesor '. $item->nama_asesor;
         $notif->created_at = Carbon::now();
         $notif->save();
-
-        $item->delete();
 
         return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di hapus');    
     }

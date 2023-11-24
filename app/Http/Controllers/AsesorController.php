@@ -23,14 +23,13 @@ class AsesorController extends Controller
         $asesor = Asesor::where('users_id', Auth::user()->id)
                         ->whereNull('deleted_at')
                             ->get();
-        // $permohonan = Permohonan::where('id', Auth::user()->id)->firstOrFail();
         $provinsi = DB::table('propinsi_dagri')->get();
         $kabupaten = DB::table('kabupaten_dagri')->get();
-        return view('pages.user.asesor', [
+        return view('pages.user.rekomendasi.asesor', [
             'asesor' => $asesor,
             'propinsi' => $provinsi,
-            'kabupaten' => $kabupaten
-            // 'item' => $permohonan
+            'kabupaten' => $kabupaten,
+            'title' => "Asesor"
         ]);
     }
 
@@ -54,9 +53,10 @@ class AsesorController extends Controller
         $asesor = Asesor::findOrFail($id);
         $provinsi = DB::table('propinsi_dagri')->get();
 
-        return view('pages.user.edit.edit_asesor',[
+        return view('pages.user.rekomendasi.edit.asesor',[
             'item' => $asesor,
             'propinsi' => $provinsi,
+            'title' => "Edit Asesor"
         ]);
     }
 

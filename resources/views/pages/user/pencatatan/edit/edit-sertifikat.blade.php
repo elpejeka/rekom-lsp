@@ -59,7 +59,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Subklasifikasi</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" value="{{$data->klasifikasi}}" readonly/>
+                <input type="text" class="form-control" value="{{$data->subklasifikasi}}" readonly/>
               </div>
               @error('sub_klasifikasi')
               <span class="invalid-feedback" role="alert">

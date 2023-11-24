@@ -18,7 +18,7 @@
         <tr>
             <td width="220px" height="40px">Nama LSP</td>
             <td width="20px" class="text-center">:</td>
-            <td width="400px">{{$informasi->administrations->nama}}</td>
+            <td width="400px">{{$informasi->administrations->nama ?? '-'}}</td>
         </tr>
         <tr>
             <td width="220px" height="40px">Nomor Lisensi</td>
@@ -28,27 +28,27 @@
         <tr>
             <td width="220px" height="40px">Jenis LSP </td>
             <td width="20px" class="text-center">:</td>
-            <td width="400px">{{$informasi->administrations->jenis_lsp}}</td>
+            <td width="400px">{{$informasi->administrations->jenis_lsp ?? '-'}}</td>
         </tr>
         <tr>
             <td width="220px" height="40px">Alamat LSP</td>
             <td width="20px" class="text-center">:</td>
-            <td width="400px">{{ucfirst($informasi->administrations->alamat)}}</td>
+            <td width="400px">{{ucfirst($informasi->administrations->alamat ?? '-')}}</td>
         </tr>
         <tr>
             <td width="220px" height="40px">Kode Pos</td>
             <td width="20px" class="text-center">:</td>
-            <td width="400px">{{$informasi->administrations->kode_pos}}</td>
+            <td width="400px">{{$informasi->administrations->kode_pos ?? '-'}}</td>
         </tr>
         <tr>
             <td width="220px" height="40px">Nomor Telepon</td>
             <td width="20px" class="text-center">:</td>
-            <td width="400px">{{$informasi->administrations->no_telp}}</td>
+            <td width="400px">{{$informasi->administrations->no_telp ?? '-'}}</td>
         </tr>
         <tr>
             <td width="220px" height="40px">Alamat Email</td>
             <td width="20px" class="text-center">:</td>
-            <td width="400px">{{$informasi->administrations->email}}</td>
+            <td width="400px">{{$informasi->administrations->email ?? '-'}}</td>
         </tr>
         <tr>
             <td width="220px" height="40px">Status</td>
@@ -56,7 +56,7 @@
             <td width="400px" style="font-weight: bold;">TERLISENSI DAN TERCATAT</td>
         </tr>
         <tr>
-            <td width="220px" height="40px">Nomor Registrasi</td>
+            <td width="220px" height="40px">Nomor Pencatatan</td>
             <td width="20px" class="text-center">:</td>
             <td width="400px">{{$informasi->no_pencatatan}}</td>
         </tr>

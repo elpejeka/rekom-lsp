@@ -1,90 +1,50 @@
-@extends('layouts.authentikasi')
+@extends('layouts.auth')
 
 @section('content')
-<div class="page-container">
-
-    <!-- Page content -->
-    <div class="page-content">
-
-        <!-- Main content -->
-        <div class="content-wrapper">
-
-            <!-- Content area -->
-            <div class="content">
-
-                <!-- Registration form -->
-                <form action="{{route('login')}}" method="POST">
-                    @csrf
-                    <div class="panel panel-body login-form">
-                        <div class="text-center">
-                            <img src={{url('/public/assets/images/pupr.jpg')}} alt="logo_pupr" style="width: 120px"/>
-                            <h5 class="content-group-lg">SISTEM INFORMASI REKOMENDASI LINSENSI LSP</h5>
-                        </div>
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <input name="username" type="text" class="form-control @error('username') is-invalid @enderror" placeholder="Username" autofocus required>
-                            <div class="form-control-feedback">
-                                <i class="icon-user text-muted"></i>
-                            </div>
-                            @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                        </div>
-
-                        <div class="form-group has-feedback has-feedback-left">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required>
-                            <div class="form-control-feedback">
-                                <i class="icon-lock2 text-muted"></i>
-                            </div>
-                            @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                        </div>
-
-                        <div class="form-group">
-                                {!! NoCaptcha::display() !!}
-                                {!! NoCaptcha::renderJs() !!}
-                                @error('g-recaptcha-response')
-                                <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn bg-blue btn-block">Login <i class="icon-circle-right2 position-right"></i></button>
-                        </div>
-
-                        <div class="content-divider text-muted form-group"><span>Tidak mempunyai akun silakan mendaftar</span></i></div>
-							<a href="{{route('pendaftaran')}}" class="btn btn-default btn-block content-group">Daftar</a>
-                            <a href="{{route('password.request')}}" class="mx-auto"> Lupa Password ? </a>
-							<span class="help-block text-center no-margin">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
-
-                    </div>
-                </form>
-                <!-- /registration form -->
-            
-
-
-                <!-- Footer -->
-                <div class="footer text-muted text-center">
-                    &copy; 2021. <a href="#">Lembaga Pengembangan Jasa Konstruksi</a>
-                </div>
-                
-                <!-- /footer -->
-
+<div class="col-12 p-0">    
+    <div class="login-card login-dark">
+      <div>
+        {{-- <div><a class="logo" href="index.html"><img class="img-fluid for-light" src="../assets/images/logo/logo.png" alt="looginpage"><img class="img-fluid for-dark" src="../assets/images/logo/logo_dark.png" alt="looginpage"></a></div> --}}
+        <div class="login-main"> 
+          <form class="theme-form" action="{{route('login')}}" method="POST">
+            @csrf
+            <h4>Sign in to account</h4>
+            <p>Enter your username & password to login</p>
+            <div class="form-group">
+              <label class="col-form-label">Username</label>
+              <input class="form-control" type="text"  name="username" placeholder="" required>
             </div>
-            <!-- /content area -->
-
+            <div class="form-group">
+              <label class="col-form-label">Password</label>
+              <div class="form-input position-relative">
+                <input class="form-control" type="password" name="password" placeholder="" required>
+                <div class="show-hide"><span class="show">                         </span></div>
+              </div>
+            </div>
+            <div class="form-group mb-0">
+              {!! NoCaptcha::display() !!}
+              {!! NoCaptcha::renderJs() !!}
+              @error('g-recaptcha-response')
+              <span class="text-danger" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
+              @enderror
+          </div>
+            <div class="form-group mb-0">
+              <div class="checkbox p-0">
+                <input id="checkbox1" type="checkbox">
+                <label class="text-muted" for="checkbox1">Remember password</label>
+              </div><a class="link" href="{{route('password.request')}}">Lupa password?</a>
+              <div class="text-end mt-3">
+                <button class="btn btn-primary btn-block w-100" type="submit">Sign in</button>
+              </div>
+            </div>
+           
+            <h6 class="text-muted mt-4 or">Or</h6>
+            <p class="mt-4 mb-0 text-center">Tidak Punya Akun?<a class="ms-2" href="{{route('pendaftaran')}}">Buat Akun</a></p>
+          </form>
         </div>
-        <!-- /main content -->
-
+      </div>
     </div>
-    <!-- /page content -->
-
-</div>
+  </div>
 @endsection

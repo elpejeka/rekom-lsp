@@ -24,8 +24,9 @@ class PermohonanController extends Controller
 
     public function index(){
         $data = Administration::where('users_id', Auth::user()->id)->get();
-        return view('pages.user.permohonan',[
-            'data' => $data
+        return view('pages.user.rekomendasi.permohonan',[
+            'data' => $data,
+            'title' => 'Permohonan Rekomendasi',
         ]);
     }
 
@@ -53,7 +54,8 @@ class PermohonanController extends Controller
         $item = Permohonan::findOrFail($id);
 
         return view('pages.user.edit.edit_permohonan',[
-            'item' => $item
+            'item' => $item,
+            'title' => "Edit Permohonan"
         ]);
     }
 

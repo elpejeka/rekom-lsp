@@ -13,7 +13,7 @@
                 <input type="hidden" name="userid" id="userId" value="{{$data->users_id}}" />
                 <div class="form-group">
                     <label for="namaSkema">Nama Skema</label>
-                    <select class="" id="nama_jabker">
+                    <select class="form-control" id="nama_jabker">
                         @foreach ($data->skema as $item)
                         <option value="{{$item->jabker}}">{{$item->jabker}}</option>
                         @endforeach
@@ -47,7 +47,7 @@
                 <input type="hidden" name="userid" id="userId" value="{{$data->users_id}}" />
                 <div class="form-group">
                     <label for="namaSkema">Nama Asesor</label>
-                    <select id="nama_asesor">
+                    <select class="form-control" id="nama_asesor">
                         @foreach ($data->asesor as $item)
                         <option value="{{$item->nama_asesor}}">{{$item->nama_asesor}}</option>
                         @endforeach
@@ -81,7 +81,7 @@
                 <input type="hidden" name="userid" id="userId" value="{{$data->users_id}}" />
                 <div class="form-group">
                     <label for="namaSkema">Nama TUK</label>
-                    <select id="nama_tuk">
+                    <select class="form-control" id="nama_tuk">
                         @foreach ($data->tuk as $item)
                         <option value="{{$item->nama_tuk}}">{{$item->nama_tuk}}</option>
                         @endforeach
