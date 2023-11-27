@@ -18,8 +18,18 @@ use Carbon\Carbon;
 use QrCode;
 use PDF;
 
+use App\Services\Reference\SertifikatService;
+
 class AsesorController extends Controller
 {
+
+    private $sertifikatService;
+
+    public function __construct(SertifikatService $sertifikatService)
+    {
+        $this->sertifikatService = $sertifikatService;   
+    }
+
     public function index(){
         $data = PencatatanAsesor::with(['propinsi'])->where('users_id', Auth::user()->id)->whereNull('deleted_at')->get();
         
@@ -40,6 +50,14 @@ class AsesorController extends Controller
         $item = Pencatatan::where('users_id', Auth::user()->id)->first();
         $administrasi = Administration::where('users_id', Auth::user()->id)->first();
         $nik = $request->nik;
+
+        $cekAsesor = $this->sertifikatService->getSertifikat($nik);
+
+        dd($cekAsesor);
+
+        if(empty($cekAsesor)){
+            return redirect()->route('pencatatan.asesor')->with('success', 'Asesor Tidak Dapat di Catatkan karena tidak mempunyai SKK/SKA');    
+        }
 
         $asesor = PencatatanAsesor::where('nik', $nik)
                                 ->whereNull('deleted_at')
@@ -292,4 +310,5 @@ class AsesorController extends Controller
         return redirect(route('pencatatan.approve.list'))->with('success', 'Data Asesor Berhasil di ubah');
     }
 
+    
 }

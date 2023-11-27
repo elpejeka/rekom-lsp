@@ -31,7 +31,7 @@
               <h4>{{$title}}</h4>
             </div>
             <div class="card-body">
-                <form class="form-horizontal"  action="{{route('asesor_store')}}" method="POST" enctype="multipart/form-data">
+                <form class="form-horizontal"  action="{{route('pencatatan.asesor.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
@@ -382,7 +382,7 @@
       if(kode){
         $.ajax({
           type : "GET",
-          url : "/lsp/kab_kota?id_propinsi_dagri="+kode,
+          url : "/kab_kota?id_propinsi_dagri="+kode,
           dataType : 'JSON',
           success:function(res){
             console.log(res)

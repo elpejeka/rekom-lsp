@@ -949,7 +949,7 @@
                    $('#tlpAsesor').val(data.no_telpon);
                    $("#detailAsesor").modal("toggle");
             })
-      }
+    }
 
     function updateKeabsahan(id){
           var noPencatatan = $("#pencatatan").val()
