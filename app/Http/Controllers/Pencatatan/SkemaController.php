@@ -128,4 +128,19 @@ class SkemaController extends Controller
         return redirect()->route('pencatatan.approve.list')->with('success', 'Data Skema Tidak Tayang');  
     }
 
+    public function saveAJJ(Request $request){
+        $skemaID = $request->skema_id;
+
+        $skema = PencatatanSkema::whereIn('id', $skemaID)->get();
+
+        foreach($skema as $s){
+            $s->is_ajj = $s->is_ajj == 1 ? false : true ;
+            $s->save();
+        }
+
+        return response()->json([
+            'status' => "success"
+        ]);
+    }
+
 }

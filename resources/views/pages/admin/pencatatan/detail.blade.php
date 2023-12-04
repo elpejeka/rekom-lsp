@@ -341,10 +341,19 @@
                       </div>
                     <div class="card">
                       <div class="card-body">
-                        <div class="table-responsive">
+                        <a href="javascript:void(0)" onclick="updateAJJ()" class="btn btn-info">
+                          Update Check AJJ <sup id="total_skema"></sup>
+                        </a>
+                        <div id="saveAjj" class="mt-2" style="display: none">
+                          <a href="#" id="updateAJJ" class="btn btn-primary">
+                            Save Skema Sertifikasi Jarak Jauh
+                          </a>
+                        </div>
+                        <div class="table-responsive mt-2">
                           <table class="table" id="list_skema">
                             <thead>
                               <tr>
+                                <th>#</th>
                                 <th>No</th>
                                 <th>Kode Skema</th>
                                 <th>Nama Skema</th>
@@ -365,6 +374,9 @@
                             <tbody>
                               @foreach ($data->skema as $item)
                               <tr>
+                                <td>
+                                  <input type="checkbox" name="skemaId[]" id="skemaId" value="{{$item->id}}">
+                                </td>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$item->kode_skema}}</td>
                                 <td>{{$item->nama_skema}}</td>
@@ -375,14 +387,15 @@
                                 <td>{{$item->jenjang}}</td>
                                 <td>{{$item->jumlah_unit}}</td>
                                 <td>{{$item->acuan_skema}}</td>
-                                <td>{{$item->is_ajj == 1 ? 'Ya' : 'Tidak'}}</td>
-                                <td> <a href="{{asset('laravel/storage/app/public/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
-                                  class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
-                                  <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
                                 <td> <a href="{{asset('laravel/storage/app/public/'.$item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                   class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
                                   <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
-                                  <td>
+                                
+                                <td> <a href="{{asset('laravel/storage/app/public/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                  class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
+                                  <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
+                                  <td>{{$item->is_ajj == 1 ? 'Ya' : 'Tidak'}}</td>
+                                    <td>
                                     <a href="{{route('pencatatan.skema.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
                                 </td>
                                 @if ($item->approve == 1)
@@ -896,16 +909,67 @@
 </div>
 
 <script>
+    const skemaID = [];
+    
     $(document).ready(function () {
+
         $('#subklas').DataTable();
         $('#list_skema').DataTable();
         $('#list_asesor').DataTable();
         $('#list_tuk').DataTable();
-        $('#list_sk').DataTable();
+        $('#list_sk').DataTable();  
     });
-</script>
 
-<script>
+    function updateAJJ(){
+
+        if(skemaID.length > 0){
+          skemaID.length = 0;
+        }
+
+          const checkboxSkema = document.querySelectorAll('#skemaId');
+
+          console.log(checkboxSkema)
+
+          checkboxSkema.forEach(function (checkbox){
+            if(checkbox.checked && !skemaID.includes(checkbox.value)){
+              skemaID.push(checkbox.value)
+            }
+          })
+          
+          console.log(skemaID)
+
+          const supValue = document.getElementById('total_skema');
+          supValue.textContent = 'Skema Checked : ' +  skemaID.length;
+
+          if(skemaID.length > 0){
+            document.getElementById('saveAjj').style.display = 'block';
+          }else{
+            document.getElementById('saveAjj').style.display = 'none';
+          }
+          
+    }
+
+    $("#updateAJJ").on('click', function() {
+
+      var formData = {
+        skema_id : skemaID,
+        _token : "{{ csrf_token() }}"
+      }
+
+      $.ajax({
+        url : "{{route('save.ajj')}}",
+        type : 'POST',
+        data : formData,
+        dataType : "json",
+        encode : true,
+        success: function(res){
+          alert('update ajj success');
+          location.reload()
+        }
+      })
+
+    })
+    
     $(document).on('click', '#smallButton', function(event) {
             event.preventDefault();
             let href = $(this).attr('data-attr');
@@ -1203,5 +1267,9 @@
                 alert(data.message);
             });
         }
+
+      
+      
+
 </script>
 @endpush

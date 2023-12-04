@@ -184,6 +184,7 @@ Route::prefix('pencatatan')
                 Route::get('/skema-approve/{id}', 'SkemaController@showSkema')->name('skema.approve');
                 Route::put('/skema-approve', 'SkemaController@approveSkema')->name('skema.approve.update');
                 Route::get('/skema-unapprove/{id}', 'SkemaController@unapprove')->name('skema.unapprove');
+                Route::post('/update-ajj', 'SkemaController@saveAJJ')->name('save.ajj');
 
                 Route::get('/asesor', 'AsesorController@index')->name('pencatatan.asesor');
                 Route::post('/asesor', 'AsesorController@store')->name('pencatatan.asesor.store');
@@ -196,6 +197,7 @@ Route::prefix('pencatatan')
                 Route::put('/asesor/hapus', 'AsesorController@penghapusan')->name('asesor.penghapusan');
                 Route::get('/status-tayang/{id}', 'AsesorController@tayang')->name('asesor.tayang');
                 Route::get('/asesor-done', 'AsesorController@done')->name('asesor.done');
+
 
                 Route::get('/asesor-approve/{id}', 'AsesorController@showAsesor')->name('asesor.approve');
                 Route::put('/asesor-approve', 'AsesorController@approveAsesor')->name('asesor.approve.update');

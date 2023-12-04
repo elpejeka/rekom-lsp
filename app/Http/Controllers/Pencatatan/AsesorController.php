@@ -12,7 +12,7 @@ use App\PencatatanAsesor;
 use App\Pencatatan;
 use App\Administration;
 use App\LogPencatatan;
-
+use App\PencatatanSkema;
 use Auth;
 use Carbon\Carbon;  
 use QrCode;
@@ -310,5 +310,6 @@ class AsesorController extends Controller
         return redirect(route('pencatatan.approve.list'))->with('success', 'Data Asesor Berhasil di ubah');
     }
 
+  
     
 }
