@@ -53,8 +53,6 @@ class AsesorController extends Controller
 
         $cekAsesor = $this->sertifikatService->getSertifikat($nik);
 
-        dd($cekAsesor);
-
         if(empty($cekAsesor)){
             return redirect()->route('pencatatan.asesor')->with('success', 'Asesor Tidak Dapat di Catatkan karena tidak mempunyai SKK/SKA');    
         }

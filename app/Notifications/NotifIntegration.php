@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class FormatSertifikat extends Notification
+class NotifIntegration extends Notification
 {
     use Queueable;
 
@@ -43,9 +43,8 @@ class FormatSertifikat extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line("Format Sertifikat SKK")
-                    ->action('Format Sertifikat SKK', url('https://lisensijakon.pu.go.id/lsp/laravel/storage/app/public/file/format_sertifikat/format.html'))
-                    ->line("Terima Kasih");
+                    ->line('Permohonan Penggunaan Aplikasi LSP - LPJK')
+                    ->action('Detail', url('/'));
     }
 
     /**

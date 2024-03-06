@@ -262,7 +262,7 @@
                     @endif
                 </ul>
             </li>
-               <li class="dropdown">
+            <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="icon-office position-left"></i>
                     <span class="position-left">Pencatatan Lembaga Sertifikasi Profesi</span>
@@ -281,6 +281,19 @@
                     <li><a href="{{route('pencatatan.approve.list')}}"><i class="icon-pen-plus position-left"></i> Pencatatan</a></li>
                     @else
                     <li><a href="{{route('progres')}}"><i class="icon-pen-plus position-left"></i>Progres Permohonan</a></li>
+                    @endif
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-office position-left"></i>
+                    <span class="position-left">Pencatatan Lembaga Sertifikasi Profesi</span>
+                    <span class="caret"></span>
+                </a>
+                
+                <ul class="dropdown-menu dropdown-menu-right">
+                    @if(Auth::user()->roles == 'user')
+                    <li><a href="{{route('integrasi.add')}}"><i class="icon-pen-plus position-left"></i> Permohonan Integrasi</a></li>
                     @endif
                 </ul>
             </li>

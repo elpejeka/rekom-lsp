@@ -247,6 +247,19 @@ Route::prefix('pencatatan')
                 
             });
 
+Route::prefix('integrasi')
+        ->namespace('Integrasi')
+        ->middleware(['auth'])
+        ->group(function () {
+            Route::get('permohonan-integrasi', 'IntegrasiController@index')->name('integrasi.add');
+            Route::post('store', 'IntegrasiController@store')->name('integrasi.store');
+            Route::get('edit', 'IntegrasiController@edit')->name('integrasi.edit');
+            Route::post('update', 'IntegrasiController@update')->name('integrasi.update');
+            Route::get('final-submit', 'IntegrasiController@submitPermohonan')->name('integrasi.submit.final');
+            Route::get('list', 'IntegrasiController@list')->name('integrasi.list');
+            Route::get('detail/{idHash}', 'IntegrasiController@detail')->name('integrasi.detail');
+        });
+
 Route::get('/check/asesor/{nik}', 'ApiController@index')->name('check.asesor');
 Route::get('/get-sertifikat/{nik}', 'References\SertifikatController@index');
 Route::get('/detail-sertifikat/{noReg}', 'References\SertifikatController@detail');
