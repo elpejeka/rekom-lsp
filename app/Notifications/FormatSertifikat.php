@@ -11,16 +11,13 @@ class FormatSertifikat extends Notification
 {
     use Queueable;
 
-    protected $data;
-
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct()
     {
-        $this->data = $data;
     }
 
     /**
