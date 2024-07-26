@@ -39,6 +39,7 @@
                         <div class="form-group">
                             <label class="control-label">Nama Asesor</label>
                             <input type="text" class="form-control @error('nama_asesor') is-invalid @enderror" value={{$asesor->nama_asesor}} readonly>
+                            <input value="{{$asesor->nik}}" id="nik" hidden/>
                         </div>
                         @error('nama_asesor')
                         <span class="invalid-feedback" role="alert">
@@ -149,8 +150,19 @@
                     </div>    
                 </div>
                 <div class="row mt-4">
+                <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Masa Berlaku Sertifikat Asesor</label>
+                            <input type="date" class="form-control @error('masa_berlaku_sertifikat') is-invalid @enderror" name="masa_berlaku_sertifikat" required>
+                            @error('masa_berlaku_sertifikat')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="form-group">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label class="control-label">
                                     Sertifikasi Asesor
                                 </label>
@@ -245,10 +257,9 @@
 
         var nik = $('#nik').val()
         $.ajax({
-          url : "/get-sertifikat/"+nik,
+          url : "/rekomendasi-lsp/get-sertifikat/"+nik,
           type : 'GET',
           success:function(res){
-            console.log(res.data)
             $('#noreg').empty();
             $('#noreg').append('<option>Pilih Sertifikat</option>');
             for (var i = 0; i <= res.data.length; i++){
@@ -261,7 +272,7 @@
     $('#noreg').on('change', function(){
       var noreg = $(this).find('option').filter(':selected').val()
       $.ajax({
-        url : '/detail-sertifikat/'+noreg,
+        url : '/rekomendasi-lsp/detail-sertifikat/'+noreg,
         type : 'GET',
         success:function(res){
           var klas = res.data[0].klasifikasi;

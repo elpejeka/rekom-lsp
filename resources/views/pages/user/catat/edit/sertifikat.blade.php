@@ -135,10 +135,21 @@
                         </span>
                       @enderror
                     </div>    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Kualifikasi</label>
+                            <input type="text" class="form-control @error('kualifikasi_sertifikat') is-invalid @enderror" name="kualifikasi_sertifikat" value="{{$data->kualifikasi_sertifikat}}">
+                        </div>
+                        @error('kualifikasi_sertifikat')
+                        <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>   
                 </div>
                 <div class="row mt-4">
                     <div class="form-group">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label class="control-label">
                                     Sertifikasi Asesor
                                 </label>
@@ -179,7 +190,7 @@
 
         var nik = $('#nik').val()
         $.ajax({
-          url : "/get-sertifikat/"+nik,
+          url : "/rekomendasi-lsp/get-sertifikat/"+nik,
           type : 'GET',
           success:function(res){
             console.log(res.data)
@@ -195,7 +206,7 @@
     $('#noreg').on('change', function(){
       var noreg = $(this).find('option').filter(':selected').val()
       $.ajax({
-        url : '/detail-sertifikat/'+noreg,
+        url : '/rekomendasi-lsp/detail-sertifikat/'+noreg,
         type : 'GET',
         success:function(res){
           var klas = res.data[0].klasifikasi;
