@@ -1288,7 +1288,7 @@
                 dropdownParent: $("#komenAsesor")
             });
 
-            $("#nama_tuk").select2({
+            $("#nama_tuk").select2({a
                 dropdownParent: $("#komenTuk")
             });
         });

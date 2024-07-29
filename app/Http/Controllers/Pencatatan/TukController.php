@@ -182,7 +182,7 @@ class TukController extends Controller
 
     public function done($id){
         $data = PencatatanTuk::find($id);
-        $administrasi = Pencatatan::where('id', $data->pencatatan->id)->first();
+        $administrasi = Pencatatan::where('id', $data->pencatatan_id)->first();
 
         if($data->is_active == 1){
             $data->update([

@@ -244,11 +244,20 @@ class AsesorController extends Controller
         $asesor = PencatatanAsesor::with('sertifikat')->find($id);
         
         foreach($asesor->sertifikat as $sertifikat){
-            $asesor = Http::withToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFsaWVmYmFnYXMwNEBnbWFpbC5jb20ifQ.aFZdGhtikkat8UWvB5EEqC3melJR50XN9XJSDOymvDk')
-            ->get('https://siki.pu.go.id/API-Server-LPJK/public/api/get_detail_asesor_bnsp', [
-                'no_reg_asesor_bnsp' => $sertifikat->no_reg_asesor
-            ]);
-            if($asesor->status() != '200'){
+            // $asesor = Http::withToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFsaWVmYmFnYXMwNEBnbWFpbC5jb20ifQ.aFZdGhtikkat8UWvB5EEqC3melJR50XN9XJSDOymvDk')
+            // ->get('https://siki.pu.go.id/API-Server-LPJK/public/api/get_detail_asesor_bnsp', [
+            //     'no_reg_asesor_bnsp' => $sertifikat->no_reg_asesor
+            // ]);
+
+            $response = Http::withHeaders([
+                'token' => '20|YLLqRFQ8YI8j4oUiaCTjyAEEevdEIREyoEFzRLtf',
+                'Content-Type' => 'application/json',
+            ])->withBody(json_encode([
+                'no_reg_asesor_bnsp' => $sertifikat->no_reg_asesor,
+            ]), 'application/json')
+            ->post('https://siki.pu.go.id/api-bank-data/api/get_detail_asesor_bnsp');
+
+            if($response->status() != '200'){
                return response()->json([
                 'status' => 'failed',
                 'message' => 'Sesuaikan no registrasi asesor sesuai yang tercatat pada BNSP'
