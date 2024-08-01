@@ -511,7 +511,7 @@
                                     {{-- <a data-id={{$item->id}} id="importAsesor" class="btn btn-sm btn-primary mt-5">Import To Master Penugasan</a> --}}
                                 </td>
                                 @endif
-                                @if ($item->approve == 0)
+                                @if ($item->approve == null || $item->approve == 0)
                                 <td>
                                     <a href="javascript:void(0)" onclick="updateAsesor({{$item->id}})" class="btn btn-info">Approve</a>
                                 </td>

@@ -113,7 +113,7 @@
                 </tbody>
             </table>
             @else
-            <form class="form-horizontal" action="{{route('permohonan_store')}}" method="POST" enctype="multipart/form-data">
+            <form class="form-horizontal" action="{{route('struktur_organisasi_store')}}" method="POST" enctype="multipart/form-data">
             @csrf  
                 <div class="row">
                     <div class="col-md-6">
@@ -291,8 +291,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Bagian Sertifikasi</label>
-                                    <input name="umum" type="text" class="form-control @error('umum') is-invalid @enderror" placeholder="" required>
-                                    @error('umum')
+                                    <input name="sertifikasi" type="text" class="form-control @error('sertifikasi') is-invalid @enderror" placeholder="" required>
+                                    @error('sertifikasi')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
