@@ -18,6 +18,10 @@ class PencatatanController extends Controller
         $data = Administration::where('users_id', Auth::user()->id)->get();
         $pencatatan = Pencatatan::where('users_id', Auth::user()->id)->first();
 
+        if(!$data){
+            return redirect(route('informasi'))->with('error', 'Silakan melakukan pengisian administrasi');
+        }
+
         return view('pages.user.catat.permohonan', [
             'data' => $data,
             'pencatatan' => $pencatatan,

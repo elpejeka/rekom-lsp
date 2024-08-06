@@ -67,12 +67,75 @@
       </div>
   </div>
 </div>
+<div class="modal fade" id="penolakan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Komen Penolakan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form id="commentForm">
+              @csrf
+              <input type="hidden" name="permohonan_id" id="permohonan_id">
+              <div class="form-group">
+                  <label class="control-label col-lg-2">Comment Penolakan</label>
+                  <div class="col-lg-10">
+                      <div class="input-group">
+                          <input type="text" class="form-control" name="comment" id="comment" placeholder="Komen Penolakan">
+                          <span class="input-group-btn">
+                              <button class="btn btn-danger" type="submit">Tolak</button>
+                          </span>
+                      </div>
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+          {{-- <a href="{{route('submit.tolak', $item->id)}}?status_tolak=submit" class="btn btn-danger">Submit Tolak</a> --}}
+      </div>
+  
+    </div>
+  </div>
+</div>
 @endsection
 
 @push('addon-script')
+
+
 <script>
     $(document).ready(function () {
         $('#list').DataTable();
     });
+
+    function updateKeabsahan(id){
+            $.get('/lsp/penolakan/'+id, function(data){
+                $("#permohonan_id").val(data.id);
+                $("#penolakan").modal("toggle");
+            })
+    }
+
+    $("#commentForm").submit(function(e){
+          e.preventDefault();     
+          let permohonanId = $("#permohonan_id").val();
+          let comment = $('#comment').val();
+          let _token = $("input[name=_token]").val();
+
+          $.ajax({
+              url : "{{route('penolakan.save')}}",
+              type : "POST",
+              data : {
+                  permohonan_id : permohonanId,
+                  comment : comment,
+                  "_token": "{{ csrf_token() }}",
+              },
+              success:function(response){
+                  $("#penolakan").modal('toggle');
+                  $("#studentForm")[0].reset();
+              }
+          })
+      })
 </script>
 @endpush
