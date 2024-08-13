@@ -60,7 +60,7 @@ class SkemaController extends Controller
         $data = PencatatanSkema::findOrFail($id);
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $jabker = DB::table('jabker_02')->get();
-    
+
         return view('pages.user.catat.edit.skema', [
             'data' => $data,
             'permohonan' => $permohonan,
@@ -92,19 +92,19 @@ class SkemaController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('pencatatan.skema')->with('success', 'Data Skema Berhasil di Update');  
+        return redirect()->route('pencatatan.skema')->with('success', 'Data Skema Berhasil di Update');
     }
 
     public function destroy($id){
         $data= PencatatanSkema::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('pencatatan.skema')->with('success', 'Data Skema Berhasil di Hapus');  
+        return redirect()->route('pencatatan.skema')->with('success', 'Data Skema Berhasil di Hapus');
     }
 
     public function showSkema($id){
         $skema = PencatatanSkema::find($id);
-        
+
         return response()->json($skema);
     }
 
@@ -112,8 +112,8 @@ class SkemaController extends Controller
         $id = $request->id;
         $skema = PencatatanSkema::find($id);
         $skema->nama_skema = $request->nama_skema;
-        $skema->approve = $request->approve;
-        $skema->no_pencatatan = $request->no_pencatatan;
+        $skema->approve = $request->approve == 1 ? 1 : 0;
+        $skema->no_pencatatan = $request->approve == 1 ? $request->no_pencatatan : null;
 
         $skema->save();
         return response()->json($skema);
@@ -124,8 +124,8 @@ class SkemaController extends Controller
         $skema->approve = null;
         $skema->no_pencatatan = null;
         $skema->save();
-        
-        return redirect()->route('pencatatan.approve.list')->with('success', 'Data Skema Tidak Tayang');  
+
+        return redirect()->route('pencatatan.approve.list')->with('success', 'Data Skema Tidak Tayang');
     }
 
     public function saveAJJ(Request $request){
