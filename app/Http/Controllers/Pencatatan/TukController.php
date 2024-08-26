@@ -10,6 +10,7 @@ use App\Administration;
 use App\Pencatatan;
 use App\PencatatanTuk;
 use App\LogPencatatan;
+use App\PencatatanAsesor;
 use Auth;
 use Carbon\Carbon;
 
@@ -198,4 +199,6 @@ class TukController extends Controller
 
         return redirect(route('pencatatan.approve', $administrasi->slug))->with('success', 'Data TUK Berhasil di ubah');
     }
+
+
 }

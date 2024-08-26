@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which    
+| routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |Route::get('/daftar-lisensi', 'LspController@listLsp')->name('list.lsp');
 Route::get('/{slug}', 'LspController@detailLsp')->name('lsp');
@@ -105,7 +105,7 @@ Route::get('/validasi/{id}', 'ValidationController@validation')->name('validasi'
 Route::post('/validasi-verifikasi', 'ValidationController@penilaian')->name('validasi.verifikasi');
 Route::get('/verifikasi-validasi/{id}', 'ValidationController@print_pdf')->name('pdf.validasi');
 Route::get('/vv-berita-acara/{id}', 'ValidationController@beritaAcara')->name('pdf.vv_berita');
-Route::get('/keabsahan/{id}', 'ValidationController@showSkema')->name('keabsahan.skema'); 
+Route::get('/keabsahan/{id}', 'ValidationController@showSkema')->name('keabsahan.skema');
 Route::put('/keabsahan', 'ValidationController@keabsahan')->name('keabsahan.update');
 Route::get('/progres-permohonan', 'SubmitController@progres')->name('progres');
 Route::get('/detail/{id}', 'SubmitController@detail')->name('detail');
@@ -160,7 +160,7 @@ Route::prefix('pencatatan')
                 Route::get('/permohonan/edit/{id}', 'PencatatanController@edit')->name('pencatatan.edit');
                 Route::put('/permohonan/update/{id}', 'PencatatanController@update')->name('pencatatan.update');
                 Route::get('/sekretariat/edit/{id}', 'PencatatanController@sekretariatEdit')->name('sekretariat.edit');
-	    
+
 	            Route::get('/sekretariat/list', 'IndexController@listApprove')->name('pencatatan.approve.list');
                 Route::get('/sekretariat/selesai', 'IndexController@selesai')->name('pencatatan.list.selesai');
                 Route::get('/sekretariat/cek/{slug}', 'IndexController@approve')->name('pencatatan.approve');
@@ -168,7 +168,7 @@ Route::prefix('pencatatan')
                 Route::post('/komen/pencatatan', 'IndexController@setKomen')->name('komen.pencatatan');
                 Route::post('/perbaikan-komen', 'IndexController@addKomen')->name('add.komen');
 
-	
+
                 Route::get('/permohonan/list', 'IndexController@index')->name('pencatatan.preview');
                 Route::get('/submit/preview/{id}', 'IndexController@submit')->name('pencatatan.liat');
                 // Route::get('/{id}/set-status', 'IndexController@setStatusSubmit')->name('submit.status');
@@ -197,17 +197,18 @@ Route::prefix('pencatatan')
                 Route::put('/asesor/hapus', 'AsesorController@penghapusan')->name('asesor.penghapusan');
                 Route::get('/status-tayang/{id}', 'AsesorController@tayang')->name('asesor.tayang');
                 Route::get('/asesor-done', 'AsesorController@done')->name('asesor.done');
+                Route::post('/all-asesor-approve', 'AsesorController@approveSelected')->name('asesor.selected.approve');
 
 
                 Route::get('/asesor-approve/{id}', 'AsesorController@showAsesor')->name('asesor.approve');
                 Route::put('/asesor-approve', 'AsesorController@approveAsesor')->name('asesor.approve.update');
                 Route::get('/asesor-unapprove/{id}', 'AsesorController@unapprove')->name('asesor.unapprove');
-                Route::get('/import-to-siki/{id}', 'AsesorController@importToSiki')->name('asesor.to.siki'); 
+                Route::get('/import-to-siki/{id}', 'AsesorController@importToSiki')->name('asesor.to.siki');
 
                 Route::get('/surat-pencatatan-asesor/{id}', 'AsesorController@generateSuratAsesor')->name('qr.surat');
 
                 Route::get('/detail-asesor/{id}', 'AsesorController@show')->name('sertifikat.show');
-                
+
                 Route::get('/sertifikat-asesor/{id}', 'SertifikatController@index')->name('pencatatan.sertifikat.asesor');
                 Route::post('/sertifikat-asesor', 'SertifikatController@store')->name('pencatatan.sertifikat.store');
                 Route::get('/sertifikat-asesor/edit/{id}', 'SertifikatController@edit')->name('pencatatan.sertifikat.edit');
@@ -234,7 +235,7 @@ Route::prefix('pencatatan')
 
                 Route::get('/unactive-tuk/{id}', 'TukController@unactive')->name('unactive.tuk');
                 Route::put('/proses-tuk-unactive/{id}','TukController@prosesUnactive' )->name('proses.tuk.unactive');
-                
+
 
                 Route::get('/surat-pencatatan/{id}', 'PencatatanController@surat')->name('surat.pencatatan');
                 Route::get('/komen-perbaikan/{id}', 'KomenController@index')->name('list.komen');
@@ -244,7 +245,7 @@ Route::prefix('pencatatan')
                 Route::get('/lisensi/{id}', 'LisensiController@edit')->name('sk.lisensi.edit');
                 Route::put('lisensi/update/{id}', 'LisensiController@update')->name('sk.lisensi.update');
                 Route::delete('lisensi/delete/{id}', 'LisensiController@destroy')->name('sk.lisensi.delete');
-                
+
             });
 
 Route::prefix('integrasi')
@@ -270,7 +271,7 @@ Route::prefix('reference')
                 Route::get('/jabker/{id}', 'MasterController@jabker');
                 Route::get('/get-sertifikat/{nik}', 'MasterController@getSertifikat');
             });
-            
+
 Auth::routes(['verify' => true]);
 
 // Auth::routes(['register' => false]);

@@ -24,6 +24,7 @@
 
 @section('content')
 <div class="container-fluid">
+    <input type="hidden" value="{{$data->no_pencatatan}}" id="noRecord"/>
     <form action="{{route('komen.pencatatan')}}" method="POST">
         @csrf
     <div class="row">
@@ -451,10 +452,19 @@
                     </div>
                     <div class="card">
                       <div class="card-body">
+                        <a href="javascript:void(0)" onclick="appAsesor()" class="btn btn-info">
+                            Update Checkbox Asesor <sup id="total_asesor"></sup>
+                          </a>
+                          <div id="asesorSave" class="mt-2" style="display: none">
+                            <a href="#" id="updateAsesorAll" class="btn btn-primary">
+                              Save Approve Asesor
+                            </a>
+                          </div>
                         <div class="table-responsive">
                           <table class="table" id="list_asesor">
                             <thead>
                               <tr>
+                                <th>#</th>
                                 <th>No</th>
                                 <th>NIK</th>
                                 <th>Nama Asesor</th>
@@ -471,6 +481,9 @@
                             <tbody>
                               @foreach ($data->asesor as $item)
                               <tr>
+                                <td>
+                                    <input type="checkbox" name="asesorId[]" id="asesorId" value="{{$item->id}}">
+                                </td>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$item->nik}}</td>
                                 <td>{{$item->nama_asesor}}</td>
@@ -910,6 +923,8 @@
 
 <script>
     const skemaID = [];
+    const asesorID = [];
+    const noRecord = $('#noRecord').val();
 
     $(document).ready(function () {
 
@@ -990,6 +1005,56 @@
                 timeout: 8000
             })
     });
+
+    function appAsesor(){
+
+        if(asesorID.length > 0){
+            asesorID.length = 0;
+        }
+
+
+        const checkboxSkema = document.querySelectorAll('#asesorId');
+
+        checkboxSkema.forEach(function (checkbox){
+            if(checkbox.checked && !asesorID.includes(checkbox.value)){
+                asesorID.push(checkbox.value)
+            }
+        })
+
+        const supValue = document.getElementById('total_asesor');
+        supValue.textContent = 'Asesor Checked : ' +  asesorID.length;
+
+        if(asesorID.length > 0){
+            document.getElementById('asesorSave').style.display = 'block';
+        }else{
+            document.getElementById('asesorSave').style.display = 'none';
+        }
+
+        console.log(asesorID)
+    }
+
+    $("#updateAsesorAll").on('click', function(){
+
+        var formData = {
+            asesor_id : asesorID,
+            no_pencatatan: noRecord,
+            _token : "{{csrf_token()}}"
+        }
+
+        console.log(formData)
+
+        $.ajax({
+            url : "{{route("asesor.selected.approve")}}",
+            type: "POST",
+            data: formData,
+            dataType: "json",
+            encode : true,
+            success: function(res){
+                alert('approve success')
+                location.reload();
+            }
+        })
+    })
 
     function detailAsesor(id){
             $.get('/pencatatan/asesor-approve/'+id, function(data){

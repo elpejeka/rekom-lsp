@@ -317,6 +317,23 @@ class AsesorController extends Controller
         return redirect(route('pencatatan.approve.list'))->with('success', 'Data Asesor Berhasil di ubah');
     }
 
+    public function approveSelected(Request $request){
+        $asesorId = $request->asesor_id;
+        $noPencatatan = $request->no_pencatatan;
+
+        $asesor = PencatatanAsesor::whereIn('id', $asesorId)->get();
+
+        foreach($asesor as $a){
+            $a->approve = 1;
+            $a->no_pencatatan = $noPencatatan;
+            $a->is_active = 1;
+            $a->save();
+        }
+
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
 
 
 }
