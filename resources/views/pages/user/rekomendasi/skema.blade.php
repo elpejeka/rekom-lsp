@@ -309,12 +309,12 @@
                         <td>{{$skema->jumlah_unit}}</td>
                         <td>{{$skema->acuan_skema}}</td>
                         <td>
-                          <a href="{{asset('laravel/storage/app/public/'. $skema->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+                          <a href="{{asset('storage/'. $skema->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
                            class="open-delete btn btn-primary btn-labeled btn-rounded">
                            <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
                         <td>
-                          <a href="{{asset('laravel/storage/app/public/'. $skema->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" 
+                          <a href="{{asset('storage/'. $skema->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" 
                            class="open-delete btn btn-primary btn-labeled btn-rounded">
                            <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
@@ -353,7 +353,7 @@
       if(kode){
         $.ajax({
           type : "GET",
-          url : "/get-subklas?kode="+kode,
+          url : "/rekomendasi-lsp/get-subklas?kode="+kode,
           dataType : 'JSON',
           success:function(res){
             console.log(res)

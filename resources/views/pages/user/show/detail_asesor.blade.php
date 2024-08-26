@@ -66,21 +66,21 @@
     @foreach ($item->sertifikat as $detail)
         <tr>
             <td>
-            <a href="{{asset('laravel/storage/app/public/'. $detail->ska)}}" target="_blank" type="button" name="btn_cek_13"
+            <a href="{{asset('storage/'. $detail->ska)}}" target="_blank" type="button" name="btn_cek_13"
                                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                     <b><i class="icon-file-check"></i></b> Softcopy</a> 
             
-                                                    {{-- <iframe id="iframepdf" src="{{asset('laravel/storage/app/public/'. $detail->ska)}}" width="250" height="100"></iframe> --}}
+                                                    {{-- <iframe id="iframepdf" src="{{asset('storage/'. $detail->ska)}}" width="250" height="100"></iframe> --}}
             
         
             
             </td>
             <td>
-            <a href="{{asset('laravel/storage/app/public/'. $detail->sertifikat_asesors)}}" target="_blank" type="button" name="btn_cek_13"
+            <a href="{{asset('storage/'. $detail->sertifikat_asesors)}}" target="_blank" type="button" name="btn_cek_13"
                                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                     <b><i class="icon-file-check"></i></b> Softcopy</a>
 
-                                                    {{-- <iframe id="iframepdf" src="{{asset('laravel/storage/app/public/'. $detail->sertifikat_asesors)}}" width="250" height="100"></iframe> --}}
+                                                    {{-- <iframe id="iframepdf" src="{{asset('storage/'. $detail->sertifikat_asesors)}}" width="250" height="100"></iframe> --}}
             </td>
         </tr>
     @endforeach

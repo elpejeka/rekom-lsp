@@ -103,15 +103,13 @@
 @endsection
 
 @push('addon-script')
-
-
 <script>
     $(document).ready(function () {
         $('#list').DataTable();
     });
 
     function updateKeabsahan(id){
-            $.get('/lsp/penolakan/'+id, function(data){
+            $.get('/rekomendasi-lsp/penolakan/'+id, function(data){
                 $("#permohonan_id").val(data.id);
                 $("#penolakan").modal("toggle");
             })

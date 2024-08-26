@@ -9,7 +9,6 @@ use App\Pencatatan;
 use App\PencatatanAsesor;
 use App\PencatatanSkema;
 use App\PencatatanTuk;
-use App\Qualification;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Notification;

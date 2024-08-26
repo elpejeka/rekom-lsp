@@ -248,6 +248,7 @@
                         <th>Jumlah Unit</th>
                         <th>Acuan Skema</th>
                         <th>Dokumen</th>
+                        <th>Status</th>
                         <th class="text-center">Actions</th>
                       </tr>
                     </thead>
@@ -265,10 +266,12 @@
                         <td>{{$skema->jumlah_unit}}</td>
                         <td>{{$skema->acuan_skema}}</td>
                         <td>
-                          <a href="{{asset('laravel/storage/app/public/'. $skema->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+                          <a href="{{asset('storage/'. $skema->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
                               class="open-delete btn btn-primary btn-labeled btn-rounded">
                               <b><i class="icon-file-check"></i></b> Softcopy</a>
                             </td>
+                            <td>
+                              <span class="badge badge-{{$skema->approve == 1 ? "success" : "danger"}}"> {{$skema->approve == 1 ? 'Approved' : 'Not Approved'}} </span></td>
                         <td class="text-center">
                           <a href="{{route('pencatatan.skema.edit', $skema->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
                           <form action="{{route('pencatatan.skema.delete', $skema->id)}}" method="post" class="d-inline mt-2">
@@ -297,7 +300,7 @@
           var id = $(this).find('option').filter(':selected').val();
           
           $.ajax({
-            url : '/reference/jabker/'+id,
+            url : '/rekomendasi-lsp/reference/jabker/'+id,
             type : 'GET',
             success:function(res){
               var data = res.data

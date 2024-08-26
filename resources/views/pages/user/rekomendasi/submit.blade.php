@@ -26,14 +26,14 @@
 <div class="container-fluid">
     <form action="{{route('validasi.verifikasi')}}" method="POST" class="form-horizontal">
         @csrf
-    <input type="text" value="{{$permohonan->id}}" name="permohonans_id" hidden/>
+    <input type="text" value="{{$data->id}}" name="permohonans_id" hidden/>
     <div class="row">
       <div class="col-sm-12 col-xl-12">
         <div class="card">
           <div class="card-header">
             <h4>{{$permohonan->nama_lsp}}</h4>
             <div class="card-header-right">
-                <a href="{{route('submitted', $permohonan->id)}}?status_submit=submit" class="btn btn-sm btn-primary">Submit</a>
+                <a href="{{route('submitted', $data->id)}}?status_submit=submit" class="btn btn-sm btn-primary">Submit</a>
             </div>
           </div>
           <div class="card-body">
@@ -61,7 +61,7 @@
                                 <tr>
                                   <td>Surat Permohonan</td>
                                   <td>
-                                    <a href="{{asset('laravel/storage/app/public/'. $permohonan->surat_permohonan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                    <a href="{{asset('storage/'. $permohonan->surat_permohonan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
@@ -69,7 +69,7 @@
                                 <tr>
                                   <td>SK Asosiasi Terakreditasi / Surat Tanda Teregistrasi LPPK</td>
                                   <td>
-                                    <a href="{{asset('laravel/storage/app/public/'. $permohonan->administrasi->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                    <a href="{{asset('storage/'. $permohonan->administrasi->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
@@ -77,7 +77,7 @@
                                 <tr>
                                   <td>Akta Pendirian LSP</td>
                                   <td>
-                                    <a href="{{asset('laravel/storage/app/public/'. $permohonan->administrasi->akta_pendirian)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                    <a href="{{asset('storage/'. $permohonan->administrasi->akta_pendirian)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
@@ -85,7 +85,7 @@
                                 <tr>
                                   <td>Surat Pernyataan Komitmen Asesor</td>
                                   <td>
-                                    <a href="{{asset('laravel/storage/app/public/'. $permohonan->administrasi->komitmen_asesor)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                    <a href="{{asset('storage/'. $permohonan->administrasi->komitmen_asesor)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
@@ -93,7 +93,7 @@
                                 <tr>
                                   <td>Sertifikat Akreditasi LPK atau Surat Pernyataan Komitmen Jika Belum Terakreditasi</td>
                                   <td>
-                                    <a href="{{asset('laravel/storage/app/public/'. $permohonan->administrasi->surat_akreditasi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                    <a href="{{asset('storage/'. $permohonan->administrasi->surat_akreditasi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
@@ -182,7 +182,7 @@
                               <tr>
                                 <td>Stuktur Organisasi</td>
                                 <td>
-                                  <a href="{{asset('laravel/storage/app/public/'.$permohonan->organization->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                  <a href="{{asset('storage/'.$permohonan->organization->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                 </td>
@@ -323,10 +323,10 @@
                                 <td>{{$item->jenjang}}</td>
                                 <td>{{$item->jumlah_unit}}</td>
                                 <td>{{$item->acuan_skema}}</td>
-                                <td> <a href="{{asset('laravel/storage/app/public/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                <td> <a href="{{asset('storage/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                   class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
                                   <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
-                                <td> <a href="{{asset('laravel/storage/app/public/'.$item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                <td> <a href="{{asset('storage/'.$item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                   class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
                                   <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
                               </tr>
@@ -406,7 +406,7 @@
                                 <td>{{$item->nama_tuk}}</td>
                                 <td>{{$item->alamat}}</td>
                                 <td class="text-center">
-                                  <a href="{{asset('laravel/storage/app/public/'.$item->cakupan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                  <a href="{{asset('storage/'.$item->cakupan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icon-file-check"></i></b> Softcopy</a>
                                 </td>

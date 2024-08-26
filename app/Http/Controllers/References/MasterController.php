@@ -26,7 +26,7 @@ class MasterController extends Controller
           a.`asosiasi`,a.`propinsi` AS provinsi_registrasi,b.pas_foto
         FROM lsp_pencatatan a
         LEFT JOIN lsp_personal b ON a.`id_izin`=b.id_izin
-        WHERE a.`nik`='$nik' AND a.final_at IS NOT NULL AND valid='1' HAVING MAX(a.`id`)
+        WHERE a.`nik`='$nik' AND a.final_at IS NOT NULL AND valid='1'
         UNION
         SELECT
           nik,

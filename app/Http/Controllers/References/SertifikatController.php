@@ -10,6 +10,8 @@ class SertifikatController extends Controller
 {
     public function index($nik)
     {
+
+        
         $ska = DB::connection('siki')->select("SELECT c.`id_personal` as nik ,c.`nama_personal` as nama ,d.deskripsi AS klasifikasi,c.`des_sub_bidang` AS subklasifikasi,
         c.`no_reg_full` AS nomor_registrasi,b.`tgl_cetak_pertama` AS tanggal_ditetapkan,b.`tgl_cetak_pertama`  + INTERVAL 3 YEAR - INTERVAL 1 DAY AS tanggal_masa_berlaku
          FROM personal_reg_ta_kbli a
@@ -19,7 +21,7 @@ class SertifikatController extends Controller
         WHERE a.`id_personal`='$nik';");
 
         $skk = DB::connection('siki')->select("SELECT a.`nik`,a.`nama`,a.`klasifikasi`,a.`subklasifikasi`,a.`nomor_registrasi`,a.`tanggal_ditetapkan`,a.`tanggal_masa_berlaku`
-        FROM lsp_pencatatan a WHERE a.`nik`='$nik' AND a.`valid`='1' AND a.`final_at` IS NOT NULL;");
+        FROM lsp_pencatatan a WHERE a.`nik`='$nik' AND a.`valid`='1' AND a.`final_at` IS NOT NULL");
 
         return response()->json([
             'message' => 'success',

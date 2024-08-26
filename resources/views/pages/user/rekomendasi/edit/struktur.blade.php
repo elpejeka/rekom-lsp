@@ -210,7 +210,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Bagian Sertifikasi</label>
-                                    <input name="umum" type="text" class="form-control @error('umum') is-invalid @enderror" value="{{$items->umum}}" required>
+                                    <input name="sertifikasi" type="text" class="form-control @error('umum') is-invalid @enderror" value="{{$items->sertifikasi}}" required>
                                     @error('umum')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

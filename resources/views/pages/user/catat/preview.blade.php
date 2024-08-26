@@ -41,17 +41,17 @@
                     @foreach ($permohonan as $item)
                     <tr>
                       <td>
-                          <a href="{{asset('laravel/storage/app/public/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+                          <a href="{{asset('storage/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
                               class="open-delete btn btn-primary btn-labeled btn-rounded">
                               <b><i class="icon-file-check"></i></b> Softcopy</a>
                       </td>
                       <td>
-                        <a href="{{asset('laravel/storage/app/public/'. $item->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $item->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
                             class="open-delete btn btn-primary btn-labeled btn-rounded">
                             <b><i class="icon-file-check"></i></b> Softcopy</a>
                       </td>
                       <td>
-                          <a href="{{asset('laravel/storage/app/public/'.$item->sertifikat)}}" target="_blank" type="button" name="btn_cek_13" 
+                          <a href="{{asset('storage/'.$item->sertifikat)}}" target="_blank" type="button" name="btn_cek_13" 
                               class="open-delete btn btn-primary btn-labeled btn-rounded">
                               <b><i class="icon-file-check"></i></b> Softcopy</a>
                             </td>

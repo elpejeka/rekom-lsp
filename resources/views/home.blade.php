@@ -197,6 +197,24 @@
                 <!-- /vertical form -->
             </div>
         </div>
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Welcome Back!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Harap Melakukan Edit/Update Pada Pencatatan untuk melengkapi Dokumen Pendukung yang hilang pasca PDNs!! Terima Kasih......
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         @else
         <!-- /grid -->
         <div class="row">
@@ -301,8 +319,12 @@
 
     <script>
 
+        $(document).ready(function () {
+            $("#loginModal").modal('show');
+        });
+
     function updateKeabsahan(id){
-            $.get('/lsp/keterangan-penolakan/'+id, function(data){
+            $.get('/rekomendasi-lsp/keterangan-penolakan/'+id, function(data){
                 $("#comment").val(data.comment);
                 $("#penolakan").modal("toggle");
             })

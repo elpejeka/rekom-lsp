@@ -98,7 +98,7 @@
                         <td>{{$item->nama_tuk}}</td>
                         <td>{{$item->alamat}}</td>
                         <td>
-                          <a href="{{asset('laravel/storage/app/public/'. $item->cakupan)}}" target="_blank" type="button" name="btn_cek_13" 
+                          <a href="{{asset('storage/'. $item->cakupan)}}" target="_blank" type="button" name="btn_cek_13" 
                             class="open-delete btn btn-primary btn-labeled btn-rounded">
                             <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>

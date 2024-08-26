@@ -109,7 +109,6 @@
                                 <th>No SK</th>
 								<th class="text-nowrap">No Lisensi</th>
 								<th>No Pencatatan</th>
-								<th>Klasifikasi</th>
 								<th class="text-center">Actions</th>
 							</tr>
 						</thead>
@@ -129,13 +128,6 @@
 							<td>{{$item->no_sk}}</td>
 							<td class="text-nowrap">{{$item->no_lisensi}}</td>
 							<td>{{$item->no_pencatatan}}</td>
-							<td>
-								@foreach (App\Qualification::with(['klas'])->where('users_id', $item->users_id)->groupBy('klasifikasi')->get() as $data)
-									<span class="badge badge-primary">
-										{{$data->klas->nama}}
-									</span>
-								@endforeach
-							</td>
 							<td>  
 								<a href="{{route('lsp', $item->slug)}}" class="btn btn-primary btn-sm">Detail</a>
 							</td>

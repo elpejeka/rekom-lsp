@@ -255,7 +255,7 @@
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->nik}}</td>
                         <td>{{$item->nama_asesor}}</td>
-                        <td>{{$item->provinsi == null ? "-" : $item->propinsi->Nama}}</td>
+                        <td>{{$item->propinsi->Nama ?? '-'}}</td>
                         <td>{{$item->alamat}}</td>
                         <td>{{$item->email}}</td>
                         <td>{{date_format(date_create($item->tgl_lahir), 'Y-m-d')}}</td>
@@ -266,14 +266,14 @@
                           @if($item->approve == null)
                           <span class="label label-primary">Not Approve</span>
                           @endif
-                          @if($item->approve == 1)
+                          @if($item->approve != null)
                           <span class="label label-success">Approved</span>
                           @endif
                         </td>
                         <td>
                           <span class="label label-success">{{$item->is_active == 1 ? 'YA' : 'Tidak'}}</span>
                         </td>
-                        @if ($item->approve_at == null)
+                        @if ($item->approve == null)
                         <td class="text-center">
                             <div class="btn-group">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
@@ -295,7 +295,7 @@
                             </div>        
                         </td>
                         @endif
-                        @if ($item->approve_at != null)
+                        @if ($item->approve != null)
                         <td class="text-center">
                             <div class="btn-group">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
@@ -382,7 +382,7 @@
       if(kode){
         $.ajax({
           type : "GET",
-          url : "/kab_kota?id_propinsi_dagri="+kode,
+          url : "/rekomendasi-lsp/kab_kota?id_propinsi_dagri="+kode,
           dataType : 'JSON',
           success:function(res){
             console.log(res)
@@ -401,5 +401,11 @@
         $('#kab_kota').empty();
       }
     })
+
+    function importAsesor(id){
+            $.get('/rekomendasi-lsp/pencatatan/import-to-siki/'+id, function(data){
+                alert(data.message);
+            });
+        }
   </script>
 @endpush

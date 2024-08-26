@@ -31,7 +31,7 @@
               <h4>{{$title}}</h4>
             </div>
             <div class="card-body">
-                <form class="form-horizontal" action="{{route('tuk_store')}}" method="POST" enctype="multipart/form-data">
+                <form class="form-horizontal" action="{{route('pencatatan.tuk.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
@@ -169,7 +169,7 @@
                         <td>{{$item->provinsi == null ? "-" : $item->propinsi->Nama}}</td>
                         <td>{{$item->alamat}}</td>
                         <td>
-                          <a href="{{asset('laravel/storage/app/public/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                          <a href="{{asset('storage/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                             class="open-delete btn btn-primary btn-labeled btn-rounded">
                             <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
@@ -254,7 +254,7 @@
     });
 
     function statusTayang(id){
-               $.get('/pencatatan/tuk-approve/'+id, function(data){
+               $.get('/rekomendasi-lsp/pencatatan/tuk-approve/'+id, function(data){
                    $("#idTuk").val(data.id);
                    $("#namaTuk").val(data.nama_tuk);
                    $("#tolak").modal("toggle");
@@ -267,7 +267,7 @@
            var status = $("#status").val();
 
            $.ajax({
-               url : " {{route('tuk.tayang', $item->id)}}",
+               url : " {{route('tuk.tayang', '')}}/"+idTuk,
                type : "POST",
                data : {
                    id : idTuk,

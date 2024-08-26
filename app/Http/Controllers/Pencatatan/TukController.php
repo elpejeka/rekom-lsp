@@ -1,5 +1,5 @@
 <?php
-
+ 
 namespace App\Http\Controllers\Pencatatan;
 
 use App\Http\Controllers\Controller;
@@ -10,7 +10,6 @@ use App\Administration;
 use App\Pencatatan;
 use App\PencatatanTuk;
 use App\LogPencatatan;
-use App\PencatatanAsesor;
 use Auth;
 use Carbon\Carbon;
 
@@ -31,7 +30,7 @@ class TukController extends Controller
     public function store(TukRequest $request){
         $item = Pencatatan::where('users_id', Auth::user()->id)->first();
         $administrasi = Administration::where('users_id', Auth::user()->id)->first();
-
+        
         $data = $request->all();
         $data['users_id'] = Auth::user()->id;
         $data['is_active'] = 0;
@@ -105,9 +104,9 @@ class TukController extends Controller
         $id = $request->id;
         $tuk = PencatatanTuk::find($id);
         $tuk->nama_tuk = $request->nama_tuk;
-        $tuk->approve = $request->approve;
-        $tuk->no_pencatatan = $request->approve == 1 ? $request->no_pencatatan : null;
-        $tuk->is_active = $request->approve == 1 ? 1 : 0;
+        $tuk->approve = $request->approve == "1"  ? $request->approve : null;
+        $tuk->no_pencatatan = $request->approve == "1" ? $request->no_pencatatan : null;
+        $tuk->is_active = $request->approve == "1" ? 1 : null;
 
         $tuk->save();
         return response()->json($tuk);
@@ -155,7 +154,7 @@ class TukController extends Controller
         $status = $request->status;
         $data = PencatatanTuk::find($id);
         $administrasi = Administration::where('users_id', Auth::user()->id)->first();
-
+        
         if($status == 1){
             $data->update([
                 'status' => 1
@@ -199,6 +198,4 @@ class TukController extends Controller
 
         return redirect(route('pencatatan.approve', $administrasi->slug))->with('success', 'Data TUK Berhasil di ubah');
     }
-
-
 }

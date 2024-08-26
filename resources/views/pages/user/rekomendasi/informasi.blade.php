@@ -43,14 +43,14 @@
                   <tr>
                     <td>SK Menteri</td>
                     <td>
-                      <a href="{{asset('laravel/storage/app/public/'. $item[0]->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+                      <a href="{{asset('storage/'. $item[0]->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-primary btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                           </td>
                       </tr>
                       <tr>
                         <td>Akte Pendirian</td>
-                        <td><a href="{{asset('laravel/storage/app/public/'. $item[0]->akta_pendirian)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <td><a href="{{asset('storage/'. $item[0]->akta_pendirian)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-primary btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
@@ -58,7 +58,7 @@
                       <tr>
                         <td>Bukti Kepemilikan Kantor</td>
                         <td>
-                        <a href="{{asset('laravel/storage/app/public/'. $item[0]->bukti_kepemilikan)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $item[0]->bukti_kepemilikan)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-primary btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
@@ -66,7 +66,7 @@
                       <tr>
                         <td>Sertifikat Akreditasi / Surat Pernyataan Akreditasi LPK</td>
                         <td>
-                        <a href="{{asset('laravel/storage/app/public/'. $item[0]->surat_akreditasi)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $item[0]->surat_akreditasi)}}" target="_blank" type="button" name="btn_cek_13" 
                             class="open-delete btn btn-primary btn-labeled btn-rounded">
                             <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
@@ -74,7 +74,7 @@
                       <tr>
                         <td>Surat Pernyataan Asesor</td>
                         <td>
-                        <a href="{{asset('laravel/storage/app/public/'. $item[0]->komitmen_asesor)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $item[0]->komitmen_asesor)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-primary btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>

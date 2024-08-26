@@ -228,7 +228,7 @@
           var id = $(this).find('option').filter(':selected').val();
           
           $.ajax({
-            url : '/reference/jabker/'+id,
+            url : '/rekomendasi-lsp/reference/jabker/'+id,
             type : 'GET',
             success:function(res){
               var data = res.data

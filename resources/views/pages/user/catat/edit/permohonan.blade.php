@@ -161,7 +161,7 @@
                         </div>
                     </div>   
                 </div>
-                <div class="row mt-4">
+                <!-- <div class="row mt-4">
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="row">
@@ -278,7 +278,7 @@
                             </div>
                         </div>
                     </div>   
-                </div>
+                </div> -->
                 <div class="row mt-4">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -320,7 +320,7 @@
                                     </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input name="sk_lisensi" type="file" class="form-control @error('sk_lisensi') is-invalid @enderror"
+                                    <input name="ss_verif" type="file" class="form-control @error('ss_verif') is-invalid @enderror"
                                     data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-success btn-xs" data-remove-class="btn btn-default btn-xs">
                                     <span class="help-block">
                                       Accepted formats: pdf, zip, rar, jpeg, jpg, png Max file size 20Mb
@@ -330,7 +330,7 @@
                                         20%
                                       </div>
                                     </div>
-                                    @error('sk_lisensi')
+                                    @error('ss_verif')
                                     <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                     </span>

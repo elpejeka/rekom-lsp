@@ -8,7 +8,9 @@
         <div class="col-md-12">
             <div class="card">
                 <br/>
-                <div class="card-header">{{ __('Harap menunggu untuk verifikasi akun') }}</div>
+                <div class="card-header">
+                    <h3>{{ __('Harap menunggu untuk verifikasi akun') }}</h3>
+                </div>
 
                 <div class="card-body">
                     @if (session('resent'))

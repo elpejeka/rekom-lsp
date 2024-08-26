@@ -35,21 +35,21 @@ class PencatatanController extends Controller
         $data['slug'] = Str::slug($item->nama);
         $data['users_id'] = Auth::user()->id;
 
-        if($request->hasFile('sk_lisensi')){
-            $data['sk_lisensi'] = $request->file('sk_lisensi')->store(
-                'file/pencatatan/1', 'public'
-        );
-        }else{
-            $data['sk_lisensi'] = 'file/pencatatan/1/nofile.pdf';
-        }
+        // if($request->hasFile('sk_lisensi')){
+        //     $data['sk_lisensi'] = $request->file('sk_lisensi')->store(
+        //         'file/pencatatan/1', 'public'
+        // );
+        // }else{
+        //     $data['sk_lisensi'] = 'file/pencatatan/1/nofile.pdf';
+        // }
 
-        if($request->hasFile('sertifikat')){
-            $data['sertifikat'] = $request->file('sertifikat')->store(
-                'file/pencatatan/2', 'public'
-            );
-        }else{
-            $data['sertifikat'] = 'file/pencatatan/1/nofile.pdf';
-        }
+        // if($request->hasFile('sertifikat')){
+        //     $data['sertifikat'] = $request->file('sertifikat')->store(
+        //         'file/pencatatan/2', 'public'
+        //     );
+        // }else{
+        //     $data['sertifikat'] = 'file/pencatatan/1/nofile.pdf';
+        // }
 
 
         if($request->hasFile('upload_persyaratan')){

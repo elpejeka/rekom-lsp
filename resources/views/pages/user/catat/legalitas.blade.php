@@ -176,23 +176,23 @@
                         <td>{{$item->no_lisensi}}</td>
                         <td>{{$item->masa_berlaku_sk}}</td>
                         <td>
-                          <a href="{{asset('laravel/storage/app/public/'. $item->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
+                          <a href="{{asset('storage/'. $item->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
                             class="open-delete btn btn-primary btn-labeled btn-rounded">
                             <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
                         <td>
-                            <a href="{{asset('laravel/storage/app/public/'. $item->sertifikat_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
+                            <a href="{{asset('storage/'. $item->sertifikat_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
                               class="open-delete btn btn-primary btn-labeled btn-rounded">
                               <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
                         <td>
-                          <a href="{{asset('laravel/storage/app/public/'. $item->sk_ajj)}}" target="_blank" type="button" name="btn_cek_13" 
+                          <a href="{{asset('storage/'. $item->sk_ajj)}}" target="_blank" type="button" name="btn_cek_13" 
                             class="open-delete btn btn-primary btn-labeled btn-rounded">
                             <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
                         @if ($administrasi[0]->unsur_pembentuk == 'APT')
                         <td>
-                          <a href="{{asset('laravel/storage/app/public/'. $item->akreditasi_kan)}}" target="_blank" type="button" name="btn_cek_13" 
+                          <a href="{{asset('storage/'. $item->akreditasi_kan)}}" target="_blank" type="button" name="btn_cek_13" 
                             class="open-delete btn btn-primary btn-labeled btn-rounded">
                             <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>

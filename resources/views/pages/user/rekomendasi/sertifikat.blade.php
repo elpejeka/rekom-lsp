@@ -231,11 +231,11 @@
                             <td>{{$item->no_sertifikat_asesor}}</td>
                             <td>{{$item->kualifikasi_sertifikat}}</td>
                             <td>{{$item->sub_klasifikasi_sertifikat}}</td>
-                            <td><a href="{{asset('laravel/storage/app/public/'. $item->ska)}}" target="_blank" type="button" name="btn_cek_13" 
+                            <td><a href="{{asset('storage/'. $item->ska)}}" target="_blank" type="button" name="btn_cek_13" 
                                   class="open-delete btn btn-primary btn-labeled btn-rounded">
                                   <b><i class="icon-file-check"></i></b> Softcopy</a>
                             </td>
-                            <td><a href="{{asset('laravel/storage/app/public/'. $item->sertifikat_asesors)}}" target="_blank" type="button" name="btn_cek_13" 
+                            <td><a href="{{asset('storage/'. $item->sertifikat_asesors)}}" target="_blank" type="button" name="btn_cek_13" 
                                   class="open-delete btn btn-primary btn-labeled btn-rounded">
                                   <b><i class="icon-file-check"></i></b> Softcopy</a>
                             </td>

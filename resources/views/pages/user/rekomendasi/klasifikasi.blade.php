@@ -125,7 +125,7 @@
       if(kode){
         $.ajax({
           type : "GET",
-          url : "/get-subklas?kode="+kode,
+          url : "/rekomendasi-lsp/get-subklas?kode="+kode,
           dataType : 'JSON',
           success:function(res){
             console.log(res)

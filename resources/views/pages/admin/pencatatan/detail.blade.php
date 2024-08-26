@@ -1,7 +1,7 @@
 @extends('layouts.v2.app')
 
 @section('breadcumb')
-<div class="container-fluid">
+<div class="container-fluid">        
     <div class="page-title">
       <div class="row">
         <div class="col-6">
@@ -9,7 +9,7 @@
         </div>
         <div class="col-6">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">
+            <li class="breadcrumb-item"><a href="index.html">                                       
                 <svg class="stroke-icon">
                   <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
                 </svg></a></li>
@@ -24,7 +24,6 @@
 
 @section('content')
 <div class="container-fluid">
-    <input type="hidden" value="{{$data->no_pencatatan}}" id="noRecord"/>
     <form action="{{route('komen.pencatatan')}}" method="POST">
         @csrf
     <div class="row">
@@ -64,14 +63,14 @@
                                 <tr>
                                   <td>Surat Permohonan</td>
                                   <td>
-                                    <a href="{{asset('laravel/storage/app/public/'. $data->surat_permohonan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
+                                    <a href="{{asset('storage/'. $data->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
                                   <td>
                                     <select class="select-search form-control">
                                       <option value="1">Ada</option>
-                                      <option value="0">Tidak ada</option>
+                                      <option value="0">Tidak ada</option>    
                                     </select>
                                   </td>
                                   <td>
@@ -84,14 +83,14 @@
                                 <tr>
                                   <td>SK Lisensi</td>
                                   <td>
-                                    <a href="{{asset('laravel/storage/app/public/'. $data->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
+                                    <a href="{{asset('storage/'. $data->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
                                   <td>
                                     <select class="select-search form-control" name="check_sk">
                                       <option value="1">Ada</option>
-                                      <option value="0">Tidak ada</option>
+                                      <option value="0">Tidak ada</option>    
                                     </select>
                                   </td>
                                   <td>
@@ -104,14 +103,14 @@
                                 <tr>
                                   <td>Sertifikat Lisensi</td>
                                   <td>
-                                    <a href="{{asset('laravel/storage/app/public/'. $data->sertifikat)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
+                                    <a href="{{asset('storage/'. $data->sertifikat)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
                                   <td>
                                     <select class="select-search form-control" name="status_akreditasi">
                                       <option value="1">Ada</option>
-                                      <option value="0">Tidak ada</option>
+                                      <option value="0">Tidak ada</option>    
                                     </select>
                                   </td>
                                   <td>
@@ -124,14 +123,14 @@
                                 <tr>
                                     <td>Bukti Kepemilikan Kantor</td>
                                     <td>
-                                      <a href="{{asset('laravel/storage/app/public/'. $data->administrations->bukti_kepemilikan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
+                                      <a href="{{asset('storage/'. $data->administrations->bukti_kepemilikan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                         <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                     </td>
                                     <td>
                                       <select class="select-search form-control" name="status_akreditasi">
                                         <option value="1">Ada</option>
-                                        <option value="0">Tidak ada</option>
+                                        <option value="0">Tidak ada</option>    
                                       </select>
                                     </td>
                                     <td>
@@ -142,16 +141,36 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                  <td>Foto LSP</td>
+                                  <td>
+                                    <a href="{{asset('storage/'. $data->foto_lsp)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                      class="open-delete btn btn-primary btn-labeled btn-rounded">
+                                      <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
+                                  </td>
+                                  <td>
+                                    <select class="select-search form-control" name="status_akreditasi">
+                                      <option value="1">Ada</option>
+                                      <option value="0">Tidak ada</option>    
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input class="form-control" type="text" placeholder="comment...." name="check_lisensi">
+                                      <button class="btn btn-secondary" type="button"> <span></span></button>
+                                    </div>
+                                  </td>
+                              </tr>
+                                <tr>
                                     <td>Logo LSP</td>
                                     <td>
-                                      <a href="{{asset('laravel/storage/app/public/'. $data->logo_lsp)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
+                                      <a href="{{asset('storage/'. $data->logo_lsp)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                         <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                     </td>
                                     <td>
                                       <select class="select-search form-control" name="status_akreditasi">
                                         <option value="1">Ada</option>
-                                        <option value="0">Tidak ada</option>
+                                        <option value="0">Tidak ada</option>    
                                       </select>
                                     </td>
                                     <td>
@@ -165,14 +184,14 @@
                                 <tr>
                                     <td>NIB</td>
                                     <td>
-                                      <a href="{{asset('laravel/storage/app/public/'. $data->nib)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
+                                      <a href="{{asset('storage/'. $data->nib)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                         <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                     </td>
                                     <td>
                                       <select class="select-search form-control" name="status_akreditasi">
                                         <option value="1">Ada</option>
-                                        <option value="0">Tidak ada</option>
+                                        <option value="0">Tidak ada</option>    
                                       </select>
                                     </td>
                                     <td>
@@ -185,14 +204,14 @@
                                 <tr>
                                     <td>SS Verif</td>
                                     <td>
-                                      <a href="{{asset('laravel/storage/app/public/'. $data->ss_verif)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
+                                      <a href="{{asset('storage/'. $data->ss_verif)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                         <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                     </td>
                                     <td>
                                       <select class="select-search form-control" name="status_akreditasi">
                                         <option value="1">Ada</option>
-                                        <option value="0">Tidak ada</option>
+                                        <option value="0">Tidak ada</option>    
                                       </select>
                                     </td>
                                     <td>
@@ -207,14 +226,14 @@
                                 <tr>
                                     <td>Akreditasi LPK</td>
                                     <td>
-                                      <a href="{{asset('laravel/storage/app/public/'. $data->nib)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
+                                      <a href="{{asset('storage/'. $data->nib)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                         <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                     </td>
                                     <td>
                                       <select class="select-search form-control" name="status_akreditasi">
                                         <option value="1">Ada</option>
-                                        <option value="0">Tidak ada</option>
+                                        <option value="0">Tidak ada</option>    
                                       </select>
                                     </td>
                                     <td>
@@ -243,7 +262,7 @@
                             </tr>
                             <tr>
                               <td>Nama LSP</td>
-                              <td>{{$item->administrations->nama ?? "-"}}</td>
+                              <td>{{$data->administrations->nama ?? "-"}}</td>
                             </tr>
                             <tr>
                               <td>Jumlah Skema</td>
@@ -251,7 +270,7 @@
                             </tr>
                             <tr>
                               <td>Asosiasi Pembentuk</td>
-                              <td>
+                              <td> 
                                 <span class="badge badge-info">{{$item->administrasi->unsur->asosiasi}}</span>
                                 <span class="badge badge-info">{{$item->administrasi->unsur1->asosiasi}}</span>
                                 <span class="badge badge-info">{{$item->administrasi->unsur2->asosiasi}}</span>
@@ -324,7 +343,7 @@
                                   <td>
                                     <select class="select-search form-control" name="status_asesor">
                                       <option value="1">Ada</option>
-                                      <option value="0">Tidak ada</option>
+                                      <option value="0">Tidak ada</option>    
                                     </select>
                                   </td>
                                   <td>
@@ -388,11 +407,11 @@
                                 <td>{{$item->jenjang}}</td>
                                 <td>{{$item->jumlah_unit}}</td>
                                 <td>{{$item->acuan_skema}}</td>
-                                <td> <a href="{{asset('laravel/storage/app/public/'.$item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
+                                <td> <a href="{{asset('storage/'.$item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                   class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
                                   <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
-
-                                <td> <a href="{{asset('laravel/storage/app/public/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
+                                
+                                <td> <a href="{{asset('storage/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                   class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
                                   <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
                                   <td>{{$item->is_ajj == 1 ? 'Ya' : 'Tidak'}}</td>
@@ -435,7 +454,7 @@
                                 <td>
                                   <select class="select-search form-control" name="status_asesor">
                                     <option value="1">Ada</option>
-                                    <option value="0">Tidak ada</option>
+                                    <option value="0">Tidak ada</option>    
                                   </select>
                                 </td>
                                 <td>
@@ -452,19 +471,10 @@
                     </div>
                     <div class="card">
                       <div class="card-body">
-                        <a href="javascript:void(0)" onclick="appAsesor()" class="btn btn-info">
-                            Update Checkbox Asesor <sup id="total_asesor"></sup>
-                          </a>
-                          <div id="asesorSave" class="mt-2" style="display: none">
-                            <a href="#" id="updateAsesorAll" class="btn btn-primary">
-                              Save Approve Asesor
-                            </a>
-                          </div>
                         <div class="table-responsive">
                           <table class="table" id="list_asesor">
                             <thead>
                               <tr>
-                                <th>#</th>
                                 <th>No</th>
                                 <th>NIK</th>
                                 <th>Nama Asesor</th>
@@ -481,9 +491,6 @@
                             <tbody>
                               @foreach ($data->asesor as $item)
                               <tr>
-                                <td>
-                                    <input type="checkbox" name="asesorId[]" id="asesorId" value="{{$item->id}}">
-                                </td>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$item->nik}}</td>
                                 <td>{{$item->nama_asesor}}</td>
@@ -524,7 +531,7 @@
                                     {{-- <a data-id={{$item->id}} id="importAsesor" class="btn btn-sm btn-primary mt-5">Import To Master Penugasan</a> --}}
                                 </td>
                                 @endif
-                                @if ($item->approve == null || $item->approve == 0)
+                                @if ($item->apporve != 0 || $item->approve == null) 
                                 <td>
                                     <a href="javascript:void(0)" onclick="updateAsesor({{$item->id}})" class="btn btn-info">Approve</a>
                                 </td>
@@ -554,7 +561,7 @@
                                 <td>
                                   <select class="select-search form-control" name="status_tuk">
                                     <option value="1">Ada</option>
-                                    <option value="0">Tidak ada</option>
+                                    <option value="0">Tidak ada</option>    
                                   </select>
                                 </td>
                                 <td>
@@ -595,7 +602,7 @@
                                 <td>{{$item->propinsi->Nama ?? '-'}}</td>
                                 <td>{{$item->alamat}}</td>
                                 <td>
-                                    <a href="{{asset('laravel/storage/app/public/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
+                                    <a href="{{asset('storage/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icon-file-check"></i></b> Softcopy</a>
                                 </td>
@@ -655,13 +662,13 @@
                                 <td>{{$item->no_sk}}</td>
                                 <td>{{$item->no_lisensi}}</td>
                                 <td>
-                                  <a href="{{asset('laravel/storage/app/public/'. $item->sk_lisensi)}}"
+                                  <a href="{{asset('storage/'. $item->sk_lisensi)}}"
                                      target="_blank" type="button" name="btn_cek_13"
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icon-file-check"></i></b> Softcopy</a>
                                 </td>
                                 <td>
-                                    <a href="{{asset('laravel/storage/app/public/'. $item->sertifikat_lisensi)}}" target="_blank" type="button" name="btn_cek_13"
+                                    <a href="{{asset('storage/'. $item->sertifikat_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icon-file-check"></i></b> Softcopy</a>
                                   </td>
@@ -669,13 +676,13 @@
                                   {{$item->masa_berlaku_sk}}
                                 </td>
                                 <td>
-                                  <a href="{{asset('laravel/storage/app/public/'. $item->sk_ajj)}}" target="_blank" type="button" name="btn_cek_13"
+                                  <a href="{{asset('storage/'. $item->sk_ajj)}}" target="_blank" type="button" name="btn_cek_13" 
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icon-file-check"></i></b> Softcopy</a>
                                 </td>
                                 @if ($data->administrations->unsur_pembentuk == 'APT')
                                 <td>
-                                  <a href="{{asset('laravel/storage/app/public/'. $item->akreditasi_kan)}}" target="_blank" type="button" name="btn_cek_13"
+                                  <a href="{{asset('storage/'. $item->akreditasi_kan)}}" target="_blank" type="button" name="btn_cek_13" 
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icon-file-check"></i></b> Softcopy</a>
                                 </td>
@@ -745,11 +752,11 @@
                 </div>
                 <div class="form-group">
                     <label for="kesesuaian">Approve Skema</label>
-                    <select class="form-control" name="approve" id="approve">
+                    <select class="form-control" name="approve" id="approve_skema">
                         <option value="1" selected>Sesuai</option>
                         <option value="0">Tidak Sesuai</option>
                     </select>
-                </div>
+                </div>   
         </div>
             <div class="modal-footer">
             <button type="submit" class="btn btn-success">Save changes</button>
@@ -783,7 +790,7 @@
                         <option value="1" selected>Sesuai</option>
                         <option value="0">Tidak Sesuai</option>
                     </select>
-                </div>
+                </div>   
         </div>
             <div class="modal-footer">
             <button type="submit" class="btn btn-success">Save changes</button>
@@ -817,7 +824,7 @@
                         <option value="1" selected>Sesuai</option>
                         <option value="0">Tidak Sesuai</option>
                     </select>
-                </div>
+                </div>   
         </div>
             <div class="modal-footer">
             <button type="submit" class="btn btn-success">Save changes</button>
@@ -912,7 +919,7 @@
           </button>
           </div>
           <div class="modal-body" id="modal-body">
-
+              
           </div>
           <div class="modal-footer">
               <button type="submit" class="btn btn-success">Save changes</button>
@@ -923,16 +930,14 @@
 
 <script>
     const skemaID = [];
-    const asesorID = [];
-    const noRecord = $('#noRecord').val();
-
+    
     $(document).ready(function () {
 
         $('#subklas').DataTable();
         $('#list_skema').DataTable();
         $('#list_asesor').DataTable();
         $('#list_tuk').DataTable();
-        $('#list_sk').DataTable();
+        $('#list_sk').DataTable();  
     });
 
     function updateAJJ(){
@@ -948,7 +953,7 @@
               skemaID.push(checkbox.value)
             }
           })
-
+          
           const supValue = document.getElementById('total_skema');
           supValue.textContent = 'Skema Checked : ' +  skemaID.length;
 
@@ -957,7 +962,7 @@
           }else{
             document.getElementById('saveAjj').style.display = 'none';
           }
-
+          
     }
 
     $("#updateAJJ").on('click', function() {
@@ -980,7 +985,7 @@
       })
 
     })
-
+    
     $(document).on('click', '#smallButton', function(event) {
             event.preventDefault();
             let href = $(this).attr('data-attr');
@@ -1006,58 +1011,8 @@
             })
     });
 
-    function appAsesor(){
-
-        if(asesorID.length > 0){
-            asesorID.length = 0;
-        }
-
-
-        const checkboxSkema = document.querySelectorAll('#asesorId');
-
-        checkboxSkema.forEach(function (checkbox){
-            if(checkbox.checked && !asesorID.includes(checkbox.value)){
-                asesorID.push(checkbox.value)
-            }
-        })
-
-        const supValue = document.getElementById('total_asesor');
-        supValue.textContent = 'Asesor Checked : ' +  asesorID.length;
-
-        if(asesorID.length > 0){
-            document.getElementById('asesorSave').style.display = 'block';
-        }else{
-            document.getElementById('asesorSave').style.display = 'none';
-        }
-
-        console.log(asesorID)
-    }
-
-    $("#updateAsesorAll").on('click', function(){
-
-        var formData = {
-            asesor_id : asesorID,
-            no_pencatatan: noRecord,
-            _token : "{{csrf_token()}}"
-        }
-
-        console.log(formData)
-
-        $.ajax({
-            url : "{{route("asesor.selected.approve")}}",
-            type: "POST",
-            data: formData,
-            dataType: "json",
-            encode : true,
-            success: function(res){
-                alert('approve success')
-                location.reload();
-            }
-        })
-    })
-
     function detailAsesor(id){
-            $.get('/pencatatan/asesor-approve/'+id, function(data){
+            $.get('/rekomendasi-lsp/pencatatan/asesor-approve/'+id, function(data){
                     let tmpatLahir = data.tempat_lahir == null ? '-' : data.tmpt_lhir.Nama
                     let prov = data.provinsi == null ? '-' : data.propinsi.Nama
                     let kab = data.kab_kota == null ? '-' : data.kabkota.nama_kabupaten_dagri
@@ -1078,7 +1033,7 @@
 
     function updateKeabsahan(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/pencatatan/skema-approve/'+id, function(skema){
+            $.get('/rekomendasi-lsp/pencatatan/skema-approve/'+id, function(skema){
                 $("#id").val(skema.id);
                 $("#nama_skema").val(skema.nama_skema);
                 $("#approve").val(skema.approve);
@@ -1091,32 +1046,32 @@
             e.preventDefault();
              var id = $('#id').val();
              var nama_skema = $('#nama_skema').val();
-             var approve = $('#approve').val();
+             var approve = $('#approve_skema').val();
              var noPencatatan = $('#no_pencatatan').val();
              var _token = $('input[name=_token]').val();
 
              $.ajax({
                  url :"{{route('skema.approve.update')}}",
-                 type : 'PUT',
+                 type : 'PUT',  
                  data : {
                      id : id,
                      nama_skema : nama_skema,
-                     approve : "1",
+                     approve : approve,
                      no_pencatatan : noPencatatan,
                      _token : _token
-                 },
+                 }, 
                  success:function(response){
                      // $('#sid'+response.id + 'td.nth-child(1)').text(response.nama_skema);
                      $("#keabsahan").modal('toggle');
                      $("#skemaForm")[0].reset();
-                     alert("success");
+                     alert('Success');
                  }
              })
         })
 
         function updateAsesor(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/pencatatan/asesor-approve/'+id, function(asesor){
+            $.get('/rekomendasi-lsp/pencatatan/asesor-approve/'+id, function(asesor){
                 $("#idAsesor").val(asesor.id);
                 $("#nama_asesor").val(asesor.nama_asesor);
                 $("#approve_asesor").val(asesor.approve);
@@ -1139,22 +1094,22 @@
                  data : {
                      id : id,
                      nama_asesor : nama_asesor,
-                     approve : "1",
+                     approve : approve,
                      no_pencatatan : noPencatatan,
                      _token : _token
-                 },
+                 }, 
                  success:function(response){
                      // $('#sid'+response.id + 'td.nth-child(1)').text(response.nama_skema);
                      $("#keabsahanAsesor").modal('toggle');
                      $("#asesorForm")[0].reset();
-                     alert("success")
+                     alert('Success');
                  }
              })
         })
 
         function updateTuk(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/pencatatan/tuk-approve/'+id, function(tuk){
+            $.get('/rekomendasi-lsp/pencatatan/tuk-approve/'+id, function(tuk){
                 $("#idTuk").val(tuk.id);
                 $("#nama_tuk").val(tuk.nama_tuk);
                 $("#approve_tuk").val(tuk.approve);
@@ -1167,25 +1122,25 @@
             e.preventDefault();
              var id = $('#idTuk').val();
              var nama_tuk = $('#nama_tuk').val();
-             var approve = $('#approve').val();
+             var approve = $('#approve_tuk').val();
              var noPencatatan = $('#no_pencatatan_tuk').val();
              var _token = $('input[name=_token]').val();
 
              $.ajax({
                  url :"{{route('tuk.approve.update')}}",
-                 type : 'PUT',
+                 type : 'PUT',  
                  data : {
                      id : id,
                      nama_tuk : nama_tuk,
-                     approve : "1",
+                     approve : approve,
                      no_pencatatan : noPencatatan,
                      _token : _token
-                 },
+                 }, 
                  success:function(response){
                      // $('#sid'+response.id + 'td.nth-child(1)').text(response.nama_skema);
                      $("#keabsahanTuk").modal('toggle');
                      $("#tukForm")[0].reset();
-                     alert('success')
+                     alert('Success');
                  }
              })
         })
@@ -1287,13 +1242,13 @@
         });
 
         function sertifikat(nik){
-          $.get('/reference/get-sertifikat/'+nik, function(res){
+          $.get('/rekomendasi-lsp/reference/get-sertifikat/'+nik, function(res){
                 const dateNow = new Date();
                 var sertifikat = res.data;
                 var table = '<table class="table table-bordered">' +
                         '<thead>' +
                             '<tr>' +
-                                '<th>Nama</th>' +
+                                '<th>Nama</th>' + 
                                 '<th>ID Sub Bidang</th>' +
                                 '<th>Jabatan Kerja</th>' +
                                 '<th>Kualifikasi</th>' +
@@ -1308,7 +1263,7 @@
                   const serDate= new Date(item.tanggal_cetak);
                   var style = (serDate > dateNow) ? 'background-color:#ff0000;' : 'background-color:#fff;';
                     table += '<tr style="'+ style +'">' +
-                                '<td>' + item.nama + '</td>' +
+                                '<td>' + item.nama + '</td>' + 
                                 '<td>' + item.id_sub_bidang + '</td>' +
                                 '<td>' + item.des_sub_klas + '</td>' +
                                 '<td>' + item.kualifikasi + '</td>' +
@@ -1327,13 +1282,13 @@
         }
 
         function importAsesor(id){
-            $.get('/pencatatan/import-to-siki/'+id, function(data){
+            $.get('/rekomendasi-lsp/pencatatan/import-to-siki/'+id, function(data){
                 alert(data.message);
             });
         }
 
-
-
+      
+      
 
 </script>
 @endpush

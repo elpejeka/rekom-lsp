@@ -152,7 +152,7 @@
                         <div class="form-group">
                             <label class="control-label">Kabupaten / Kota</label>
                             <select class="form-control" name="kab_kota" id="kab_kota">
-                                <option value="{{$data->kab_kota}}">{{$data->kabkota == null ? $data->kabkota->nama_kabupaten_dagri : 'pilih kabupaten/kota'}}</option>
+                                <option value="{{$data->kab_kota ?? '0'}}">{{$data->kabkota ?? "-"}}</option>
                             </select>
                         </div>
                         @error('kab_kota')
@@ -289,7 +289,7 @@
       if(kode){
         $.ajax({
           type : "GET",
-          url : "/lsp/kab_kota?id_propinsi_dagri="+kode,
+          url : "/rekomendasi-lsp/kab_kota?id_propinsi_dagri="+kode,
           dataType : 'JSON',
           success:function(res){
             console.log(res)

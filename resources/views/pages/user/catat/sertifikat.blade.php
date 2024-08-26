@@ -89,7 +89,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Masa Berlaku</label>
-                            <input type="date" class="form-control @error('masa_berlaku') is-invalid @enderror" name="masa_berlaku" required>
+                            <input type="date" class="form-control @error('masa_berlaku') is-invalid @enderror" name="masa_berlaku" id="masa_berlaku" required>
                             @error('masa_berlaku')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -219,14 +219,14 @@
                             <td>{{$item->no_reg_asesor}}</td>
                             <td>{{$item->no_sertifikat}}</td>
                             <td>
-                                <a href="{{asset('laravel/storage/app/public/'. $item->ska)}}" target="_blank" type="button" name="btn_cek_13" 
+                                <a href="{{asset('storage/'. $item->ska)}}" target="_blank" type="button" name="btn_cek_13" 
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icon-file-check"></i></b> Softcopy</a>
                                   </td>
                               <td>{{$item->no_sertifikat_asesor}}</td>
                               <td>{{$item->no_blanko}}</td>
                               <td>
-                                <a href="{{asset('laravel/storage/app/public/'. $item->sertifikat_asesors)}}" target="_blank" type="button" name="btn_cek_13" 
+                                <a href="{{asset('storage/'. $item->sertifikat_asesors)}}" target="_blank" type="button" name="btn_cek_13" 
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icon-file-check"></i></b> Softcopy</a>
                                   </td>
@@ -260,6 +260,7 @@
           url : "/rekomendasi-lsp/get-sertifikat/"+nik,
           type : 'GET',
           success:function(res){
+            console.log(res)
             $('#noreg').empty();
             $('#noreg').append('<option>Pilih Sertifikat</option>');
             for (var i = 0; i <= res.data.length; i++){

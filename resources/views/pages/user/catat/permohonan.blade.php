@@ -110,13 +110,13 @@
                     @if (isset($pencatatan))
                     <div class="col-lg-6">
                         <label>Logo LSP</label><br/>
-                        <a href="{{asset('laravel/storage/app/public/'. $pencatatan->logo_lsp)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $pencatatan->logo_lsp)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-success btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                     </div>
                     <div class="col-lg-6">
                         <label>Foto LSP</label><br/>
-                        <a href="{{asset('laravel/storage/app/public/'. $pencatatan->foto_lsp)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $pencatatan->foto_lsp)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-success btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                     </div>
@@ -181,16 +181,16 @@
                     @endif
                 </div>
                 <div class="row mt-4">
-                    @if (isset($pencatatan))
+                    <!-- @if (isset($pencatatan))
                     <div class="col-lg-6">
                         <label>Surat Keputusan Lisensi</label><br/>
-                        <a href="{{asset('laravel/storage/app/public/'. $pencatatan->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $pencatatan->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-success btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                     </div>
                     <div class="col-lg-6">
                         <label>Sertifikat Lisensi</label><br/>
-                        <a href="{{asset('laravel/storage/app/public/'. $pencatatan->sertifikat)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $pencatatan->sertifikat)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-success btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                     </div>
@@ -252,19 +252,19 @@
                             </div>
                         </div>
                     </div>   
-                    @endif
+                    @endif -->
                 </div>
                 <div class="row mt-4">
                     @if (isset($pencatatan))
                     <div class="col-lg-6">
                         <label>Surat Keputusan Lisensi</label><br/>
-                        <a href="{{asset('laravel/storage/app/public/'. $pencatatan->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $pencatatan->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-success btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                     </div>
                     <div class="col-lg-6">
                         <label>Sertifikat Lisensi</label><br/>
-                        <a href="{{asset('laravel/storage/app/public/'. $pencatatan->sertifikat)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $pencatatan->sertifikat)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-success btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                     </div>
@@ -332,7 +332,7 @@
                     @if (isset($pencatatan))
                     <div class="col-lg-6">
                         <label>Surat Permohonan Pencatatan</label><br/>
-                        <a href="{{asset('laravel/storage/app/public/'. $pencatatan->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $pencatatan->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-success btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                     </div>
@@ -372,13 +372,13 @@
                     @if (isset($pencatatan))
                     <div class="col-lg-6">
                         <label>SS Verifikasi</label><br/>
-                        <a href="{{asset('laravel/storage/app/public/'. $pencatatan->ss_verif)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $pencatatan->ss_verif)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-success btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                     </div>
                     <div class="col-lg-6">
                         <label>NIB</label><br/>
-                        <a href="{{asset('laravel/storage/app/public/'. $pencatatan->nib)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $pencatatan->nib)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-success btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                     </div>
@@ -447,7 +447,7 @@
                     @if (isset($pencatatan))
                     <div class="col-lg-6">
                         <label>Akreditasi LPK</label><br/>
-                        <a href="{{asset('laravel/storage/app/public/'. $pencatatan->nib)}}" target="_blank" type="button" name="btn_cek_13" 
+                        <a href="{{asset('storage/'. $pencatatan->nib)}}" target="_blank" type="button" name="btn_cek_13" 
                           class="open-delete btn btn-success btn-labeled btn-rounded">
                           <b><i class="icon-file-check"></i></b> Softcopy</a>
                     </div>

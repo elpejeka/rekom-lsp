@@ -68,7 +68,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="content-group-lg">
-                                                    <a href="{{asset('laravel/storage/app/public/'. $data->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+                                                    <a href="{{asset('storage/'. $data->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
                                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                         <b><i class="icon-file-check"></i></b> Softcopy</a>
                                                 </div>
@@ -105,7 +105,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="content-group-lg">
-                                                    <a href="{{asset('laravel/storage/app/public/'. $data->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
+                                                    <a href="{{asset('storage/'. $data->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
                                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                         <b><i class="icon-file-check"></i></b> Softcopy</a>
                                                 </div>
@@ -142,7 +142,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="content-group-lg">
-                                                    <a href="{{asset('laravel/storage/app/public/'. $data->sertifikat)}}" target="_blank" type="button" name="btn_cek_13" 
+                                                    <a href="{{asset('storage/'. $data->sertifikat)}}" target="_blank" type="button" name="btn_cek_13" 
                                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                         <b><i class="icon-file-check"></i></b> Softcopy</a>
                                                 </div>
@@ -179,7 +179,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="content-group-lg">
-                                                    <a href="{{asset('laravel/storage/app/public/'. $data->administrations->bukti_kepemilikan)}}" target="_blank" type="button" name="btn_cek_13" 
+                                                    <a href="{{asset('storage/'. $data->administrations->bukti_kepemilikan)}}" target="_blank" type="button" name="btn_cek_13" 
                                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                         <b><i class="icon-file-check"></i></b> Softcopy</a>
                                                 </div>
@@ -216,7 +216,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="content-group-lg">
-                                                    <a href="{{asset('laravel/storage/app/public/'. $data->logo_lsp)}}" target="_blank" type="button" name="btn_cek_13" 
+                                                    <a href="{{asset('storage/'. $data->logo_lsp)}}" target="_blank" type="button" name="btn_cek_13" 
                                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                         <b><i class="icon-file-check"></i></b> Softcopy</a>
                                                 </div>
@@ -254,7 +254,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="content-group-lg">
-                                                    <a href="{{asset('laravel/storage/app/public/'. $data->nib)}}" target="_blank" type="button" name="btn_cek_13" 
+                                                    <a href="{{asset('storage/'. $data->nib)}}" target="_blank" type="button" name="btn_cek_13" 
                                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                         <b><i class="icon-file-check"></i></b> Softcopy</a>
                                                 </div>
@@ -291,7 +291,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="content-group-lg">
-                                                    <a href="{{asset('laravel/storage/app/public/'. $data->ss_verif)}}" target="_blank" type="button" name="btn_cek_13" 
+                                                    <a href="{{asset('storage/'. $data->ss_verif)}}" target="_blank" type="button" name="btn_cek_13" 
                                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                         <b><i class="icon-file-check"></i></b> Softcopy</a>
                                                 </div>
@@ -330,7 +330,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="content-group-lg">
-                                                    <a href="{{asset('laravel/storage/app/public/'. $data->nib)}}" target="_blank" type="button" name="btn_cek_13" 
+                                                    <a href="{{asset('storage/'. $data->nib)}}" target="_blank" type="button" name="btn_cek_13" 
                                                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                         <b><i class="icon-file-check"></i></b> Softcopy</a>
                                                 </div>
@@ -374,7 +374,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>Nama LSP</td>
-                                                <td>{{$data->administrations->nama}}</td>
+                                                <td>{{$item->administrations->nama}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Asosiasi Pembentuk</td>
@@ -516,7 +516,7 @@
                                         <td>{{$item->jenjang}}</td>
                                         <td>{{$item->acuan_skema}}</td>
                                         <td>
-                                            <a href="{{asset('laravel/storage/app/public/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+                                            <a href="{{asset('storage/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
                                                 class="open-delete btn btn-primary btn-labeled btn-rounded">
                                             <b><i class="icon-file-check"></i></b> Softcopy</a>
                                         </td>
@@ -747,7 +747,7 @@
                                             <td>{{$item->provinsi}}</td>
                                             <td>{{$item->alamat}}</td>
                                             <td>
-                                              <a href="{{asset('laravel/storage/app/public/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                              <a href="{{asset('storage/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                                                 class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                 <b><i class="icon-file-check"></i></b> Softcopy</a>
                                             </td>
@@ -794,13 +794,13 @@
                                             <td>{{$item->no_sk}}</td>
                                             <td>{{$item->no_lisensi}}</td>
                                             <td>
-                                              <a href="{{asset('laravel/storage/app/public/'. $item->sk_lisensi)}}"
+                                              <a href="{{asset('storage/'. $item->sk_lisensi)}}"
                                                  target="_blank" type="button" name="btn_cek_13"
                                                 class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                 <b><i class="icon-file-check"></i></b> Softcopy</a>
                                             </td>
                                             <td>
-                                                <a href="{{asset('laravel/storage/app/public/'. $item->sertifikat_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
+                                                <a href="{{asset('storage/'. $item->sertifikat_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
                                                   class="open-delete btn btn-primary btn-labeled btn-rounded">
                                                   <b><i class="icon-file-check"></i></b> Softcopy</a>
                                               </td>
@@ -1067,7 +1067,7 @@
 
   <script>
         function detailAsesor(id){
-            $.get('/asesor-approve/'+id, function(data){
+            $.get('/rekomendasi-lsp/asesor-approve/'+id, function(data){
                     let tmpatLahir = data.tempat_lahir == null ? '-' : data.tmpt_lhir.Nama
                     let prov = data.provinsi == null ? '-' : data.propinsi.Nama
                     let kab = data.kab_kota == null ? '-' : data.kabkota.nama_kabupaten_dagri
@@ -1088,7 +1088,7 @@
 
       function updateKeabsahan(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/lsp/pencatatan/skema-approve/'+id, function(skema){
+            $.get('/rekomendasi-lsp/pencatatan/skema-approve/'+id, function(skema){
                 $("#id").val(skema.id);
                 $("#nama_skema").val(skema.nama_skema);
                 $("#approve").val(skema.approve);
@@ -1117,6 +1117,7 @@
                  }, 
                  success:function(response){
                      // $('#sid'+response.id + 'td.nth-child(1)').text(response.nama_skema);
+                     alert('Success');
                      $("#keabsahan").modal('toggle');
                      $("#skemaForm")[0].reset();
                  }
@@ -1125,7 +1126,7 @@
 
         function updateAsesor(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/lsp/pencatatan/asesor-approve/'+id, function(asesor){
+            $.get('/rekomendasi-lsp/pencatatan/asesor-approve/'+id, function(asesor){
                 $("#idAsesor").val(asesor.id);
                 $("#nama_asesor").val(asesor.nama_asesor);
                 $("#approve_asesor").val(asesor.approve);
@@ -1154,6 +1155,7 @@
                  }, 
                  success:function(response){
                      // $('#sid'+response.id + 'td.nth-child(1)').text(response.nama_skema);
+                     alert('Success');
                      $("#keabsahanAsesor").modal('toggle');
                      $("#asesorForm")[0].reset();
                  }
@@ -1162,7 +1164,7 @@
 
         function updateTuk(id){
           var noPencatatan = $("#pencatatan").val()
-            $.get('/lsp/pencatatan/tuk-approve/'+id, function(tuk){
+            $.get('/rekomendasi-lsp/pencatatan/tuk-approve/'+id, function(tuk){
                 $("#idTuk").val(tuk.id);
                 $("#nama_tuk").val(tuk.nama_tuk);
                 $("#approve_tuk").val(tuk.approve);
@@ -1191,6 +1193,7 @@
                  }, 
                  success:function(response){
                      // $('#sid'+response.id + 'td.nth-child(1)').text(response.nama_skema);
+                     alert('Success');
                      $("#keabsahanTuk").modal('toggle');
                      $("#tukForm")[0].reset();
                  }
@@ -1288,13 +1291,13 @@
                 dropdownParent: $("#komenAsesor")
             });
 
-            $("#nama_tuk").select2({a
+            $("#nama_tuk").select2({
                 dropdownParent: $("#komenTuk")
             });
         });
 
         function importAsesor(id){
-            $.get('/lsp/pencatatan/import-to-siki/'+id, function(data){
+            $.get('/rekomendasi-lsp/pencatatan/import-to-siki/'+id, function(data){
                 alert(data.message);
             });
         }

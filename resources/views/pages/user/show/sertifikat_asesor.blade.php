@@ -52,7 +52,7 @@
             <td>{{$detail->no_sertifikat_asesor}}</td>
             <td>{{$detail->no_reg_asesor}}</td>
             <td>{{$detail->masa_berlaku_sertifikat}} - 
-                @if ($detail->masa_berlaku_sertifikat <  \Carbon\Carbon::now())
+                @if ($detail->masa_berlaku_sertifikat < \Carbon\Carbon::now())
                     <span class="badge badge-danger">Sudah Habis Masa Berlaku</span>
                 @endif
             </td>
@@ -65,16 +65,16 @@
     @foreach ($item->sertifikat as $detail)
         <tr>
         <td>
-                <a href="{{asset('laravel/storage/app/public/'.$detail->ska)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                <a href="{{asset('storage/'.$detail->ska)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                 <b><i class="icon-file-check"></i></b> Softcopy</a>
-                {{-- <iframe id="iframepdf" src="{{asset('laravel/storage/app/public/'. $detail->ska)}}" width="250" height="100"></iframe> --}}
+                {{-- <iframe id="iframepdf" src="{{asset('storage/'. $detail->ska)}}" width="250" height="100"></iframe> --}}
             </td>
             <td>
-                <a href="{{asset('laravel/storage/app/public/'.$detail->sertifikat_asesors)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                <a href="{{asset('storage/'.$detail->sertifikat_asesors)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                 <b><i class="icon-file-check"></i></b> Softcopy</a>
-                {{-- <iframe id="iframepdf" src="{{asset('laravel/storage/app/public/'. $detail->sertifikat_asesors)}}" width="250" height="100"></iframe> --}}
+                {{-- <iframe id="iframepdf" src="{{asset('storage/'. $detail->sertifikat_asesors)}}" width="250" height="100"></iframe> --}}
             </td>       
         </tr>
     @endforeach
@@ -88,7 +88,7 @@
         @foreach ($item->perjanjian as $doc)
             <tr>
                 <td>
-                    <a href="{{asset('laravel/storage/app/public/'.$doc->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                    <a href="{{asset('storage/'.$doc->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                 <b><i class="icon-file-check"></i></b> Softcopy</a>
                 </td>

@@ -47,65 +47,65 @@
                   </td>
                     <td colspan="2">
                     
-                      <a href="{{asset('laravel/storage/app/public/'. $item[0]->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+                      <a href="{{asset('storage/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                         <b><i class="icon-file-check"></i></b> Softcopy</a>
                     </td>
                   <tr>
                     <tr>
                         <td>Pengarah</td>
-                        <td>{{$item[0]->pengarah}}</td>
-                        <td>{{$item[0]->no_telp_pengarah}}</td>
+                        <td>{{$item->pengarah}}</td>
+                        <td>{{$item->no_telp_pengarah}}</td>
                     </tr>
                     <tr>
                         <td>Pengarah</td>
-                        <td>{{$item[0]->pengarah_1}}</td>
-                        <td>{{$item[0]->no_telp_pengarah_1}}</td>
+                        <td>{{$item->pengarah_1}}</td>
+                        <td>{{$item->no_telp_pengarah_1}}</td>
                     </tr>
                     <tr>
                         <td>Pengarah</td>
-                        <td>{{$item[0]->pengarah_2}}</td>
-                        <td>{{$item[0]->no_telp_pengarah_2}}</td>
+                        <td>{{$item->pengarah_2}}</td>
+                        <td>{{$item->no_telp_pengarah_2}}</td>
                     </tr>
                     <tr>
                         <td>Pengarah</td>
-                        <td>{{$item[0]->pengarah_3}}</td>
-                        <td>{{$item[0]->no_telp_pengarah_3}}</td>
+                        <td>{{$item->pengarah_3}}</td>
+                        <td>{{$item->no_telp_pengarah_3}}</td>
                     </tr>
                     <tr>
                         <td>Pengarah</td>
-                        <td>{{$item[0]->pengarah_4}}</td>
-                        <td>{{$item[0]->no_telp_pengarah_4}}</td>
+                        <td>{{$item->pengarah_4}}</td>
+                        <td>{{$item->no_telp_pengarah_4}}</td>
                     </tr>
                     <tr>
                         <td>Ketua Pelaksana</td>
-                        <td>{{$item[0]->ketua}}</td>
-                        <td>{{$item[0]->no_ketua}}</td>
+                        <td>{{$item->ketua}}</td>
+                        <td>{{$item->no_ketua}}</td>
                     </tr>
                     <tr>
                         <td>Penanggungjawab Bagian Umum </td>
-                        <td>{{$item[0]->umum}}</td>
-                        <td>{{$item[0]->no_umum}}</td>
+                        <td>{{$item->umum}}</td>
+                        <td>{{$item->no_umum}}</td>
                     </tr>
                     <tr>
                         <td>Penanggungjawab Bagian Sertifikasi </td>
-                        <td>{{$item[0]->sertifikasi}}</td>
-                        <td>{{$item[0]->no_sertifikasi}}</td>
+                        <td>{{$item->sertifikasi}}</td>
+                        <td>{{$item->no_sertifikasi}}</td>
                     </tr>
                     <tr>
                         <td>Penanggungjawab Bagian Manajemen Mutu</td>
-                        <td>{{$item[0]->manajemen_mutu}}</td>
-                        <td>{{$item[0]->no_manajemen}}</td>
+                        <td>{{$item->manajemen_mutu}}</td>
+                        <td>{{$item->no_manajemen}}</td>
                     </tr>
                     <tr>
                         <td>Jumlah Karyawan LSP</td>
-                        <td colspan="2">{{$item[0]->jumlah_karyawan}}</td>
+                        <td colspan="2">{{$item->jumlah_karyawan}}</td>
                     </tr>
                     <tr>
                       <td>Action</td>
                       <td colspan="2">
-                        {{-- @if($item[0]->status_submit == null) --}}
-                        <a href="{{route('pengurus.edit', $item[0]->id)}}" class="btn btn-primary">Edit</  
+                        {{-- @if($item->status_submit == null) --}}
+                        <a href="{{route('pengurus.edit', $item->id)}}" class="btn btn-primary">Edit</  
                         {{-- @else
                         @endif   --}}
                       </td>

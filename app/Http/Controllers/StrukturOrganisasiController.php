@@ -20,7 +20,11 @@ class StrukturOrganisasiController extends Controller
     }
 
     public function index(){
-        $pengurus = OrganizationStructure::where('users_id', Auth::user()->id)->get();
+        $pengurus = OrganizationStructure::where('users_id', Auth::user()->id)->first();
+
+        if(!$pengurus){
+            $pengurus = null;
+        }
 
         return view('pages.user.rekomendasi.struktur', [
             'item' => $pengurus,
@@ -61,10 +65,10 @@ class StrukturOrganisasiController extends Controller
     public function update(Request $request, $id){
         $data = $request->all();
         $item = OrganizationStructure::findOrFail($id);
-        $item->upload_persyaratan = $request->hasFile('upload_persyaratan') ? $request->file('upload_persyaratan')->store('file/struktur-organisasi', 'public') : $item->upload_persyaratan;
+        $data['upload_persyaratan']= $request->hasFile('upload_persyaratan')
+         ? $request->file('upload_persyaratan')->store('file/struktur-organisasi', 'public'): $item->upload_persyaratan;
         $item->update($data);
-        
-        
+    
         $user = User::where('roles', 'admin')->get();
         $administrasi = Administration::where('users_id', Auth::user()->id)->firstOrFail();
         Notification::send($user, new PerbaikanNotif($administrasi));
