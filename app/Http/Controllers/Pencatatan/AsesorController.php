@@ -14,7 +14,7 @@ use App\Administration;
 use App\LogPencatatan;
 use App\PencatatanSkema;
 use Auth;
-use Carbon\Carbon;  
+use Carbon\Carbon;
 use QrCode;
 use PDF;
 
@@ -27,12 +27,12 @@ class AsesorController extends Controller
 
     public function __construct(SertifikatService $sertifikatService)
     {
-        $this->sertifikatService = $sertifikatService;   
+        $this->sertifikatService = $sertifikatService;
     }
 
     public function index(){
         $data = PencatatanAsesor::with(['propinsi'])->where('users_id', Auth::user()->id)->whereNull('deleted_at')->get();
-        
+
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $propinsi = DB::table('propinsi_dagri')->get();
         $informasi = Administration::where('users_id', Auth::user()->id)->first();
@@ -54,7 +54,7 @@ class AsesorController extends Controller
         $cekAsesor = $this->sertifikatService->getSertifikat($nik);
 
         if(empty($cekAsesor)){
-            return redirect()->route('pencatatan.asesor')->with('success', 'Asesor Tidak Dapat di Catatkan karena tidak mempunyai SKK/SKA');    
+            return redirect()->route('pencatatan.asesor')->with('success', 'Asesor Tidak Dapat di Catatkan karena tidak mempunyai SKK/SKA');
         }
 
         $asesor = PencatatanAsesor::where('nik', $nik)
@@ -69,7 +69,7 @@ class AsesorController extends Controller
                 $data['no_registrasi_asesor'] = rand(1, 999999). "/LPJK-LSP/". $request->nama_lsp;
                 $data['is_active'] = 1;
                 PencatatanAsesor::create($data);
-                
+
                 if($item->approve != null){
                     $notif = new LogPencatatan;
                     $notif->nama_lsp = $administrasi->nama;
@@ -78,9 +78,9 @@ class AsesorController extends Controller
                     $notif->save();
                 }
 
-            return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di Simpan');    
+            return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di Simpan');
         }
-        
+
         if(($asesor->status_asesor == 'Internal') == ($request->status_asesor == 'Internal') && $asesor->users_id != Auth::user()->id){
             return redirect()->route('pencatatan.asesor')->with('success', 'Asesor Sudah Terdaftar Pada LSP Lain Sebagai Internal Asesor Gunakan Asesor Lain');
         }else{
@@ -89,7 +89,7 @@ class AsesorController extends Controller
             $data['users_id'] = Auth::user()->id;
             $data['no_registrasi_asesor'] = rand(1, 999999). "/LPJK-LSP/". $request->nama_lsp;
             PencatatanAsesor::create($data);
-            
+
                 if($item->approve != null){
                     $notif = new LogPencatatan;
                     $notif->nama_lsp = $administrasi->nama;
@@ -119,20 +119,20 @@ class AsesorController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($request->nama_asesor);
         $data['users_id'] = Auth::user()->id;
-        
+
         $item = PencatatanAsesor::findOrFail($id);
         $data['no_registrasi_asesor'] = $item->no_registrasi_asesor;
 
         $item->update($data);
 
-        return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di Update');  
+        return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di Update');
     }
 
     public function destroy($id){
         $data = PencatatanAsesor::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di Hapus');  
+        return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di Hapus');
     }
 
     public function show($id){
@@ -150,7 +150,7 @@ class AsesorController extends Controller
         $data->no_pencatatan = null;
         $data->save();
 
-        return redirect()->route('pencatatan.approve', $pencatatan->slug)->with('success', 'Data Asesor Berhasil di Approve');  
+        return redirect()->route('pencatatan.approve', $pencatatan->slug)->with('success', 'Data Asesor Berhasil di Approve');
     }
 
     public function generateSuratAsesor($id){
@@ -169,7 +169,7 @@ class AsesorController extends Controller
                     })
                     ->leftJoin('users' , function($join){
                         $join->on('pencatatan_asesor.users_id', '=', 'users.id');
-                    })  
+                    })
                     ->select('pencatatan_asesor.*', 'sertifikat_asesor.*', 'klasifikasi.nama as klasifikasi', 'subklasifikasi.nama as subklasifikasi', 'users.nama_lsp')
                     ->first();
 
@@ -178,7 +178,7 @@ class AsesorController extends Controller
             // 'tgl' => $approveDate,
         ]);
 
-        return $pdf->stream('surat-pencatatan-asesor.pdf');      
+        return $pdf->stream('surat-pencatatan-asesor.pdf');
     }
 
     public function showAsesor($id){
@@ -212,7 +212,7 @@ class AsesorController extends Controller
         $data['approve'] = null;
         $data['acc_deleted'] = Carbon::now();
         $data['approved_at'] = null;
-        $data['is_deleted'] = true;        
+        $data['is_deleted'] = true;
 
         $item->update($data);
 
@@ -222,7 +222,7 @@ class AsesorController extends Controller
         $notif->created_at = Carbon::now();
         $notif->save();
 
-        return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di hapus');    
+        return redirect()->route('pencatatan.asesor')->with('success', 'Data Asesor Berhasil di hapus');
     }
 
     public function penghapusan(Request $request){
@@ -238,7 +238,7 @@ class AsesorController extends Controller
 
     public function importToSiki($id){
         $asesor = PencatatanAsesor::with('sertifikat')->find($id);
-        
+
         foreach($asesor->sertifikat as $sertifikat){
             // $asesor = Http::withToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjQiLCJlbWFpbCI6ImFsaWVmYmFnYXMwNEBnbWFpbC5jb20ifQ.aFZdGhtikkat8UWvB5EEqC3melJR50XN9XJSDOymvDk')
             // ->get('https://siki.pu.go.id/API-Server-LPJK/public/api/get_detail_asesor_bnsp', [
@@ -251,7 +251,7 @@ class AsesorController extends Controller
             ])->withBody(json_encode([
                 'no_reg_asesor_bnsp' => $sertifikat->no_reg_asesor,
             ]), 'application/json')
-            ->post('http://10.30.110.115/api-bank-data/api/get_detail_asesor_bnsp');
+            ->post('http://siki.pu.go.id/api-bank-data/api/get_detail_asesor_bnsp');
 
             if($response->status() != '200'){
                return response()->json([
@@ -264,7 +264,7 @@ class AsesorController extends Controller
        return response()->json([
                 'status' => 'success',
                 'message' => 'data berhasil di import'
-        ], 200);     
+        ], 200);
 
     }
 
@@ -313,6 +313,6 @@ class AsesorController extends Controller
         return redirect(route('pencatatan.approve.list'))->with('success', 'Data Asesor Berhasil di ubah');
     }
 
-  
-    
+
+
 }

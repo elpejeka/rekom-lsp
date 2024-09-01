@@ -37,3 +37,5 @@
 <script src="{{asset('/new/assets/js/script.js')}}"></script>
 {{-- <script src="{{asset('/new/assets/js/theme-customizer/customizer.js')}}"></script> --}}
 <script>new WOW().init();</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

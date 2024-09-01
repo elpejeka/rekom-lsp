@@ -259,6 +259,9 @@ Route::prefix('integrasi')
             Route::get('final-submit', 'IntegrasiController@submitPermohonan')->name('integrasi.submit.final');
             Route::get('list', 'IntegrasiController@list')->name('integrasi.list');
             Route::get('detail/{idHash}', 'IntegrasiController@detail')->name('integrasi.detail');
+
+            Route::get('asesor', 'AsesorController@index')->name('integrasi.asesor');
+            Route::get('cek-asesor', 'AsesorController@cekAsesor')->name('integrasi.asesor.cek');
         });
 
 Route::get('/check/asesor/{nik}', 'ApiController@index')->name('check.asesor');
