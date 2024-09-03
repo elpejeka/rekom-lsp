@@ -28,7 +28,7 @@ class StrukturOrganisasiController extends Controller
 
         return view('pages.user.rekomendasi.struktur', [
             'item' => $pengurus,
-            'pengurus' => $pengurus->count(),
+            // 'pengurus' => $pengurus->count(),
             'title' => 'Struktur Organisasi'
         ]);
     }
@@ -68,14 +68,14 @@ class StrukturOrganisasiController extends Controller
         $data['upload_persyaratan']= $request->hasFile('upload_persyaratan')
          ? $request->file('upload_persyaratan')->store('file/struktur-organisasi', 'public'): $item->upload_persyaratan;
         $item->update($data);
-    
+
         $user = User::where('roles', 'admin')->get();
         $administrasi = Administration::where('users_id', Auth::user()->id)->firstOrFail();
         Notification::send($user, new PerbaikanNotif($administrasi));
 
         return redirect('/')->with('success', 'Data Pengurus berhasil di update');
     }
-    
+
     public function revisi($id){
         $item = OrganizationStructure::findOrFail($id);
 

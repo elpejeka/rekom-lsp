@@ -1,7 +1,7 @@
 @extends('layouts.v2.app')
 
 @section('breadcumb')
-<div class="container-fluid">        
+<div class="container-fluid">
     <div class="page-title">
       <div class="row">
         <div class="col-6">
@@ -9,7 +9,7 @@
         </div>
         <div class="col-6">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">                                       
+            <li class="breadcrumb-item"><a href="index.html">
                 <svg class="stroke-icon">
                   <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
                 </svg></a></li>
@@ -31,7 +31,7 @@
               <h4>{{$title}}</h4>
           </div>
           <div class="card-body">
-            @if ($pengurus > 0)
+            @if ($item !== null)
             <table class="table table-lg">
                 <thead>
                     <tr>
@@ -46,8 +46,8 @@
                     Struktur Organisasi
                   </td>
                     <td colspan="2">
-                    
-                      <a href="{{asset('storage/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" 
+
+                      <a href="{{asset('storage/'. $item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13"
                         class="open-delete btn btn-primary btn-labeled btn-rounded">
                         <b><i class="icon-file-check"></i></b> Softcopy</a>
                     </td>
@@ -105,7 +105,7 @@
                       <td>Action</td>
                       <td colspan="2">
                         {{-- @if($item->status_submit == null) --}}
-                        <a href="{{route('pengurus.edit', $item->id)}}" class="btn btn-primary">Edit</  
+                        <a href="{{route('pengurus.edit', $item->id)}}" class="btn btn-primary">Edit</
                         {{-- @else
                         @endif   --}}
                       </td>
@@ -114,7 +114,7 @@
             </table>
             @else
             <form class="form-horizontal" action="{{route('struktur_organisasi_store')}}" method="POST" enctype="multipart/form-data">
-            @csrf  
+            @csrf
                 <div class="row">
                     <div class="col-md-6">
                         <div class="row">
@@ -128,7 +128,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nomor Handphone</label>
@@ -152,7 +152,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nomor Handphone</label>
@@ -176,7 +176,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nomor Handphone</label>
@@ -200,7 +200,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nomor Handphone</label>
@@ -224,7 +224,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nomor Handphone</label>
@@ -250,7 +250,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nomor Handphone</label>
@@ -274,7 +274,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nomor Handphone</label>
@@ -298,7 +298,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nomor Handphone</label>
@@ -322,7 +322,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nomor Handphone</label>
@@ -346,7 +346,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Struktur Organisasi</label>
@@ -360,13 +360,13 @@
                             </div>
                         </div>
                     </div>
-                </div>     
+                </div>
                 <div class="row mt-5">
                     <div class="text-right">
                         <button type="submit" class="btn btn-primary">Submit <i class="icon-arrow-right14 position-right"></i></button>
                     </div>
                 </div>
-            </form>    
+            </form>
             @endif
           </div>
       </div>
