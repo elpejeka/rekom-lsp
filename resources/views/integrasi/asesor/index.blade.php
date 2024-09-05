@@ -95,6 +95,11 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <a href="#" onclick="saveAsesor()" id="create" class="btn btn-block btn-primary" style="float: right">Save</a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -163,9 +168,9 @@
                 if(res === 'success'){
                     $('#asesor > tbody #nofound').remove();
                     txt = '<tr style="background-color:#fef08a">'
-                    txt += '<td class="noreg"><input type="text" id="no_reg" name="no_reg[]" value="'+noReg+'"/>' + noReg + '</td>'
-                    txt += '<td class="idlsp"><input type="text" id="id_lsp" name="id_lsp[]" value="'+idLsp+'"/>' + idLsp + '</td>'
-                    txt += '<td class="status"><input type="text" id="status" name="status[]" value="'+status +'"/>' + status + '</td>'
+                    txt += '<td class="no_reg"><input type="hidden" id="no_reg" name="no_reg[]" class="no_reg" value="'+noReg+'"/>' + noReg + '</td>'
+                    txt += '<td class="idLsp"><input type="hidden" id="idLsp" name="idLsp[]" class="idLsp" value="'+idLsp+'"/>' + idLsp + '</td>'
+                    txt += '<td class="statusAsesor"><input type="hidden" id="statusAsesor" name="statusAsesor[]" class="statusAsesor" value="'+status +'"/>' + status + '</td>'
                     txt +=  '<td><a href="#" class="deleteBtn btn btn-sm btn-danger">Hapus</a></td>'
                     txt += '</tr>'
                     $('#asesor > tbody').append(txt)
@@ -187,5 +192,32 @@
     $('#asesor').on('click', '.deleteBtn', function(){
         $(this).closest("tr").remove();
     })
+
+
+
+    function saveAsesor(){
+        let noRegAsesor = [];
+        let idLspAsesor = [];
+        let statusAsesorLsp = []
+
+        $('#asesor .no_reg > input ').each(function() {
+            noRegAsesor.push($(this).val());
+        });
+
+        $('#asesor .idLsp > input ').each(function() {
+            idLspAsesor.push($(this).val());
+        });
+
+        $('#asesor .statusAsesor > input ').each(function() {
+            statusAsesorLsp.push($(this).val());
+        });
+
+        $("#create").prop('disabled', true)
+
+
+        console.log(noRegAsesor)
+        console.log(idLspAsesor)
+        console.log(statusAsesorLsp)
+    }
 </script>
 @endpush

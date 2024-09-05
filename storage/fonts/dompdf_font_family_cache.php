@@ -79,12 +79,12 @@ return array (
     'normal' => $rootDir . '/lib/fonts/DejaVuSerif',
   ),
   'roboto' => array(
-    '100' => $fontDir . '/roboto_100_d876775dd3daf87873e6dd250e9c4c9e',
-    '300' => $fontDir . '/roboto_300_21960201651f2ea862182ff34dfd5ead',
-    'normal' => $fontDir . '/roboto_normal_9fa47a070a8b30b595086d70bb7ac78c',
-    '500' => $fontDir . '/roboto_500_d0dcda9e813eb9b854a1cc044831f6fe',
-    'bold' => $fontDir . '/roboto_bold_3d0ad20d45ace845335f9e6c390a09d9',
-    '900' => $fontDir . '/roboto_900_509a5e5b153550862359e315131088d5',
+    '100' => $fontDir . '/roboto_100_81da20a7c5fb175e52e6ee4196e29c80',
+    '300' => $fontDir . '/roboto_300_946532f67a57584be06dd863f541ac7d',
+    'normal' => $fontDir . '/roboto_normal_db1168cc5f8fc5193d9c7b7eda0425aa',
+    '500' => $fontDir . '/roboto_500_d177939444fd8c92ee010dd8555b80cd',
+    'bold' => $fontDir . '/roboto_bold_24123a87fbd881816d70b33a3b5b8d72',
+    '900' => $fontDir . '/roboto_900_c0b90c3d4073a93955e8f0c478bd97cf',
   ),
 );
 }; ?>

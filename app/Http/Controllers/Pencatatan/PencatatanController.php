@@ -11,6 +11,7 @@ use App\Pencatatan;
 use App\Administration;
 use Auth;
 use QrCode;
+use PDF;
 
 class PencatatanController extends Controller
 {
@@ -68,7 +69,7 @@ class PencatatanController extends Controller
             $data['foto_lsp'] = 'file/pencatatan/1/nofile.pdf';
         }
 
-        
+
         if($request->hasFile('logo_lsp')){
             $data['logo_lsp'] = $request->file('logo_lsp')->store(
                 'file/pencatatan/logo_lsp', 'public'
@@ -92,7 +93,7 @@ class PencatatanController extends Controller
         }else{
             $data['nib'] = 'file/pencatatan/1/nofile.pdf';
         }
-        
+
         Pencatatan::create($data);
         return redirect('/')->with('success', 'Permohonan Pencatatan Berhasil diSimpan');
     }
@@ -109,7 +110,7 @@ class PencatatanController extends Controller
     }
 
     public function update(Request $request, $id){
-        
+
         $item = Pencatatan::findOrFail($id);
 
         $data = $request->all();
@@ -146,7 +147,7 @@ class PencatatanController extends Controller
             $data['foto_lsp'] = $item->foto_lsp;
         }
 
-        
+
         if($request->hasFile('logo_lsp')){
             $data['logo_lsp'] = $request->file('logo_lsp')->store(
                 'file/pencatatan/logo_lsp', 'public'
@@ -196,7 +197,7 @@ class PencatatanController extends Controller
                     ->join('administrations', 'pencatatan.administrations_id', '=' ,'administrations.id')
                     ->select('pencatatan.*', 'administrations.unsur_pembentuk')
                     ->first();
-        
+
         return view('pages.user.pencatatan.edit.edit-sekretariat', [
             'data' => $data,
         ]);

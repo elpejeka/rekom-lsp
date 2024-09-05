@@ -24,6 +24,10 @@ class Pencatatan extends Model
 
     ];
 
+    protected $casts = [
+        'approve' => 'datetime'
+    ];
+
     public function getAutoNumberOptions()
     {
         return [
