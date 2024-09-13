@@ -1,7 +1,7 @@
 @extends('layouts.v2.app')
 
 @section('breadcumb')
-<div class="container-fluid">        
+<div class="container-fluid">
     <div class="page-title">
       <div class="row">
         <div class="col-6">
@@ -9,7 +9,7 @@
         </div>
         <div class="col-6">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">                                       
+            <li class="breadcrumb-item"><a href="index.html">
                 <svg class="stroke-icon">
                   <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
                 </svg></a></li>
@@ -42,11 +42,13 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $item)
+                        <tr>
                             <th>{{$loop->iteration}}</th>
                             <th>{{$item->user->nama_lsp}}</th>
                             <th>
                                 <a href="{{route('integrasi.detail', $item->id_hash)}}">Detail</a>
                             </th>
+                        </tr>
                         @endforeach
                     </tbody>
               </table>

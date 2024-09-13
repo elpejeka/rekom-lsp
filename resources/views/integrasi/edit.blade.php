@@ -1,7 +1,7 @@
 @extends('layouts.v2.app')
 
 @section('breadcumb')
-<div class="container-fluid">        
+<div class="container-fluid">
     <div class="page-title">
       <div class="row">
         <div class="col-6">
@@ -9,7 +9,7 @@
         </div>
         <div class="col-6">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">                                       
+            <li class="breadcrumb-item"><a href="index.html">
                 <svg class="stroke-icon">
                   <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
                 </svg></a></li>
@@ -116,7 +116,7 @@
                         </span>
                       @enderror
                     </div>
-                  <a href='#' class="badge badge-primary mt-2" target="_blank">Download Format List Komite dan Admin LSP</a>
+                    <a href='{{asset('/format/Draft List User Komite & Admin LSP.xlsx')}}' class="badge badge-primary mt-2" target="_blank">Download Format List Komite dan Admin LSP</a>
               </div>
             </div>
             <div class="row mt-3">
@@ -130,7 +130,7 @@
                         </span>
                       @enderror
                     </div>
-                  <a href='#' class="badge badge-primary mt-2" target="_blank">Download Format Unit Kompetensi, Elemen Kompetensi, Kriteria Unjuk Kerja</a>
+                    <a href='{{asset('format/Format Unit Kompetensi, Elemen Kompetensi, Kriteria Unjuk Kerja.xlsx')}}' class="badge badge-primary mt-2" target="_blank">Download Format Unit Kompetensi, Elemen Kompetensi, Kriteria Unjuk Kerja</a>
               </div>
             </div>
             <div class="row mt-5">

@@ -25,6 +25,17 @@
   </ul>
 </li>
 <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+    <svg class="stroke-icon">
+      <use href="../assets/svg/icon-sprite.svg#stroke-layout"></use>
+    </svg>
+    <svg class="fill-icon">
+      <use href="../assets/svg/icon-sprite.svg#fill-layout"></use>
+    </svg><span>Permohonan Aplikasi LPJK</span></a>
+  <ul class="sidebar-submenu">
+    <li><a href="{{route('integrasi.list')}}">List Permohonan</a></li>
+  </ul>
+  </li>
+<li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
   <svg class="stroke-icon">
     <use href="../assets/svg/icon-sprite.svg#stroke-layout"></use>
   </svg>
