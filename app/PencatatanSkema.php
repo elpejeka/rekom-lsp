@@ -15,7 +15,7 @@ class PencatatanSkema extends Model
         'pencatatan_id', 'kode_skema', 'nama_skema', 'jabker',
         'klasifikasi', 'sub_klasifikasi','kualifikasi' ,'jumlah_unit',
         'acuan_skema', 'upload_persyaratan', 'users_id', 'jenjang',
-        'is_ajj'
+        'is_ajj', 'is_akreditasi'
     ];
 
     protected $hidden = [];

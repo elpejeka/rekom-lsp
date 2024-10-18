@@ -185,6 +185,7 @@ Route::prefix('pencatatan')
                 Route::put('/skema-approve', 'SkemaController@approveSkema')->name('skema.approve.update');
                 Route::get('/skema-unapprove/{id}', 'SkemaController@unapprove')->name('skema.unapprove');
                 Route::post('/update-ajj', 'SkemaController@saveAJJ')->name('save.ajj');
+                Route::post('/update-akreditasi', 'SkemaController@saveAkreditasi')->name('save.akreditasi');
 
                 Route::get('/asesor', 'AsesorController@index')->name('pencatatan.asesor');
                 Route::post('/asesor', 'AsesorController@store')->name('pencatatan.asesor.store');

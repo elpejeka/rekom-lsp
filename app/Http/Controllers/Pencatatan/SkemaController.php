@@ -60,7 +60,7 @@ class SkemaController extends Controller
         $data = PencatatanSkema::findOrFail($id);
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $jabker = DB::table('jabker_02')->get();
-    
+
         return view('pages.user.catat.edit.skema', [
             'data' => $data,
             'permohonan' => $permohonan,
@@ -92,19 +92,19 @@ class SkemaController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('pencatatan.skema')->with('success', 'Data Skema Berhasil di Update');  
+        return redirect()->route('pencatatan.skema')->with('success', 'Data Skema Berhasil di Update');
     }
 
     public function destroy($id){
         $data= PencatatanSkema::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('pencatatan.skema')->with('success', 'Data Skema Berhasil di Hapus');  
+        return redirect()->route('pencatatan.skema')->with('success', 'Data Skema Berhasil di Hapus');
     }
 
     public function showSkema($id){
         $skema = PencatatanSkema::find($id);
-        
+
         return response()->json($skema);
     }
 
@@ -124,8 +124,8 @@ class SkemaController extends Controller
         $skema->approve = null;
         $skema->no_pencatatan = null;
         $skema->save();
-        
-        return redirect()->route('pencatatan.approve.list')->with('success', 'Data Skema Tidak Tayang');  
+
+        return redirect()->route('pencatatan.approve.list')->with('success', 'Data Skema Tidak Tayang');
     }
 
     public function saveAJJ(Request $request){
@@ -140,6 +140,23 @@ class SkemaController extends Controller
 
         return response()->json([
             'status' => "success"
+        ]);
+    }
+
+    public function saveAkreditasi(Request $request){
+        $skemaID = $request->skema_id;
+
+        $skema = PencatatanSkema::whereIn('id', $skemaID)->get();
+
+        foreach($skema as $s){
+            DB::beginTransaction();
+            $s->is_akreditasi = $s->is_akreditasi == 1 ? false :true;
+            $s->save();
+            DB::commit();
+        }
+
+        return response()->json([
+            'status' => 'success'
         ]);
     }
 

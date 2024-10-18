@@ -369,6 +369,11 @@
                             Save Skema Sertifikasi Jarak Jauh
                           </a>
                         </div>
+                        <div id="saveAccreditation" class="mt-2" style="display: none">
+                            <a href="#" id="updateAccreditation" class="btn btn-primary">
+                              Save Akreditasi KAN
+                            </a>
+                          </div>
                         <div class="table-responsive mt-2">
                           <table class="table" id="list_skema">
                             <thead>
@@ -387,6 +392,7 @@
                                 <th>Skema Sertifikasi</th>
                                 <th>Acuan Skema</th>
                                 <th>AJJ</th>
+                                <th>Akreditasi KAN</th>
                                 <th>Action</th>
                                 <th>Status</th>
                               </tr>
@@ -415,6 +421,7 @@
                                   class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
                                   <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
                                   <td>{{$item->is_ajj == 1 ? 'Ya' : 'Tidak'}}</td>
+                                  <td>{{$item->is_akreditasi == 1 ? 'Ya' : 'Tidak'}}</td>
                                     <td>
                                     <a href="{{route('pencatatan.skema.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
                                 </td>
@@ -966,8 +973,10 @@
 
           if(skemaID.length > 0){
             document.getElementById('saveAjj').style.display = 'block';
+            document.getElementById('saveAccreditation').style.display = 'block';
           }else{
             document.getElementById('saveAjj').style.display = 'none';
+            document.getElementById('saveAccreditation').style.display = 'block';
           }
 
     }
@@ -990,6 +999,26 @@
           location.reload()
         }
       })
+    })
+
+    $('#updateAccreditation').on('click', function() {
+        var formData = {
+        skema_id : skemaID,
+        _token : "{{ csrf_token() }}"
+        }
+
+        $.ajax({
+        url : "{{route('save.akreditasi')}}",
+        type : 'POST',
+        data : formData,
+        dataType : "json",
+        encode : true,
+        success: function(res){
+          alert('update status akreditasi success');
+          location.reload()
+        }
+      })
+
 
     })
 
