@@ -1,7 +1,7 @@
 @extends('layouts.v2.app')
 
 @section('breadcumb')
-<div class="container-fluid">        
+<div class="container-fluid">
     <div class="page-title">
       <div class="row">
         <div class="col-6">
@@ -9,7 +9,7 @@
         </div>
         <div class="col-6">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">                                       
+            <li class="breadcrumb-item"><a href="index.html">
                 <svg class="stroke-icon">
                   <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
                 </svg></a></li>
@@ -40,7 +40,7 @@
                             <select class="form-control" name="pencatatan_id">
                                   @foreach ($permohonan as $item)
                                     @if ($loop->first)
-                                      <option value="{{$item->id}}">{{$item->permohonan}}</option>  
+                                      <option value="{{$item->id}}">{{$item->permohonan}}</option>
                                     @endif
                                   @endforeach
                             </select>
@@ -50,7 +50,7 @@
                               </span>
                             @enderror
                           </div>
-                    </div>     
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Nomor SK</label>
@@ -61,7 +61,7 @@
                           <strong>{{ $message }}</strong>
                         </span>
                       @enderror
-                    </div>    
+                    </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-md-6">
@@ -74,13 +74,13 @@
                           <strong>{{ $message }}</strong>
                         </span>
                       @enderror
-                    </div>    
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="" class="control-label">Masa Berlaku</label>
                             <input type="date" class="form-control @error('status_sk') is-invalid @enderror" name="masa_berlaku_sk" required>
                         </div>
-                    </div>    
+                    </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-md-6">
@@ -92,8 +92,8 @@
                             <span class="help-block">
                                 Accepted formats: pdf, zip, rar  Max file size 50Mb
                               </span>
-                        </div>    
-                    </div>    
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Sertifikat Lisensi</label>
@@ -103,8 +103,8 @@
                             <span class="help-block">
                                 Accepted formats: pdf, zip, rar  Max file size 50Mb
                               </span>
-                        </div>    
-                    </div>    
+                        </div>
+                    </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-md-6">
@@ -116,39 +116,18 @@
                           <span class="help-block">
                               Accepted formats: pdf, zip, rar  Max file size 50Mb
                             </span>
-                      </div>    
-                  </div>    
-                </div>
-                @if ($administrasi[0]->unsur_pembentuk == 'APT')
-                <div class="row mt-4">
-                  <div class="col-md-6">
-                      <div class="form-group">
-                          <label class="control-label">Sertifikat Akreditasi KAN</label>
-                          <br/>
-                          <input name="akreditasi_kan" type="file" class="file-input @error('akreditasi_kan') is-invalid @enderror"
-                          data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-xs" data-remove-class="btn btn-default btn-xs">
-                          <span class="help-block">
-                              Accepted formats: pdf, zip, rar  Max file size 50Mb
-                            </span>
-                      </div>    
+                      </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="">Masa Berlaku Sertifikat Akreditasi KAN</label>
-                      <input type="date" class="form-control" name="masa_berlaku_kan" />
-                    </div>
-                  </div>  
                 </div>
-                @endif
                 <div class="row mt-5">
                     <div class="text-right">
                         <button type="submit" class="btn btn-primary">Submit <i class="icon-arrow-right14 position-right"></i></button>
                     </div>
                 </div>
-                </form>    
+                </form>
             </div>
       </div>
-      <div class="col-sm-12 col-xl-12">  
+      <div class="col-sm-12 col-xl-12">
        <div class="card">
         <div class="card-body">
             <table class="table datatable-show-all" id="list">
@@ -161,10 +140,6 @@
                     <th>SK Lisensi</th>
                     <th>Sertifikat Lisensi</th>
                     <th>SK Asesment Jarak Jauh</th>
-                    @if ($administrasi[0]->unsur_pembentuk == 'APT')
-                    <th>Akreditasi KAN</th>
-                    <th>Masa Berlaku Kan</th>
-                    @endif
                     <th class="text-center">Actions</th>
                   </tr>
                 </thead>
@@ -176,30 +151,20 @@
                         <td>{{$item->no_lisensi}}</td>
                         <td>{{$item->masa_berlaku_sk}}</td>
                         <td>
-                          <a href="{{asset('storage/'. $item->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
+                          <a href="{{asset('storage/'. $item->sk_lisensi)}}" target="_blank" type="button" name="btn_cek_13"
                             class="open-delete btn btn-primary btn-labeled btn-rounded">
                             <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
                         <td>
-                            <a href="{{asset('storage/'. $item->sertifikat_lisensi)}}" target="_blank" type="button" name="btn_cek_13" 
+                            <a href="{{asset('storage/'. $item->sertifikat_lisensi)}}" target="_blank" type="button" name="btn_cek_13"
                               class="open-delete btn btn-primary btn-labeled btn-rounded">
                               <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
                         <td>
-                          <a href="{{asset('storage/'. $item->sk_ajj)}}" target="_blank" type="button" name="btn_cek_13" 
+                          <a href="{{asset('storage/'. $item->sk_ajj)}}" target="_blank" type="button" name="btn_cek_13"
                             class="open-delete btn btn-primary btn-labeled btn-rounded">
                             <b><i class="icon-file-check"></i></b> Softcopy</a>
                         </td>
-                        @if ($administrasi[0]->unsur_pembentuk == 'APT')
-                        <td>
-                          <a href="{{asset('storage/'. $item->akreditasi_kan)}}" target="_blank" type="button" name="btn_cek_13" 
-                            class="open-delete btn btn-primary btn-labeled btn-rounded">
-                            <b><i class="icon-file-check"></i></b> Softcopy</a>
-                        </td>
-                        <td>
-                          {{$item->masa_berlaku_kan}}
-                        </td>
-                        @endif
                         <td>
                             <a href="{{route('sk.lisensi.edit', $item->id)}}" class="btn btn-sm btn-primary"><i class="icon-pencil"></i></a>
                             <form action="{{route('sk.lisensi.delete', $item->id)}}" method="post" class="d-inline">

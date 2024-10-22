@@ -247,6 +247,11 @@ Route::prefix('pencatatan')
                 Route::put('lisensi/update/{id}', 'LisensiController@update')->name('sk.lisensi.update');
                 Route::delete('lisensi/delete/{id}', 'LisensiController@destroy')->name('sk.lisensi.delete');
 
+                Route::get('/lisensi-kan', 'KANController@index')->name('kan.index');
+                Route::post('/lisensi-kan', 'KANController@store')->name('kan.store');
+                Route::get('/lisensi-kan/{id_hash}', 'KANController@edit')->name('kan.edit');
+                Route::post('/lisensi-kan/update', 'KANController@update')->name('kan.update');
+                Route::delete('lisensi-kan/{id}', 'KANController@destroy')->name('kan.delete');
             });
 
 Route::prefix('integrasi')
