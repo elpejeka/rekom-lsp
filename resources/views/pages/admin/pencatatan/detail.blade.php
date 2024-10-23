@@ -42,6 +42,7 @@
           <div class="card-body">
             <ul class="nav nav-tabs" id="icon-tab" role="tablist">
               <li class="nav-item"><a class="nav-link active txt-secondary" id="icon-home-tab" data-bs-toggle="tab" href="#administration" role="tab" aria-controls="icon-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>Administrasi</a></li>
+              <li class="nav-item"><a class="nav-link txt-secondary" id="icon-home-tab" data-bs-toggle="tab" href="#organisasi" role="tab" aria-controls="icon-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>Struktur Organisasi</a></li>
               <li class="nav-item"><a class="nav-link txt-secondary" id="skema-icon-tab" data-bs-toggle="tab" href="#skema" role="tab" aria-controls="contact-icon" aria-selected="false"><i class="icofont icofont-contacts"></i>Skema LSP</a></li>
               <li class="nav-item"><a class="nav-link txt-secondary" id="asesor-icon-ta" data-bs-toggle="tab" href="#asesor" role="tab" aria-controls="contact-icon" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Asesor</a></li>
               <li class="nav-item"><a class="nav-link txt-secondary" id="tuk-icon-tab" data-bs-toggle="tab" href="#tuk" role="tab" aria-controls="contact-icon" aria-selected="false"><i class="icofont icofont-building"></i>Tempat Uji Kompetensi</a></li>
@@ -323,6 +324,83 @@
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="organisasi" role="tabpanel" aria-labelledby="profile-icon-tabs">
+                <div class="col-sm-12 mt-5">
+                  <div class="row">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="table-responsive">
+                          <table class="table">
+                            <tbody>
+                              <tr>
+                                <td>Data</td>
+                                <td>Description</td>
+                                <td>No Telpon</td>
+                              </tr>
+                              <tr>
+                                <td>Nama Pengarah</td>
+                                <td>{{$item->organization->pengarah ?? '-'}}</td>
+                                <td>{{$item->organization->no_telp_pengarah ?? '-'}}</td>
+                              </tr>
+                              <tr>
+                                <td>Nama Pengarah</td>
+                                <td>{{$item->organization->pengarah_1 ?? '-'}}</td>
+                                <td>{{$item->organization->no_telp_pengarah_1 ?? '-'}}</td>
+                              </tr>
+                              <tr>
+                                <td>Nama Pengarah</td>
+                                <td>{{$item->organization->pengarah_2 ?? '-'}}</td>
+                                <td>{{$item->organization->no_telp_pengarah_2 ?? '-'}}</td>
+                              </tr>
+                              <tr>
+                                <td>Nama Pengarah</td>
+                                <td>{{$item->organization->pengarah_3 ?? '-'}}</td>
+                                <td>{{$item->organization->no_telp_pengarah_3 ?? '-'}}</td>
+                              </tr>
+                              <tr>
+                                <td>Nama Pengarah</td>
+                                <td>{{$item->organization->pengarah_4 ?? '-'}}</td>
+                                <td>{{$item->organization->no_telp_pengarah_4 ?? '-'}}</td>
+                              </tr>
+                              <tr>
+                                <td>Ketua Pelaksana</td>
+                                <td>{{$item->organization->ketua ?? '-'}}</td>
+                                <td>{{$item->organization->no_ketua ?? '-'}}</td>
+                              </tr>
+                              <tr>
+                                <td>Penanggungjawab Bagian Umum</td>
+                                <td>{{$item->organization->umum ?? '-'}}</td>
+                                <td>{{$item->organization->no_umum ?? '-'}}</td>
+                              </tr>
+                              <tr>
+                                <td>Penanggungjawab Bagian Sertifikasi</td>
+                                <td>{{$item->organization->sertifikasi ?? '-'}}</td>
+                                <td>{{$item->organization->no_sertifikasi ?? '-'}}</td>
+                              </tr>
+                              <tr>
+                                <td>Penanggungjawab Bagian Manajemen Mutu</td>
+                                <td>{{$item->organization->manajemen_mutu ?? '-'}}</td>
+                                <td>{{$item->organization->no_manajemen ?? '-'}}</td>
+                              </tr>
+                              <tr>
+                                <td>Jumlah Karyawan</td>
+                                <td colspan="2">{{$item->organization->jumlah_karyawan ?? '-'}}</td>
+                              </tr>
+                              <tr>
+                                <td>Struktur Organisasi</td>
+                                <td colspan="2"><a href="{{asset('storage/'.$item->organization->upload_persyaratan ?? '-')}}" target="_blank" type="button" name="btn_cek_13"
+                                    class="open-delete btn btn-primary btn-labeled btn-rounded">
+                                    <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </div>

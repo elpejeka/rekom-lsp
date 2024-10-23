@@ -36,7 +36,7 @@ class IndexController extends Controller
 
     public function index(){
         $data = Pencatatan::with('administrations')->where('users_id', Auth::user()->id)->get();
-        
+
 
         return view('pages.user.catat.preview', [
             'permohonan' => $data,
@@ -48,8 +48,6 @@ class IndexController extends Controller
         $data = Pencatatan::with(['administrations', 'asesor', 'skema', 'tuk', 'legalitas'])->where('id', $id)->firstOrFail();
 
         $user_file = User::with(['administrasi'])->where('id', $data->users_id)->firstOrFail();
-
-        //   dd($data);
 
         return view('pages.user.pencatatan.submit', [
             'data' => $data,
@@ -81,13 +79,13 @@ class IndexController extends Controller
 
         return redirect('/')->with('success', 'Pencatatan berhasil di submit');
     }
-    
+
     public function listApprove(){
         $data = Pencatatan::with('administrations')
                             ->whereNotNull('submit_pencatatan')
                             ->whereNull('approve')
                             ->get();
-   
+
         return view('pages.admin.pencatatan.list', [
             'permohonan' => $data,
             'title' => "List Permohonan Pencatatan"
@@ -114,7 +112,7 @@ class IndexController extends Controller
                             ->where('administrations.id', $data->administrations_id)
                             ->get();
 
-        $user_file = User::with(['administrasi'])->where('id', $data->users_id)->firstOrFail();
+        $user_file = User::with(['administrasi', 'organization'])->where('id', $data->users_id)->firstOrFail();
         $asesor = DB::table('pencatatan_asesor')
         ->join('propinsi_dagri', 'pencatatan_asesor.provinsi', '=','propinsi_dagri.id_propinsi_dagri')
         ->select('pencatatan_asesor.*', 'propinsi_dagri.Nama')
@@ -131,7 +129,7 @@ class IndexController extends Controller
     }
 
     public function setApprove(Request $request, $id)
-    {      
+    {
         $request->validate([
             'approve' => 'required'
         ]);
@@ -157,13 +155,13 @@ class IndexController extends Controller
         $data = $request->all();
         $userId = $request->input('user_id');
 
-        $user = User::where('id', $userId)->get();  
+        $user = User::where('id', $userId)->get();
         Notification::send($user, new PerbaikanPencatatan());
-     
+
 
         KomenPencatatan::create($data);
 
-        return redirect('/pencatatan/sekretariat/list');        
+        return redirect('/pencatatan/sekretariat/list');
     }
 
     public function addKomen(Request $request){
@@ -186,7 +184,7 @@ class IndexController extends Controller
         Notification::send($user, new DokumentasiAPI());
         Notification::send($user, new FormatSertifikat());
         Notification::send($user, new DraftSertifikat());
-        
+
         return redirect('/pencatatan/sekretariat/list')->with('success', 'Email Dokumentasi berhasil di kirim');
     }
 }
