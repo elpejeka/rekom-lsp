@@ -57,4 +57,8 @@ class Pencatatan extends Model
         return $this->hasMany(SKLisensi::class, 'pencatatan_id', 'id');
     }
 
+    public function akreditasi(){
+        return $this->hasMany(LegalitasKAN::class, 'pencatatan_id', 'id');
+    }
+
 }

@@ -45,7 +45,7 @@ class IndexController extends Controller
     }
 
     public function submit($id){
-        $data = Pencatatan::with(['administrations', 'asesor', 'skema', 'tuk', 'legalitas'])->where('id', $id)->firstOrFail();
+        $data = Pencatatan::with(['administrations', 'asesor', 'skema', 'tuk', 'legalitas','akreditasi'])->where('id', $id)->firstOrFail();
 
         $user_file = User::with(['administrasi'])->where('id', $data->users_id)->firstOrFail();
 

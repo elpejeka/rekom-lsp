@@ -47,6 +47,7 @@
               <li class="nav-item"><a class="nav-link txt-secondary" id="asesor-icon-ta" data-bs-toggle="tab" href="#asesor" role="tab" aria-controls="contact-icon" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Asesor</a></li>
               <li class="nav-item"><a class="nav-link txt-secondary" id="tuk-icon-tab" data-bs-toggle="tab" href="#tuk" role="tab" aria-controls="contact-icon" aria-selected="false"><i class="icofont icofont-building"></i>Tempat Uji Kompetensi</a></li>
               <li class="nav-item"><a class="nav-link txt-secondary" id="sk-icon-tab" data-bs-toggle="tab" href="#sk" role="tab" aria-controls="contact-icon" aria-selected="false"><i class="icofont icofont-building"></i>SK Lisensi BNSP</a></li>
+              <li class="nav-item"><a class="nav-link txt-secondary" id="sk-icon-tab" data-bs-toggle="tab" href="#kan" role="tab" aria-controls="contact-icon" aria-selected="false"><i class="icofont icofont-building"></i>Akreditasi KAN</a></li>
             </ul>
             <div class="tab-content" id="icon-tabContent">
               <div class="tab-pane fade show active" id="administration" role="tabpanel" aria-labelledby="icon-home-tab">
@@ -741,10 +742,6 @@
                                 <th>Sertifikat Lisensi</th>
                                 <th>Masa Berlaku</th>
                                 <th>SK AJJ</th>
-                                @if ($data->administrations->unsur_pembentuk == 'APT')
-                                <th>Akreditasi KAN</th>
-                                <th>Masa Berlaku KAN</th>
-                                @endif
                               </tr>
                             </thead>
                             <tbody>
@@ -772,16 +769,42 @@
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icon-file-check"></i></b> Softcopy</a>
                                 </td>
-                                @if ($data->administrations->unsur_pembentuk == 'APT')
+                              </tr>
+                              @endforeach
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="kan" role="tabpanel" aria-labelledby="sk-icon-tab">
+                <div class="col-sm-12 mt-5">
+                  <div class="row">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="table-responsive">
+                          <table class="table" id="list_sk">
+                            <thead>
+                              <tr>
+                                <th>No</th>
+                                <th>Nomor SK</th>
+                                <th>Masa Berlaku</th>
+                                <th>Dokumen</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data->akreditasi as $item)
+                              <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$item->no_sertifikat_kan}}</td>
+                                <td>{{$item->masa_berlaku}}</td>
                                 <td>
-                                  <a href="{{asset('storage/'. $item->akreditasi_kan)}}" target="_blank" type="button" name="btn_cek_13"
+                                    <a href="{{asset('storage/'. $item->sertifikat_kan)}}" target="_blank" type="button" name="btn_cek_13"
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icon-file-check"></i></b> Softcopy</a>
                                 </td>
-                                <td>
-                                  {{$item->masa_berlaku_kan}}
-                                </td>
-                                @endif
                               </tr>
                               @endforeach
                             </tbody>
