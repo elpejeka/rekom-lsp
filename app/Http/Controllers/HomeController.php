@@ -69,22 +69,12 @@ class HomeController extends Controller
      public function dashboard(Request $request){
         $users = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'locations'])->where('id', Auth::user()->id)->get();
         $permohonan = Permohonan::with(['administrations'])->where('users_id', Auth::user()->id)->get();
-        $data = Administration::where('users_id', Auth::user()->id)->get();
-        $kualifikasi = Qualification::where('users_id', Auth::user()->id)->get();
-        $organisasi = OrganizationStructure::where('users_id', Auth::user()->id)->get();
-        $tuk = Tuk::where('users_id', Auth::user()->id)->get();
-        $asesor = Asesor::where('users_id', Auth::user()->id)->get();
-        $lsp = LspCertificate::where('users_id', Auth::user()->id)->get();
-
+        $pencatatan = Pencatatan::where('users_id', Auth::user()->id)->first();
+        
         return view('dashboard.user', [
-            'data' => $data,
-            'kualifikasi' => $kualifikasi,
-            'organisasi' => $organisasi,
-            'tuk' => $tuk,
-            'asesor' => $asesor,
-            'lsp' => $lsp,
             'users'  => $users,
             'permohonan' => $permohonan,
+            'pencatatan' => $pencatatan,
             'title' => "Dashboard"
         ]);
      }

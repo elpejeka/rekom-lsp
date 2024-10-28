@@ -99,23 +99,23 @@
             </div>
         </div>
         <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Welcome Back!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Welcome Back!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Harap Untuk Tidak Melakukan Pengesahan Kegiatan Terlebih Dahulu!!! Terima Kasih....
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                Harap Untuk Tidak Melakukan Pengesahan Kegiatan Terlebih Dahulu!!! Terima Kasih....
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
         @endif
         @if (Auth::user()->roles == 'admin')
         <!-- /grid -->
@@ -252,7 +252,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
 
-        
+
         $(document).ready(function () {
             $("#loginModal").modal('show');
         });
@@ -284,7 +284,7 @@
                                             'rgba(54, 162, 45, 0.5)',
                                             'rgba(27, 40, 255, 0.2)',
                                             'rgba(54, 162, 2, 0.2)',
-                                            
+
                                         ],
                                         borderColor: [
                                             'rgba(54, 162, 45, 1)',
@@ -297,6 +297,6 @@
                             });
     </script>
 
-    
+
 @endpush
 

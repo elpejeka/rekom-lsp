@@ -1,7 +1,7 @@
 @extends('layouts.v2.app')
 
 @section('breadcumb')
-<div class="container-fluid">        
+<div class="container-fluid">
     <div class="page-title">
       <div class="row">
         <div class="col-6">
@@ -9,7 +9,7 @@
         </div>
         <div class="col-6">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">                                       
+            <li class="breadcrumb-item"><a href="index.html">
                 <svg class="stroke-icon">
                   <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
                 </svg></a></li>
@@ -24,14 +24,52 @@
 
 @section('content')
 <div class="container-fluid">
+    <div class="row">
+        <div class="col-xxl-3 col-xl-4 col-md-7 od-xl-3 box-col-4">
+            <div class="card follower-wrap">
+              <div class="card-header card-no-border pb-2">
+                <h5 class="mb-1">Status Pencatatan LSP</h5>
+                <div class="d-inline-block badge badge-light-success rounded-pill">
+                    @if ($pencatatan)
+                        {{$pencatatan->approve != null ? 'Tercatat' : 'Proses Pengecekan Dokumen'}}
+                    @else
+                    'Belom Membuat Pencatatan'
+                    @endif
+                </div>
+              </div>
+              <div class="card-body pt-0 papernote-wrap">
+                <span class="c-o-light">Tanggal Submit Pencatatan : {{$pencatatan->submit_pencatatan ?? '-'}}</span>
+                <span class="c-o-light">Tanggal Approve Pencatatan : {{$pencatatan->approve ?? "-"}}</span>
+              </div>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-xl-4 col-md-7 od-xl-3 box-col-4">
+            <div class="card follower-wrap">
+              <div class="card-header card-no-border pb-2">
+                <h5 class="mb-1">Status Permohonan Aplikasi LSP</h5>
+                <div class="d-inline-block badge badge-light-success rounded-pill">
+                    @if ($pencatatan)
+                        {{$pencatatan->approve != null ? 'Tercatat' : 'Proses Pengecekan Dokumen'}}
+                    @else
+                    'Belom Membuat Pencatatan'
+                    @endif
+                </div>
+              </div>
+              <div class="card-body pt-0 papernote-wrap">
+                <span class="c-o-light">Tanggal Submit Pencatatan : {{$pencatatan->submit_pencatatan ?? '-'}}</span>
+                <span class="c-o-light">Tanggal Approve Pencatatan : {{$pencatatan->approve ?? "-"}}</span>
+              </div>
+            </div>
+        </div>
+    </div>
     <div class="col-sm-12 col-xl-12">
         <div class="card b-r-0">
           <div class="card-header">
           </div>
           <div class="card-body">
             <table class="table" id="project-status">
-                <thead> 
-                  <tr> 
+                <thead>
+                  <tr>
                     <th> <span class="f-light f-w-600">Nama LSP</span></th>
                     <th> <span class="f-light f-w-600">Tanggal</span></th>
                     <th class="text-center"> <span class="f-light f-w-600">Status</span></th>
@@ -40,7 +78,7 @@
                     <th class="text-center"> <span class="f-light f-w-600">Keterangan</span></th>
                   </tr>
                 </thead>
-                <tbody> 
+                <tbody>
                     @foreach ($permohonan as $item)
                     <tr>
                       <td>{{$item->user->nama_lsp}}</td>
