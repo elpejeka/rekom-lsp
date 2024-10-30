@@ -14,6 +14,7 @@ use App\Permohonan;
 use App\TerimaPermohonan;
 use Auth;
 use App\Http\Middleware\IsAdmin;
+use App\LSPIntegration;
 use App\Pencatatan;
 
 class HomeController extends Controller
@@ -70,11 +71,13 @@ class HomeController extends Controller
         $users = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'locations'])->where('id', Auth::user()->id)->get();
         $permohonan = Permohonan::with(['administrations'])->where('users_id', Auth::user()->id)->get();
         $pencatatan = Pencatatan::where('users_id', Auth::user()->id)->first();
-        
+        $aplikasi = LSPIntegration::where('user_id', Auth::user()->id)->first(); 
+
         return view('dashboard.user', [
             'users'  => $users,
             'permohonan' => $permohonan,
             'pencatatan' => $pencatatan,
+            'aplikasi' => $aplikasi,
             'title' => "Dashboard"
         ]);
      }

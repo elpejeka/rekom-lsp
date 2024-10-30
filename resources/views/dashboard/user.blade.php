@@ -48,16 +48,16 @@
               <div class="card-header card-no-border pb-2">
                 <h5 class="mb-1">Status Permohonan Aplikasi LSP</h5>
                 <div class="d-inline-block badge badge-light-success rounded-pill">
-                    @if ($pencatatan)
-                        {{$pencatatan->approve != null ? 'Tercatat' : 'Proses Pengecekan Dokumen'}}
+                    @if ($aplikasi)
+                        {{$aplikasi->tgl_permohonan == null ? 'Belum Melakukan Input' :( $aplikasi->tgl_approve != null ? 'Selesai' : 'Proses Implementasi')}}
                     @else
-                    'Belom Membuat Pencatatan'
+                    'Belom Mengajukan Pemakaian Aplikasi LSP'
                     @endif
                 </div>
               </div>
               <div class="card-body pt-0 papernote-wrap">
-                <span class="c-o-light">Tanggal Submit Pencatatan : {{$pencatatan->submit_pencatatan ?? '-'}}</span>
-                <span class="c-o-light">Tanggal Approve Pencatatan : {{$pencatatan->approve ?? "-"}}</span>
+                <span class="c-o-light">Tanggal Submit Pencatatan : {{$aplikasi->tgl_permohonan ?? '-'}}</span>
+                <span class="c-o-light">Tanggal Approve Pencatatan : {{$aplikasi->tgl_approve ?? "-"}}</span>
               </div>
             </div>
         </div>
