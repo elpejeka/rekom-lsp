@@ -27,6 +27,7 @@ class DocumentRequest extends FormRequest
             'sk_lisensi' => 'required',
             'laporan_tindak_lanjut' => 'required',
             'rekapitulasi_laporan' => 'required',
+            'permohonan_id' => 'required'
         ];
     }
 }

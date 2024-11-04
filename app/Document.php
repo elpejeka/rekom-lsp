@@ -11,7 +11,7 @@ class Document extends Model
 
     protected $fillable = [
         'users_id', 'sk_lisensi', 'laporan_tindak_lanjut', 'rekapitulasi_laporan',
-        'id_izin'
+        'id_izin','permohonan_id'
     ];
 
     protected $hidden = [];

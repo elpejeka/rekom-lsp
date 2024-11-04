@@ -17,7 +17,7 @@ class PerpanjanganController extends Controller
 
     public function index(){
         $permohonan = Permohonan::where('id', Auth::user()->id)
-                        ->where('jenis_permohonan', 'penambahan')
+                        ->whereNotIn('jenis_permohonan', 'baru')
                         ->get();
         return view('pages.user.rekomendasi.perpanjangan', [
             'permohonan' => $permohonan,
@@ -26,7 +26,10 @@ class PerpanjanganController extends Controller
     }
 
     public function store(DocumentRequest $request){
-        $data['users_id'] = Auth::user()->id;      
+        $data['users_id'] = Auth::user()->id;
+
+        $data['permohonan_id'] =$request->permohonan_id;
+
         $data['sk_lisensi'] = $request->file('sk_lisensi')->store(
             'file/sk_lisensi', 'public'
         );
