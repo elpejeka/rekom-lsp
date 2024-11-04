@@ -36,12 +36,16 @@ class Permohonan extends Model
     public function validasi(){
         return $this->hasOne(Verification::class, 'permohonans_id', 'id');
     }
-    
+
       public function rekomendasi(){
-        return $this->hasOne(Letter::class, 'permohonans_id', 'id');    
+        return $this->hasOne(Letter::class, 'permohonans_id', 'id');
     }
-    
+
     public function penolakan(){
         return $this->hasOne(Penolakan::class, 'permohonan_id', 'id');
+    }
+
+    public function perpanjangan(){
+        return $this->hasOne(Document::class, 'permohonan_id', 'id');
     }
 }

@@ -22,7 +22,7 @@ class SubmitController extends Controller
     {
         $this->middleware(['auth','verified']);
     }
-    
+
     public function progres(){
         $pengurus = Permohonan::with(['administrations', 'user'])->get();
 
@@ -32,26 +32,26 @@ class SubmitController extends Controller
             'data'  => $pengurus
         ]);
     }
-    
+
     public function detail($id){
         $user = Permohonan::with('administrations', 'user')->where('id', $id)->firstOrFail();
         $user_file = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'permohonan', 'asosiasi', 'asosiasi1', 'asosiasi2'])
                             ->where('id', $user->users_id)->firstOrFail();
 
-            
+
         return view('pages.admin.detail', [
             'data' => $user_file,
         ]);
     }
 
     public function detailPermohonan($id){
-        $user = Permohonan::with('administrations', 'user', 'skema')->where('id', $id)->firstOrFail();
+        $user = Permohonan::with('administrations', 'user', 'skema', 'perpanjangan')->where('id', $id)->firstOrFail();
         $user_file = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'permohonan'])
                             ->where('id', $user->users_id)->firstOrFail();
 
-        $klasifikasi = DB::select("select k.nama , s.nama as subklas from qualifications q 
-        join klasifikasi k on q.klasifikasi = k.kode 
-        join subklasifikasi s on q.sub_klasifikasi = s.kode_sub 
+        $klasifikasi = DB::select("select k.nama , s.nama as subklas from qualifications q
+        join klasifikasi k on q.klasifikasi = k.kode
+        join subklasifikasi s on q.sub_klasifikasi = s.kode_sub
         where q.deleted_at is null and q.users_id =". $user->users_id);
 
 
@@ -62,7 +62,7 @@ class SubmitController extends Controller
             'title' => "Detail Permohonan"
         ]);
     }
-   
+
     public function setStatusSubmit(Request $request, $id)
     {
         // $request->validate([
@@ -85,11 +85,11 @@ class SubmitController extends Controller
 
         $item = Permohonan::findOrFail($id);
         $item->status_kelengkapan = Carbon::now();
-        
+
         $user = User::where('id', $item->users_id)->get();
 
         $item->save();
-        
+
         Notification::send($user, new CheckKelengkapan());
 
         return redirect('/verifikasi')->with('success', 'Kelangkapan sudah di cek');
@@ -103,12 +103,12 @@ class SubmitController extends Controller
 
         $item = Permohonan::findOrFail($id);
         $item->status_verifikasi = Carbon::now();
-        
+
         $user = User::where('id', $item->users_id)->first();
 
         // dd($user);
 
-        
+
         // Notification::send($user, new VerifikasiValidasi());
 
         $item->save();
@@ -126,12 +126,12 @@ class SubmitController extends Controller
 
         $item->save();
         $user = User::where('id', $item->users_id)->first();
-        
+
         Notification::send($user, new DokumentasiAPI());
 
         return redirect('/validasi')->with('success', 'Permohonan berhasil di update');
     }
-    
+
     public function setStatusTolak(Request $request, $id){
         $request->validate([
             'status_tolak' => 'required'
@@ -144,9 +144,9 @@ class SubmitController extends Controller
 
         return redirect('/validasi')->with('success', 'Permohonan berhasil di tolak');
     }
-    
-    
-    
+
+
+
     public function submitted(Request $request, $id)
     {
         $request->validate([
@@ -155,14 +155,14 @@ class SubmitController extends Controller
 
         $item = Permohonan::findOrFail($id);
         $item->status_submit = Carbon::now();
-        
+
         $user = User::where('id', $item->users_id)->get();
 
         $item->save();
-        
+
         Notification::send($user, new SubmitPermohonan());
 
         return redirect('/')->with('success', 'Permohonan berhasil di submit');
     }
-    
+
 }

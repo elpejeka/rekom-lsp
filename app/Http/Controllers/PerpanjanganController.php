@@ -16,9 +16,10 @@ class PerpanjanganController extends Controller
     }
 
     public function index(){
-        $permohonan = Permohonan::where('id', Auth::user()->id)
-                        ->whereNotIn('jenis_permohonan', 'baru')
+        $permohonan = Permohonan::where('users_id', Auth::user()->id)
+                        ->where('jenis_permohonan', 'perpanjangan')
                         ->get();
+
         return view('pages.user.rekomendasi.perpanjangan', [
             'permohonan' => $permohonan,
             'title' => "Dokumen Perpanjangan"
