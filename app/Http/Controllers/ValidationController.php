@@ -13,12 +13,12 @@ use PDF;
 
 class ValidationController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->middleware(['auth','verified']);
     }
-    
+
     public function index(){
         $permohonan = Permohonan::with(['administrations'])
                                 ->whereNotNull('status_kelengkapan')
@@ -33,10 +33,10 @@ class ValidationController extends Controller
     }
 
     public function validation(Request $request, $id){
-        $user = Permohonan::with('administrations', 'user')->where('id', $id)->firstOrFail();
+        $user = Permohonan::with('administrations', 'user', 'perpanjangan')->where('id', $id)->firstOrFail();
         $user_file = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'permohonan'])
                             ->where('id', $user->users_id)->firstOrFail();
-        
+
         $validasi = Verification::where('permohonans_id', $user->id)->get();
 
         return view('pages.admin.rekomendasi.detail-verifikasi', [
@@ -46,8 +46,8 @@ class ValidationController extends Controller
             'title' => 'Verifikasi Validasi Rekomendasi'
         ]);
     }
-    
-    
+
+
     public function showSkema($id){
         $skema = LspCertificate::find($id);
         return response()->json($skema);
@@ -59,7 +59,7 @@ class ValidationController extends Controller
         $skema->kesesuaian  = $request->kesesuaian;
 
         $skema->save();
-        return response()->json($skema); 
+        return response()->json($skema);
     }
 
     public function penilaian(Request $request){
@@ -88,7 +88,7 @@ class ValidationController extends Controller
 
     public function beritaAcara($id){
         $user = Permohonan::with('administrations', 'user')->where('id', $id)->firstOrFail();
-        
+
         // dd($permohonan);x
         $user_file = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'permohonan'])
                             ->where('id', $user->users_id)->firstOrFail();
@@ -109,5 +109,5 @@ class ValidationController extends Controller
         //     'tgl' => $tgl
         // ]);
     }
- 
+
 }

@@ -36,7 +36,7 @@ class PermohonanController extends Controller
         $data['surat_permohonan'] = $request->file('surat_permohonan')->store(
             'file/surat_permohonan', 'public'
         );
-        
+
         if($request->hasFile('sk_lisensi')){
             $data['sk_lisensi'] = $request->file('sk_lisensi')->store(
                 'file/surat_permohonan/sk_lisensi', 'public'
@@ -44,12 +44,12 @@ class PermohonanController extends Controller
         }else{
             $data['sk_lisensi'] = 'file/surat_permohonan/sk_lisensi/nofile.pdf';
         }
-        
+
         Permohonan::create($data);
 
-        return redirect('/')->with('success', 'Permohonan Berhasil di Simpan');
+        return redirect('/')->with('success', 'Permohonan Berhasil di Simpan'); 
     }
-    
+
     public function edit($id){
         $item = Permohonan::findOrFail($id);
 
@@ -61,15 +61,15 @@ class PermohonanController extends Controller
 
     public function update(Request $request, $id){
         // $data = $request->all();
-        
+
         $data['surat_permohonan'] = $request->file('surat_permohonan')->store(
             'file/surat_permohonan', 'public'
         );
 
         $item = Permohonan::findOrFail($id);
         $item->update($data);
-        
-        
+
+
         $user = User::where('roles', 'admin')->get();
         $administrasi = Administration::where('users_id', Auth::user()->id)->firstOrFail();
         Notification::send($user, new PerbaikanNotif($administrasi));
@@ -79,7 +79,7 @@ class PermohonanController extends Controller
 
     public function surat_permohonan($id){
         $user = Permohonan::with('administrations', 'user')->where('id', $id)->firstOrFail();
-        
+
         // dd($permohonan);x
         $user_file = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'permohonan'])
                             ->where('id', $user->users_id)->firstOrFail();
