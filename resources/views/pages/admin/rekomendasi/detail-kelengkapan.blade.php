@@ -486,67 +486,6 @@
                                     aria-labelledby="skema-icon-tab">
                                     <div class="col-sm-12 mt-5">
                                         <div class="row">
-                                            {{-- <div class="card">
-                      <div class="card-header">
-                        <h4>Skema Sertifikasi</h4>
-                      </div>
-                      <div class="card-body">
-                        <div class="table-responsive">
-                          <table class="table">
-                            <tbody>
-                              @foreach ($permohonan->skema as $item)
-                              <input type="hidden" name="nama_skema"  value="{{$item->nama_skema}}"/>
-                              <tr>
-                                <td colspan="4">
-                                <h4  class="text-center font-weight">#{{$loop->iteration}} - {{$item->nama_skema}}</h4>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Skema Sertifikasi LSP</td>
-                                <td>
-                                  <a href="{{asset('storage/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
-                                    class="open-delete btn btn-primary btn-labeled btn-rounded">
-                                    <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
-                                </td>
-                                <td>
-                                  <select class="select-search form-control" name="status_skema">
-                                    <option value="1">Ada</option>
-                                    <option value="0">Tidak ada</option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="comment...." name="keterangan_skema">
-                                    <button class="btn btn-secondary" type="button"> <span></span></button>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Acuan Skema</td>
-                                <td>
-                                  <a href="{{asset('storage/'.$item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
-                                    class="open-delete btn btn-primary btn-labeled btn-rounded">
-                                    <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
-                                </td>
-                                <td>
-                                  <select class="select-search form-control" name="status_acuan">
-                                    <option value="1">Ada</option>
-                                    <option value="0">Tidak ada</option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="comment...." name="keterangan_acuan">
-                                    <button class="btn btn-secondary" type="button"> <span></span></button>
-                                  </div>
-                                </td>
-                              </tr>
-                              @endforeach
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div> --}}
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="table-responsive">

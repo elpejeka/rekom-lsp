@@ -1,7 +1,7 @@
 @extends('layouts.v2.app')
 
 @section('breadcumb')
-<div class="container-fluid">        
+<div class="container-fluid">
     <div class="page-title">
       <div class="row">
         <div class="col-6">
@@ -9,7 +9,7 @@
         </div>
         <div class="col-6">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">                                       
+            <li class="breadcrumb-item"><a href="index.html">
                 <svg class="stroke-icon">
                   <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
                 </svg></a></li>
@@ -52,6 +52,12 @@
               <li class="nav-item"><a class="nav-link txt-secondary" id="skema-icon-tab" data-bs-toggle="tab" href="#skema" role="tab" aria-controls="contact-icon" aria-selected="false"><i class="icofont icofont-contacts"></i>Skema LSP</a></li>
               <li class="nav-item"><a class="nav-link txt-secondary" id="asesor-icon-ta" data-bs-toggle="tab" href="#asesor" role="tab" aria-controls="contact-icon" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Asesor</a></li>
               <li class="nav-item"><a class="nav-link txt-secondary" id="tuk-icon-tab" data-bs-toggle="tab" href="#tuk" role="tab" aria-controls="contact-icon" aria-selected="false"><i class="icofont icofont-building"></i>Tempat Uji Kompetensi</a></li>
+              @if ($permohonan->jenis_permohonan == 'perpanjangan')
+              <li class="nav-item"><a class="nav-link txt-secondary" id="perpanjangan-icon-tab"
+                      data-bs-toggle="tab" href="#perpanjangan" role="tab"
+                      aria-controls="contact-icon" aria-selected="false"><i
+                          class="icofont icofont-building"></i>Persyaratan Perpanjangan</a></li>
+          @endif
             </ul>
             <div class="tab-content" id="icon-tabContent">
               <div class="tab-pane fade show active" id="administration" role="tabpanel" aria-labelledby="icon-home-tab">
@@ -69,7 +75,7 @@
                                 <tr>
                                   <td>Surat Permohonan</td>
                                   <td>
-                                    <a href="{{asset('storage/'. $permohonan->surat_permohonan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                    <a href="{{asset('storage/'. $permohonan->surat_permohonan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
@@ -78,7 +84,7 @@
                                         <span class="text-center text-semibold">Verifikasi</span>
                                         <select class="select-search form-control" name="verifikasi_surat">
                                             <option value="1">Ada</option>
-                                            <option value="0">Tidak ada</option>    
+                                            <option value="0">Tidak ada</option>
                                           </select>
                                     </div>
                                   </td>
@@ -87,7 +93,7 @@
                                         <span class="text-center text-semibold">Keabsahan</span>
                                         <select class="select-search form-control" name="validasi_surat">
                                             <option value="1">Sesuai</option>
-                                            <option value="0">Tidak Sesuai</option>    
+                                            <option value="0">Tidak Sesuai</option>
                                           </select>
                                     </div>
                                   </td>
@@ -95,7 +101,7 @@
                                 <tr>
                                   <td>SK Asosiasi Terakreditasi / Surat Tanda Teregistrasi LPPK</td>
                                   <td>
-                                    <a href="{{asset('storage/'. $data->administrasi->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                    <a href="{{asset('storage/'. $data->administrasi->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
@@ -104,7 +110,7 @@
                                         <span class="text-center text-semibold">Verifikasi</span>
                                         <select class="select-search form-control" name="verifikasi_asosiasi">
                                             <option value="1">Ada</option>
-                                            <option value="0">Tidak ada</option>    
+                                            <option value="0">Tidak ada</option>
                                           </select>
                                     </div>
                                   </td>
@@ -113,7 +119,7 @@
                                         <span class="text-center text-semibold">Keabsahan</span>
                                         <select class="select-search form-control" name="validasi_asosiasi">
                                             <option value="1">Sesuai</option>
-                                            <option value="0">Tidak Sesuai</option>    
+                                            <option value="0">Tidak Sesuai</option>
                                           </select>
                                     </div>
                                   </td>
@@ -121,7 +127,7 @@
                                 <tr>
                                   <td>Akta Pendirian LSP</td>
                                   <td>
-                                    <a href="{{asset('storage/'. $data->administrasi->akta_pendirian)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                    <a href="{{asset('storage/'. $data->administrasi->akta_pendirian)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
@@ -130,7 +136,7 @@
                                         <span class="text-center text-semibold">Verifikasi</span>
                                         <select class="select-search form-control" name="verifikasi_akta">
                                             <option value="1">Ada</option>
-                                            <option value="0">Tidak ada</option>    
+                                            <option value="0">Tidak ada</option>
                                           </select>
                                     </div>
                                   </td>
@@ -139,7 +145,7 @@
                                         <span class="text-center text-semibold">Keabsahan</span>
                                         <select class="select-search form-control" name="validasi_akta">
                                             <option value="1">Sesuai</option>
-                                            <option value="0">Tidak Sesuai</option>    
+                                            <option value="0">Tidak Sesuai</option>
                                           </select>
                                     </div>
                                   </td>
@@ -147,7 +153,7 @@
                                 <tr>
                                   <td>Surat Pernyataan Komitmen Asesor</td>
                                   <td>
-                                    <a href="{{asset('storage/'. $data->administrasi->komitmen_asesor)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                    <a href="{{asset('storage/'. $data->administrasi->komitmen_asesor)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
@@ -156,7 +162,7 @@
                                         <span class="text-center text-semibold">Verifikasi</span>
                                         <select class="select-search form-control" name="verifikasi_komitmen">
                                             <option value="1">Ada</option>
-                                            <option value="0">Tidak ada</option>    
+                                            <option value="0">Tidak ada</option>
                                           </select>
                                     </div>
                                   </td>
@@ -165,7 +171,7 @@
                                         <span class="text-center text-semibold">Keabsahan</span>
                                         <select class="select-search form-control" name="validasi_komitmen">
                                             <option value="1">Sesuai</option>
-                                            <option value="0">Tidak Sesuai</option>    
+                                            <option value="0">Tidak Sesuai</option>
                                           </select>
                                     </div>
                                   </td>
@@ -173,7 +179,7 @@
                                 <tr>
                                   <td>Sertifikat Akreditasi LPK atau Surat Pernyataan Komitmen Jika Belum Terakreditasi</td>
                                   <td>
-                                    <a href="{{asset('storage/'. $data->administrasi->surat_akreditasi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                    <a href="{{asset('storage/'. $data->administrasi->surat_akreditasi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
                                       class="open-delete btn btn-primary btn-labeled btn-rounded">
                                       <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                   </td>
@@ -182,7 +188,7 @@
                                         <span class="text-center text-semibold">Verifikasi</span>
                                         <select class="select-search form-control" name="verifikasi_akreditasi">
                                             <option value="1">Ada</option>
-                                            <option value="0">Tidak ada</option>    
+                                            <option value="0">Tidak ada</option>
                                           </select>
                                     </div>
                                   </td>
@@ -191,7 +197,7 @@
                                         <span class="text-center text-semibold">Keabsahan</span>
                                         <select class="select-search form-control" name="validasi_akreditasi">
                                             <option value="1">Sesuai</option>
-                                            <option value="0">Tidak Sesuai</option>    
+                                            <option value="0">Tidak Sesuai</option>
                                           </select>
                                     </div>
                                   </td>
@@ -222,7 +228,7 @@
                             </tr>
                             <tr>
                               <td>Asosiasi Pembentuk</td>
-                              <td> 
+                              <td>
                                 <span class="badge badge-info">{{$data->administrasi->unsur->asosiasi}}</span>
                                 <span class="badge badge-info">{{$data->administrasi->unsur1->asosiasi}}</span>
                                 <span class="badge badge-info">{{$data->administrasi->unsur2->asosiasi}}</span></td>
@@ -280,7 +286,7 @@
                               <tr>
                                 <td>Stuktur Organisasi</td>
                                 <td>
-                                  <a href="{{asset('storage/'.$data->organization->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                  <a href="{{asset('storage/'.$data->organization->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                 </td>
@@ -289,7 +295,7 @@
                                         <span class="text-center text-semibold">Verifikasi</span>
                                         <select class="select-search form-control" name="verifikasi_organisasi">
                                             <option value="1">Ada</option>
-                                            <option value="0">Tidak ada</option>    
+                                            <option value="0">Tidak ada</option>
                                           </select>
                                     </div>
                                 </td>
@@ -298,7 +304,7 @@
                                         <span class="text-center text-semibold">Keabsahan</span>
                                         <select class="select-search form-control" name="validasi_organisasi">
                                             <option value="1">Sesuai</option>
-                                            <option value="0">Tidak Sesuai</option>    
+                                            <option value="0">Tidak Sesuai</option>
                                           </select>
                                     </div>
                                 </td>
@@ -391,7 +397,7 @@
                                     <span class="text-center text-semibold">Verifikasi</span>
                                     <select class="select-search form-control" name="verifikasi_klasifikasi">
                                         <option value="1">Ada</option>
-                                        <option value="0">Tidak ada</option>    
+                                        <option value="0">Tidak ada</option>
                                       </select>
                                 </div>
                               </td>
@@ -400,7 +406,7 @@
                                     <span class="text-center text-semibold">Keabsahan</span>
                                     <select class="select-search form-control" name="validasi_klasifikasi">
                                         <option value="1">Sesuai</option>
-                                        <option value="0">Tidak Sesuai</option>    
+                                        <option value="0">Tidak Sesuai</option>
                                       </select>
                                 </div>
                               </td>
@@ -457,14 +463,14 @@
                               <tr>
                                 <td>Skema Sertifikasi LSP</td>
                                 <td>
-                                  <a href="{{asset('storage/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                  <a href="{{asset('storage/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                 </td>
                                 <td>
                                   <select class="select-search form-control" name="status_skema">
                                     <option value="1">Ada</option>
-                                    <option value="0">Tidak ada</option>    
+                                    <option value="0">Tidak ada</option>
                                   </select>
                                 </td>
                                 <td>
@@ -477,14 +483,14 @@
                               <tr>
                                 <td>Acuan Skema</td>
                                 <td>
-                                  <a href="{{asset('storage/'.$item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                  <a href="{{asset('storage/'.$item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icofont icofont-file-document"></i></b> Softcopy</a>
                                 </td>
                                 <td>
                                   <select class="select-search form-control" name="status_acuan">
                                     <option value="1">Ada</option>
-                                    <option value="0">Tidak ada</option>    
+                                    <option value="0">Tidak ada</option>
                                   </select>
                                 </td>
                                 <td>
@@ -535,19 +541,19 @@
                                 <td>{{$item->jenjang}}</td>
                                 <td>{{$item->jumlah_unit}}</td>
                                 <td>{{$item->acuan_skema}}</td>
-                                <td> <a href="{{asset('storage/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                <td> <a href="{{asset('storage/'.$item->standar_kompetensi)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
                                   class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
                                   <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
-                                <td> <a href="{{asset('storage/'.$item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                <td> <a href="{{asset('storage/'.$item->upload_persyaratan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
                                   class="open-delete btn btn-sm btn-primary btn-labeled btn-rounded">
                                   <b><i class="icofont icofont-file-document"></i></b> Softcopy</a></td>
                                 <td>
                                     <select class="select-search form-control" name="verifikasi_skema">
                                         <option value="1">Ada</option>
-                                        <option value="0">Tidak ada</option>    
+                                        <option value="0">Tidak ada</option>
                                       </select>
                                       <input type="hidden" name="verifikasi_acuan" value="1" />
-                                      <input type="hidden" name="validasi_acuan" value="1" />         
+                                      <input type="hidden" name="validasi_acuan" value="1" />
                                 </td>
                                 <td>
                                     <a href="javascript:void(0)" onclick="updateKeabsahan({{$item->id}})" class="btn btn-info">Submit Keabsahan</a>
@@ -579,7 +585,7 @@
                                         <span class="text-center text-semibold">Verifikasi</span>
                                         <select class="select-search form-control" name="verifikasi_asesor">
                                             <option value="1">Ada</option>
-                                            <option value="0">Tidak ada</option>    
+                                            <option value="0">Tidak ada</option>
                                           </select>
                                     </div>
                                 </td>
@@ -588,7 +594,7 @@
                                         <span class="text-center text-semibold">Keabsahan</span>
                                         <select class="select-search form-control" name="validasi_asesor">
                                             <option value="1">Sesuai</option>
-                                            <option value="0">Tidak Sesuai</option>    
+                                            <option value="0">Tidak Sesuai</option>
                                           </select>
                                     </div>
                                 </td>
@@ -657,7 +663,7 @@
                                         <span class="text-center text-semibold">Verifikasi</span>
                                         <select class="select-search form-control" name="verifikasi_tuk">
                                             <option value="1">Ada</option>
-                                            <option value="0">Tidak ada</option>    
+                                            <option value="0">Tidak ada</option>
                                           </select>
                                     </div>
                                 </td>
@@ -666,7 +672,7 @@
                                         <span class="text-center text-semibold">Keabsahan</span>
                                         <select class="select-search form-control" name="validasi_tuk">
                                             <option value="1">Sesuai</option>
-                                            <option value="0">Tidak Sesuai</option>    
+                                            <option value="0">Tidak Sesuai</option>
                                           </select>
                                     </div>
                                 </td>
@@ -697,7 +703,7 @@
                                 <td>{{$item->propinsi->Nama ?? "-"}}</td>
                                 <td>{{$item->alamat}}</td>
                                 <td>
-                                  <a href="{{asset('storage/'.$item->cakupan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right" 
+                                  <a href="{{asset('storage/'.$item->cakupan)}}" target="_blank" type="button" name="btn_cek_13" style="float: right"
                                     class="open-delete btn btn-primary btn-labeled btn-rounded">
                                     <b><i class="icon-file-check"></i></b> Softcopy</a>
                                 </td>
@@ -745,7 +751,7 @@
                         <option value="0">Tidak Sesuai</option>
                     </select>
                 </div>
-            
+
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Save changes</button>
@@ -833,7 +839,7 @@
                      nama_skema : nama_skema,
                      kesesuaian : kesesuaian,
                      _token : _token
-                 }, 
+                 },
                  success:function(response){
                      // $('#sid'+response.id + 'td.nth-child(1)').text(response.nama_skema);
                      $("#keabsahan").modal('toggle');
