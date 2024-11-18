@@ -10,6 +10,7 @@ use App\Permohonan;
 use App\User;
 use App\Association;
 use App\Notifications\AdministrationUpdate;
+use App\Services\Rekomendasi\AdministrationService;
 use illuminate\Support\Str;
 use Auth;
 use Notification;
@@ -17,7 +18,7 @@ use Notification;
 class InformationController extends Controller
 {
 
-    public function __construct()
+    public function __construct(private AdministrationService $administrationService)
     {
         $this->middleware(['auth','verified']);
     }
@@ -41,51 +42,13 @@ class InformationController extends Controller
     }
 
     public function store(AdministrationRequest $request){
-        $data = $request->all();
-        // $data['slug'] = Str::slug($request->nama);
-        $data['users_id'] = Auth::user()->id;      
-        
-          if($request->hasFile('upload_persyaratan')){
-        $data['upload_persyaratan'] = $request->file('upload_persyaratan')->store(
-            'file/sk_asosiasi', 'public'
-        );
-        }else{
-            $data['upload_persyaratan'] = 'file/pencatatan/1/nofile.pdf';
+        try{
+            $this->administrationService->save($request);
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('informasi'))->with('error', 'Data administrasi gagal di simpan');
         }
 
-        if($request->hasFile('akta_pendirian')){
-            $data['akta_pendirian'] = $request->file('akta_pendirian')->store(
-                'file/akta_pendirian', 'public'
-            );
-        }else{
-            $data['akta_pendirian'] = 'file/pencatatan/1/nofile.pdf';
-        }
-
-        if($request->hasFile('bukti_kepemilikan')){
-            $data['bukti_kepemilikan'] = $request->file('bukti_kepemilikan')->store(
-                'file/bukti_kepemilikan', 'public'
-            );
-        }else{
-            $data['bukti_kepemilikan'] = 'file/pencatatan/1/nofile.pdf';
-        }
-
-        if($request->hasFile('komitmen_asesor')){
-            $data['komitmen_asesor'] = $request->file('komitmen_asesor')->store(
-                'file/komitment-asesor', 'public'
-            );
-        }else{
-            $data['komitmen_asesor'] = 'file/pencatatan/1/nofile.pdf';
-        }
-
-        if($request->hasFile('surat_akreditasi')){
-            $data['surat_akreditasi'] = $request->file('surat_akreditasi')->store(
-                'file/surat_akreditasi', 'public'
-            );
-        }else{
-            $data['surat_akreditasi'] = 'file/akreditasi/1/nofile.pdf';
-        }
-    
-        Administration::create($data);
         return redirect('/')->with('success', 'Data Administrasi Berhasil di Simpan');
     }
 
@@ -95,7 +58,7 @@ class InformationController extends Controller
         $propinsi = DB::table('propinsi_dagri')->get();
         $user_file = User::with(['administrasi', 'organization', 'sertifikat_lsp', 'asesors', 'permohonan', 'asosiasi', 'asosiasi1', 'asosiasi2'])
                         ->where('id', Auth::user()->id)->firstOrFail();
-        
+
 
         return view('pages.user.rekomendasi.edit.informasi')->with([
             'item' => $item,
@@ -105,61 +68,16 @@ class InformationController extends Controller
             'title' => 'Update Informasi Umum'
         ]);
     }
-    
+
     public function update(Request $request, $id){
-        $item = Administration::findOrFail($id);
-        $data = $request->all();
-        // $data['slug'] = Str::slug($request->nama);
-        if($request->hasFile('upload_persyaratan')){
-            $data['upload_persyaratan'] = $request->file('upload_persyaratan')->store(
-                'file/sk_asosiasi', 'public'
-            );
-            }else{
-                $data['upload_persyaratan'] = $item->upload_persyaratan;
-            }
-    
-            if($request->hasFile('akta_pendirian')){
-                $data['akta_pendirian'] = $request->file('akta_pendirian')->store(
-                    'file/akta_pendirian', 'public'
-                );
-            }else{
-                $data['akta_pendirian'] = $item->akta_pendirian;
-            }
-    
-            if($request->hasFile('bukti_kepemilikan')){
-                $data['bukti_kepemilikan'] = $request->file('bukti_kepemilikan')->store(
-                    'file/bukti_kepemilikan', 'public'
-                );
-            }else{
-                $data['bukti_kepemilikan'] = $item->bukti_kepemilikan;
-            }
-
-            if($request->hasFile('komitmen_asesor')){
-                $data['komitmen_asesor'] = $request->file('komitmen_asesor')->store(
-                    'file/komitmen-asesor', 'public'
-                );
-            }else{
-                $data['komitmen_asesor'] = $item->komitmen_asesor;
-            }
-
-            if($request->hasFile('surat_akreditasi')){
-                $data['surat_akreditasi'] = $request->file('surat_akreditasi')->store(
-                    'file/surat_akreditasi', 'public'
-                );
-            }else{
-                $data['surat_akreditasi'] = $item->surat_akreditasi;
-            }
-
-        $item = Administration::findOrFail($id);
-        $item->update($data);
-        
-        
-        $user = User::where('roles', 'admin')->get();
-        Notification::send($user, new AdministrationUpdate($item));
-
+        try{
+            $this->administrationService->updated($request, $id);
+        }catch (\Exception $e) {
+            DB::commit();
+        }
         return redirect('/')->with('success', 'Data Administrasi berhasil di update');
     }
-    
+
      public function revisi($id){
         $item = Administration::findOrFail($id);
 
