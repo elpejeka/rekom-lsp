@@ -116,12 +116,28 @@ class AsesorController extends Controller
     }
 
     public function update(PencatatanAsesorRequest $request, $id){
+        $item = PencatatanAsesor::findOrFail($id);
+        $administrasi = Administration::where('users_id', Auth::user()->id)->first();
         $data = $request->all();
         $data['slug'] = Str::slug($request->nama_asesor);
         $data['users_id'] = Auth::user()->id;
-
-        $item = PencatatanAsesor::findOrFail($id);
         $data['no_registrasi_asesor'] = $item->no_registrasi_asesor;
+
+        if(empty($cekAsesor)){
+            return redirect()->route('pencatatan.asesor')->with('success', 'Asesor Tidak Dapat di Catatkan karena tidak mempunyai SKK/SKA');
+        }
+
+        if($item->approve == 1){
+            $item->approve == 0;
+            $item->no_pencatatan = null;
+            $item->is_updated = 1;
+
+            $notif = new LogPencatatan;
+            $notif->nama_lsp = $administrasi->nama;
+            $notif->keterangan = 'Permohonan Perubahan Data Asesor ' . $item->nama_asesor  ;
+            $notif->created_at = Carbon::now();
+            $notif->save();
+        }
 
         $item->update($data);
 
