@@ -71,11 +71,12 @@ class SkemaController extends Controller
 
     public function update(Request $request, $id){
         $item = PencatatanSkema::findOrFail($id);
+        $administrasi = Administration::where('users_id', Auth::user()->id)->first();
         $data = $request->all();
 
 
         if($request->hasFile('upload_persyaratan')){
-            $data['upload_persyaratan'] = $request->file('upload_persyaratan')->store(
+            $data[b'upload_persyaratan'] = $request->file('upload_persyaratan')->store(
                 'file/skema/1', 'public'
         );
         }else{
@@ -88,6 +89,16 @@ class SkemaController extends Controller
                 'file' => $item->upload_persyaratan,
                 'user_id' => Auth::user()->id
             ]);
+
+            $item->approve == 0;
+            $item->no_pencatatan = null;
+            $item->is_updated = 1;
+
+            $notif = new LogPencatatan;
+            $notif->nama_lsp = $administrasi->nama;
+            $notif->keterangan = 'Permohonan Perubahan Skema ' . $item->nama_skema  ;
+            $notif->created_at = Carbon::now();
+            $notif->save();
         }
 
         $item->update($data);
