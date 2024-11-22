@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace App\Http\Controllers\Pencatatan;
 
 use App\Http\Controllers\Controller;
@@ -30,7 +30,7 @@ class TukController extends Controller
     public function store(TukRequest $request){
         $item = Pencatatan::where('users_id', Auth::user()->id)->first();
         $administrasi = Administration::where('users_id', Auth::user()->id)->first();
-        
+
         $data = $request->all();
         $data['users_id'] = Auth::user()->id;
         $data['is_active'] = 0;
@@ -82,6 +82,19 @@ class TukController extends Controller
         }else{
             $data['upload_persyaratan'] = $item->upload_persyaratan;
         }
+
+        if($item->approve == 1){
+            $item->approve == 0;
+            $item->no_pencatatan = null;
+            $item->is_updated = 1;
+
+            $notif = new LogPencatatan;
+            $notif->nama_lsp = $administrasi->nama;
+            $notif->keterangan = 'Permohonan Perubahan TUK ' . $item->nama_tuk  ;
+            $notif->created_at = Carbon::now();
+            $notif->save();
+        }
+
 
         $item->update($data);
         return redirect()->route('pencatatan.tuk')->with('success', 'Pencatatan TUK Berhasil di Update');
@@ -154,7 +167,7 @@ class TukController extends Controller
         $status = $request->status;
         $data = PencatatanTuk::find($id);
         $administrasi = Administration::where('users_id', Auth::user()->id)->first();
-        
+
         if($status == 1){
             $data->update([
                 'status' => 1
