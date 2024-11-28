@@ -6,7 +6,7 @@
         "framework",
         "laravel"
     ],
-    "license": "MIT",
+    "license": "MIT",   
     "require": {
         "php": "^7.2.5",
         "alfa6661/laravel-autonumber": "^1.2",

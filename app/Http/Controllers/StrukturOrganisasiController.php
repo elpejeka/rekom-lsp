@@ -11,12 +11,17 @@ use App\User;
 use App\Administration;
 use Auth;
 use Notification;
+use App\Services\Rekomendasi\OrganizationService;
 
 class StrukturOrganisasiController extends Controller
 {
-    public function __construct()
+
+    private $organizationService;
+
+    public function __construct(OrganizationService $organizationService)
     {
         $this->middleware(['auth','verified']);
+        $this->organizationService = $organizationService;
     }
 
     public function index(){
@@ -34,12 +39,12 @@ class StrukturOrganisasiController extends Controller
     }
 
     public function store(Request $request){
-        $data = $request->all();
-        $data['users_id'] = Auth::user()->id;
-        $data['upload_persyaratan'] = $request->file('upload_persyaratan')->store(
-            'file/struktur-organisasi', 'public'
-        );
-        OrganizationStructure::create($data);
+        try{
+            $this->organizationService->save($request);
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('informasi'))->with('error', 'Data administrasi gagal di simpan');
+        }
         return redirect('/')->with('success', 'Data Struktur Organisasi Berhasil di Simpan');
     }
 
@@ -63,15 +68,16 @@ class StrukturOrganisasiController extends Controller
     }
 
     public function update(Request $request, $id){
-        $data = $request->all();
-        $item = OrganizationStructure::findOrFail($id);
-        $data['upload_persyaratan']= $request->hasFile('upload_persyaratan')
-         ? $request->file('upload_persyaratan')->store('file/struktur-organisasi', 'public'): $item->upload_persyaratan;
-        $item->update($data);
 
-        $user = User::where('roles', 'admin')->get();
-        $administrasi = Administration::where('users_id', Auth::user()->id)->firstOrFail();
-        Notification::send($user, new PerbaikanNotif($administrasi));
+        try{
+            $this->organizationService->updated($request, $id);
+            $user = User::where('roles', 'admin')->get();
+            $administrasi = Administration::where('users_id', Auth::user()->id)->firstOrFail();
+            Notification::send($user, new PerbaikanNotif($administrasi));
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('informasi'))->with('error', 'Data administrasi gagal di simpan');
+        }
 
         return redirect('/')->with('success', 'Data Pengurus berhasil di update');
     }
