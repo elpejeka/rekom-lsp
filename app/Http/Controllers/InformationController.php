@@ -18,9 +18,12 @@ use Notification;
 class InformationController extends Controller
 {
 
+    private $administrationService;
+
     public function __construct(private AdministrationService $administrationService)
     {
         $this->middleware(['auth','verified']);
+        $this->administrationService = $administrationService;
     }
 
     public function index(Request $request){
