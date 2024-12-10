@@ -121,6 +121,10 @@
                                 <input type="hidden" name="no_pencatatan" id="no_pencatatan" class="form-control" readonly>
                             </div>
                             <div class="form-group">
+                                <label for="description">Keterangan</label>
+                                <textarea class="form-control" name="description" id="description"></textarea>
+                            </div>
+                            <div class="form-group">
                                 <label for="kesesuaian">Approve Skema</label>
                                 <select class="form-control" name="approve" id="approve_skema">
                                     <option value="1" selected>Sesuai</option>
@@ -153,5 +157,40 @@
                     $("#keabsahan").modal("toggle");
                 })
             }
+
+            $('#skemaForm').submit(function(e){
+            e.preventDefault();
+             var id = $('#id').val();
+             var nama_skema = $('#nama_skema').val();
+             var approve = $('#approve_skema').val();
+             var noPencatatan = $('#no_pencatatan').val();
+             var _token = $('input[name=_token]').val();
+             var description = $('#description').val();
+
+             $.ajax({
+                 url :"{{route('skema.approve.update')}}",
+                 type : 'PUT',
+                 data : {
+                     id : id,
+                     nama_skema : nama_skema,
+                     approve : approve,
+                     no_pencatatan : noPencatatan,
+                     description : description,
+                     _token : _token
+                 },
+                 success:function(response){
+                     // $('#sid'+response.id + 'td.nth-child(1)').text(response.nama_skema);
+                     $("#keabsahan").modal('toggle');
+                     $("#skemaForm")[0].reset();
+                     alert('Success');
+                     window.location.reload()
+                 },
+                 error: function(xhr, status, error) {
+                    var err = eval("(" + xhr.responseText + ")");
+                    alert(err.Message);
+                }
+             })
+        })
+
         </script>
     @endpush

@@ -104,11 +104,15 @@
         <div class="modal-body">
             <form id="tukForm">
                 @csrf
-                <input type="text" name="idTuk" id="idTuk" />
+                <input type="text" name="idTuk" id="idTuk" hidden/>
                 <div class="form-group">
                     <label for="namaSkema">Nama TUK</label>
                     <input type="text" name="nama_tuk" id="nama_tuk" class="form-control" readonly>
-                    <input type="text" name="no_pencatatan_tuk" id="no_pencatatan_tuk" class="form-control" readonly>
+                    <input type="text" name="no_pencatatan_tuk" id="no_pencatatan_tuk" class="form-control" hidden>
+                </div>
+                <div class="form-group">
+                    <label for="description">Keterangan</label>
+                    <textarea class="form-control" name="description" id="description"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="kesesuaian">Approve TUK</label>
@@ -132,6 +136,36 @@
     $(document).ready(function () {
         $('#list').DataTable();
     });
+
+    $('#tukForm').submit(function(e){
+            e.preventDefault();
+             var id = $('#idTuk').val();
+             var nama_tuk = $('#nama_tuk').val();
+             var approve = $('#approve_tuk').val();
+             var noPencatatan = $('#no_pencatatan_tuk').val();
+             var description = $('#description').val();
+             var _token = $('input[name=_token]').val();
+
+             $.ajax({
+                 url :"{{route('tuk.approve.update')}}",
+                 type : 'PUT',
+                 data : {
+                     id : id,
+                     nama_tuk : nama_tuk,
+                     approve : approve,
+                     no_pencatatan : noPencatatan,
+                     description : description,
+                     _token : _token
+                 },
+                 success:function(response){
+                     // $('#sid'+response.id + 'td.nth-child(1)').text(response.nama_skema);
+                     $("#keabsahanTuk").modal('toggle');
+                     $("#tukForm")[0].reset();
+                     alert('Success');
+                     window.location.reload()
+                 }
+             })
+        })
 
     function updateTuk(id){
           var noPencatatan = $("#pencatatan").val()

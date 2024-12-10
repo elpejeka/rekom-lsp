@@ -74,6 +74,7 @@
                                             </td>
                                             <td>{{$item->updated_at }}</td>
                                             <td class="text-center">
+                                                <a href="javascript:void(0)" onclick="updateAsesor({{$item->id}})" class="btn btn-info">Approve</a>
                                                 <a data-toggle="modal" id="smallButton" data-target="#smallModal"
                                                     data-attr="{{ route('sertifikat.show', $item->id) }}" title="show"
                                                     class="btn btn-sm btn-info">
@@ -109,6 +110,44 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="keabsahanAsesor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Update Keabsahan Asesor LSP</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <form id="asesorForm">
+                        @csrf
+                        <input type="text" name="idAsesor" id="idAsesor" hidden/>
+                        <div class="form-group">
+                            <label for="namaSkema">Nama Asesor</label>
+                            <input type="text" name="nama_asesor" id="nama_asesor" class="form-control" readonly>
+                            <input type="text" name="no_pencatatan_asesor" id="no_pencatatan_asesor" class="form-control" hidden>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Keterangan</label>
+                            <textarea class="form-control" name="description" id="description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="kesesuaian">Approve Asesor</label>
+                            <select class="form-control" name="approve_asesor" id="approve_asesor">
+                                <option value="1" selected>Sesuai</option>
+                                <option value="0">Tidak Sesuai</option>
+                            </select>
+                        </div>
+                </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+        </div>
     @endsection
 
     @push('addon-script')
@@ -121,35 +160,13 @@
                 $('#komenAsesor').modal("toggle");
             }
 
-            $('#AsesorFormPerbaikan').submit(function(e) {
-                e.preventDefault();
-                var userId = $('#userId').val();
-                var asesor = $('#nama_asesor').val();
-                var komen = $('#komen_asesor').val();
-                var _token = $('input[name=_token]').val();
-
-                $.ajax({
-                    url: "{{ route('add.komen') }}",
-                    type: 'POST',
-                    data: {
-                        users_id: userId,
-                        komen: asesor + ' ' + komen,
-                        _token: _token
-                    },
-                    success: function(response) {
-                        $("#komenAsesor").modal('toggle');
-                        alert('Success');
-                    }
-                })
-
-            })
-
             $('#asesorForm').submit(function(e) {
                 e.preventDefault();
                 var id = $('#idAsesor').val();
                 var nama_asesor = $('#asesor').val();
                 var approve = $('#approve_asesor').val();
                 var noPencatatan = $('#no_pencatatan_asesor').val();
+                var description = $('#description').val();
                 var _token = $('input[name=_token]').val();
 
                 $.ajax({
@@ -160,6 +177,7 @@
                         nama_asesor: nama_asesor,
                         approve: approve,
                         no_pencatatan: noPencatatan,
+                        description : description,
                         _token: _token
                     },
                     success: function(response) {
