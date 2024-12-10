@@ -13,6 +13,7 @@ use App\Pencatatan;
 use App\Administration;
 use App\LogPencatatan;
 use App\PencatatanSkema;
+use App\Services\Pencatatan\NoteService;
 use Auth;
 use Carbon\Carbon;
 use QrCode;
@@ -24,10 +25,12 @@ class AsesorController extends Controller
 {
 
     private $sertifikatService;
+    private $noteService;
 
-    public function __construct(SertifikatService $sertifikatService)
+    public function __construct(SertifikatService $sertifikatService, NoteService $noteService)
     {
         $this->sertifikatService = $sertifikatService;
+        $this->noteService = $noteService;
     }
 
     public function index(){
@@ -211,6 +214,9 @@ class AsesorController extends Controller
         $asesor->no_pencatatan = $request->approve == "1" ? $request->no_pencatatan : null;
         $asesor->is_active = $request->approve == "1" ? 1 : null;
         $asesor->save();
+
+        $this->noteService->noteProcess('ASESOR','Approve', 'Approve Asesor ' . $asesor->nama_asesor , $asesor->id, $asesor, $request->description);
+
         return response()->json($asesor);
     }
 

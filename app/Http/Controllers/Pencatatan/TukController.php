@@ -10,11 +10,20 @@ use App\Administration;
 use App\Pencatatan;
 use App\PencatatanTuk;
 use App\LogPencatatan;
+use App\Services\Pencatatan\NoteService;
 use Auth;
 use Carbon\Carbon;
 
 class TukController extends Controller
 {
+
+    private $noteService;
+
+    public function __construct(NoteService $noteService)
+    {
+        $this->noteService = $noteService;
+    }
+
     public function index(){
         $permohonan = Pencatatan::where('users_id', Auth::user()->id)->get();
         $tuk = PencatatanTuk::where('users_id', Auth::user()->id)->get();
@@ -120,8 +129,10 @@ class TukController extends Controller
         $tuk->approve = $request->approve == "1"  ? $request->approve : null;
         $tuk->no_pencatatan = $request->approve == "1" ? $request->no_pencatatan : null;
         $tuk->is_active = $request->approve == "1" ? 1 : null;
-
         $tuk->save();
+
+        $this->noteService->noteProcess('TUK','Approve', 'Approve TUK ' . $tuk->nama_tuk , $tuk->id, $tuk, $request->description);
+
         return response()->json($tuk);
     }
 

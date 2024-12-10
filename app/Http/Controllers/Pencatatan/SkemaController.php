@@ -14,9 +14,17 @@ use Illuminate\Support\Facades\Auth;
 use App\LogPencatatan;
 use App\LogSkema;
 use Carbon\Carbon;
+use App\Services\Pencatatan\NoteService;
 
 class SkemaController extends Controller
 {
+
+    private $noteService;
+
+    public function __construct(NoteService $noteService)
+    {
+        $this->noteService = $noteService;
+    }
 
     public function index(){
         $jabker = DB::table('jabker_02')->orderBy('id', 'asc')->get();
@@ -125,9 +133,11 @@ class SkemaController extends Controller
         $skema->nama_skema = $request->nama_skema;
         $skema->approve = $request->approve == "1" ? 1 : null;
         $skema->no_pencatatan = $request->approve == "1" ? $request->no_pencatatan : null;
-
         $skema->save();
-        return response()->json($skema);
+
+        $this->noteService->noteProcess('SKEMA','Approve', 'Approve Skema ' . $skema->nama_skema , $skema->id, $skema, $request->description);
+
+        return response()->json(['status' => 'successfully approved']);
     }
 
     public function unapprove($id){
