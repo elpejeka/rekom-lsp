@@ -866,6 +866,10 @@
                     <input type="hidden" name="no_pencatatan" id="no_pencatatan" class="form-control" readonly>
                 </div>
                 <div class="form-group">
+                    <label for="description">Keterangan</label>
+                    <textarea class="form-control" name="description" id="description"></textarea>
+                </div>
+                <div class="form-group">
                     <label for="kesesuaian">Approve Skema</label>
                     <select class="form-control" name="approve" id="approve_skema">
                         <option value="1" selected>Sesuai</option>
@@ -896,8 +900,12 @@
                 <input type="text" name="idAsesor" id="idAsesor" hidden/>
                 <div class="form-group">
                     <label for="namaSkema">Nama Asesor</label>
-                    <input type="text" name="nama_asesor" id="asesor" class="form-control" readonly>
+                    <input type="text" name="nama_asesor" id="nama_asesor" class="form-control" readonly>
                     <input type="text" name="no_pencatatan_asesor" id="no_pencatatan_asesor" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="description">Keterangan</label>
+                    <textarea class="form-control" name="description" id="description"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="kesesuaian">Approve Asesor</label>
@@ -932,6 +940,10 @@
                     <label for="namaSkema">Nama TUK</label>
                     <input type="text" name="nama_tuk" id="nama_tuk" class="form-control" readonly>
                     <input type="text" name="no_pencatatan_tuk" id="no_pencatatan_tuk" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="description">Keterangan</label>
+                    <textarea class="form-control" name="description" id="description"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="kesesuaian">Approve TUK</label>
@@ -1079,8 +1091,7 @@
             document.getElementById('saveAjj').style.display = 'none';
             document.getElementById('saveAccreditation').style.display = 'block';
           }
-
-    }
+}
 
     $("#updateAJJ").on('click', function() {
 
@@ -1185,6 +1196,7 @@
              var nama_skema = $('#nama_skema').val();
              var approve = $('#approve_skema').val();
              var noPencatatan = $('#no_pencatatan').val();
+             var description = $('#description').val();
              var _token = $('input[name=_token]').val();
 
              $.ajax({
@@ -1195,6 +1207,7 @@
                      nama_skema : nama_skema,
                      approve : approve,
                      no_pencatatan : noPencatatan,
+                     description : description,
                      _token : _token
                  },
                  success:function(response){
@@ -1223,6 +1236,7 @@
              var nama_asesor = $('#asesor').val();
              var approve = $('#approve_asesor').val();
              var noPencatatan = $('#no_pencatatan_asesor').val();
+             var description = $('#description').val();
              var _token = $('input[name=_token]').val();
 
              $.ajax({
@@ -1233,6 +1247,7 @@
                      nama_asesor : nama_asesor,
                      approve : approve,
                      no_pencatatan : noPencatatan,
+                     description: description,
                      _token : _token
                  },
                  success:function(response){
@@ -1261,6 +1276,7 @@
              var nama_tuk = $('#nama_tuk').val();
              var approve = $('#approve_tuk').val();
              var noPencatatan = $('#no_pencatatan_tuk').val();
+             var description = $('#description').val();
              var _token = $('input[name=_token]').val();
 
              $.ajax({
@@ -1271,6 +1287,7 @@
                      nama_tuk : nama_tuk,
                      approve : approve,
                      no_pencatatan : noPencatatan,
+                     description: description,
                      _token : _token
                  },
                  success:function(response){
